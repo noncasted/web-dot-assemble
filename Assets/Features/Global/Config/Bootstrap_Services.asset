@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ae2c3aeace24a748252369f846f9ad6, type: 3}
+  m_Name: Bootstrap_Services
+  m_EditorClassIdentifier: 
+  _soundsPlayer: {fileID: 11400000, guid: 4a6a716ae9c4454418344f45046c1fad, type: 2}
+  _audioSwitcher: {fileID: 11400000, guid: 878184c44b6c3b844bf50430e7702fb5, type: 2}
+  _cameraUtils: {fileID: 11400000, guid: 68abf8d3e8faf6c4aae3fcd6cdffc314, type: 2}
+  _currentCamera: {fileID: 11400000, guid: 9fec9cd81ac4efa4fa81942c6b10c867, type: 2}
+  _globalCamera: {fileID: 11400000, guid: 539dc15f36c0ea84ab540841a8ceec0a, type: 2}
+  _debugConsole: {fileID: 11400000, guid: e3ab40223d3185148955ce7add75ce44, type: 2}
+  _drawing: {fileID: 11400000, guid: f47b17c3a8a440d4d86e9c5e992e6ca2, type: 2}
+  _inputView: {fileID: 11400000, guid: 59f0f3c41ac20364ba23a15c6eeeb5d1, type: 2}
+  _publisherSdk: {fileID: 11400000, guid: e6f74e9a77cf96644a9adec1fb4ed1cf, type: 2}
+  _currentSceneHandler: {fileID: 11400000, guid: 5d5d34fb2bc5e654ab9562f3bb1cd75f, type: 2}
+  _scenesFlow: {fileID: 11400000, guid: 9f52888bfd30d7644bef8fc11ad8f643, type: 2}
+  _applicationProxy: {fileID: 11400000, guid: f8225ff56a4a96a4e80b0602b4cd3656, type: 2}
+  _logger: {fileID: 11400000, guid: cfc2485e153d069429f1271ebe52ee1b, type: 2}
+  _messageBroker: {fileID: 11400000, guid: 07dfa12cb179a93488ef8a94dd145d98, type: 2}
+  _pause: {fileID: 11400000, guid: 5ea1a97ef8482ae4bb86c669f4bb711d, type: 2}
+  _resourcesCleaner: {fileID: 11400000, guid: f475d7d9f2c92ec479a665c9ac905fbc, type: 2}
+  _updater: {fileID: 11400000, guid: 949a43ee6c5ebd44fb23e1cc06711427, type: 2}
+  _animatorsUpdater: {fileID: 11400000, guid: 1befadf89c3618649840fc80766674c0, type: 2}
+  _destroyHandler: {fileID: 11400000, guid: 7f066b28155a68c4392e22b05375bde4, type: 2}
+  _loadingScreen: {fileID: 11400000, guid: eec2ff44ff08d794bbf4de47c3720c13, type: 2}
+  _localization: {fileID: 11400000, guid: 024ab526c90be39488815de7d2b2f729, type: 2}
+  _overlay: {fileID: 11400000, guid: f85acf7899cb5fe4cb6c6dc03789bca0, type: 2}
+  _uiStateMachine: {fileID: 11400000, guid: 2690e14f4af6ab843bac352463df3ee6, type: 2}
+  _eventSystem: {fileID: 11400000, guid: 491d8430bcb9a374bad4c693194a48d6, type: 2}
+  _connection: {fileID: 11400000, guid: 08451242fbd723349825ff212d9404d1, type: 2}
+  _client: {fileID: 11400000, guid: 398e83cbce3f0fa49a450f3be30645f5, type: 2}
+  _sceneCollector: {fileID: 11400000, guid: 8e00df0017da8db4998ada6c286e4dda, type: 2}
+  _networkEntity: {fileID: 11400000, guid: 4082877933fbdf744af463531b221a3a, type: 2}
+  _sessionFlow: {fileID: 11400000, guid: 0cc47fa587fa40640ae11f3e273222d0, type: 2}
+  _eventsRegistry: {fileID: 11400000, guid: 129cde63734973441bc32598554fb686, type: 2}
