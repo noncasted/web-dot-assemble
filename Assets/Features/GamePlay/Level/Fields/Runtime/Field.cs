@@ -10,22 +10,21 @@ namespace GamePlay.Level.Fields.Runtime
 {
     public class Field : IField
     {
-        public Field(IFieldLifetime lifetime, ICell[][] allCells)
+        public Field(IFieldLifetime lifetime, ICell[] allCells)
         {
             _lifetime = lifetime;
             _allCells = allCells;
             _availableCells = new List<ICell>();
-
-            foreach (var row in allCells)
-                _availableCells.AddRange(row);
+            _takenCells = new Dictionary<IDot, ICell>();
+            _availableCells.AddRange(allCells);
         }
 
         private readonly IFieldLifetime _lifetime;
-        private readonly ICell[][] _allCells;
+        private readonly ICell[] _allCells;
         private readonly List<ICell> _availableCells;
         private readonly Dictionary<IDot, ICell> _takenCells;
 
-        public IReadOnlyList<IReadOnlyList<ICell>> Cells => _allCells;
+        public IReadOnlyList<ICell> Cells => _allCells;
 
         public void OnCellTaken(ICell cell)
         {

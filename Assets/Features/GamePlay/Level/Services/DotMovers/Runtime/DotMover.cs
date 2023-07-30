@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using GamePlay.Level.Dots.Runtime;
 using GamePlay.Level.Dots.Runtime.DragHandlers;
 using GamePlay.Level.Fields.Runtime;
+using GamePlay.Level.Services.DotMovers.Pathfinding;
 using Global.Services.Inputs.View.Runtime.Mouses;
 using Global.Services.System.MessageBrokers.Runtime;
 using Global.Services.System.Updaters.Runtime.Abstract;
@@ -24,6 +25,14 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
 
         public async UniTask<UniTask> TryMove(IField field, CancellationToken cancellation)
         {
+            var start = field.GetRandomAvailableCell();
+            var end = field.GetRandomAvailableCell();
+
+            var path = AStar.Search(start, end);
+
+            foreach (var cell in path)
+                cell.MarkAsPath();
+
             var completionSource = new UniTaskCompletionSource<IDot>();
 
             void OnDotDragged(DotDraggedEvent payload)

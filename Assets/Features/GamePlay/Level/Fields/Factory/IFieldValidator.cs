@@ -4,6 +4,6 @@ namespace GamePlay.Level.Fields.Factory
 {
     public interface IFieldValidator
     {
-        void Validate(ICell[][] cells);
+        void Validate(ICell[] cells);
     }
 }

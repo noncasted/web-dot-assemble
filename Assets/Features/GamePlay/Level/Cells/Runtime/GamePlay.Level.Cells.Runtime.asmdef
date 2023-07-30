@@ -1,4 +1,7 @@
 ﻿{
   "name": "GamePlay.Level.Cells.Runtime",
-  "references":[ "GUID:5b122debc8dd4d7a84954dbd62b5a332" ]
+  "references": [
+    "GUID:5b122debc8dd4d7a84954dbd62b5a332",
+    "GUID:5b70f83da6937434491f26e0fd0cd099"
+  ]
 }

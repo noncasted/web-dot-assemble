@@ -6,7 +6,7 @@ namespace GamePlay.Level.Fields.Runtime
 {
     public interface IField
     {
-        IReadOnlyList<IReadOnlyList<ICell>> Cells { get; }
+        IReadOnlyList<ICell> Cells { get; }
 
         void OnCellTaken(ICell cell);
         void OnDotCleared(IDot dot);

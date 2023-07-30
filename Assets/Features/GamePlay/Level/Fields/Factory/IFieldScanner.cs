@@ -5,6 +5,6 @@ namespace GamePlay.Level.Fields.Factory
 {
     public interface IFieldScanner
     {
-        ICell[][] Scan(Transform root);
+        ICell[] Scan(Transform root);
     }
 }
