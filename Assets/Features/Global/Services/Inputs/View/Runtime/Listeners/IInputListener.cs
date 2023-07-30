@@ -3,6 +3,6 @@
     public interface IInputListener
     {
         void Listen();
-        void Unlisten();
+        void UnListen();
     }
 }

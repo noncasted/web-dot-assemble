@@ -3,10 +3,9 @@ using Global.Services.Inputs.Common;
 using Global.Services.Inputs.Constranits.Storage;
 using Global.Services.Inputs.View.Logs;
 using Global.Services.Inputs.View.Runtime.Actions;
-using Global.Services.Inputs.View.Runtime.Combat;
 using Global.Services.Inputs.View.Runtime.Conversion;
 using Global.Services.Inputs.View.Runtime.Listeners;
-using Global.Services.Inputs.View.Runtime.Movement;
+using Global.Services.Inputs.View.Runtime.Mouses;
 using Global.Services.Inputs.View.Runtime.Projection;
 using Global.Services.Setup.Service;
 using Sirenix.OdinInspector;
@@ -25,28 +24,17 @@ namespace Global.Services.Inputs.View.Runtime
         {
             var controls = new Controls();
             var gamePlay = controls.GamePlay;
-            var debug = controls.Debug;
-            
+
+            builder.Register<MouseInput>()
+                .WithParameter(gamePlay)
+                .As<IMouseInput>()
+                .AsSelfResolvable();
+
             builder.Register<InputViewLogger>()
                 .WithParameter(_logSettings);
 
-            builder.Register<CombatInput>()
-                .As<ICombatInput>()
-                .WithParameter(gamePlay)
-                .AsSelfResolvable();
-
             builder.Register<InputConversion>()
                 .As<IInputConversion>();
-
-            builder.Register<MovementInputView>()
-                .As<IMovementInputView>()
-                .WithParameter(gamePlay)
-                .AsSelfResolvable();
-
-            builder.Register<RollInputView>()
-                .As<IRollInputView>()
-                .WithParameter(gamePlay)
-                .AsSelfResolvable();
 
             builder.Register<InputProjection>()
                 .As<IInputProjection>();

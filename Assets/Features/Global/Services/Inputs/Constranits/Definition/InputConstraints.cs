@@ -2,9 +2,6 @@
 {
     public enum InputConstraints
     {
-        RollInput,
-        MovementInput,
-        AttackInput,
-        MeleeInput
+        Mouse
     }
 }

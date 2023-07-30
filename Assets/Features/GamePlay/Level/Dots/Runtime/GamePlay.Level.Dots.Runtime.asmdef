@@ -1,0 +1,20 @@
+{
+    "name": "GamePlay.Level.Dots.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:fe1cda9163ff483bb08c7e4524676da1",
+        "GUID:9b51a48d04164033bd0ea196e24c1113",
+        "GUID:a2d9bc74221f4ce88609212884f448ed",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:029c1c1b674aaae47a6841a0b89ad80e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

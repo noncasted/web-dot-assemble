@@ -1,0 +1,4 @@
+﻿{
+  "name": "GamePlay.Level.Fields.Factory",
+  "references":[ "GUID:efc3a2d12c2b4dbdbf6d3e99354938af", "GUID:6f4e04b6f2c449489373237908425407", "GUID:a2d9bc74221f4ce88609212884f448ed" ]
+}

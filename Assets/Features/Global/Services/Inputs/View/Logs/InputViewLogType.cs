@@ -2,17 +2,11 @@
 {
     public enum InputViewLogType
     {
-        RollPressed,
-        RollCanceled,
-
-        MovementPressed,
-        MovementCanceled,
-
-        RangeAttackPerformed,
-        RangeAttackCanceled,
-
-        MeleeAttackPerformed,
-        MeleeAttackCanceled,
+        LeftMouseButtonDown,
+        LeftMouseButtonUp,
+        RightMouseButtonDown,
+        RightMouseButtonUp,
+        MouseMoved,
 
         BeforeRebind,
         AfterRebind,

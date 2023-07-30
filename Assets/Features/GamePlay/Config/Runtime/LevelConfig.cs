@@ -1,6 +1,10 @@
 ﻿using Common.Architecture.Local.ComposedSceneConfig;
 using Common.Architecture.Local.Services.Abstract;
 using GamePlay.Common.Paths;
+using GamePlay.Level.Dots.Factory;
+using GamePlay.Level.Scene.Runtime;
+using GamePlay.Level.Services.DotMovers.Runtime;
+using GamePlay.Level.Services.FieldFlow.Runtime;
 using GamePlay.Loop.Runtime;
 using GamePlay.Services.Common.Scope;
 using GamePlay.Services.LevelCameras.Runtime;
@@ -15,8 +19,17 @@ namespace GamePlay.Config.Runtime
     [CreateAssetMenu(fileName = "Level", menuName = GamePlayAssetsPaths.Root + "Scene")]
     public class LevelConfig : ComposedSceneAsset
     {
+        [FoldoutGroup("Level")] [SerializeField]
+        private DotFactoryServiceFactory _dotFactory;
+        [FoldoutGroup("Level")] [SerializeField]
+        private FieldFlowFactory _fieldFlow;
+        [FoldoutGroup("Level")] [SerializeField]
+        private BaseLevelSceneFactory _levelScene;
+        [FoldoutGroup("Level")] [SerializeField]
+        private DotMoverFactory _dotMover;
+
         [FoldoutGroup("System")] [SerializeField]
-        private LevelLoopAsset _levelLoop;
+        private LevelLoopFactory _levelLoop;
         [FoldoutGroup("System")] [SerializeField]
         private VfxPoolAsset _vfxPool;
 
@@ -31,6 +44,9 @@ namespace GamePlay.Config.Runtime
             {
                 _levelCamera,
                 _levelLoop,
+                _dotFactory,
+                _fieldFlow,
+                _dotMover
             };
 
             return services;
@@ -41,6 +57,7 @@ namespace GamePlay.Config.Runtime
             var services = new ILocalServiceAsyncFactory[]
             {
                 _vfxPool,
+                _levelScene
             };
 
             return services;

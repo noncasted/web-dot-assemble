@@ -15,68 +15,44 @@ namespace Global.Services.Inputs.View.Logs
         private readonly ILogger _logger;
         private readonly InputViewLogSettings _settings;
 
-        public void OnRollPressed()
+        public void OnLeftMouseButtonDown()
         {
-            if (_settings.IsAvailable(InputViewLogType.RollPressed) == false)
+            if (_settings.IsAvailable(InputViewLogType.LeftMouseButtonDown) == false)
                 return;
 
-            _logger.Log($"Roll: is pressed", _settings.LogParameters);
+            _logger.Log($"Left mouse button down", _settings.LogParameters);
         }
 
-        public void OnRollCanceled()
+        public void OnLeftMouseButtonUp()
         {
-            if (_settings.IsAvailable(InputViewLogType.RollCanceled) == false)
+            if (_settings.IsAvailable(InputViewLogType.LeftMouseButtonUp) == false)
                 return;
 
-            _logger.Log("Roll: is canceled", _settings.LogParameters);
+            _logger.Log($"Left mouse button up", _settings.LogParameters);
         }
 
-        public void OnMovementPressed(Vector2 value)
+        public void OnRightMouseButtonDown()
         {
-            if (_settings.IsAvailable(InputViewLogType.MovementPressed) == false)
+            if (_settings.IsAvailable(InputViewLogType.RightMouseButtonDown) == false)
                 return;
 
-            _logger.Log($"Movement: {value} is pressed", _settings.LogParameters);
+            _logger.Log($"Right mouse button down", _settings.LogParameters);
         }
 
-        public void OnMovementCanceled()
+        public void OnRightMouseButtonUp()
         {
-            if (_settings.IsAvailable(InputViewLogType.MovementCanceled) == false)
+            if (_settings.IsAvailable(InputViewLogType.RightMouseButtonUp) == false)
                 return;
 
-            _logger.Log("Movement: is canceled", _settings.LogParameters);
+            _logger.Log($"Right mouse button up", _settings.LogParameters);
         }
 
-        public void OnRangeAttackPerformed()
+        public void OnMouseMoved(Vector2 position)
         {
-            if (_settings.IsAvailable(InputViewLogType.RangeAttackPerformed) == false)
+            if (_settings.IsAvailable(InputViewLogType.MouseMoved) == false)
                 return;
 
-            _logger.Log("Range attack is pressed", _settings.LogParameters);
-        }
-
-        public void OnRangeAttackCanceled()
-        {
-            if (_settings.IsAvailable(InputViewLogType.RangeAttackCanceled) == false)
-                return;
-
-            _logger.Log("Range attack is canceled", _settings.LogParameters);
-        }
-        
-        public void OnMeleeAttackPerformed()
-        {
-            if (_settings.IsAvailable(InputViewLogType.MeleeAttackPerformed) == false)
-                return;
-
-            _logger.Log("Melee attack is pressed", _settings.LogParameters);
-        }
-
-        public void OnMeleeAttackCanceled()
-        {
-            if (_settings.IsAvailable(InputViewLogType.MeleeAttackCanceled) == false)
-                return;
-
-            _logger.Log("Melee attack is canceled", _settings.LogParameters);
+            _logger.Log($"Mouse moved: {position}", _settings.LogParameters);
         }
 
         public void OnBeforeRebind()

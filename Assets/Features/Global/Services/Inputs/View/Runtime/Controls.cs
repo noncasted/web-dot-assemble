@@ -28,36 +28,18 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             ""id"": ""98d3b2ff-9a15-42b1-bc36-b64f77d5f962"",
             ""actions"": [
                 {
-                    ""name"": ""RangeAttack"",
+                    ""name"": ""LeftClick"",
                     ""type"": ""Button"",
-                    ""id"": ""50319b66-920d-45f8-81de-bdf2ca94fb4e"",
+                    ""id"": ""7cbebfac-de28-42f9-9684-fb778a5d7e23"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""MeleeAttack"",
+                    ""name"": ""RightClick"",
                     ""type"": ""Button"",
-                    ""id"": ""bb9d1598-f11c-4a12-aa33-3d40e312ae3c"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Movement"",
-                    ""type"": ""Value"",
-                    ""id"": ""881c0fd0-98ae-42cd-adbe-dbe5ce536693"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Roll"",
-                    ""type"": ""Button"",
-                    ""id"": ""559581fc-20d1-4f59-8fee-7e59770aac17"",
+                    ""id"": ""f1046e41-39d7-4a09-b801-2bf7b90ee192"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -67,89 +49,23 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""2080924a-dc85-4676-a0fa-6417b6ed8408"",
+                    ""id"": ""87038bdc-b937-42c0-9bd8-c2ba12bd34d3"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""RangeAttack"",
+                    ""action"": ""LeftClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""ab7fb0d7-2650-42db-81d1-9652f3418d63"",
+                    ""id"": ""dce892e0-4dd8-47a1-bd50-e03932feb72f"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MeleeAttack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""WASD"",
-                    ""id"": ""e7f9f3c2-9a31-46f4-8226-c1c99d373a3c"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""394ebc6c-4cb0-4846-9814-e431c6a6fa92"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""d860a947-457c-4cb0-8eea-9f31f9e4299d"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""408bca3b-d4ac-4c4a-8409-643fb7c59ae3"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""46faee24-39c0-4c6c-a12b-269bf05f53aa"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""273161b4-73b6-4100-bfd8-f9cc2f01b7f5"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Roll"",
+                    ""action"": ""RightClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -188,10 +104,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
 }");
         // GamePlay
         m_GamePlay = asset.FindActionMap("GamePlay", throwIfNotFound: true);
-        m_GamePlay_RangeAttack = m_GamePlay.FindAction("RangeAttack", throwIfNotFound: true);
-        m_GamePlay_MeleeAttack = m_GamePlay.FindAction("MeleeAttack", throwIfNotFound: true);
-        m_GamePlay_Movement = m_GamePlay.FindAction("Movement", throwIfNotFound: true);
-        m_GamePlay_Roll = m_GamePlay.FindAction("Roll", throwIfNotFound: true);
+        m_GamePlay_LeftClick = m_GamePlay.FindAction("LeftClick", throwIfNotFound: true);
+        m_GamePlay_RightClick = m_GamePlay.FindAction("RightClick", throwIfNotFound: true);
         // Debug
         m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
         m_Debug_Console = m_Debug.FindAction("Console", throwIfNotFound: true);
@@ -256,18 +170,14 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     // GamePlay
     private readonly InputActionMap m_GamePlay;
     private List<IGamePlayActions> m_GamePlayActionsCallbackInterfaces = new List<IGamePlayActions>();
-    private readonly InputAction m_GamePlay_RangeAttack;
-    private readonly InputAction m_GamePlay_MeleeAttack;
-    private readonly InputAction m_GamePlay_Movement;
-    private readonly InputAction m_GamePlay_Roll;
+    private readonly InputAction m_GamePlay_LeftClick;
+    private readonly InputAction m_GamePlay_RightClick;
     public struct GamePlayActions
     {
         private @Controls m_Wrapper;
         public GamePlayActions(@Controls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @RangeAttack => m_Wrapper.m_GamePlay_RangeAttack;
-        public InputAction @MeleeAttack => m_Wrapper.m_GamePlay_MeleeAttack;
-        public InputAction @Movement => m_Wrapper.m_GamePlay_Movement;
-        public InputAction @Roll => m_Wrapper.m_GamePlay_Roll;
+        public InputAction @LeftClick => m_Wrapper.m_GamePlay_LeftClick;
+        public InputAction @RightClick => m_Wrapper.m_GamePlay_RightClick;
         public InputActionMap Get() { return m_Wrapper.m_GamePlay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -277,34 +187,22 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_GamePlayActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_GamePlayActionsCallbackInterfaces.Add(instance);
-            @RangeAttack.started += instance.OnRangeAttack;
-            @RangeAttack.performed += instance.OnRangeAttack;
-            @RangeAttack.canceled += instance.OnRangeAttack;
-            @MeleeAttack.started += instance.OnMeleeAttack;
-            @MeleeAttack.performed += instance.OnMeleeAttack;
-            @MeleeAttack.canceled += instance.OnMeleeAttack;
-            @Movement.started += instance.OnMovement;
-            @Movement.performed += instance.OnMovement;
-            @Movement.canceled += instance.OnMovement;
-            @Roll.started += instance.OnRoll;
-            @Roll.performed += instance.OnRoll;
-            @Roll.canceled += instance.OnRoll;
+            @LeftClick.started += instance.OnLeftClick;
+            @LeftClick.performed += instance.OnLeftClick;
+            @LeftClick.canceled += instance.OnLeftClick;
+            @RightClick.started += instance.OnRightClick;
+            @RightClick.performed += instance.OnRightClick;
+            @RightClick.canceled += instance.OnRightClick;
         }
 
         private void UnregisterCallbacks(IGamePlayActions instance)
         {
-            @RangeAttack.started -= instance.OnRangeAttack;
-            @RangeAttack.performed -= instance.OnRangeAttack;
-            @RangeAttack.canceled -= instance.OnRangeAttack;
-            @MeleeAttack.started -= instance.OnMeleeAttack;
-            @MeleeAttack.performed -= instance.OnMeleeAttack;
-            @MeleeAttack.canceled -= instance.OnMeleeAttack;
-            @Movement.started -= instance.OnMovement;
-            @Movement.performed -= instance.OnMovement;
-            @Movement.canceled -= instance.OnMovement;
-            @Roll.started -= instance.OnRoll;
-            @Roll.performed -= instance.OnRoll;
-            @Roll.canceled -= instance.OnRoll;
+            @LeftClick.started -= instance.OnLeftClick;
+            @LeftClick.performed -= instance.OnLeftClick;
+            @LeftClick.canceled -= instance.OnLeftClick;
+            @RightClick.started -= instance.OnRightClick;
+            @RightClick.performed -= instance.OnRightClick;
+            @RightClick.canceled -= instance.OnRightClick;
         }
 
         public void RemoveCallbacks(IGamePlayActions instance)
@@ -370,10 +268,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     public DebugActions @Debug => new DebugActions(this);
     public interface IGamePlayActions
     {
-        void OnRangeAttack(InputAction.CallbackContext context);
-        void OnMeleeAttack(InputAction.CallbackContext context);
-        void OnMovement(InputAction.CallbackContext context);
-        void OnRoll(InputAction.CallbackContext context);
+        void OnLeftClick(InputAction.CallbackContext context);
+        void OnRightClick(InputAction.CallbackContext context);
     }
     public interface IDebugActions
     {

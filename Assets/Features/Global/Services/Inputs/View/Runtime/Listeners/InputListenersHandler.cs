@@ -20,7 +20,7 @@ namespace Global.Services.Inputs.View.Runtime.Listeners
         public void InvokeUnlisten()
         {
             foreach (var listener in _listeners)
-                listener.Unlisten();
+                listener.UnListen();
         }
     }
 }
