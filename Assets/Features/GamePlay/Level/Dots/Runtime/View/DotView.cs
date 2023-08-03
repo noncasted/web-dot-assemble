@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Features.Common.UI.DotweenExtensions;
 using UnityEngine;
 
 namespace GamePlay.Level.Dots.Runtime.View
@@ -11,14 +12,14 @@ namespace GamePlay.Level.Dots.Runtime.View
 
         private RectTransform _transform;
         private Vector3 _baseScale;
+        
+        public RectTransform Transform => _transform;
 
         private void Awake()
         {
             _baseScale = transform.localScale;
             _transform = GetComponent<RectTransform>();
         }
-
-        public RectTransform Transform => _transform;
 
         public void Grow(int currentCycle, int maxCycle)
         {
@@ -32,10 +33,8 @@ namespace GamePlay.Level.Dots.Runtime.View
 
         public async UniTask Destroy()
         {
-            var cancellation = gameObject.GetCancellationTokenOnDestroy();
-
-            // await transform.DOScale(Vector3.zero, _scaleTime)
-            //     .SetEase(Ease.InBounce).Play().ToUniTask(cancellationToken: cancellation);
+            await DOTweenExtensions.TweensToTask(
+                transform.DOScale(Vector2.zero, _scaleTime * 3).SetEase(Ease.InBounce));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using GamePlay.Level.Dots.Destroyer;
+﻿using Cysharp.Threading.Tasks;
+using GamePlay.Level.Dots.Destroyer;
 using GamePlay.Level.Fields.Runtime;
 
 namespace GamePlay.Level.Services.AssembleCheck.Runtime
@@ -12,7 +13,7 @@ namespace GamePlay.Level.Services.AssembleCheck.Runtime
 
         private readonly IField _field;
 
-        public void CheckAssemble()
+        public async UniTask CheckAssemble()
         {
 
         }

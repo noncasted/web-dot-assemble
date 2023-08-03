@@ -1,7 +1,9 @@
-﻿namespace GamePlay.Level.Services.AssembleCheck.Runtime
+﻿using Cysharp.Threading.Tasks;
+
+namespace GamePlay.Level.Services.AssembleCheck.Runtime
 {
     public interface IAssembleChecker
     {
-        void CheckAssemble();
+        UniTask CheckAssemble();
     }
 }

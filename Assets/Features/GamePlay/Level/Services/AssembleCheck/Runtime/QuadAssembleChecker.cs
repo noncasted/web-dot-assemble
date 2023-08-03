@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using GamePlay.Level.Cells.Runtime;
 using GamePlay.Level.Dots.Definitions;
 using GamePlay.Level.Dots.Destroyer;
@@ -18,18 +19,30 @@ namespace GamePlay.Level.Services.AssembleCheck.Runtime
         private readonly IField _field;
         private readonly IDotDestroyer _dotDestroyer;
 
-        public void CheckAssemble()
+        public async UniTask CheckAssemble()
         {
+            var cellsToDestroy = new Dictionary<Vector2Int, ICell>();
+
             foreach (var cell in _field.Cells)
             {
+                if (cellsToDestroy.ContainsKey(cell.Position) == true)
+                    continue;
+
                 var result = Search(cell.Position);
 
                 if (result.Success == false)
                     continue;
 
                 foreach (var targetCell in result.Cells)
-                    _dotDestroyer.Destroy(targetCell.Dot);
+                    cellsToDestroy[targetCell.Position] = targetCell;
             }
+
+            var tasks = new List<UniTask>();
+
+            foreach (var (_, cell) in cellsToDestroy)
+                tasks.Add(_dotDestroyer.Destroy(cell.Dot));
+
+            await UniTask.WhenAll(tasks);
         }
 
         private QuadSearchResult Search(Vector2Int startPosition)
