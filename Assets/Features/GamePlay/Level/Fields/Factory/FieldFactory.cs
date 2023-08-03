@@ -20,11 +20,11 @@ namespace GamePlay.Level.Fields.Factory
             var cells = scanner.Scan(_cellsRoot);
 
             var gridData = GetMinX(cells);
-            ConstructCells(cells, gridData);
+            var grid = ConstructCells(cells, gridData);
             validator.Validate(cells);
             
             var lifetime = new FieldLifetime();
-            var field = new Field(lifetime, cells);
+            var field = new Field(lifetime, cells, grid);
 
             return field;
         }
@@ -88,21 +88,20 @@ namespace GamePlay.Level.Fields.Factory
             return new GridData()
             {
                 MinX = minX,
-                MaxX = maxX,
                 MinY = minY,
-                MaxY = maxY,
-                StepX = (maxX - minX) / maxRowElementsCount,
-                StepY = (maxY - minY) / maxColumnElementsCount,
+                StepX = (maxX - minX) / (maxRowElementsCount - 1),
+                StepY = (maxY - minY) / (maxColumnElementsCount - 1),
             };
         }
 
-        private void ConstructCells(ICell[] cells, GridData gridData)
+        private IReadOnlyDictionary<Vector2Int, ICell> ConstructCells(ICell[] cells, GridData gridData)
         {
             var mappedCells = new Dictionary<Vector2Int, ICell>();
 
             foreach (var cell in cells)
             {
                 var rowPosition = cell.Transform.anchoredPosition;
+
                 var x = Mathf.RoundToInt((rowPosition.x - gridData.MinX) / gridData.StepX);
                 var y = Mathf.RoundToInt((rowPosition.y - gridData.MinY) / gridData.StepY);
 
@@ -133,16 +132,16 @@ namespace GamePlay.Level.Fields.Factory
 
                 cell.Construct(position, neighbours);
             }
+
+            return mappedCells;
         }
 
         private struct GridData
         {
             public float MinX;
-            public float MaxX;
             public float StepX;
 
             public float MinY;
-            public float MaxY;
             public float StepY;
         }
     }

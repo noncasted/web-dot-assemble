@@ -8,14 +8,20 @@ namespace GamePlay.Level.Cells.Runtime
     {
         RectTransform Transform { get; }
         Vector2Int Position { get; }
-        float Priority { get; set; }
         IReadOnlyList<ICell> Neighbours { get; }
         IDot Dot { get; }
+
+        float DistanceToTarget {get;}
+
+        public ICell PreviousNode { get; set; }
 
         void Construct(Vector2Int position, IReadOnlyList<ICell> neighbours);
 
         void ClearDot();
         void SetDot(IDot dot);
-        void MarkAsPath();
+        void SetDistanceCost(float distance);
+        void MarkAsValid();
+        void MarkAsInvalid();
+        void ClearMark();
     }
 }

@@ -6,7 +6,6 @@ using GamePlay.Level.Dots.Runtime.LifeFlow;
 using GamePlay.Level.Dots.Runtime.View;
 using GamePlay.Level.Fields.Lifetime;
 using Global.Services.System.MessageBrokers.Runtime;
-using UnityEngine;
 
 namespace GamePlay.Level.Dots.Runtime
 {
@@ -29,6 +28,7 @@ namespace GamePlay.Level.Dots.Runtime
 
         public IDotDefinition Definition => _definition;
         public IDotView View => _view;
+        public IDotLifeFlow LifeFlow => _lifeFlow;
 
         public void InitAsStartup()
         {
@@ -37,12 +37,11 @@ namespace GamePlay.Level.Dots.Runtime
 
         public void InitAsInGame()
         {
-            _lifeFlow.GrowFull();
+            _lifeFlow.GrowMinimal();
         }
 
         public void Enable()
         {
-            Debug.Log("Enable");
             _fieldStepListener = Msg.Listen<FieldStepEvent>(OnFieldStep);
             _pointerObserver.Dragged += OnDragged;
             _pointerObserver.Dropped += OnDropped;
@@ -72,7 +71,6 @@ namespace GamePlay.Level.Dots.Runtime
 
         private void OnDragged()
         {
-            Debug.Log($"On dragged: {_lifeFlow.IsActive}");
             if (_lifeFlow.IsActive == false)
                 return;
 

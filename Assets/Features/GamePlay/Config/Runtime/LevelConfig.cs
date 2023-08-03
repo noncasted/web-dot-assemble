@@ -3,6 +3,7 @@ using Common.Architecture.Local.Services.Abstract;
 using GamePlay.Common.Paths;
 using GamePlay.Level.Dots.Factory;
 using GamePlay.Level.Scene.Runtime;
+using GamePlay.Level.Services.AssembleCheck.Setup;
 using GamePlay.Level.Services.DotMovers.Runtime;
 using GamePlay.Level.Services.FieldFlow.Runtime;
 using GamePlay.Loop.Runtime;
@@ -27,6 +28,8 @@ namespace GamePlay.Config.Runtime
         private BaseLevelSceneFactory _levelScene;
         [FoldoutGroup("Level")] [SerializeField]
         private DotMoverFactory _dotMover;
+        [FoldoutGroup("Level")] [SerializeField]
+        private AssembleCheckSetup _assembleCheck;
 
         [FoldoutGroup("System")] [SerializeField]
         private LevelLoopFactory _levelLoop;
@@ -46,7 +49,8 @@ namespace GamePlay.Config.Runtime
                 _levelLoop,
                 _dotFactory,
                 _fieldFlow,
-                _dotMover
+                _dotMover,
+                _assembleCheck
             };
 
             return services;

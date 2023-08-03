@@ -10,10 +10,11 @@ namespace GamePlay.Level.Fields.Runtime
 {
     public class Field : IField
     {
-        public Field(IFieldLifetime lifetime, ICell[] allCells)
+        public Field(IFieldLifetime lifetime, ICell[] allCells, IReadOnlyDictionary<Vector2Int, ICell> grid)
         {
             _lifetime = lifetime;
             _allCells = allCells;
+            _grid = grid;
             _availableCells = new List<ICell>();
             _takenCells = new Dictionary<IDot, ICell>();
             _availableCells.AddRange(allCells);
@@ -21,10 +22,12 @@ namespace GamePlay.Level.Fields.Runtime
 
         private readonly IFieldLifetime _lifetime;
         private readonly ICell[] _allCells;
+        private readonly IReadOnlyDictionary<Vector2Int, ICell> _grid;
         private readonly List<ICell> _availableCells;
         private readonly Dictionary<IDot, ICell> _takenCells;
 
         public IReadOnlyList<ICell> Cells => _allCells;
+        public IReadOnlyDictionary<Vector2Int, ICell> Grid => _grid;
 
         public void OnCellTaken(ICell cell)
         {
@@ -40,11 +43,6 @@ namespace GamePlay.Level.Fields.Runtime
             var cell = _takenCells[dot];
             _availableCells.Add(cell);
             _takenCells.Remove(dot);
-        }
-
-        public void OnDotCleared(ICell cell)
-        {
-            _availableCells.Add(cell);
         }
 
         public ICell GetRandomAvailableCell()
@@ -63,10 +61,8 @@ namespace GamePlay.Level.Fields.Runtime
             return _takenCells[dot];
         }
 
-        public ICell FindNearestAvailableCell(IDot dot)
+        public ICell FindNearestAvailableCell(Vector2 position)
         {
-            var dotPosition = dot.View.Transform.anchoredPosition;
-
             var minDistance = float.MaxValue;
             ICell nearestCell = null;
 
@@ -74,7 +70,7 @@ namespace GamePlay.Level.Fields.Runtime
             {
                 var cellPosition = availableCell.Transform.anchoredPosition;
 
-                var distance = Vector2.Distance(dotPosition, cellPosition);
+                var distance = Vector2.Distance(position, cellPosition);
 
                 if (distance > minDistance)
                     continue;
@@ -84,6 +80,17 @@ namespace GamePlay.Level.Fields.Runtime
             }
 
             return nearestCell;
+        }
+
+        public void RemoveDot(IDot dot)
+        {
+            if (_takenCells.ContainsKey(dot) == false)
+                return;
+
+            var cell = _takenCells[dot];
+            cell.ClearDot();
+            _availableCells.Add(cell);
+            _takenCells.Remove(dot);
         }
     }
 }

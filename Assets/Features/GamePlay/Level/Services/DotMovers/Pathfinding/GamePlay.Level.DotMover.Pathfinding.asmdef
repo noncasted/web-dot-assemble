@@ -1,4 +1,4 @@
 ﻿{
   "name": "GamePlay.Level.DotMover.Pathfinding",
-  "references":[ "GUID:6f4e04b6f2c449489373237908425407", "GUID:5b122debc8dd4d7a84954dbd62b5a332" ]
+  "references":[ "GUID:6f4e04b6f2c449489373237908425407", "GUID:5b122debc8dd4d7a84954dbd62b5a332", "GUID:f51ebe6a0ceec4240a699833d6309b23" ]
 }

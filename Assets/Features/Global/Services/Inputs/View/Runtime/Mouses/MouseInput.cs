@@ -42,22 +42,22 @@ namespace Global.Services.Inputs.View.Runtime.Mouses
 
         public Vector2 Position => _position;
 
-        public async UniTask WaitLeftUpAsync(CancellationToken cancellation)
+        public async UniTask WaitLeftDownAsync(CancellationToken cancellation)
         {
             var completion = new UniTaskCompletionSource();
 
             cancellation.Register(() =>
             {
                 completion.TrySetCanceled();
-                LeftUp -= OnLeftUp;
+                LeftDown -= OnDown;
             });
 
-            LeftUp += OnLeftUp;
+            LeftDown += OnDown;
 
-            void OnLeftUp()
+            void OnDown()
             {
                 completion.TrySetResult();
-                LeftUp -= OnLeftUp;
+                LeftDown -= OnDown;
             }
 
             await completion.Task;
@@ -145,13 +145,14 @@ namespace Global.Services.Inputs.View.Runtime.Mouses
                     return;
 
                 _position = touches[0].rawPosition;
+                LeftDown?.Invoke();
+
+                _logger.OnLeftMouseButtonDown();
             }
             else
             {
                 _position = Mouse.current.position.ReadValue();
             }
-
-            _logger.OnLeftMouseButtonDown();
         }
     }
 }

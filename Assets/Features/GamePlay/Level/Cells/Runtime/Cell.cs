@@ -8,31 +8,38 @@ namespace GamePlay.Level.Cells.Runtime
     [DisallowMultipleComponent]
     public class Cell : MonoBehaviour, ICell
     {
-        [SerializeField] private MPImage _image;
-        [SerializeField] private Color _markedColor;
         [SerializeField] private RectTransform _dotParent;
+        [SerializeField] private Color _validColor;
+        [SerializeField] private Color _invalidColor;
+        [SerializeField] private MPImage _image;
 
         private IDot _dot;
         private RectTransform _transform;
-        private float _priority;
+        private float _distanceToTarget;
+        private Color _baseColor;
 
-        private Vector2Int _position;
+        [SerializeField] private Vector2Int _position;
+
         private IReadOnlyList<ICell> _neighbours;
 
         public RectTransform Transform => _transform;
         public Vector2Int Position => _position;
-        public float Priority
-        {
-            get => _priority;
-            set => _priority = value;
-        }
+
         public IReadOnlyList<ICell> Neighbours => _neighbours;
 
         public IDot Dot => _dot;
 
+        public float DistanceToTarget
+        {
+            get => _distanceToTarget;
+        }
+
+        public ICell PreviousNode { get; set; }
+
         private void Awake()
         {
             _transform = GetComponent<RectTransform>();
+            _baseColor = _image.color;
         }
 
         public void Construct(Vector2Int position, IReadOnlyList<ICell> neighbours)
@@ -53,9 +60,26 @@ namespace GamePlay.Level.Cells.Runtime
             _dot.View.Transform.localPosition = Vector3.zero;
         }
 
-        public void MarkAsPath()
+        public void SetDistanceCost(float distance)
         {
-            _image.color = _markedColor;
+            _distanceToTarget = distance;
+        }
+
+        public void MarkAsValid()
+        {
+            _image.color = _validColor;
+        }
+
+        public void MarkAsInvalid()
+        {
+            _image.color = _invalidColor;
+        }
+
+        public void ClearMark()
+        {
+            _image.color = _baseColor;
+            PreviousNode = null;
+            _distanceToTarget = float.MaxValue;
         }
     }
 }

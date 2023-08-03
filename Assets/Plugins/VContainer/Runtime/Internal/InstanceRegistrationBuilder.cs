@@ -2,7 +2,7 @@ using System.Runtime.CompilerServices;
 
 namespace VContainer.Internal
 {
-    public class InstanceRegistrationBuilder : RegistrationBuilder
+    public sealed class InstanceRegistrationBuilder : RegistrationBuilder
     {
         readonly object implementationInstance;
 

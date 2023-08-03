@@ -5,7 +5,10 @@ using Cysharp.Threading.Tasks;
 using GamePlay.Level.Fields.Factory;
 using GamePlay.Level.Fields.Lifetime;
 using GamePlay.Level.Fields.Runtime;
+using GamePlay.Level.Services.AssembleCheck.Factory;
+using GamePlay.Level.Services.AssembleCheck.Runtime;
 using GamePlay.Level.Services.DotMovers.Runtime;
+using GamePlay.Loop.Modes;
 
 namespace GamePlay.Level.Services.FieldFlow.Runtime
 {
@@ -15,11 +18,13 @@ namespace GamePlay.Level.Services.FieldFlow.Runtime
             IDotMover dotMover,
             IFieldLifetime lifetime,
             IFieldSeeder seeder,
+            IAssembleCheckFactory assembleCheckFactory,
             IField field)
         {
             _dotMover = dotMover;
             _lifetime = lifetime;
             _seeder = seeder;
+            _assembleChecker = assembleCheckFactory.Create(GameMode.Quads);
             _field = field;
             _cancellationCallback = Stop;
         }
@@ -28,6 +33,7 @@ namespace GamePlay.Level.Services.FieldFlow.Runtime
         private readonly IFieldFactory _fieldFactory;
         private readonly IFieldLifetime _lifetime;
         private readonly IFieldSeeder _seeder;
+        private readonly IAssembleChecker _assembleChecker;
         private readonly IField _field;
 
         private readonly Action _cancellationCallback;
@@ -46,6 +52,8 @@ namespace GamePlay.Level.Services.FieldFlow.Runtime
                 await RunActions(cancellation);
                 _lifetime.OnStep();
                 _seeder.SeedInGame();
+
+                _assembleChecker.CheckAssemble();
             }
         }
 

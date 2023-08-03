@@ -1,0 +1,4 @@
+﻿{
+  "name": "GamePlay.Level.AssembleCheck.Runtime",
+  "references":[ "GUID:efc3a2d12c2b4dbdbf6d3e99354938af", "GUID:6f4e04b6f2c449489373237908425407", "GUID:5b122debc8dd4d7a84954dbd62b5a332", "GUID:94507e1726e448308779aaf390d262fe", "GUID:fe1cda9163ff483bb08c7e4524676da1" ]
+}

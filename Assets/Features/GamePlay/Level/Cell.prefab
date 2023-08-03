@@ -50,9 +50,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d4019e286b4192b7621aa248d4692a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _image: {fileID: 8556281475202975715}
-  _markedColor: {r: 0.6271724, g: 0.8113208, b: 0.54725885, a: 1}
   _dotParent: {fileID: 1755413204361164777}
+  _validColor: {r: 0.7449145, g: 0.9339623, b: 0.24230155, a: 1}
+  _invalidColor: {r: 0.8490566, g: 0.2683339, b: 0.2683339, a: 1}
+  _image: {fileID: 8556281475202975715}
+  _position: {x: 0, y: 0}
 --- !u!1 &2647087592151019626
 GameObject:
   m_ObjectHideFlags: 0

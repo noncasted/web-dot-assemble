@@ -6,10 +6,7 @@ using Global.Services.Cameras.GlobalCameras.Runtime;
 using Global.Services.Scenes.CurrentSceneHandlers.Runtime;
 using Global.Services.Scenes.ScenesFlow.Runtime.Abstract;
 using Global.Services.Setup.Scope;
-using Global.Services.System.MessageBrokers.Runtime;
 using Global.Services.UI.LoadingScreens.Runtime;
-using Menu.Config.Runtime;
-using Menu.Loop.Runtime;
 
 namespace Global.GameLoops.Runtime
 {
@@ -22,11 +19,9 @@ namespace Global.GameLoops.Runtime
             IGlobalCamera globalCamera,
             ICurrentSceneHandler currentSceneHandler,
             ICurrentCamera currentCamera,
-            LevelConfig level,
-            MenuConfig menu)
+            LevelConfig level)
         {
             _level = level;
-            _menu = menu;
             _scope = scope;
             _loader = loader;
             _loadingScreen = loadingScreen;
@@ -45,21 +40,13 @@ namespace Global.GameLoops.Runtime
         private readonly GlobalScope _scope;
 
         private readonly LevelConfig _level;
-        private readonly MenuConfig _menu;
 
         public void OnBootstrapped()
         {
-            Msg.Listen<LevelTransitionRequestEvent>(OnLevelTransitionRequested);
         }
 
         public void Start()
         {
-            LoadScene(_menu).Forget();
-        }
-
-        private void OnLevelTransitionRequested(LevelTransitionRequestEvent request)
-        {
-            LoadScene(_level).Forget();
         }
 
         private async UniTaskVoid LoadScene(ComposedSceneAsset asset)

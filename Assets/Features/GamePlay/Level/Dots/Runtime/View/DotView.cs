@@ -34,8 +34,8 @@ namespace GamePlay.Level.Dots.Runtime.View
         {
             var cancellation = gameObject.GetCancellationTokenOnDestroy();
 
-            await transform.DOScale(Vector3.zero, _scaleTime)
-                .SetEase(Ease.InBounce).Play().ToUniTask(cancellationToken: cancellation);
+            // await transform.DOScale(Vector3.zero, _scaleTime)
+            //     .SetEase(Ease.InBounce).Play().ToUniTask(cancellationToken: cancellation);
         }
     }
 }

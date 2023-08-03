@@ -1,9 +1,9 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using GamePlay.Level.Dots.Runtime;
 using GamePlay.Level.Dots.Runtime.DragHandlers;
 using GamePlay.Level.Fields.Runtime;
-using GamePlay.Level.Services.DotMovers.Pathfinding;
 using Global.Services.Inputs.View.Runtime.Mouses;
 using Global.Services.System.MessageBrokers.Runtime;
 using Global.Services.System.Updaters.Runtime.Abstract;
@@ -25,14 +25,6 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
 
         public async UniTask<UniTask> TryMove(IField field, CancellationToken cancellation)
         {
-            var start = field.GetRandomAvailableCell();
-            var end = field.GetRandomAvailableCell();
-
-            var path = AStar.Search(start, end);
-
-            foreach (var cell in path)
-                cell.MarkAsPath();
-
             var completionSource = new UniTaskCompletionSource<IDot>();
 
             void OnDotDragged(DotDraggedEvent payload)
@@ -53,20 +45,30 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
 
         private async UniTask ProcessMove(IField field, IDot dot, CancellationToken cancellation)
         {
-            var moveProcessor = new MoveProcessor(dot, _updater, _mouseInput, _moveRectProvider.MoveRect);
+            var moveProcessor = new PathSelector(dot, field, _updater, _mouseInput, _moveRectProvider.MoveRect);
 
             moveProcessor.Start();
-            await _mouseInput.WaitLeftUpAsync(cancellation);
+            await _mouseInput.WaitLeftDownAsync(cancellation);
             moveProcessor.Dispose();
 
+            var path = moveProcessor.Path;
+
+            if (path.Cells == null || path.Cells.Count == 0)
+                return;
+
             var startCell = field.FindParentCell(dot);
-            var endCell = field.FindNearestAvailableCell(dot);
+            var endCell = field.FindNearestAvailableCell(path.Cells.Last().Transform.anchoredPosition);
+
+            await UniTask.Delay(100, cancellationToken: cancellation);
 
             startCell.ClearDot();
             endCell.SetDot(dot);
 
-            field.OnCellTaken(endCell);
+            foreach (var cell in field.Cells)
+                cell.ClearMark();
+
             field.OnDotCleared(dot);
+            field.OnCellTaken(endCell);
         }
     }
 }

@@ -1,0 +1,4 @@
+﻿{
+  "name": "GamePlay.Level.AssembleCheck.Factory",
+  "references":[ "GUID:dfb85e4b73644d7da416ac4be8dcc07f", "GUID:71d2af7606d84abb998e3db811acf857", "GUID:efc3a2d12c2b4dbdbf6d3e99354938af", "GUID:94507e1726e448308779aaf390d262fe" ]
+}

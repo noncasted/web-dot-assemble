@@ -1,6 +1,7 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
 using Common.Architecture.Local.Services.Abstract;
 using GamePlay.Level.Dots.Common;
+using GamePlay.Level.Dots.Destroyer;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -18,6 +19,9 @@ namespace GamePlay.Level.Dots.Factory
         {
             builder.Register<DotFactory>()
                 .As<IDotFactory>();
+
+            builder.Register<DotDestroyer>()
+                .As<IDotDestroyer>();
         }
     }
 }

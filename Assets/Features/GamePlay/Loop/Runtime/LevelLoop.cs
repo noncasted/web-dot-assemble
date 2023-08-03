@@ -1,6 +1,9 @@
 ﻿using System.Threading;
 using Common.Architecture.Local.Services.Abstract.EventLoops;
 using Cysharp.Threading.Tasks;
+using GamePlay.Level.Fields.Factory;
+using GamePlay.Level.Fields.Runtime;
+using GamePlay.Level.Services.AssembleCheck.Runtime;
 using GamePlay.Level.Services.FieldFlow.Runtime;
 using GamePlay.Loop.Logs;
 
@@ -8,13 +11,18 @@ namespace GamePlay.Loop.Runtime
 {
     public class LevelLoop : ILocalLoadListener
     {
-        public LevelLoop(IFieldFlow flow, LevelLoopLogger logger)
+        public LevelLoop(
+            IFieldFlow flow,
+            IField field,
+            LevelLoopLogger logger)
         {
             _flow = flow;
             _logger = logger;
         }
 
         private readonly IFieldFlow _flow;
+        private readonly IFieldFactory _fieldFactory;
+        private readonly IAssembleChecker _assembleChecker;
         private readonly LevelLoopLogger _logger;
 
         private CancellationTokenSource _cancellation;
