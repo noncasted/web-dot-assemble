@@ -12,7 +12,7 @@ namespace GamePlay.Level.Dots.Runtime.View
 
         private RectTransform _transform;
         private Vector3 _baseScale;
-        
+
         public RectTransform Transform => _transform;
 
         private void Awake()
