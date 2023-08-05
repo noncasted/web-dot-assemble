@@ -8,7 +8,9 @@ namespace GamePlay.Level.Dots.Definitions
     public class DotDefinition : ScriptableObject, IDotDefinition
     {
         [SerializeField] private GameObject _prefab;
+        [SerializeField] private Color _color;
 
+        public Color Color => _color;
         public GameObject Prefab => _prefab;
     }
 }

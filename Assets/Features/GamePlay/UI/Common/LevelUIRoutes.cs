@@ -1,6 +1,6 @@
 ﻿using GamePlay.Level.Common;
 
-namespace Features.GamePlay.UI.Common
+namespace GamePlay.UI.Common
 {
     public class LevelUIRoutes
     {

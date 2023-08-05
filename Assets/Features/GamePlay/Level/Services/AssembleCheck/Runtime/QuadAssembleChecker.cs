@@ -19,7 +19,7 @@ namespace GamePlay.Level.Services.AssembleCheck.Runtime
         private readonly IField _field;
         private readonly IDotDestroyer _dotDestroyer;
 
-        public async UniTask CheckAssemble()
+        public async UniTask<CheckResult> CheckAssemble()
         {
             var cellsToDestroy = new Dictionary<Vector2Int, ICell>();
 
@@ -43,6 +43,8 @@ namespace GamePlay.Level.Services.AssembleCheck.Runtime
                 tasks.Add(_dotDestroyer.Destroy(cell.Dot));
 
             await UniTask.WhenAll(tasks);
+
+            return new CheckResult(cellsToDestroy.Count);
         }
 
         private QuadSearchResult Search(Vector2Int startPosition)

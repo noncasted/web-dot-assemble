@@ -4,6 +4,6 @@ namespace GamePlay.Level.Services.AssembleCheck.Runtime
 {
     public interface IAssembleChecker
     {
-        UniTask CheckAssemble();
+        UniTask<CheckResult> CheckAssemble();
     }
 }

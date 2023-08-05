@@ -1,6 +1,6 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using Common.UI.DoTweenExtensions;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using Features.Common.UI.DotweenExtensions;
 using UnityEngine;
 
 namespace GamePlay.Level.Dots.Runtime.View
@@ -33,7 +33,7 @@ namespace GamePlay.Level.Dots.Runtime.View
 
         public async UniTask Destroy()
         {
-            await DOTweenExtensions.TweensToTask(
+            await DoTweenExtensions.TweensToTask(
                 transform.DOScale(Vector2.zero, _scaleTime * 3).SetEase(Ease.InBounce));
         }
     }

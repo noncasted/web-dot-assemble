@@ -8,6 +8,7 @@ using GamePlay.Level.Fields.Runtime;
 using GamePlay.Level.Services.AssembleCheck.Factory;
 using GamePlay.Level.Services.AssembleCheck.Runtime;
 using GamePlay.Level.Services.DotMovers.Runtime;
+using GamePlay.Level.Services.Score.Runtime;
 using GamePlay.Loop.Modes;
 
 namespace GamePlay.Level.Services.FieldFlow.Runtime
@@ -19,13 +20,15 @@ namespace GamePlay.Level.Services.FieldFlow.Runtime
             IFieldLifetime lifetime,
             IFieldSeeder seeder,
             IAssembleCheckFactory assembleCheckFactory,
-            IField field)
+            IField field,
+            IScore score)
         {
             _dotMover = dotMover;
             _lifetime = lifetime;
             _seeder = seeder;
             _assembleChecker = assembleCheckFactory.Create(GameMode.Quads);
             _field = field;
+            _score = score;
             _cancellationCallback = Stop;
         }
 
@@ -35,6 +38,7 @@ namespace GamePlay.Level.Services.FieldFlow.Runtime
         private readonly IFieldSeeder _seeder;
         private readonly IAssembleChecker _assembleChecker;
         private readonly IField _field;
+        private readonly IScore _score;
 
         private readonly Action _cancellationCallback;
 
@@ -53,7 +57,8 @@ namespace GamePlay.Level.Services.FieldFlow.Runtime
                 _lifetime.OnStep();
                 _seeder.SeedInGame();
 
-                _assembleChecker.CheckAssemble();
+                var result = await _assembleChecker.CheckAssemble();
+                _score.AddPlayerScore(result.DestroyedAmount);
             }
         }
 

@@ -6,6 +6,7 @@ using GamePlay.Level.Scene.Runtime;
 using GamePlay.Level.Services.AssembleCheck.Setup;
 using GamePlay.Level.Services.DotMovers.Runtime;
 using GamePlay.Level.Services.FieldFlow.Runtime;
+using GamePlay.Level.Services.Score.Runtime;
 using GamePlay.Loop.Runtime;
 using GamePlay.Services.Common.Scope;
 using GamePlay.Services.LevelCameras.Runtime;
@@ -30,7 +31,9 @@ namespace GamePlay.Config.Runtime
         private DotMoverFactory _dotMover;
         [FoldoutGroup("Level")] [SerializeField]
         private AssembleCheckSetup _assembleCheck;
-
+        [FoldoutGroup("Level")] [SerializeField]
+        private ScoreFactory _score;
+        
         [FoldoutGroup("System")] [SerializeField]
         private LevelLoopFactory _levelLoop;
         [FoldoutGroup("System")] [SerializeField]
@@ -50,7 +53,8 @@ namespace GamePlay.Config.Runtime
                 _dotFactory,
                 _fieldFlow,
                 _dotMover,
-                _assembleCheck
+                _assembleCheck,
+                _score
             };
 
             return services;

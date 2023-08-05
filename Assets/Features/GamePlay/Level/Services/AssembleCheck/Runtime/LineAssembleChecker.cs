@@ -13,9 +13,9 @@ namespace GamePlay.Level.Services.AssembleCheck.Runtime
 
         private readonly IField _field;
 
-        public async UniTask CheckAssemble()
+        public async UniTask<CheckResult> CheckAssemble()
         {
-
+            return new CheckResult();
         }
     }
 }
