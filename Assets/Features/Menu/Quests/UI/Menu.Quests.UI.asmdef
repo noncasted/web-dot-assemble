@@ -1,0 +1,4 @@
+﻿{
+  "name": "Menu.Quests.UI",
+  "references":[ "GUID:962b77055c80be94b9bffa733df80f5a", "GUID:67f67dcce9d9e8a43a8e45bc1fe5534c", "GUID:e07e6ccd9241474dbca4e70862df2bc2" ]
+}

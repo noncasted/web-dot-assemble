@@ -1,0 +1,8 @@
+﻿{
+  "name": "Menu.Leaderboards.Global",
+  "references": [
+    "GUID:c577ff32ec339fa468a6f2a547e2422a",
+    "GUID:401398c75a71e5444a495125c9dd1a21",
+    "GUID:e07e6ccd9241474dbca4e70862df2bc2"
+  ]
+}

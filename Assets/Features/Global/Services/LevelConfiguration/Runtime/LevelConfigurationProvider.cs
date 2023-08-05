@@ -1,6 +1,6 @@
-﻿using Features.Global.Services.LevelConfiguration.Definition;
+﻿using Global.Services.LevelConfiguration.Definition;
 
-namespace Features.Global.Services.LevelConfiguration.Runtime
+namespace Global.Services.LevelConfiguration.Runtime
 {
     public class LevelConfigurationProvider : ILevelConfigurationProvider
     {

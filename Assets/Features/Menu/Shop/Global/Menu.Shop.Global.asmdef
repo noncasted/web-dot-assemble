@@ -1,0 +1,4 @@
+﻿{
+  "name": "Menu.Shop.Global",
+  "references":[ "GUID:ea7220695b9773a4193455e8b02c0721", "GUID:401398c75a71e5444a495125c9dd1a21", "GUID:e07e6ccd9241474dbca4e70862df2bc2" ]
+}

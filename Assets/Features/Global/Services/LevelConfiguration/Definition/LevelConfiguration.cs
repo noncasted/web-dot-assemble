@@ -1,9 +1,8 @@
-﻿using Features.Global.Services.LevelConfiguration.Avatars;
-using Global.Services.LevelConfiguration.Common;
+﻿using Global.Services.LevelConfiguration.Common;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Features.Global.Services.LevelConfiguration.Definition
+namespace Global.Services.LevelConfiguration.Definition
 {
     [InlineEditor]
     [CreateAssetMenu(fileName = LevelConfigurationRoutes.ConfigName,

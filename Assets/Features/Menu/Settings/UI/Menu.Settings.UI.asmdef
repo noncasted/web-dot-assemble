@@ -1,0 +1,4 @@
+﻿{
+  "name": "Menu.Settings.UI",
+  "references":[ "GUID:72d0f444232051147afffa162c8b4a82", "GUID:67f67dcce9d9e8a43a8e45bc1fe5534c", "GUID:e07e6ccd9241474dbca4e70862df2bc2" ]
+}

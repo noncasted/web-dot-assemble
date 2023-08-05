@@ -62,7 +62,7 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
 
             var path = moveProcessor.Path;
 
-            if (path.Cells == null || path.Cells.Count == 0)
+            if (path.Cells == null || path.Cells.Count == 1)
                 return;
 
             var startCell = field.FindParentCell(dot);
@@ -125,9 +125,6 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
             float time,
             CancellationToken cancellation)
         {
-            var currentTime = 0f;
-            var progress = 0f;
-
             var fromPosition = from.Transform.anchoredPosition;
             var toPosition = to.Transform.anchoredPosition;
             var direction = (toPosition - fromPosition).normalized;

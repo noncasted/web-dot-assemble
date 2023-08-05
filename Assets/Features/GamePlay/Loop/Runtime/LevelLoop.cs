@@ -2,13 +2,13 @@
 using Common.Architecture.Local.Services.Abstract.Callbacks;
 using Common.Architecture.Local.Services.Abstract.EventLoops;
 using Cysharp.Threading.Tasks;
-using Features.Global.Services.LevelConfiguration.Runtime;
 using GamePlay.Level.Fields.Factory;
 using GamePlay.Level.Services.AssembleCheck.Runtime;
 using GamePlay.Level.Services.FieldFlow.Runtime;
 using GamePlay.Level.Services.Score.Runtime;
 using GamePlay.Loop.Logs;
 using GamePlay.UI.Runtime.Score;
+using Global.Services.LevelConfiguration.Runtime;
 
 namespace GamePlay.Loop.Runtime
 {

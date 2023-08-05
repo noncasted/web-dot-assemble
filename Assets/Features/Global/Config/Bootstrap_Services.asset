@@ -36,3 +36,9 @@ MonoBehaviour:
   _overlay: {fileID: 11400000, guid: f85acf7899cb5fe4cb6c6dc03789bca0, type: 2}
   _uiStateMachine: {fileID: 11400000, guid: 2690e14f4af6ab843bac352463df3ee6, type: 2}
   _eventSystem: {fileID: 11400000, guid: 491d8430bcb9a374bad4c693194a48d6, type: 2}
+  _achievements: {fileID: 11400000, guid: f8d7c8da0fd3c3b4fbfa2e27ce7279b4, type: 2}
+  _collections: {fileID: 11400000, guid: 4e87a452f716bbe44b6b27903666227e, type: 2}
+  _leaderboards: {fileID: 11400000, guid: a85229b769ff76241b39315a1fa8d702, type: 2}
+  _questsService: {fileID: 11400000, guid: 9c103526f746d534c92000af94c80399, type: 2}
+  _settings: {fileID: 11400000, guid: f619e9043e5db8e4485bd99397fc6c79, type: 2}
+  _shop: {fileID: 11400000, guid: 506be411ce3bdb6459588eeb27d18303, type: 2}
