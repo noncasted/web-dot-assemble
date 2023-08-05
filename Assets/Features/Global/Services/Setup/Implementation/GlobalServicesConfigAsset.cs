@@ -1,4 +1,5 @@
 ﻿using Common.UniversalAnimators.Updaters.Runtime;
+using Features.Global.Services.LevelConfiguration.Runtime;
 using Global.Services.Audio.Listener.Runtime;
 using Global.Services.Audio.Player.Runtime;
 using Global.Services.Cameras.CameraUtilities.Runtime;
@@ -32,8 +33,11 @@ namespace Global.Services.Setup.Implementation
     [CreateAssetMenu(fileName = "GlobalConfig", menuName = "Global/Config")]
     public class GlobalServicesConfigAsset : GlobalServicesConfig
     {
+        [FoldoutGroup("Level")] [SerializeField]
+        private LevelConfigurationFactory _levelConfiguration;
+        
         [FoldoutGroup("Audio")] [SerializeField]
-        private SoundsPlayerAsset _soundsPlayer;
+        private SoundsPlayerFactory _soundsPlayer;
         [FoldoutGroup("Audio")] [SerializeField]
         private AudioListenerSwitcherFactory _audioSwitcher;
 
@@ -85,6 +89,7 @@ namespace Global.Services.Setup.Implementation
         {
             return new IGlobalServiceFactory[]
             {
+                _levelConfiguration,
                 _applicationProxy,
                 _cameraUtils,
                 _currentCamera,

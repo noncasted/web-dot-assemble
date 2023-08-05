@@ -1,4 +1,5 @@
 ﻿using Global.Services.System.MessageBrokers.Runtime;
+using UnityEngine;
 
 namespace GamePlay.Level.Services.Score.Runtime
 {
@@ -10,6 +11,7 @@ namespace GamePlay.Level.Services.Score.Runtime
         public void SetEnemyScore(int score)
         {
             _enemy = score;
+            Msg.Publish(new ScoreUpdatedEvent(_player, _enemy));
         }
 
         public void AddPlayerScore(int add)

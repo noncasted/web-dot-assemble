@@ -41,6 +41,7 @@ namespace GamePlay.Level.Services.AssembleCheck.Runtime
 
             foreach (var (_, cell) in cellsToDestroy)
                 tasks.Add(_dotDestroyer.Destroy(cell.Dot));
+            
 
             await UniTask.WhenAll(tasks);
 

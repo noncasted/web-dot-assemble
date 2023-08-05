@@ -12,8 +12,11 @@ namespace GamePlay.UI.Runtime.Score
 
         public async UniTask UpdateScore(int player, int enemy, CancellationToken cancellationToken)
         {
-            await _playerView.SetScore(player, player / (float)enemy, cancellationToken);
-            _enemyView.SetScorePermanent(enemy);
+            var targetProgress = player / (float)enemy;
+            var playerTask = _playerView.SetScore(player, targetProgress, cancellationToken);
+            var enemyTask = _enemyView.SetScore(enemy, 1f - targetProgress, cancellationToken);
+
+            await UniTask.WhenAll(playerTask, enemyTask);
         }
 
         public void UpdateAvatars(Sprite player, Sprite enemy)

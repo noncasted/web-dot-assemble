@@ -64,7 +64,6 @@ namespace GamePlay.Level.Services.DotMovers.Pathfinding
             }
 
             path.Reverse();
-            path.RemoveAt(0);
 
             return new Path(path, isValid);
         }

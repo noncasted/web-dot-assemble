@@ -1,3 +1,4 @@
 ﻿{
-  "name": "Global.LevelConfiguration.Definition"
+  "name": "Global.LevelConfiguration.Definition",
+  "references":[ "GUID:6743c9921dfb8df479181bbacfdda75d", "GUID:71926d8f7a1bc5444bc17cb1d74770a3" ]
 }

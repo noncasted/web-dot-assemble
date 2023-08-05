@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: LevelService_FieldFlow
   m_EditorClassIdentifier: 
   _storage: {fileID: 11400000, guid: 4e3670c7d0ddd5d4a856f9923665594c, type: 2}
-  _dotLifeCycleAmount: 3
+  _dotLifeCycleAmount: 2

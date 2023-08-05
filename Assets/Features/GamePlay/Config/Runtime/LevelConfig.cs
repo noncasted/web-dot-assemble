@@ -11,6 +11,7 @@ using GamePlay.Loop.Runtime;
 using GamePlay.Services.Common.Scope;
 using GamePlay.Services.LevelCameras.Runtime;
 using GamePlay.Services.VfxPools.Runtime;
+using GamePlay.UI.Runtime;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using VContainer.Unity;
@@ -33,6 +34,9 @@ namespace GamePlay.Config.Runtime
         private AssembleCheckSetup _assembleCheck;
         [FoldoutGroup("Level")] [SerializeField]
         private ScoreFactory _score;
+        
+        [FoldoutGroup("UI")] [SerializeField]
+        private LevelUiFactory _ui;
         
         [FoldoutGroup("System")] [SerializeField]
         private LevelLoopFactory _levelLoop;
@@ -65,7 +69,8 @@ namespace GamePlay.Config.Runtime
             var services = new ILocalServiceAsyncFactory[]
             {
                 _vfxPool,
-                _levelScene
+                _levelScene,
+                _ui
             };
 
             return services;

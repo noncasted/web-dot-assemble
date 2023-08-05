@@ -58,7 +58,7 @@ namespace GamePlay.Level.Services.FieldFlow.Runtime
                 _seeder.SeedInGame();
 
                 var result = await _assembleChecker.CheckAssemble();
-                _score.AddPlayerScore(result.DestroyedAmount);
+                _score.AddPlayerScore(result.DestroyedAmount * 2);
             }
         }
 

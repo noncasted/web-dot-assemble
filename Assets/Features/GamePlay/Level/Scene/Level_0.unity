@@ -2860,6 +2860,9 @@ MonoBehaviour:
   _level: {fileID: 11400000, guid: f89b54c23a70a7d4ab3c84d20dff4fa6, type: 2}
   _mock:
     _config: {fileID: 11400000, guid: c3772a04da26b5044bbbcd3c0e6b2857, type: 2}
+  _playerAvatar: {fileID: 11400000, guid: df3a80cf4d869fd46bd8ee3fa37222df, type: 2}
+  _enemyAvatar: {fileID: 11400000, guid: a35398d0107e2b148a71e04ad511ec8d, type: 2}
+  _levelConfiguration: {fileID: 11400000, guid: bcb5c2cf89261c64983a19affedf5e09, type: 2}
 --- !u!4 &1080868724
 Transform:
   m_ObjectHideFlags: 0

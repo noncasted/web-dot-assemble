@@ -14,6 +14,7 @@ namespace GamePlay.UI.Runtime.Score
         [SerializeField] private RectTransform _pillowTransform;
 
         [SerializeField] private float _scaleTime = 1f;
+        [SerializeField] private float _minSize = 200f;
 
         private float _startSize;
 
@@ -36,8 +37,11 @@ namespace GamePlay.UI.Runtime.Score
         {
             _score.text = score.ToString();
             
+            targetProgress = Mathf.Clamp01(targetProgress);
+            
             var startSize = _pillowTransform.sizeDelta.y;
-            var targetSize = _startSize * targetProgress;
+            var targetSize = (_startSize - _minSize) * targetProgress;
+            
             var progress = 0f;
             var time = 0f;
 
@@ -47,7 +51,11 @@ namespace GamePlay.UI.Runtime.Score
                 progress = time / _scaleTime;
                 
                 var size = _pillowTransform.sizeDelta;
-                size.y = Mathf.Lerp(startSize, targetSize, progress);
+                size.y = Mathf.Lerp(startSize, _minSize + targetSize, progress);
+
+                if (size.y < _minSize)
+                    size.y = _minSize;
+                
                 _pillowTransform.sizeDelta = size;
                 
                 await UniTask.Yield(cancellationToken);

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Threading;
 using Common.Architecture.Local.Services.Abstract.Callbacks;
+using Cysharp.Threading.Tasks;
 using GamePlay.Level.Services.Score.Runtime;
 using Global.Services.System.MessageBrokers.Runtime;
+using UnityEngine;
 
 namespace GamePlay.UI.Runtime.Score
 {
@@ -12,19 +14,18 @@ namespace GamePlay.UI.Runtime.Score
         {
             _view = view;
         }
-        
+
         private readonly IScoreView _view;
-        
+
         private CancellationTokenSource _cancellation;
         private IDisposable _listener;
-        
-        public void OnDisabled()
-        {
-            _listener = Msg.Listen<ScoreUpdatedEvent>(OnScoreUpdated);
-            _cancellation = new CancellationTokenSource();
-        }
 
         public void OnEnabled()
+        {
+            _listener = Msg.Listen<ScoreUpdatedEvent>(OnScoreUpdated);
+        }
+
+        public void OnDisabled()
         {
             _listener?.Dispose();
             _cancellation?.Cancel();
@@ -33,7 +34,12 @@ namespace GamePlay.UI.Runtime.Score
 
         private void OnScoreUpdated(ScoreUpdatedEvent payload)
         {
-            _view.UpdateScore(payload.PlayerScore, payload.EnemyScore, _cancellation.Token);
+            _cancellation?.Cancel();
+            _cancellation?.Dispose();
+
+            _cancellation = new CancellationTokenSource();
+
+            _view.UpdateScore(payload.PlayerScore, payload.EnemyScore, _cancellation.Token).Forget();
         }
 
         public void SetAvatars(ParticipantsAvatars avatars)

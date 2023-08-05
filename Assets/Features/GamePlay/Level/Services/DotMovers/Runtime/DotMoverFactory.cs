@@ -11,9 +11,12 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
         menuName = DotMoverRoutes.ServicePath)]
     public class DotMoverFactory : ScriptableObject, ILocalServiceFactory
     {
+        [SerializeField] private DotMoverConfig _config;
+        
         public void Create(IDependencyRegister builder, ILocalServiceBinder serviceBinder, IEventLoopsRegistry loopsRegistry)
         {
             builder.Register<DotMover>()
+                .WithParameter<IDotMoverConfig>(_config)
                 .As<IDotMover>();
         }
     }

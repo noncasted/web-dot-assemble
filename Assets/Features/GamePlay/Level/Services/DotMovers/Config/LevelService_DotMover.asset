@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3166329ced224bd8ad1bdf8ac3babb62, type: 3}
   m_Name: LevelService_DotMover
   m_EditorClassIdentifier: 
+  _config: {fileID: 11400000, guid: ac9206d541f409d448d65958e4b2969f, type: 2}

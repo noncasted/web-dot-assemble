@@ -21,6 +21,7 @@ MonoBehaviour:
   _dotMover: {fileID: 11400000, guid: 565ca6d6e1265a84fb6322fcf02b3813, type: 2}
   _assembleCheck: {fileID: 11400000, guid: f6dc9768513e7d94e9d811d54b0a2fb9, type: 2}
   _score: {fileID: 11400000, guid: 8f1952b527a0b1445b27b989b30c3644, type: 2}
+  _ui: {fileID: 11400000, guid: e2dba7c6c41e62643b1487868972b5d6, type: 2}
   _levelLoop: {fileID: 11400000, guid: d062479df73f1744e9fcf2226501a5b7, type: 2}
   _vfxPool: {fileID: 11400000, guid: cea96a53738615f49857ce3c96a9ffd1, type: 2}
   _levelCamera: {fileID: 11400000, guid: 910ee659212786c41abfaf809b0f616b, type: 2}

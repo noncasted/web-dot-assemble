@@ -69,8 +69,10 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
 
             var path = _pathfinder.Search(_start, nearest);
 
-            foreach (var cell in path.Cells)
+            for (var i = 1; i < path.Cells.Count; i++)
             {
+                var cell = path.Cells[i];
+                
                 if (path.IsValid == true)
                     cell.MarkAsValid();
                 else
