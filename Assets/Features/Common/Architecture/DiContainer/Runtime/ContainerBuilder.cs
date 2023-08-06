@@ -40,7 +40,7 @@ namespace Common.Architecture.DiContainer.Runtime
         {
             var type = typeof(T);
             var builder = new RegistrationBuilder(type, Lifetime.Singleton);
-            var registration = new Registration(builder, type);
+            var registration = new Registration(builder, type, this);
             
             _registrations.Add(registration);
 
@@ -50,7 +50,7 @@ namespace Common.Architecture.DiContainer.Runtime
         public IRegistration RegisterInstance<T>(T instance)
         {
             var builder = new InstanceRegistrationBuilder(instance).As(typeof(T));
-            var registration = new Registration(builder, typeof(T));
+            var registration = new Registration(builder, typeof(T), this);
             _registrations.Add(registration);
 
             return registration;
@@ -59,7 +59,7 @@ namespace Common.Architecture.DiContainer.Runtime
         public IRegistration RegisterComponent<T>(T component) where T : MonoBehaviour
         {
             var builder = new ComponentRegistrationBuilder(component);
-            var registration = new Registration(builder, typeof(T));
+            var registration = new Registration(builder, typeof(T), this);
 
             _registrations.Add(registration);
 

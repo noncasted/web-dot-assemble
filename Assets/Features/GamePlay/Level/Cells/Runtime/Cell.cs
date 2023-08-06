@@ -13,56 +13,49 @@ namespace GamePlay.Level.Cells.Runtime
         [SerializeField] private Color _invalidColor;
         [SerializeField] private MPImage _image;
 
-        private IDot _dot;
-        private RectTransform _transform;
-        private float _distanceToTarget;
         private Color _baseColor;
 
         [SerializeField] private Vector2Int _position;
 
-        private IReadOnlyList<ICell> _neighbours;
+        public RectTransform Transform { get; private set; }
 
-        public RectTransform Transform => _transform;
         public Vector2Int Position => _position;
 
-        public IReadOnlyList<ICell> Neighbours => _neighbours;
+        public IReadOnlyList<ICell> Neighbours { get; private set; }
 
-        public IDot Dot => _dot;
+        public IDot Dot { get; private set; }
 
-        public float DistanceToTarget
-        {
-            get => _distanceToTarget;
-        }
+        public float DistanceToTarget { get; private set; }
 
         public ICell PreviousNode { get; set; }
 
         private void Awake()
         {
-            _transform = GetComponent<RectTransform>();
+            Transform = GetComponent<RectTransform>();
             _baseColor = _image.color;
         }
 
         public void Construct(Vector2Int position, IReadOnlyList<ICell> neighbours)
         {
             _position = position;
-            _neighbours = neighbours;
+            Neighbours = neighbours;
         }
 
         public void ClearDot()
         {
-            _dot = null;
+            Dot = null;
         }
 
         public void SetDot(IDot dot)
         {
-            _dot = dot;
-            _dot.View.Transform.parent = _dotParent;
-            _dot.View.Transform.localPosition = Vector3.zero;
+            Dot = dot;
+            Dot.View.Transform.parent = _dotParent;
+            Dot.View.Transform.localPosition = Vector3.zero;
         }
 
         public void SetDistanceCost(float distance)
         {
-            _distanceToTarget = distance;
+            DistanceToTarget = distance;
         }
 
         public void MarkAsValid()
@@ -79,7 +72,7 @@ namespace GamePlay.Level.Cells.Runtime
         {
             _image.color = _baseColor;
             PreviousNode = null;
-            _distanceToTarget = float.MaxValue;
+            DistanceToTarget = float.MaxValue;
         }
     }
 }

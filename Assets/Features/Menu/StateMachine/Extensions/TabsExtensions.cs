@@ -6,11 +6,11 @@ namespace Menu.StateMachine.Extensions
 {
     public static class TabsExtensions
     {
-        public static IRegistration AsTab<T>(this IRegistration registration, IDependencyRegister builder, ITabDefinition tabDefinition) where T : ITab
+        public static IRegistration AsTab<T>(this IRegistration registration, ITabDefinition tabDefinition) where T : ITab
         {
             registration.AsSelf();
             
-            builder.Register<TabRegistrationHandler<T>>()
+            registration.Builder.Register<TabRegistrationHandler<T>>()
                 .WithParameter(tabDefinition)
                 .AsSelfResolvable();
             
@@ -18,7 +18,7 @@ namespace Menu.StateMachine.Extensions
         }
 
         public class TabRegistrationHandler<T> where T : ITab
-        {
+        { 
             public TabRegistrationHandler(T tab, ITabsRegistry tabsRegistry, ITabDefinition tabDefinition)
             {
                 tabsRegistry.Register(tabDefinition, tab);

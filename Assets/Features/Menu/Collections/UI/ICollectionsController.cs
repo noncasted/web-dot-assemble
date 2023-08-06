@@ -1,6 +1,6 @@
 ﻿namespace Menu.Collections.UI
 {
-    public interface IAvatarCollectionsController
+    public interface ICollectionsController
     {
         
     }

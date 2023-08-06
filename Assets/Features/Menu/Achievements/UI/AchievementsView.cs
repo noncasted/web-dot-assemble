@@ -1,17 +1,19 @@
-﻿using UnityEngine;
+﻿using Features.Menu.Common.Navigation;
+using UnityEngine;
 
 namespace Menu.Achievements.UI
 {
     [DisallowMultipleComponent]
     public class AchievementsView : MonoBehaviour, IAchievementsView
     {
-        private RectTransform _transform;
+        [SerializeField] private TabNavigation _tabNavigation;
 
-        public RectTransform Transform => _transform;
+        public ITabNavigation Navigation => _tabNavigation;
+        public RectTransform Transform { get; private set; }
 
         private void Awake()
         {
-            _transform = GetComponent<RectTransform>();
+            Transform = GetComponent<RectTransform>();
         }
     }
 }

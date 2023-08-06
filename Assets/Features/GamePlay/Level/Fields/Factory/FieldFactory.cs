@@ -85,7 +85,7 @@ namespace GamePlay.Level.Fields.Factory
                     maxY = y;
             }
 
-            return new GridData()
+            return new GridData
             {
                 MinX = minX,
                 MinY = minY,

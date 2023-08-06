@@ -22,7 +22,7 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
             _pathfinder = new Pathfinder();
             _completion = new UniTaskCompletionSource<Path>();
 
-            _path = Search();
+            Path = Search();
         }
 
         private readonly IField _field;
@@ -33,9 +33,7 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
         private readonly Pathfinder _pathfinder;
         private readonly UniTaskCompletionSource<Path> _completion;
 
-        private Path _path;
-
-        public Path Path => _path;
+        public Path Path { get; private set; }
 
         public void Start()
         {
@@ -49,7 +47,7 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
 
         public void OnUpdate(float delta)
         {
-            _path = Search();
+            Path = Search();
         }
 
         private Path Search()

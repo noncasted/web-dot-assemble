@@ -129,7 +129,7 @@ namespace Common.Tools.Editor
                 return;
 
             GUILayout.FlexibleSpace();
-            SirenixEditorGUI.HorizontalLineSeparator(1);
+            SirenixEditorGUI.HorizontalLineSeparator();
 
             if (GUILayout.Button("Create Asset", GUILayoutOptions.Height(30)))
                 CreateAsset();

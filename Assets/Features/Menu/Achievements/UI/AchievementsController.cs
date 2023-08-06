@@ -1,5 +1,4 @@
-﻿using Common.Architecture.Local.Services.Abstract.Callbacks;
-using Menu.StateMachine.Definitions;
+﻿using Menu.StateMachine.Definitions;
 using UnityEngine;
 
 namespace Menu.Achievements.UI
@@ -17,12 +16,12 @@ namespace Menu.Achievements.UI
         
         public void Activate()
         {
-            
+            _view.Navigation.Enable();
         }
 
         public void Deactivate()
         {
-            
+            _view.Navigation.Disable();
         }
     }
 }

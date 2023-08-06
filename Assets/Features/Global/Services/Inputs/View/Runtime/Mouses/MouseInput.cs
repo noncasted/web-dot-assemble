@@ -33,14 +33,12 @@ namespace Global.Services.Inputs.View.Runtime.Mouses
         private readonly Controls.GamePlayActions _gamePlay;
         private readonly InputViewLogger _logger;
 
-        private Vector2 _position;
-
         public event Action LeftDown;
         public event Action LeftUp;
         public event Action RightDown;
         public event Action RightUp;
 
-        public Vector2 Position => _position;
+        public Vector2 Position { get; private set; }
 
         public async UniTask WaitLeftDownAsync(CancellationToken cancellation)
         {
@@ -144,14 +142,14 @@ namespace Global.Services.Inputs.View.Runtime.Mouses
                 if (touches.Length < 1)
                     return;
 
-                _position = touches[0].rawPosition;
+                Position = touches[0].rawPosition;
                 LeftDown?.Invoke();
 
                 _logger.OnLeftMouseButtonDown();
             }
             else
             {
-                _position = Mouse.current.position.ReadValue();
+                Position = Mouse.current.position.ReadValue();
             }
         }
     }

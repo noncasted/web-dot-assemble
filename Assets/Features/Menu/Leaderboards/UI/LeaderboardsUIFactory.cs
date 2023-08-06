@@ -22,7 +22,7 @@ namespace Menu.Leaderboards.UI
         {
             builder.Register<LeaderboardsController>()
                 .As<ILeaderboardsController>()
-                .AsTab<LeaderboardsController>(builder, _tabDefinition);
+                .AsTab<LeaderboardsController>(_tabDefinition);
         }
     }
 }

@@ -5,13 +5,11 @@ namespace Menu.Shop.UI
     [DisallowMultipleComponent]
     public class ShopView : MonoBehaviour, IShopView
     {
-        private RectTransform _transform;
-
-        public RectTransform Transform => _transform;
+        public RectTransform Transform { get; private set; }
 
         private void Awake()
         {
-            _transform = GetComponent<RectTransform>();
+            Transform = GetComponent<RectTransform>();
         }
     }
 }

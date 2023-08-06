@@ -20,9 +20,9 @@ namespace Menu.Collections.UI
             ILocalServiceBinder serviceBinder,
             IEventLoopsRegistry loopsRegistry)
         {
-            builder.Register<AvatarCollectionsController>()
-                .As<IAvatarCollectionsController>()
-                .AsTab<AvatarCollectionsController>(builder, _tabDefinition);
+            builder.Register<CollectionsController>()
+                .As<ICollectionsController>()
+                .AsTab<CollectionsController>(_tabDefinition);
         }
     }
 }

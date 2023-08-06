@@ -22,7 +22,7 @@ namespace Menu.Settings.UI
         {
             builder.Register<SettingsController>()
                 .As<ISettingsController>()
-                .AsTab<SettingsController>(builder, _tabDefinition);
+                .AsTab<SettingsController>(_tabDefinition);
         }
     }
 }

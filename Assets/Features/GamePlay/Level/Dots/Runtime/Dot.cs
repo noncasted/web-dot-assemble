@@ -14,13 +14,12 @@ namespace GamePlay.Level.Dots.Runtime
         public Dot(IDotView view, IDotLifeFlow lifeFlow, IDotPointerObserver pointerObserver, IDotDefinition definition)
         {
             _view = view;
-            _lifeFlow = lifeFlow;
+            LifeFlow = lifeFlow;
             _pointerObserver = pointerObserver;
             _definition = definition;
         }
 
         private readonly IDotView _view;
-        private readonly IDotLifeFlow _lifeFlow;
         private readonly IDotPointerObserver _pointerObserver;
         private readonly IDotDefinition _definition;
 
@@ -28,16 +27,16 @@ namespace GamePlay.Level.Dots.Runtime
 
         public IDotDefinition Definition => _definition;
         public IDotView View => _view;
-        public IDotLifeFlow LifeFlow => _lifeFlow;
+        public IDotLifeFlow LifeFlow { get; }
 
         public void InitAsStartup()
         {
-            _lifeFlow.GrowFull();
+            LifeFlow.GrowFull();
         }
 
         public void InitAsInGame()
         {
-            _lifeFlow.GrowMinimal();
+            LifeFlow.GrowMinimal();
         }
 
         public void Enable()
@@ -56,12 +55,12 @@ namespace GamePlay.Level.Dots.Runtime
 
         private void OnFieldStep(FieldStepEvent payload)
         {
-            _lifeFlow.OnStep();
+            LifeFlow.OnStep();
         }
 
         public async UniTask Destroy()
         {
-            await _lifeFlow.OnDeath();
+            await LifeFlow.OnDeath();
         }
 
         private void OnDropped()
@@ -71,7 +70,7 @@ namespace GamePlay.Level.Dots.Runtime
 
         private void OnDragged()
         {
-            if (_lifeFlow.IsActive == false)
+            if (LifeFlow.IsActive == false)
                 return;
 
             Msg.Publish(new DotDraggedEvent(this));

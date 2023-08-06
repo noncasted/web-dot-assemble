@@ -28,7 +28,7 @@ namespace Menu.UiRoot.Runtime
             var linker = sceneData.Searched;
 
             builder.RegisterInstance(linker.Achievements);
-            builder.RegisterInstance(linker.AvatarCollections);
+            builder.RegisterInstance(linker.Collections);
             builder.RegisterInstance(linker.Leaderboards);
             builder.RegisterInstance(linker.Main);
             builder.RegisterInstance(linker.Quests);

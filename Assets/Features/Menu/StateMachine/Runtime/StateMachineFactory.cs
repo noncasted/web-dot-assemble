@@ -12,16 +12,23 @@ namespace Menu.StateMachine.Runtime
         menuName = StateMachineRoutes.ServicePath)]
     public class StateMachineFactory : ScriptableObject, ILocalServiceFactory
     {
+        [SerializeField] private TabsTabTransitionConfig _config;
+        
         public void Create(
             IDependencyRegister builder, 
             ILocalServiceBinder serviceBinder,
             IEventLoopsRegistry loopsRegistry)
         {
-            builder.Register<MenuStateMachine>()
-                .As<IMenuStateMachine>();
+            builder.Register<StateMachine>()
+                .As<IStateMachine>()
+                .AsCallbackListener();
 
             builder.Register<TabsRegistry>()
                 .As<ITabsRegistry>();
+
+            builder.Register<TabTransitionHandler>()
+                .WithParameter<ITabTransitionsConfig>(_config)
+                .As<ITabTransitionHandler>();
         }
     }
 }

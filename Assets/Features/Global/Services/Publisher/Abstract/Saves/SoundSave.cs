@@ -6,21 +6,19 @@ namespace Global.Services.Publisher.Abstract.Saves
     [Serializable]
     public class SoundSave : IStorageEntry
     {
-        private bool _isMuted = false;
-
         public string Key => SavesPaths.Sounds;
         public event Action Changed;
 
-        public bool IsMuted => _isMuted;
+        public bool IsMuted { get; private set; }
 
         public void CreateDefault()
         {
-            _isMuted = false;
+            IsMuted = false;
         }
 
         public void SwitchMute()
         {
-            _isMuted = !_isMuted;
+            IsMuted = !IsMuted;
 
             Changed?.Invoke();
         }

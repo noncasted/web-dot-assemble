@@ -4,8 +4,8 @@ namespace GamePlay.Common.SceneObjects.Runtime
 {
     public abstract class SceneObject : MonoBehaviour
     {
-        private bool _isEnabled = false;
-        private bool _requiresEnable = false;
+        private bool _isEnabled;
+        private bool _requiresEnable;
 
         private void OnEnable()
         {

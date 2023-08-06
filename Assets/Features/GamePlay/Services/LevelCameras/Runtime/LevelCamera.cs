@@ -34,7 +34,6 @@ namespace GamePlay.Services.LevelCameras.Runtime
 
         private const float _offsetZ = -10f;
 
-        private Camera _camera;
         private ICurrentCamera _currentCamera;
 
         private LevelCameraLogger _logger;
@@ -46,7 +45,7 @@ namespace GamePlay.Services.LevelCameras.Runtime
         private ILevelCameraConfig _config;
         private IUpdater _updater;
 
-        public Camera Camera => _camera;
+        public Camera Camera { get; private set; }
 
         public void OnEnabled()
         {
@@ -88,13 +87,13 @@ namespace GamePlay.Services.LevelCameras.Runtime
 
         public void SetSize(float size)
         {
-            _camera.orthographicSize = size;
+            Camera.orthographicSize = size;
         }
 
         public void OnAwake()
         {
-            _camera = GetComponent<Camera>();
-            _currentCamera.SetCamera(_camera);
+            Camera = GetComponent<Camera>();
+            _currentCamera.SetCamera(Camera);
         }
         
         public void OnPostFixedUpdate(float delta)

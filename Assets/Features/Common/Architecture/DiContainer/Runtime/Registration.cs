@@ -6,19 +6,21 @@ namespace Common.Architecture.DiContainer.Runtime
 {
     public class Registration : IRegistration, IRegistrationBuilder
     {
-        public Registration(RegistrationBuilder registration, Type type)
+        public Registration(RegistrationBuilder registration, Type type, IDependencyRegister builder)
         {
             _registration = registration;
-            _type = type;
+            _builder = builder;
+            Type = type;
         }
 
         private readonly RegistrationBuilder _registration;
-        private readonly Type _type;
+        private readonly IDependencyRegister _builder;
 
         private bool _isListeningCallbacks;
         private bool _isSelfResolvable;
 
-        public Type Type => _type;
+        public Type Type { get; }
+        public IDependencyRegister Builder => _builder;
 
         public IRegistration AsCallbackListener()
         {
@@ -74,7 +76,7 @@ namespace Common.Architecture.DiContainer.Runtime
             if (_isSelfResolvable == false)
                 return;
 
-            resolver.Resolve(_type);
+            resolver.Resolve(Type);
         }
 
         public void ResolveWithCallbacks(IObjectResolver resolver, ICallbackRegister callbackRegistry)
@@ -82,7 +84,7 @@ namespace Common.Architecture.DiContainer.Runtime
             if (_isSelfResolvable == false)
                 return;
 
-            var registration = resolver.Resolve(_type);
+            var registration = resolver.Resolve(Type);
 
             if (_isListeningCallbacks == true)
                 callbackRegistry.Listen(registration);

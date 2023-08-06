@@ -14,14 +14,13 @@ namespace Global.Services.Cameras.GlobalCameras.Runtime
             _logger = logger;
         }
 
-        private Camera _camera;
         private GlobalCameraLogger _logger;
 
-        public Camera Camera => _camera;
+        public Camera Camera { get; private set; }
 
         public void OnAwake()
         {
-            _camera = GetComponent<Camera>();
+            Camera = GetComponent<Camera>();
         }
 
         public void Enable()

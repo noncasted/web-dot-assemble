@@ -1,17 +1,19 @@
-﻿using UnityEngine;
+﻿using Features.Menu.Common.Navigation;
+using UnityEngine;
 
 namespace Menu.Main.UI
 {
     [DisallowMultipleComponent]
     public class MainView : MonoBehaviour, IMainView
     {
-        private RectTransform _transform;
+        [SerializeField] private TabNavigation _navigation;
 
-        public RectTransform Transform => _transform;
+        public ITabNavigation Navigation => _navigation;
+        public RectTransform Transform { get; private set; }
 
         private void Awake()
         {
-            _transform = GetComponent<RectTransform>();
+            Transform = GetComponent<RectTransform>();
         }
     }
 }

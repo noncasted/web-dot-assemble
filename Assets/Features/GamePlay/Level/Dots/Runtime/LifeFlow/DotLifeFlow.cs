@@ -15,15 +15,14 @@ namespace GamePlay.Level.Dots.Runtime.LifeFlow
         private readonly IDotLifeFlowConfig _lifeFlowConfig;
 
         private int _cycle;
-        private bool _isActive;
 
-        public bool IsActive => _isActive;
+        public bool IsActive { get; private set; }
 
         public void GrowFull()
         {
             _cycle = _lifeFlowConfig.MaxCycle;
             _view.Grow(_lifeFlowConfig.MaxCycle, _lifeFlowConfig.MaxCycle);
-            _isActive = true;
+            IsActive = true;
         }
 
         public void GrowMinimal()
@@ -36,7 +35,7 @@ namespace GamePlay.Level.Dots.Runtime.LifeFlow
             _cycle++;
 
             if (_cycle == _lifeFlowConfig.MaxCycle)
-                _isActive = true;
+                IsActive = true;
 
             _view.Grow(_cycle, _lifeFlowConfig.MaxCycle);
         }

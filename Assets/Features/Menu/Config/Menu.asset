@@ -24,6 +24,7 @@ MonoBehaviour:
   _shop: {fileID: 11400000, guid: 2fa8d89c27558394c90f64004f51ea6f, type: 2}
   _uiRoot: {fileID: 11400000, guid: 4b39bbf4c8fc22a4cab2aa05717f4be7, type: 2}
   _stateMachine: {fileID: 11400000, guid: 01f99b4157fa56b459476968d9b2e243, type: 2}
+  _loop: {fileID: 11400000, guid: 20362fed774451b45b81ffdb6bbee266, type: 2}
   _scopePrefab: {fileID: 5821963483655333938, guid: a272c3595f6a54142af6fb3b37691900, type: 3}
   references:
     version: 2

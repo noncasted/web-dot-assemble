@@ -21,7 +21,7 @@ namespace Menu.Shop.UI
         {
             builder.Register<ShopController>()
                 .As<IShopController>()
-                .AsTab<ShopController>(builder, _tabDefinition);
+                .AsTab<ShopController>(_tabDefinition);
         }
     }
 }

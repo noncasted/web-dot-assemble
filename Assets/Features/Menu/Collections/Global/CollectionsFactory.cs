@@ -16,8 +16,8 @@ namespace Menu.Collections.Global
             IGlobalServiceBinder serviceBinder,
             IGlobalCallbacks callbacks)
         {
-            builder.Register<AvatarCollections>()
-                .As<IAvatarCollections>();
+            builder.Register<Collections>()
+                .As<ICollections>();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Menu.Collections.Global
 {
-    public interface IAvatarCollections
+    public interface ICollections
     {
         
     }

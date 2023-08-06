@@ -12,7 +12,6 @@ namespace Common.UI.UniversalPlates.Runtime.Plate
 
         [SerializeField] private MPImage _plate;
         [SerializeField] private MPImage _outline;
-        [SerializeField] private MPImage _center;
 
         public bool IsUpdatable => false;
 
@@ -35,13 +34,13 @@ namespace Common.UI.UniversalPlates.Runtime.Plate
         {
             if (_config == null
                 || _plate == null
-                || _outline == null
-                || _center == null)
+                || _outline == null)
                 return;
 
-            // _plate.ou = _config.Out;
-            // _outline.Radius = _config.Out;
-            // _center.Radius = _config.In;
+            var plateRectangle = _plate.Rectangle;
+            plateRectangle.CornerRadius = new Vector4(_config.Out, _config.Out, _config.Out, _config.Out);
+            var outlineRectangle = _plate.Rectangle;
+            outlineRectangle.CornerRadius = new Vector4(_config.In, _config.In, _config.In, _config.In);
         }
     }
 }

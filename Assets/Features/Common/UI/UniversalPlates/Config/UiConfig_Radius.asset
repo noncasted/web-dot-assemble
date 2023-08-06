@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbaf64dc9b56488d8514a21e8ecebc90, type: 3}
   m_Name: UiConfig_Radius
   m_EditorClassIdentifier: 
-  _out: 12
+  _out: 10.49
   _in: 9

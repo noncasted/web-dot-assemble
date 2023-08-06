@@ -4,6 +4,7 @@ using Menu.Achievements.UI;
 using Menu.Collections.UI;
 using Menu.Common;
 using Menu.Leaderboards.UI;
+using Menu.Loop.Runtime;
 using Menu.Main.UI;
 using Menu.Quests.UI;
 using Menu.Settings.UI;
@@ -29,6 +30,7 @@ namespace Menu.Config.Runtime
         
         [FoldoutGroup("System")] [SerializeField] private BaseUiRootFactory _uiRoot;
         [FoldoutGroup("System")] [SerializeField] private StateMachineFactory _stateMachine;
+        [FoldoutGroup("System")] [SerializeField] private MenuLoopFactory _loop;
         
         [SerializeField] private MenuScope _scopePrefab;
 
@@ -44,7 +46,8 @@ namespace Menu.Config.Runtime
                 _settings,
                 _shop,
                 
-                _stateMachine
+                _stateMachine,
+                _loop
             };
         }
 

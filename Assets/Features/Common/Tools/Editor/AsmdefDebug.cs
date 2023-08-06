@@ -14,9 +14,9 @@ namespace Common.Tools.Editor
         const string AssemblyCompilationEventsEditorPref = "AssemblyCompilationEvents";
         static readonly int ScriptAssembliesPathLen = "Library/ScriptAssemblies/".Length;
 
-        static Dictionary<string, DateTime> s_StartTimes = new Dictionary<string, DateTime>();
+        static readonly Dictionary<string, DateTime> s_StartTimes = new Dictionary<string, DateTime>();
 
-        static StringBuilder s_BuildEvents = new StringBuilder();
+        static readonly StringBuilder s_BuildEvents = new StringBuilder();
         static double s_CompilationTotalTime;
 
         static AsmdefDebug()

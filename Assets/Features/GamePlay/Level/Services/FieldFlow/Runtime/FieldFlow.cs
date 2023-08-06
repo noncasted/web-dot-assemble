@@ -101,14 +101,13 @@ namespace GamePlay.Level.Services.FieldFlow.Runtime
         private readonly Func<CancellationToken, UniTask<UniTask>> _action;
 
         private CancellationTokenSource _cancellation;
-        private bool _isCompleted;
 
-        public bool IsCompleted => _isCompleted;
+        public bool IsCompleted { get; private set; }
 
         public async UniTask<UniTask> Run()
         {
             var result = await _action(_cancellation.Token);
-            _isCompleted = true;
+            IsCompleted = true;
 
             return result;
         }

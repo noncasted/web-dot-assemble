@@ -15,7 +15,7 @@ namespace Menu.UiRoot.Runtime
     public class MenuUiLinker : MonoBehaviour
     {
         [SerializeField] private AchievementsView _achievements;
-        [SerializeField] private AvatarCollectionsView _avatarCollections;
+        [FormerlySerializedAs("_avatarCollections")] [SerializeField] private CollectionsView _collections;
         [SerializeField] private LeaderboardsView _leaderboards;
         [SerializeField] private MainView _main;
         [SerializeField] private QuestsView _quests;
@@ -24,7 +24,7 @@ namespace Menu.UiRoot.Runtime
         [SerializeField] private TabTransitionsRegistry _tabTransitionPoints;
         
         public IAchievementsView Achievements => _achievements;
-        public IAvatarCollectionsView AvatarCollections => _avatarCollections;
+        public ICollectionsView Collections => _collections;
         public ILeaderboardsView Leaderboards => _leaderboards;
         public IMainView Main => _main;
         public IQuestsView Quests => _quests;

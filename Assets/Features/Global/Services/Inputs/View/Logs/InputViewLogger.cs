@@ -20,7 +20,7 @@ namespace Global.Services.Inputs.View.Logs
             if (_settings.IsAvailable(InputViewLogType.LeftMouseButtonDown) == false)
                 return;
 
-            _logger.Log($"Left mouse button down", _settings.LogParameters);
+            _logger.Log("Left mouse button down", _settings.LogParameters);
         }
 
         public void OnLeftMouseButtonUp()
@@ -28,7 +28,7 @@ namespace Global.Services.Inputs.View.Logs
             if (_settings.IsAvailable(InputViewLogType.LeftMouseButtonUp) == false)
                 return;
 
-            _logger.Log($"Left mouse button up", _settings.LogParameters);
+            _logger.Log("Left mouse button up", _settings.LogParameters);
         }
 
         public void OnRightMouseButtonDown()
@@ -36,7 +36,7 @@ namespace Global.Services.Inputs.View.Logs
             if (_settings.IsAvailable(InputViewLogType.RightMouseButtonDown) == false)
                 return;
 
-            _logger.Log($"Right mouse button down", _settings.LogParameters);
+            _logger.Log("Right mouse button down", _settings.LogParameters);
         }
 
         public void OnRightMouseButtonUp()
@@ -44,7 +44,7 @@ namespace Global.Services.Inputs.View.Logs
             if (_settings.IsAvailable(InputViewLogType.RightMouseButtonUp) == false)
                 return;
 
-            _logger.Log($"Right mouse button up", _settings.LogParameters);
+            _logger.Log("Right mouse button up", _settings.LogParameters);
         }
 
         public void OnMouseMoved(Vector2 position)

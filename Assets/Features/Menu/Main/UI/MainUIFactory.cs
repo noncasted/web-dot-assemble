@@ -22,7 +22,7 @@ namespace Menu.Main.UI
         {
             builder.Register<MainController>()
                 .As<IMainController>()
-                .AsTab<MainController>(builder, _tabDefinition);
+                .AsTab<MainController>(_tabDefinition);
         }
     }
 }

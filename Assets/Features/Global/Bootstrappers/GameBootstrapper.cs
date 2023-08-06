@@ -40,7 +40,7 @@ namespace Global.Bootstrappers
 
         private async UniTaskVoid Bootstrap(Scene servicesScene)
         {
-            Debug.Log($"Starting game bootstrap");
+            Debug.Log("Starting game bootstrap");
 
             var binder = new GlobalServiceBinder(servicesScene);
             var sceneLoader = new GlobalSceneLoader();

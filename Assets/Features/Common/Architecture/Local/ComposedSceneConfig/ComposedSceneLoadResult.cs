@@ -17,7 +17,7 @@ namespace Common.Architecture.Local.ComposedSceneConfig
             Scenes = scenes;
             _disableListeners = disableListeners;
             _loadListeners = loadListeners;
-            _scope = scope;
+            Scope = scope;
         }
         
         public ComposedSceneLoadResult(
@@ -27,16 +27,14 @@ namespace Common.Architecture.Local.ComposedSceneConfig
             Scenes = scenes;
             _disableListeners = copy._disableListeners;
             _loadListeners = copy._loadListeners;
-            _scope = copy._scope;
+            Scope = copy.Scope;
         }
-
-        private readonly LifetimeScope _scope;
 
         private readonly IReadOnlyList<ILocalDisableListener> _disableListeners;
         private readonly IReadOnlyList<ILocalLoadListener> _loadListeners;
 
         public readonly IReadOnlyList<SceneLoadResult> Scenes;
-        public LifetimeScope Scope => _scope;
+        public LifetimeScope Scope { get; }
 
         public void OnLoaded()
         {
@@ -46,7 +44,7 @@ namespace Common.Architecture.Local.ComposedSceneConfig
 
         public void OnUnload()
         {
-            _scope.Dispose();
+            Scope.Dispose();
 
             foreach (var switchCallback in _disableListeners)
                 switchCallback?.OnDisabled();

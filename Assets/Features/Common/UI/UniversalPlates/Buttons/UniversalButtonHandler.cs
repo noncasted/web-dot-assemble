@@ -7,23 +7,21 @@ namespace Common.UI.UniversalPlates.Buttons
     [DisallowMultipleComponent]
     public class UniversalButtonHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
-        private bool _isPressed;
-
         public event Action Pressed;
         public event Action Released;
 
-        public bool IsPressed => _isPressed;    
-        
+        public bool IsPressed { get; private set; }
+
         public void OnPointerDown(PointerEventData eventData)
         {
-            _isPressed = true;
+            IsPressed = true;
             
             Pressed?.Invoke();
         }
         
         public void OnPointerUp(PointerEventData eventData)
         {
-            _isPressed = false;
+            IsPressed = false;
             
             Released?.Invoke();
         }

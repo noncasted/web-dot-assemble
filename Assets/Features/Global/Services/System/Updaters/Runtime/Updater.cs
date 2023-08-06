@@ -29,7 +29,6 @@ namespace Global.Services.System.Updaters.Runtime
 
         private UpdaterLogger _logger;
 
-        private float _speed = 1f;
         private float _setSpeed = 1f;
 
         private void Update()
@@ -37,7 +36,7 @@ namespace Global.Services.System.Updaters.Runtime
             if (_isBootstrapped == false)
                 return;
             
-            var delta = Time.deltaTime * _speed;
+            var delta = Time.deltaTime * Speed;
             
             _preUpdatables.Fetch();
             _updatables.Fetch();
@@ -64,7 +63,7 @@ namespace Global.Services.System.Updaters.Runtime
             if (_isBootstrapped == false)
                 return;
 
-            var delta = Time.fixedDeltaTime * _speed;
+            var delta = Time.fixedDeltaTime * Speed;
 
             _preFixedUpdatables.Fetch();
             _fixedUpdatables.Fetch();
@@ -175,7 +174,7 @@ namespace Global.Services.System.Updaters.Runtime
             _logger.OnPreFixedUpdatableRemoved(_preFixedUpdatables.Count);
         }
 
-        public float Speed => _speed;
+        public float Speed { get; private set; } = 1f;
 
         public void Add(IUpdateSpeedModifiable modifiable)
         {
@@ -199,7 +198,7 @@ namespace Global.Services.System.Updaters.Runtime
                 return;
             }
 
-            _speed = speed;
+            Speed = speed;
 
             foreach (var speedModifiable in _speedModifiables.List)
                 speedModifiable.OnSpeedModified(speed);
@@ -209,7 +208,7 @@ namespace Global.Services.System.Updaters.Runtime
 
         public void Pause()
         {
-            _setSpeed = _speed;
+            _setSpeed = Speed;
 
             Set(0f);
         }
