@@ -4,13 +4,13 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
 {
     public class MoveRectProvider : IMoveRectProvider
     {
-        public MoveRectProvider(RectTransform moveRect)
+        public MoveRectProvider(Transform moveRect)
         {
             _moveRect = moveRect;
         }
 
-        private readonly RectTransform _moveRect;
+        private readonly Transform _moveRect;
 
-        public RectTransform MoveRect => _moveRect;
+        public Transform MoveRect => _moveRect;
     }
 }

@@ -10,7 +10,7 @@ namespace GamePlay.Level.Scene.Runtime
     public class LevelSceneDependenciesRegister : SceneComponentRegister
     {
         [SerializeField] private Transform _cellsRoot;
-        [SerializeField] private RectTransform _moveRect;
+        [SerializeField] private Transform _moveRect;
 
         public override void Register(IDependencyRegister builder)
         {

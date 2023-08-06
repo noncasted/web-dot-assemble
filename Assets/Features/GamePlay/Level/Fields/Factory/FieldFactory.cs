@@ -43,8 +43,8 @@ namespace GamePlay.Level.Fields.Factory
 
             foreach (var cell in cells)
             {
-                var intX = Mathf.RoundToInt(cell.Transform.anchoredPosition.y);
-                var intY = Mathf.RoundToInt(cell.Transform.anchoredPosition.y);
+                var intX = Mathf.RoundToInt(cell.Transform.position.y);
+                var intY = Mathf.RoundToInt(cell.Transform.position.y);
 
                 rowElements.TryAdd(intX, 0);
                 columnElements.TryAdd(intY, 0);
@@ -67,7 +67,7 @@ namespace GamePlay.Level.Fields.Factory
 
             foreach (var cell in cells)
             {
-                var anchoredPosition = cell.Transform.anchoredPosition;
+                var anchoredPosition = cell.Transform.position;
 
                 var x = anchoredPosition.x;
                 var y = anchoredPosition.y;
@@ -100,7 +100,7 @@ namespace GamePlay.Level.Fields.Factory
 
             foreach (var cell in cells)
             {
-                var rowPosition = cell.Transform.anchoredPosition;
+                var rowPosition = cell.Transform.position;
 
                 var x = Mathf.RoundToInt((rowPosition.x - gridData.MinX) / gridData.StepX);
                 var y = Mathf.RoundToInt((rowPosition.y - gridData.MinY) / gridData.StepY);

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed4bc244471b6524e9a77898c065db55, type: 3}
   m_Name: DotMoverConfig
   m_EditorClassIdentifier: 
-  _bounceDistance: 30
+  _bounceDistance: 0.3
   _bounceTime: 0.05
   _stepTime: 0.1
   _curve:

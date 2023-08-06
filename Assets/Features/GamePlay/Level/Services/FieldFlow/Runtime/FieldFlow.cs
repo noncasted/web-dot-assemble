@@ -53,11 +53,16 @@ namespace GamePlay.Level.Services.FieldFlow.Runtime
 
             while (cancellation.IsCancellationRequested == false)
             {
-                await RunActions(cancellation);
+                var isActionSucceed = await RunActions(cancellation);
+                
+                if (isActionSucceed == false)
+                    continue;
+                
                 _lifetime.OnStep();
                 _seeder.SeedInGame();
-
+                
                 var result = await _assembleChecker.CheckAssemble();
+
                 _score.AddPlayerScore(result.DestroyedAmount * 2);
             }
         }
@@ -66,11 +71,11 @@ namespace GamePlay.Level.Services.FieldFlow.Runtime
         {
         }
 
-        private async UniTask RunActions(CancellationToken cancellation)
+        private async UniTask<bool> RunActions(CancellationToken cancellation)
         {
             var actions = new List<FieldAction>();
             actions.Add(new FieldAction(_ => _dotMover.TryMove(_field, cancellation), cancellation));
-            var activeActions = new List<UniTask<UniTask>>();
+            var activeActions = new List<UniTask<UniTask<bool>>>();
 
             foreach (var action in actions)
                 activeActions.Add(action.Run());
@@ -85,26 +90,26 @@ namespace GamePlay.Level.Services.FieldFlow.Runtime
                 action.Cancel();
             }
 
-            await result.result;
+            return await result.result;
         }
     }
 
     public class FieldAction
     {
-        public FieldAction(Func<CancellationToken, UniTask<UniTask>> action, CancellationToken globalCancellation)
+        public FieldAction(Func<CancellationToken, UniTask<UniTask<bool>>> action, CancellationToken globalCancellation)
         {
             _action = action;
             _cancellation = new CancellationTokenSource();
             globalCancellation.Register(Cancel);
         }
 
-        private readonly Func<CancellationToken, UniTask<UniTask>> _action;
+        private readonly Func<CancellationToken, UniTask<UniTask<bool>>> _action;
 
         private CancellationTokenSource _cancellation;
 
         public bool IsCompleted { get; private set; }
 
-        public async UniTask<UniTask> Run()
+        public async UniTask<UniTask<bool>> Run()
         {
             var result = await _action(_cancellation.Token);
             IsCompleted = true;

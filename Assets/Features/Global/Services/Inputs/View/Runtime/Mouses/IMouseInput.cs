@@ -15,5 +15,6 @@ namespace Global.Services.Inputs.View.Runtime.Mouses
         Vector2 Position { get; }
 
         UniTask WaitLeftDownAsync(CancellationToken cancellation);
+        Vector2 GetWorldPoint();
     }
 }

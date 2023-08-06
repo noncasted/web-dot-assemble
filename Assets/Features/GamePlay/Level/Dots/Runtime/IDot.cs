@@ -13,7 +13,8 @@ namespace GamePlay.Level.Dots.Runtime
 
         void InitAsStartup();
         void InitAsInGame();
-
+        void InitAsReplacement();
+        
         void Enable();
         void Disable();
         UniTask Destroy();

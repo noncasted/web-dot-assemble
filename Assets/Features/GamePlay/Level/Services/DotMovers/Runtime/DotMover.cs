@@ -2,10 +2,12 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using GamePlay.Level.Cells.Runtime;
+using GamePlay.Level.Dots.Destroyer;
 using GamePlay.Level.Dots.Runtime;
 using GamePlay.Level.Dots.Runtime.DragHandlers;
 using GamePlay.Level.Fields.Runtime;
 using GamePlay.Level.Services.DotMovers.Pathfinding;
+using GamePlay.Level.Services.FieldFlow.Runtime;
 using Global.Services.Inputs.View.Runtime.Mouses;
 using Global.Services.System.MessageBrokers.Runtime;
 using Global.Services.System.Updaters.Runtime.Abstract;
@@ -19,20 +21,26 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
             IUpdater updater,
             IMouseInput mouseInput,
             IMoveRectProvider moveRectProvider,
-            IDotMoverConfig config)
+            IDotMoverConfig config,
+            IFieldSeeder seeder,
+            IDotDestroyer dotDestroyer)
         {
             _updater = updater;
             _mouseInput = mouseInput;
             _moveRectProvider = moveRectProvider;
             _config = config;
+            _seeder = seeder;
+            _dotDestroyer = dotDestroyer;
         }
 
         private readonly IUpdater _updater;
         private readonly IMouseInput _mouseInput;
         private readonly IMoveRectProvider _moveRectProvider;
         private readonly IDotMoverConfig _config;
+        private readonly IFieldSeeder _seeder;
+        private readonly IDotDestroyer _dotDestroyer;
 
-        public async UniTask<UniTask> TryMove(IField field, CancellationToken cancellation)
+        public async UniTask<UniTask<bool>> TryMove(IField field, CancellationToken cancellation)
         {
             var completionSource = new UniTaskCompletionSource<IDot>();
 
@@ -52,7 +60,7 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
             return ProcessMove(field, dot, cancellation);
         }
 
-        private async UniTask ProcessMove(IField field, IDot dot, CancellationToken cancellation)
+        private async UniTask<bool> ProcessMove(IField field, IDot dot, CancellationToken cancellation)
         {
             var moveProcessor = new PathSelector(dot, field, _updater, _mouseInput, _moveRectProvider.MoveRect);
 
@@ -62,11 +70,18 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
 
             var path = moveProcessor.Path;
 
-            if (path.Cells == null || path.Cells.Count == 1)
-                return;
+            if (path.Cells == null || path.Cells.Count == 1 || path.IsValid == false)
+            {
+                foreach (var cell in field.Cells)
+                    cell.ClearMark();
+                
+                await UniTask.Delay(100, cancellationToken: cancellation);
+                
+                return false;
+            }
 
             var startCell = field.FindParentCell(dot);
-            var endCell = field.FindNearestAvailableCell(path.Cells.Last().Transform.anchoredPosition);
+            var endCell = path.Cells.Last();
 
             await UniTask.Delay(100, cancellationToken: cancellation);
 
@@ -75,13 +90,26 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
             dot.View.Transform.parent = _moveRectProvider.MoveRect;
             await MoveDotAlongPath(dot, path, cancellation);
 
-            endCell.SetDot(dot);
+            if (endCell.Dot != null)
+            {
+                var destroyedDotDefinition = endCell.Dot.Definition;
+                _dotDestroyer.Destroy(endCell.Dot);
+                field.OnDotCleared(dot);
+                endCell.SetDot(dot);
+                field.OnCellTaken(endCell);
+                _seeder.SeedReplacement(destroyedDotDefinition);
+            }
+            else
+            {
+                field.OnDotCleared(dot);
+                endCell.SetDot(dot);
+                field.OnCellTaken(endCell);
+            }
 
             foreach (var cell in field.Cells)
                 cell.ClearMark();
 
-            field.OnDotCleared(dot);
-            field.OnCellTaken(endCell);
+            return true;
         }
 
         private async UniTask MoveDotAlongPath(IDot dot, Path path, CancellationToken cancellation)
@@ -98,35 +126,35 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
                 var progress = i / (float)count;
                 var time = _config.StepTime * _config.Curve.Evaluate(progress);
 
+                from.MarkAsTraveled();
                 await MoveDotBetweenCells(dot, from, to, time, cancellation);
             }
-            
+
             await MoveBounce(dot, path.Cells[^2], path.Cells[^1], _config.BounceTime, cancellation);
         }
 
         private async UniTask MoveDotBetweenCells(
             IDot dot,
             ICell from,
-            ICell to, 
+            ICell to,
             float time,
             CancellationToken cancellation)
         {
-            var fromPosition = from.Transform.anchoredPosition;
-            var toPosition = to.Transform.anchoredPosition;
+            var fromPosition = from.Transform.position;
+            var toPosition = to.Transform.position;
 
             await MoveDot(dot, fromPosition, toPosition, time, cancellation);
-
         }
 
         private async UniTask MoveBounce(
             IDot dot,
-            ICell from, 
-            ICell to, 
+            ICell from,
+            ICell to,
             float time,
             CancellationToken cancellation)
         {
-            var fromPosition = from.Transform.anchoredPosition;
-            var toPosition = to.Transform.anchoredPosition;
+            var fromPosition = from.Transform.position;
+            var toPosition = to.Transform.position;
             var direction = (toPosition - fromPosition).normalized;
 
             var bouncePosition = toPosition + direction * _config.BounceDistance;
@@ -151,7 +179,7 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
                 progress = currentTime / time;
 
                 var position = Vector2.Lerp(fromPosition, toPosition, progress);
-                dot.View.Transform.anchoredPosition = position;
+                dot.View.Transform.position = position;
 
                 await UniTask.Yield(cancellation);
             }

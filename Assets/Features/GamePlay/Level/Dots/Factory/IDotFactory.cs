@@ -7,6 +7,6 @@ namespace GamePlay.Level.Dots.Factory
 {
     public interface IDotFactory
     {
-        IDot Create(IDotDefinition definition, ICell cell, IDotLifeFlowConfig config, bool isStartup);
+        IDot Create(IDotDefinition definition, ICell cell, IDotLifeFlowConfig config);
     }
 }

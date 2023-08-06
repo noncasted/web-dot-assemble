@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Global.Services.Cameras.CameraUtilities.Runtime;
 using Global.Services.Inputs.Constranits.Definition;
 using Global.Services.Inputs.Constranits.Storage;
 using Global.Services.Inputs.View.Logs;
@@ -17,11 +18,13 @@ namespace Global.Services.Inputs.View.Runtime.Mouses
             IInputConstraintsStorage constraintsStorage,
             IInputListenersHandler inputListenersHandler,
             IUpdater updater,
+            ICameraUtils cameraUtils,
             Controls.GamePlayActions gamePlay,
             InputViewLogger logger)
         {
             _constraintsStorage = constraintsStorage;
             _updater = updater;
+            _cameraUtils = cameraUtils;
             _gamePlay = gamePlay;
             _logger = logger;
 
@@ -30,6 +33,7 @@ namespace Global.Services.Inputs.View.Runtime.Mouses
 
         private readonly IInputConstraintsStorage _constraintsStorage;
         private readonly IUpdater _updater;
+        private readonly ICameraUtils _cameraUtils;
         private readonly Controls.GamePlayActions _gamePlay;
         private readonly InputViewLogger _logger;
 
@@ -59,6 +63,11 @@ namespace Global.Services.Inputs.View.Runtime.Mouses
             }
 
             await completion.Task;
+        }
+
+        public Vector2 GetWorldPoint()
+        {
+            return _cameraUtils.ScreenToWorld(Position);
         }
 
         public void Listen()

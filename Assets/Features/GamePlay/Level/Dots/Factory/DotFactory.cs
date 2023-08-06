@@ -20,7 +20,7 @@ namespace GamePlay.Level.Dots.Factory
 
         private readonly IField _field;
 
-        public IDot Create(IDotDefinition definition, ICell cell, IDotLifeFlowConfig config, bool isStartup)
+        public IDot Create(IDotDefinition definition, ICell cell, IDotLifeFlowConfig config)
         {
             var dotObject = Object.Instantiate(definition.Prefab, cell.Transform);
             dotObject.transform.localPosition = Vector3.zero;
@@ -32,15 +32,10 @@ namespace GamePlay.Level.Dots.Factory
             var pointerObserver = linker.PointerObserver;
             var lifeFlow = new DotLifeFlow(view, config);
             var dot = new Dot(view, lifeFlow, pointerObserver, definition);
-            view.Transform.GetComponentInChildren<MPImage>().color = definition.Color;
+            view.Transform.GetComponentInChildren<SpriteRenderer>().color = definition.Color;
 
             dot.Enable();
             cell.SetDot(dot);
-
-            if (isStartup == true)
-                dot.InitAsStartup();
-            else
-                dot.InitAsInGame();
 
             _field.OnCellTaken(cell);
 

@@ -12,7 +12,7 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
 {
     public class PathSelector : IUpdatable
     {
-        public PathSelector(IDot dot, IField field, IUpdater updater, IMouseInput mouseInput, RectTransform root)
+        public PathSelector(IDot dot, IField field, IUpdater updater, IMouseInput mouseInput, Transform root)
         {
             _field = field;
             _updater = updater;
@@ -28,7 +28,7 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
         private readonly IField _field;
         private readonly IUpdater _updater;
         private readonly IMouseInput _mouseInput;
-        private readonly RectTransform _root;
+        private readonly Transform _root;
         private readonly ICell _start;
         private readonly Pathfinder _pathfinder;
         private readonly UniTaskCompletionSource<Path> _completion;
@@ -54,14 +54,7 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
         {
             ClearCells();
 
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                _root,
-                _mouseInput.Position,
-                null,
-                out var localPoint);
-
-            localPoint.x += _root.sizeDelta.x * (_root.pivot.x);
-            localPoint.y += _root.sizeDelta.y * (_root.pivot.y - 1f);
+            var localPoint = _mouseInput.GetWorldPoint();
 
             var nearest = GetNearest(localPoint);
 
@@ -87,7 +80,7 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
 
             foreach (var cell in _field.Cells)
             {
-                var distance = Vector2.Distance(cell.Transform.anchoredPosition, position);
+                var distance = Vector2.Distance(cell.Transform.position, position);
 
                 if (distance < minDistance)
                 {

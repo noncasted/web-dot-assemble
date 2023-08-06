@@ -6,6 +6,6 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
 {
     public interface IDotMover
     {
-        UniTask<UniTask> TryMove(IField field, CancellationToken cancellation);
+        UniTask<UniTask<bool>> TryMove(IField field, CancellationToken cancellation);
     }
 }

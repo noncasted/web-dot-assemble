@@ -28,7 +28,6 @@ namespace Menu.StateMachine.Runtime
 
             foreach (var tab in all)
             {
-                tab.Transform.gameObject.SetActive(true);
                 tab.Transform.anchoredPosition = randomPoint.To;
             }
         }

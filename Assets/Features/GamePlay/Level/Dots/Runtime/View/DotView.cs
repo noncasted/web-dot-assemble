@@ -11,13 +11,14 @@ namespace GamePlay.Level.Dots.Runtime.View
         private const float _scaleTime = 0.2f;
 
         private Vector3 _baseScale;
+        private Transform _transform;
 
-        public RectTransform Transform { get; private set; }
+        public Transform Transform => _transform;
 
         private void Awake()
         {
             _baseScale = transform.localScale;
-            Transform = GetComponent<RectTransform>();
+            _transform = GetComponent<Transform>();
         }
 
         public void Grow(int currentCycle, int maxCycle)

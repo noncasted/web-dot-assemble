@@ -6,9 +6,9 @@ namespace Common.Serialization.SerializableDictionaries
     public abstract class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>,
         ISerializationCallbackReceiver
     {
-        [SerializeField] [HideInInspector] private List<TKey> _keys = new();
+        [SerializeField] [HideInInspector] private readonly List<TKey> _keys = new();
 
-        [SerializeField] [HideInInspector] private List<TValue> _values = new();
+        [SerializeField] [HideInInspector] private readonly List<TValue> _values = new();
 
         public void OnAfterDeserialize()
         {

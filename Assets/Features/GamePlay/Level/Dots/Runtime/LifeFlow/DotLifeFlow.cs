@@ -27,6 +27,7 @@ namespace GamePlay.Level.Dots.Runtime.LifeFlow
 
         public void GrowMinimal()
         {
+            _cycle = 1;
             _view.Grow(1, _lifeFlowConfig.MaxCycle);
         }
 

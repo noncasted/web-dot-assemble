@@ -61,19 +61,19 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _maxRotation: 0
+  _maxRotation: 60
   _rotationCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: -0.009082704
-      outSlope: -0.009082704
+      inSlope: 2.188079
+      outSlope: 2.188079
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.3200514
+      outWeight: 0.15809768
     - serializedVersion: 3
       time: 1
       value: 0
@@ -86,4 +86,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _time: 0.2
+  _time: 0.4

@@ -38,6 +38,11 @@ namespace GamePlay.Level.Dots.Runtime
         {
             LifeFlow.GrowMinimal();
         }
+        
+        public void InitAsReplacement()
+        {
+            LifeFlow.GrowFull();
+        }
 
         public void Enable()
         {

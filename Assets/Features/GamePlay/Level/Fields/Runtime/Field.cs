@@ -68,7 +68,7 @@ namespace GamePlay.Level.Fields.Runtime
 
             foreach (var availableCell in _availableCells)
             {
-                var cellPosition = availableCell.Transform.anchoredPosition;
+                var cellPosition = availableCell.Transform.position;
 
                 var distance = Vector2.Distance(position, cellPosition);
 

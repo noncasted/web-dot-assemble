@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using GamePlay.Level.Cells.Runtime;
 using UnityEngine;
 
@@ -28,7 +29,7 @@ namespace GamePlay.Level.Services.DotMovers.Pathfinding
                     if (closedList.Contains(neighbourNode) == true)
                         continue;
 
-                    if (neighbourNode.Dot != null)
+                    if (neighbourNode.Dot != null && neighbourNode.Dot.LifeFlow.IsActive == true)
                     {
                         closedList.Add(neighbourNode);
 
@@ -38,7 +39,7 @@ namespace GamePlay.Level.Services.DotMovers.Pathfinding
                         continue;
                     }
 
-                    neighbourNode.PreviousNode = currentNode;
+                    neighbourNode.SetPreviousNode(currentNode);
 
                     var distance = CalculateDistanceCost(neighbourNode, endNode);
                     neighbourNode.SetDistanceCost(distance);
@@ -65,7 +66,42 @@ namespace GamePlay.Level.Services.DotMovers.Pathfinding
 
             path.Reverse();
 
-            return new Path(path, isValid);
+            if (isValid == false)
+                return MinimizeInvalidPath(path);
+            
+            return new Path(path, true);
+        }
+
+        private Path MinimizeInvalidPath(IReadOnlyList<ICell> cells)
+        {
+            var nearestCell = cells.Last();
+            var minDistance = float.MaxValue;
+
+            foreach (var cell in cells)
+            {
+                var distance = CalculateDistanceCost(nearestCell, cell);
+
+                if (distance > minDistance)
+                    continue;
+
+                nearestCell = cell;
+                minDistance = distance;
+            }
+
+            var newCells = new List<ICell>();
+
+            foreach (var cell in cells)
+            {
+                if (cell == nearestCell)
+                {
+                    newCells.Add(cell);
+                    return new Path(newCells, false);
+                }
+
+                newCells.Add(cell);
+            }
+
+            return new Path(cells, false);
         }
 
         private float CalculateDistanceCost(ICell a, ICell b)

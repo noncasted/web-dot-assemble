@@ -1,21 +1,20 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace GamePlay.Level.Dots.Runtime.DragHandlers
 {
     [DisallowMultipleComponent]
-    public class DotPointerObserver : MonoBehaviour, IDotPointerObserver, IPointerDownHandler, IPointerUpHandler
+    public class DotPointerObserver : MonoBehaviour, IDotPointerObserver
     {
         public event Action Dragged;
         public event Action Dropped;
 
-        public void OnPointerDown(PointerEventData eventData)
+        private void OnMouseDown()
         {
             Dragged?.Invoke();
         }
 
-        public void OnPointerUp(PointerEventData eventData)
+        private void OnMouseUp()
         {
             Dropped?.Invoke();
         }

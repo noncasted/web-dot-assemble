@@ -2,6 +2,7 @@
 using GamePlay.Level.Dots.Factory;
 using GamePlay.Level.Dots.Runtime.LifeFlow;
 using GamePlay.Level.Fields.Runtime;
+using UnityEngine;
 
 namespace GamePlay.Level.Services.FieldFlow.Runtime
 {
@@ -30,14 +31,23 @@ namespace GamePlay.Level.Services.FieldFlow.Runtime
         {
             var cell = _field.GetRandomAvailableCell();
             var definition = _definitions.GetRandom();
-            _dotFactory.Create(definition, cell, _config, false);
+            var dot = _dotFactory.Create(definition, cell, _config);
+            dot.InitAsInGame();
+        }
+        
+        public void SeedReplacement(IDotDefinition definition)
+        {
+            var cell = _field.GetRandomAvailableCell();
+            var dot = _dotFactory.Create(definition, cell, _config);
+            dot.InitAsReplacement();
         }
 
         private void SpawnDotAtRandomPosition()
         {
             var cell = _field.GetRandomAvailableCell();
             var definition = _definitions.GetRandom();
-            _dotFactory.Create(definition, cell, _config, true);
+            var dot = _dotFactory.Create(definition, cell, _config);
+            dot.InitAsStartup();
         }
     }
 }
