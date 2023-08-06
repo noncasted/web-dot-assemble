@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbf6169cd6660874d8425d21579eb1fd, type: 3}
   m_Name: MenuService_Collections_Ui
   m_EditorClassIdentifier: 
+  _tabDefinition: {fileID: 11400000, guid: 8400c8fc7de7b5d4faaca796aa4ed45f, type: 2}

@@ -5,7 +5,9 @@ using Menu.Main.UI;
 using Menu.Quests.UI;
 using Menu.Settings.UI;
 using Menu.Shop.UI;
+using Menu.StateMachine.Runtime;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Menu.UiRoot.Runtime
 {
@@ -19,7 +21,8 @@ namespace Menu.UiRoot.Runtime
         [SerializeField] private QuestsView _quests;
         [SerializeField] private SettingsView _settings;
         [SerializeField] private ShopView _shopView;
-
+        [SerializeField] private TabTransitionsRegistry _tabTransitionPoints;
+        
         public IAchievementsView Achievements => _achievements;
         public IAvatarCollectionsView AvatarCollections => _avatarCollections;
         public ILeaderboardsView Leaderboards => _leaderboards;
@@ -27,5 +30,6 @@ namespace Menu.UiRoot.Runtime
         public IQuestsView Quests => _quests;
         public ISettingsView Settings => _settings;
         public IShopView ShopView => _shopView;
+        public ITransitionPointsRegistry TabTransitionPoints => _tabTransitionPoints;
     }
 }

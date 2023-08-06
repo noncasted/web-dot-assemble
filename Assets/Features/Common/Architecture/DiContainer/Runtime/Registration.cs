@@ -18,6 +18,8 @@ namespace Common.Architecture.DiContainer.Runtime
         private bool _isListeningCallbacks;
         private bool _isSelfResolvable;
 
+        public Type Type => _type;
+
         public IRegistration AsCallbackListener()
         {
             _isListeningCallbacks = true;

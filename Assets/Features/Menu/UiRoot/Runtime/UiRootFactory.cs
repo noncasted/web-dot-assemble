@@ -13,11 +13,11 @@ namespace Menu.UiRoot.Runtime
     [InlineEditor]
     [CreateAssetMenu(fileName = UiRootRoutes.ServiceName,
         menuName = UiRootRoutes.ServicePath)]
-    public class UiRootFactory : ScriptableObject, ILocalServiceAsyncFactory
+    public class UiRootFactory : BaseUiRootFactory
     {
         [SerializeField] [Scene] private string _scene;
         
-        public async UniTask Create(
+        public override async UniTask Create(
             IDependencyRegister builder,
             ILocalServiceBinder serviceBinder,
             ISceneLoader sceneLoader,
@@ -34,6 +34,7 @@ namespace Menu.UiRoot.Runtime
             builder.RegisterInstance(linker.Quests);
             builder.RegisterInstance(linker.Settings);
             builder.RegisterInstance(linker.ShopView);
+            builder.RegisterInstance(linker.TabTransitionPoints);
         }
     }
 }

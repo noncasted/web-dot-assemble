@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60bc1bfe5c0ecca409b221d1509a751f, type: 3}
   m_Name: MenuService_Quests_Ui
   m_EditorClassIdentifier: 
+  _tabDefinition: {fileID: 11400000, guid: cb9e3dbb3a8f4f94998973d60d80c6b8, type: 2}

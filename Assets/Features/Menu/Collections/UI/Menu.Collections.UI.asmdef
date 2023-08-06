@@ -1,4 +1,4 @@
 ﻿{
   "name": "Menu.Collections.UI",
-  "references":[ "GUID:928cc82fda883e04286b656e5a0f8d5d", "GUID:67f67dcce9d9e8a43a8e45bc1fe5534c", "GUID:e07e6ccd9241474dbca4e70862df2bc2" ]
+  "references":[ "GUID:928cc82fda883e04286b656e5a0f8d5d", "GUID:67f67dcce9d9e8a43a8e45bc1fe5534c", "GUID:e07e6ccd9241474dbca4e70862df2bc2", "GUID:4e49484642048a24284fdb5ab7355045", "GUID:5d58b6ff52a35b043a6c0f5c4f5bb144" ]
 }

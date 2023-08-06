@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6993896812693c64fa2fe2e5888ef5df, type: 3}
-  m_Name: Level
+  m_Name: Menu_Mock
   m_EditorClassIdentifier: 
   _config: {fileID: 11400000, guid: 5e3b3abdefd2de34aa31e647a9ce2a7d, type: 2}
   _loops:
@@ -22,7 +22,8 @@ MonoBehaviour:
   _quests: {fileID: 11400000, guid: e9ad364e2cd5b9a4696e576eb36e7110, type: 2}
   _settings: {fileID: 11400000, guid: fee95e69b39f22e48a3503ee68df5a0c, type: 2}
   _shop: {fileID: 11400000, guid: 2fa8d89c27558394c90f64004f51ea6f, type: 2}
-  _uiRoot: {fileID: 0}
+  _uiRoot: {fileID: 11400000, guid: 3f91954f63cb67c42a7b725200b7f7e1, type: 2}
+  _stateMachine: {fileID: 11400000, guid: 01f99b4157fa56b459476968d9b2e243, type: 2}
   _scopePrefab: {fileID: 5821963483655333938, guid: a272c3595f6a54142af6fb3b37691900, type: 3}
   references:
     version: 2

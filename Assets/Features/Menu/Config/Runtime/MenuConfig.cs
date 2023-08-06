@@ -8,6 +8,7 @@ using Menu.Main.UI;
 using Menu.Quests.UI;
 using Menu.Settings.UI;
 using Menu.Shop.UI;
+using Menu.StateMachine.Runtime;
 using Menu.UiRoot.Runtime;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -26,14 +27,24 @@ namespace Menu.Config.Runtime
         [FoldoutGroup("UI")] [SerializeField] private SettingsUIFactory _settings;
         [FoldoutGroup("UI")] [SerializeField] private ShopUIFactory _shop;
         
-        [FoldoutGroup("System")] [SerializeField] private UiRootFactory _uiRoot;
-
+        [FoldoutGroup("System")] [SerializeField] private BaseUiRootFactory _uiRoot;
+        [FoldoutGroup("System")] [SerializeField] private StateMachineFactory _stateMachine;
+        
         [SerializeField] private MenuScope _scopePrefab;
 
         protected override ILocalServiceFactory[] GetFactories()
         {
             return new ILocalServiceFactory[]
             {
+                _achievements,
+                _collections,
+                _leaderboards,
+                _main,
+                _quests,
+                _settings,
+                _shop,
+                
+                _stateMachine
             };
         }
 

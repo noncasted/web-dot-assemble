@@ -1,7 +1,11 @@
-﻿namespace Common.Architecture.DiContainer.Abstract
+﻿using System;
+
+namespace Common.Architecture.DiContainer.Abstract
 {
     public interface IRegistration
     {
+        Type Type { get; }
+        
         IRegistration AsCallbackListener();
         IRegistration AsSelf();
         IRegistration AsImplementedInterfaces();

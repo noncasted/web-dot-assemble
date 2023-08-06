@@ -16,7 +16,7 @@ namespace Menu.Leaderboards.Global
             IGlobalServiceBinder serviceBinder,
             IGlobalCallbacks callbacks)
         {
-            builder.Register<LeaderboardsFactory>()
+            builder.Register<Leaderboards>()
                 .As<ILeaderboards>();
         }
     }

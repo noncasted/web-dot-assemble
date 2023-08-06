@@ -1,6 +1,6 @@
 ﻿namespace Menu.Shop.Global
 {
-    public class Shop
+    public class Shop : IShop
     {
         
     }

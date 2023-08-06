@@ -1,6 +1,6 @@
 ﻿namespace Menu.Settings.Global
 {
-    public class Settings
+    public class Settings : ISettings
     {
         
     }
