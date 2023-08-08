@@ -1,9 +1,8 @@
 //#define BRT_ASSET_LIST_SCREEN_DEBUG
 
 using System.Globalization;
-using UnityEngine;
 using UnityEditor;
-
+using UnityEngine;
 
 namespace BuildReportTool.Window.Screen
 {
@@ -19,24 +18,24 @@ namespace BuildReportTool.Window.Screen
 		const int BOTTOM_STATUS_BAR_HEIGHT = 20;
 		const int DOUBLE_CLICK_THRESHOLD = 2;
 
-		BuildReportTool.FileFilterGroup _configuredFileFilterGroup;
+		FileFilterGroup _configuredFileFilterGroup;
 
 		/// <summary>
 		/// Which field of the asset we are sorting the list in.
 		/// </summary>
 		BuildReportTool.AssetList.SortType _currentSortType = BuildReportTool.AssetList.SortType.RawSize;
 
-		BuildReportTool.TextureData.DataId _currentTextureDataSortType = BuildReportTool.TextureData.DataId.None;
+		TextureData.DataId _currentTextureDataSortType = TextureData.DataId.None;
 
-		BuildReportTool.TextureData.DataId _hoveredTextureDataId = BuildReportTool.TextureData.DataId.None;
-		BuildReportTool.TextureData.DataId _clickedTextureDataId = BuildReportTool.TextureData.DataId.None;
+		TextureData.DataId _hoveredTextureDataId = TextureData.DataId.None;
+		TextureData.DataId _clickedTextureDataId = TextureData.DataId.None;
 
 		string _overridenTextureDataTooltipText;
 
-		BuildReportTool.MeshData.DataId _currentMeshDataSortType = BuildReportTool.MeshData.DataId.None;
+		MeshData.DataId _currentMeshDataSortType = MeshData.DataId.None;
 
-		BuildReportTool.MeshData.DataId _hoveredMeshDataId = BuildReportTool.MeshData.DataId.None;
-		BuildReportTool.MeshData.DataId _clickedMeshDataId = BuildReportTool.MeshData.DataId.None;
+		MeshData.DataId _hoveredMeshDataId = MeshData.DataId.None;
+		MeshData.DataId _clickedMeshDataId = MeshData.DataId.None;
 
 		/// <summary>
 		/// Whether we are sorting ascending or descending.
@@ -180,12 +179,12 @@ namespace BuildReportTool.Window.Screen
 			return null;
 		}
 
-		void DrawUnderlay(BuildReportTool.BuildInfo buildReportToDisplay)
+		void DrawUnderlay(BuildInfo buildReportToDisplay)
 		{
 			DrawOverlay(buildReportToDisplay, false);
 		}
 
-		void DrawOverlay(BuildReportTool.BuildInfo buildReportToDisplay, bool isOverlay = true)
+		void DrawOverlay(BuildInfo buildReportToDisplay, bool isOverlay = true)
 		{
 			const int TOGGLE_EXTRA_WIDTH = 9;
 			const int TOGGLE_SPACING = 2;
@@ -956,7 +955,7 @@ namespace BuildReportTool.Window.Screen
 			// init variables to use
 			// --------------------------------------------------------------------------
 
-			BuildReportTool.FileFilterGroup fileFilterGroupToUse = buildReportToDisplay.FileFilters;
+			FileFilterGroup fileFilterGroupToUse = buildReportToDisplay.FileFilters;
 
 			if (BuildReportTool.Options.ShouldUseConfiguredFileFilters())
 			{
@@ -1121,13 +1120,13 @@ namespace BuildReportTool.Window.Screen
 			// --------------------------
 			// actual contents of Bottom Bar
 
-			var statusBarBgStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.STATUS_BAR_BG_STYLE_NAME);
+			var statusBarBgStyle = GUI.skin.FindStyle(Settings.STATUS_BAR_BG_STYLE_NAME);
 			if (statusBarBgStyle == null)
 			{
 				statusBarBgStyle = GUI.skin.box;
 			}
 
-			var statusBarLabelStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.STATUS_BAR_LABEL_STYLE_NAME);
+			var statusBarLabelStyle = GUI.skin.FindStyle(Settings.STATUS_BAR_LABEL_STYLE_NAME);
 			if (statusBarLabelStyle == null)
 			{
 				statusBarLabelStyle = GUI.skin.label;
@@ -1227,17 +1226,17 @@ namespace BuildReportTool.Window.Screen
 					// draw only thumbnail in tooltip
 					BRT_BuildReportWindow.DrawThumbnailTooltip(position, textureData);
 				}
-				else if (_hoveredTextureDataId != BuildReportTool.TextureData.DataId.None ||
-				         _hoveredMeshDataId != BuildReportTool.MeshData.DataId.None)
+				else if (_hoveredTextureDataId != TextureData.DataId.None ||
+				         _hoveredMeshDataId != MeshData.DataId.None)
 				{
-					if (_hoveredTextureDataId != BuildReportTool.TextureData.DataId.None)
+					if (_hoveredTextureDataId != TextureData.DataId.None)
 					{
 						_textureDataTooltipLabel.text =
-							BuildReportTool.TextureData.GetTooltipTextFromId(_hoveredTextureDataId);
+							TextureData.GetTooltipTextFromId(_hoveredTextureDataId);
 					}
-					else if (_hoveredMeshDataId != BuildReportTool.MeshData.DataId.None)
+					else if (_hoveredMeshDataId != MeshData.DataId.None)
 					{
-						_textureDataTooltipLabel.text = BuildReportTool.MeshData.GetTooltipTextFromId(_hoveredMeshDataId);
+						_textureDataTooltipLabel.text = MeshData.GetTooltipTextFromId(_hoveredMeshDataId);
 					}
 
 					if (!string.IsNullOrEmpty(_textureDataTooltipLabel.text))
@@ -1285,9 +1284,9 @@ namespace BuildReportTool.Window.Screen
 		}
 
 
-		public void ToggleSort(BuildReportTool.AssetList assetList, BuildReportTool.AssetList.SortType newSortType, BuildReportTool.FileFilterGroup fileFilters)
+		public void ToggleSort(BuildReportTool.AssetList assetList, BuildReportTool.AssetList.SortType newSortType, FileFilterGroup fileFilters)
 		{
-			_currentTextureDataSortType = BuildReportTool.TextureData.DataId.None;
+			_currentTextureDataSortType = TextureData.DataId.None;
 
 			if (_currentSortType != newSortType)
 			{
@@ -1328,7 +1327,7 @@ namespace BuildReportTool.Window.Screen
 				}
 				else
 				{
-					BuildReportTool.AssetListUtility.SortAssetList(_searchResults, _currentSortType, _currentSortOrder);
+					AssetListUtility.SortAssetList(_searchResults, _currentSortType, _currentSortOrder);
 				}
 			}
 			else
@@ -1337,8 +1336,8 @@ namespace BuildReportTool.Window.Screen
 			}
 		}
 
-		void ToggleSort(BuildReportTool.AssetList assetList, BuildReportTool.TextureData textureData,
-			BuildReportTool.TextureData.DataId newSortType, BuildReportTool.FileFilterGroup fileFilters)
+		void ToggleSort(BuildReportTool.AssetList assetList, TextureData textureData,
+			TextureData.DataId newSortType, FileFilterGroup fileFilters)
 		{
 			if (_currentSortType != BuildReportTool.AssetList.SortType.TextureData ||
 			    _currentTextureDataSortType != newSortType)
@@ -1363,7 +1362,7 @@ namespace BuildReportTool.Window.Screen
 						// now disable it (which means sorting goes back to sort by search rank)
 						_currentSortType = BuildReportTool.AssetList.SortType.None;
 						_currentSortOrder = BuildReportTool.AssetList.SortOrder.None;
-						_currentTextureDataSortType = BuildReportTool.TextureData.DataId.None;
+						_currentTextureDataSortType = TextureData.DataId.None;
 					}
 					else
 					{
@@ -1375,7 +1374,7 @@ namespace BuildReportTool.Window.Screen
 			if (_searchResults != null)
 			{
 				if (_currentSortType == BuildReportTool.AssetList.SortType.None &&
-				    _currentTextureDataSortType == BuildReportTool.TextureData.DataId.None)
+				    _currentTextureDataSortType == TextureData.DataId.None)
 				{
 					// no column used as sort
 					// revert to sorting by search rank
@@ -1383,7 +1382,7 @@ namespace BuildReportTool.Window.Screen
 				}
 				else
 				{
-					BuildReportTool.AssetListUtility.SortAssetList(_searchResults, textureData, _currentTextureDataSortType, _currentSortOrder);
+					AssetListUtility.SortAssetList(_searchResults, textureData, _currentTextureDataSortType, _currentSortOrder);
 				}
 			}
 			else
@@ -1392,8 +1391,8 @@ namespace BuildReportTool.Window.Screen
 			}
 		}
 
-		void ToggleSort(BuildReportTool.AssetList assetList, BuildReportTool.MeshData meshData,
-			BuildReportTool.MeshData.DataId newSortType, BuildReportTool.FileFilterGroup fileFilters)
+		void ToggleSort(BuildReportTool.AssetList assetList, MeshData meshData,
+			MeshData.DataId newSortType, FileFilterGroup fileFilters)
 		{
 			if (_currentSortType != BuildReportTool.AssetList.SortType.MeshData ||
 			    _currentMeshDataSortType != newSortType)
@@ -1418,7 +1417,7 @@ namespace BuildReportTool.Window.Screen
 						// now disable it (which means sorting goes back to sort by search rank)
 						_currentSortType = BuildReportTool.AssetList.SortType.None;
 						_currentSortOrder = BuildReportTool.AssetList.SortOrder.None;
-						_currentMeshDataSortType = BuildReportTool.MeshData.DataId.None;
+						_currentMeshDataSortType = MeshData.DataId.None;
 					}
 					else
 					{
@@ -1430,7 +1429,7 @@ namespace BuildReportTool.Window.Screen
 			if (_searchResults != null)
 			{
 				if (_currentSortType == BuildReportTool.AssetList.SortType.None &&
-				    _currentMeshDataSortType == BuildReportTool.MeshData.DataId.None)
+				    _currentMeshDataSortType == MeshData.DataId.None)
 				{
 					// no column used as sort
 					// revert to sorting by search rank
@@ -1438,7 +1437,7 @@ namespace BuildReportTool.Window.Screen
 				}
 				else
 				{
-					BuildReportTool.AssetListUtility.SortAssetList(_searchResults, meshData, _currentMeshDataSortType, _currentSortOrder);
+					AssetListUtility.SortAssetList(_searchResults, meshData, _currentMeshDataSortType, _currentSortOrder);
 				}
 			}
 			else
@@ -1459,14 +1458,14 @@ namespace BuildReportTool.Window.Screen
 				tempIdx = _configuredFileFilterGroup.GetSelectedFilterIdx();
 			}
 
-			_configuredFileFilterGroup = BuildReportTool.FiltersUsed.GetProperFileFilterGroupToUse();
+			_configuredFileFilterGroup = FiltersUsed.GetProperFileFilterGroupToUse();
 
 			_configuredFileFilterGroup.ForceSetSelectedFilterIdx(tempIdx);
 		}
 
 
 		void DrawTopBar(Rect position, BuildInfo buildReportToDisplay,
-			BuildReportTool.FileFilterGroup fileFilterGroupToUse)
+			FileFilterGroup fileFilterGroupToUse)
 		{
 			BuildReportTool.AssetList assetListUsed = GetAssetListToDisplay(buildReportToDisplay);
 
@@ -1476,7 +1475,7 @@ namespace BuildReportTool.Window.Screen
 			}
 
 			Texture2D prevArrow;
-			var prevArrowStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.BIG_LEFT_ARROW_ICON_STYLE_NAME);
+			var prevArrowStyle = GUI.skin.FindStyle(Settings.BIG_LEFT_ARROW_ICON_STYLE_NAME);
 			if (prevArrowStyle != null)
 			{
 				prevArrow = prevArrowStyle.normal.background;
@@ -1487,7 +1486,7 @@ namespace BuildReportTool.Window.Screen
 			}
 
 			Texture2D nextArrow;
-			var  nextArrowStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.BIG_RIGHT_ARROW_ICON_STYLE_NAME);
+			var  nextArrowStyle = GUI.skin.FindStyle(Settings.BIG_RIGHT_ARROW_ICON_STYLE_NAME);
 			if (nextArrowStyle != null)
 			{
 				nextArrow = nextArrowStyle.normal.background;
@@ -1497,25 +1496,25 @@ namespace BuildReportTool.Window.Screen
 				nextArrow = null;
 			}
 
-			var columnStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.COLUMN_ICON_STYLE_NAME);
+			var columnStyle = GUI.skin.FindStyle(Settings.COLUMN_ICON_STYLE_NAME);
 			if (columnStyle != null)
 			{
 				_showColumnLabel.image = columnStyle.normal.background;
 			}
 
-			var topBarBgStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.TOP_BAR_BG_STYLE_NAME);
+			var topBarBgStyle = GUI.skin.FindStyle(Settings.TOP_BAR_BG_STYLE_NAME);
 			if (topBarBgStyle == null)
 			{
 				topBarBgStyle = GUI.skin.label;
 			}
 
-			var topBarButtonStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.TOP_BAR_BTN_STYLE_NAME);
+			var topBarButtonStyle = GUI.skin.FindStyle(Settings.TOP_BAR_BTN_STYLE_NAME);
 			if (topBarButtonStyle == null)
 			{
 				topBarButtonStyle = GUI.skin.button;
 			}
 
-			var topBarLabelStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.TOP_BAR_LABEL_STYLE_NAME);
+			var topBarLabelStyle = GUI.skin.FindStyle(Settings.TOP_BAR_LABEL_STYLE_NAME);
 			if (topBarLabelStyle == null)
 			{
 				topBarLabelStyle = GUI.skin.label;
@@ -1571,7 +1570,7 @@ namespace BuildReportTool.Window.Screen
 				if (prevButton && (batchNumber - 1 >= 1))
 				{
 					// move to previous batch
-					BuildReportTool.ReportGenerator.MoveUnusedAssetsBatchToPrev(buildReportToDisplay, fileFilterGroupToUse);
+					ReportGenerator.MoveUnusedAssetsBatchToPrev(buildReportToDisplay, fileFilterGroupToUse);
 				}
 
 				string batchLabel = string.Format("Batch {0}", batchNumber.ToString());
@@ -1584,7 +1583,7 @@ namespace BuildReportTool.Window.Screen
 				{
 					// move to next batch
 					// (possible to have no new batch anymore. if so, it will just fail silently)
-					BuildReportTool.ReportGenerator.MoveUnusedAssetsBatchToNext(buildReportToDisplay, fileFilterGroupToUse);
+					ReportGenerator.MoveUnusedAssetsBatchToNext(buildReportToDisplay, fileFilterGroupToUse);
 				}
 				GUILayout.Space(8);
 			}
@@ -1594,7 +1593,7 @@ namespace BuildReportTool.Window.Screen
 			// ------------------------------------------------------------------------------------------------------
 			// Paginate Buttons
 
-			BuildReportTool.SizePart[] assetListToUse = assetListUsed.GetListToDisplay(fileFilterGroupToUse);
+			SizePart[] assetListToUse = assetListUsed.GetListToDisplay(fileFilterGroupToUse);
 
 			// how many assets overall in this entire list
 			int assetListLength = 0;
@@ -1807,17 +1806,17 @@ namespace BuildReportTool.Window.Screen
 
 		GUIStyle GetColumnHeaderStyle(BuildReportTool.AssetList.SortType sortTypeNeeded)
 		{
-			string styleResult = BuildReportTool.Window.Settings.LIST_COLUMN_HEADER_STYLE_NAME;
+			string styleResult = Settings.LIST_COLUMN_HEADER_STYLE_NAME;
 
 			if (_currentSortType == sortTypeNeeded)
 			{
 				if (_currentSortOrder == BuildReportTool.AssetList.SortOrder.Descending)
 				{
-					styleResult = BuildReportTool.Window.Settings.LIST_COLUMN_HEADER_DESC_STYLE_NAME;
+					styleResult = Settings.LIST_COLUMN_HEADER_DESC_STYLE_NAME;
 				}
 				else
 				{
-					styleResult = BuildReportTool.Window.Settings.LIST_COLUMN_HEADER_ASC_STYLE_NAME;
+					styleResult = Settings.LIST_COLUMN_HEADER_ASC_STYLE_NAME;
 				}
 			}
 
@@ -1831,9 +1830,9 @@ namespace BuildReportTool.Window.Screen
 		}
 
 		void DrawAssetList(Rect position,
-			BuildReportTool.BuildInfo buildReportToDisplay, BuildReportTool.AssetDependencies assetDependencies,
-			BuildReportTool.TextureData textureData, BuildReportTool.MeshData meshData,
-			BuildReportTool.AssetList list, BuildReportTool.FileFilterGroup filter, int length)
+			BuildInfo buildReportToDisplay, AssetDependencies assetDependencies,
+			TextureData textureData, MeshData meshData,
+			BuildReportTool.AssetList list, FileFilterGroup filter, int length)
 		{
 			if (list == null)
 			{
@@ -1846,25 +1845,25 @@ namespace BuildReportTool.Window.Screen
 				return;
 			}
 
-			var listEntryStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_SMALL_STYLE_NAME);
+			var listEntryStyle = GUI.skin.FindStyle(Settings.LIST_SMALL_STYLE_NAME);
 			if (listEntryStyle == null)
 			{
 				listEntryStyle = GUI.skin.label;
 			}
 
-			var listAltEntryStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_SMALL_ALT_STYLE_NAME);
+			var listAltEntryStyle = GUI.skin.FindStyle(Settings.LIST_SMALL_ALT_STYLE_NAME);
 			if (listAltEntryStyle == null)
 			{
 				listAltEntryStyle = GUI.skin.label;
 			}
 
-			var listSelectedEntryStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_SMALL_SELECTED_NAME);
+			var listSelectedEntryStyle = GUI.skin.FindStyle(Settings.LIST_SMALL_SELECTED_NAME);
 			if (listSelectedEntryStyle == null)
 			{
 				listSelectedEntryStyle = GUI.skin.label;
 			}
 
-			BuildReportTool.SizePart[] assetListToUse;
+			SizePart[] assetListToUse;
 
 			var hasSearchResults = _searchResults != null;
 
@@ -1882,7 +1881,7 @@ namespace BuildReportTool.Window.Screen
 				return;
 			}
 
-			var messageStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.INFO_TITLE_STYLE_NAME);
+			var messageStyle = GUI.skin.FindStyle(Settings.INFO_TITLE_STYLE_NAME);
 			if (messageStyle == null)
 			{
 				messageStyle = GUI.skin.label;
@@ -1899,13 +1898,13 @@ namespace BuildReportTool.Window.Screen
 				return;
 			}
 
-			var hiddenHorizontalScrollbarStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.HIDDEN_SCROLLBAR_STYLE_NAME);
+			var hiddenHorizontalScrollbarStyle = GUI.skin.FindStyle(Settings.HIDDEN_SCROLLBAR_STYLE_NAME);
 			if (hiddenHorizontalScrollbarStyle == null)
 			{
 				hiddenHorizontalScrollbarStyle = GUI.skin.horizontalScrollbar;
 			}
 
-			var hiddenVerticalScrollbarStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.HIDDEN_SCROLLBAR_STYLE_NAME);
+			var hiddenVerticalScrollbarStyle = GUI.skin.FindStyle(Settings.HIDDEN_SCROLLBAR_STYLE_NAME);
 			if (hiddenVerticalScrollbarStyle == null)
 			{
 				hiddenVerticalScrollbarStyle = GUI.skin.verticalScrollbar;
@@ -2011,7 +2010,7 @@ namespace BuildReportTool.Window.Screen
 
 			for (int n = viewOffset; n < len; ++n)
 			{
-				BuildReportTool.SizePart b = assetListToUse[n];
+				SizePart b = assetListToUse[n];
 
 				var styleToUse = useAlt
 					                    ? listAltEntryStyle
@@ -2318,53 +2317,53 @@ namespace BuildReportTool.Window.Screen
 
 			if (Event.current.type == EventType.Repaint)
 			{
-				_hoveredTextureDataId = BuildReportTool.TextureData.DataId.None;
+				_hoveredTextureDataId = TextureData.DataId.None;
 				_overridenTextureDataTooltipText = null;
 			}
 
-			_clickedTextureDataId = BuildReportTool.TextureData.DataId.None;
+			_clickedTextureDataId = TextureData.DataId.None;
 
 			if (showTextureColumns)
 			{
 				if (BuildReportTool.Options.ShowTextureColumnTextureType)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.TextureType, "Type",
+						TextureData.DataId.TextureType, "Type",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowTextureColumnIsSRGB)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.IsSRGB, "Is sRGB?",
+						TextureData.DataId.IsSRGB, "Is sRGB?",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowTextureColumnAlphaSource)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.AlphaSource, "Alpha Source",
+						TextureData.DataId.AlphaSource, "Alpha Source",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowTextureColumnAlphaIsTransparency)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.AlphaIsTransparency, "Alpha is Transparency",
+						TextureData.DataId.AlphaIsTransparency, "Alpha is Transparency",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowTextureColumnIgnorePngGamma)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.IgnorePngGamma, "Ignore PNG Gamma",
+						TextureData.DataId.IgnorePngGamma, "Ignore PNG Gamma",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowTextureColumnIsReadable)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.IsReadable, "Read/Write Enabled",
+						TextureData.DataId.IsReadable, "Read/Write Enabled",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
@@ -2372,42 +2371,42 @@ namespace BuildReportTool.Window.Screen
 				if (BuildReportTool.Options.ShowTextureColumnMipMapGenerated)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.MipMapGenerated, "MipMap Generated",
+						TextureData.DataId.MipMapGenerated, "MipMap Generated",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowTextureColumnMipMapFilter)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.MipMapFilter, "MipMap Filter",
+						TextureData.DataId.MipMapFilter, "MipMap Filter",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowTextureColumnStreamingMipMaps)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.StreamingMipMaps, "Streaming MipMaps",
+						TextureData.DataId.StreamingMipMaps, "Streaming MipMaps",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowTextureColumnBorderMipMaps)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.BorderMipMaps, "Border MipMaps",
+						TextureData.DataId.BorderMipMaps, "Border MipMaps",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowTextureColumnPreserveCoverageMipMaps)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.PreserveCoverageMipMaps, "Preserve Coverage MipMaps",
+						TextureData.DataId.PreserveCoverageMipMaps, "Preserve Coverage MipMaps",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowTextureColumnFadeOutMipMaps)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.FadeOutMipMaps, "Fade Out MipMaps",
+						TextureData.DataId.FadeOutMipMaps, "Fade Out MipMaps",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
@@ -2415,56 +2414,56 @@ namespace BuildReportTool.Window.Screen
 				if (BuildReportTool.Options.ShowTextureColumnSpriteImportMode)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.SpriteImportMode, "Sprite Mode",
+						TextureData.DataId.SpriteImportMode, "Sprite Mode",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowTextureColumnSpritePackingTag)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.SpritePackingTag, "Sprite Packing Tag",
+						TextureData.DataId.SpritePackingTag, "Sprite Packing Tag",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowTextureColumnSpritePixelsPerUnit)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.SpritePixelsPerUnit, "Sprite Pixels-Per-Unit",
+						TextureData.DataId.SpritePixelsPerUnit, "Sprite Pixels-Per-Unit",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowTextureColumnQualifiesForSpritePacking)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.QualifiesForSpritePacking, "Qualifies for Sprite Packing",
+						TextureData.DataId.QualifiesForSpritePacking, "Qualifies for Sprite Packing",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowTextureColumnWrapMode)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.WrapMode, "Wrap Mode",
+						TextureData.DataId.WrapMode, "Wrap Mode",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowTextureColumnWrapModeU)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.WrapModeU, "Wrap Mode U",
+						TextureData.DataId.WrapModeU, "Wrap Mode U",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowTextureColumnWrapModeV)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.WrapModeV, "Wrap Mode V",
+						TextureData.DataId.WrapModeV, "Wrap Mode V",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowTextureColumnWrapModeW)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.WrapModeW, "Wrap Mode W",
+						TextureData.DataId.WrapModeW, "Wrap Mode W",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
@@ -2472,14 +2471,14 @@ namespace BuildReportTool.Window.Screen
 				if (BuildReportTool.Options.ShowTextureColumnFilterMode)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.FilterMode, "Filter Mode",
+						TextureData.DataId.FilterMode, "Filter Mode",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowTextureColumnAnisoLevel)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.AnisoLevel, "Anisotropic Level",
+						TextureData.DataId.AnisoLevel, "Anisotropic Level",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
@@ -2487,28 +2486,28 @@ namespace BuildReportTool.Window.Screen
 				if (BuildReportTool.Options.ShowTextureColumnTextureFormat)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.TextureFormat, "Format",
+						TextureData.DataId.TextureFormat, "Format",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowTextureColumnCompressionType)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.CompressionType, "Compression Type",
+						TextureData.DataId.CompressionType, "Compression Type",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowTextureColumnCompressionIsCrunched)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.CompressionIsCrunched, "Compression Crunched",
+						TextureData.DataId.CompressionIsCrunched, "Compression Crunched",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowTextureColumnCompressionQuality)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.CompressionQuality, "Compression Quality",
+						TextureData.DataId.CompressionQuality, "Compression Quality",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
@@ -2516,44 +2515,44 @@ namespace BuildReportTool.Window.Screen
 				if (BuildReportTool.Options.ShowTextureColumnResizeAlgorithm)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.TextureResizeAlgorithm, "Resize Algorithm",
+						TextureData.DataId.TextureResizeAlgorithm, "Resize Algorithm",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowTextureColumnMaxTextureSize)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.MaxTextureSize, "Max Size",
+						TextureData.DataId.MaxTextureSize, "Max Size",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowTextureColumnNPotScale)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.NPotScale, "Non-Power Of 2 Scale",
+						TextureData.DataId.NPotScale, "Non-Power Of 2 Scale",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowTextureColumnImportedWidthAndHeight)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.ImportedWidthAndHeight, "Imported Width & Height",
+						TextureData.DataId.ImportedWidthAndHeight, "Imported Width & Height",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowTextureColumnRealWidthAndHeight)
 				{
 					DrawTextureDataColumn(viewOffset, len,
-						BuildReportTool.TextureData.DataId.RealWidthAndHeight, "Source Width & Height",
+						TextureData.DataId.RealWidthAndHeight, "Source Width & Height",
 						true, false, list, textureData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				// -------------------------------
 
-				if (_clickedTextureDataId != BuildReportTool.TextureData.DataId.None)
+				if (_clickedTextureDataId != TextureData.DataId.None)
 				{
 					ToggleSort(list, textureData, _clickedTextureDataId, filter);
-					_clickedTextureDataId = BuildReportTool.TextureData.DataId.None;
+					_clickedTextureDataId = TextureData.DataId.None;
 				}
 			}
 			#endregion
@@ -2564,69 +2563,69 @@ namespace BuildReportTool.Window.Screen
 
 			if (Event.current.type == EventType.Repaint)
 			{
-				_hoveredMeshDataId = BuildReportTool.MeshData.DataId.None;
+				_hoveredMeshDataId = MeshData.DataId.None;
 			}
 
-			_clickedMeshDataId = BuildReportTool.MeshData.DataId.None;
+			_clickedMeshDataId = MeshData.DataId.None;
 
 			if (showMeshColumns)
 			{
 				if (BuildReportTool.Options.ShowMeshColumnMeshFilterCount)
 				{
 					DrawMeshDataColumn(viewOffset, len,
-						BuildReportTool.MeshData.DataId.MeshFilterCount, "Non-skinned",
+						MeshData.DataId.MeshFilterCount, "Non-skinned",
 						true, false, list, meshData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowMeshColumnSkinnedMeshRendererCount)
 				{
 					DrawMeshDataColumn(viewOffset, len,
-						BuildReportTool.MeshData.DataId.SkinnedMeshRendererCount, "Skinned",
+						MeshData.DataId.SkinnedMeshRendererCount, "Skinned",
 						true, false, list, meshData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowMeshColumnSubMeshCount)
 				{
 					DrawMeshDataColumn(viewOffset, len,
-						BuildReportTool.MeshData.DataId.SubMeshCount, "SubMesh Count",
+						MeshData.DataId.SubMeshCount, "SubMesh Count",
 						true, false, list, meshData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowMeshColumnVertexCount)
 				{
 					DrawMeshDataColumn(viewOffset, len,
-						BuildReportTool.MeshData.DataId.VertexCount, "Vertices",
+						MeshData.DataId.VertexCount, "Vertices",
 						true, false, list, meshData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowMeshColumnTriangleCount)
 				{
 					DrawMeshDataColumn(viewOffset, len,
-						BuildReportTool.MeshData.DataId.TriangleCount, "Faces",
+						MeshData.DataId.TriangleCount, "Faces",
 						true, false, list, meshData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowMeshColumnAnimationType)
 				{
 					DrawMeshDataColumn(viewOffset, len,
-						BuildReportTool.MeshData.DataId.AnimationType, "Animation Type",
+						MeshData.DataId.AnimationType, "Animation Type",
 						true, false, list, meshData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 				if (BuildReportTool.Options.ShowMeshColumnAnimationClipCount)
 				{
 					DrawMeshDataColumn(viewOffset, len,
-						BuildReportTool.MeshData.DataId.AnimationClipCount, "Animations",
+						MeshData.DataId.AnimationClipCount, "Animations",
 						true, false, list, meshData,
 						assetListToUse, ref _assetListScrollPos);
 				}
 
 				// -------------------------------
 
-				if (_clickedMeshDataId != BuildReportTool.MeshData.DataId.None)
+				if (_clickedMeshDataId != MeshData.DataId.None)
 				{
 					ToggleSort(list, meshData, _clickedMeshDataId, filter);
-					_clickedMeshDataId = BuildReportTool.MeshData.DataId.None;
+					_clickedMeshDataId = MeshData.DataId.None;
 				}
 			}
 
@@ -2778,22 +2777,22 @@ namespace BuildReportTool.Window.Screen
 		}
 
 
-		delegate string ColumnDisplayDelegate(BuildReportTool.SizePart b);
+		delegate string ColumnDisplayDelegate(SizePart b);
 
 		bool DrawColumn(int sta, int end, BuildReportTool.AssetList.SortType columnType, string columnName,
 			bool allowSort,
-			bool showScrollbar, BuildReportTool.AssetList assetListCollection, BuildReportTool.SizePart[] assetList,
+			bool showScrollbar, BuildReportTool.AssetList assetListCollection, SizePart[] assetList,
 			ColumnDisplayDelegate dataToDisplay, ref Vector2 scrollbarPos)
 		{
 			bool buttonPressed = false;
 
-			var hiddenHorizontalScrollbarStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.HIDDEN_SCROLLBAR_STYLE_NAME);
+			var hiddenHorizontalScrollbarStyle = GUI.skin.FindStyle(Settings.HIDDEN_SCROLLBAR_STYLE_NAME);
 			if (hiddenHorizontalScrollbarStyle == null)
 			{
 				hiddenHorizontalScrollbarStyle = GUI.skin.horizontalScrollbar;
 			}
 
-			var hiddenVerticalScrollbarStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.HIDDEN_SCROLLBAR_STYLE_NAME);
+			var hiddenVerticalScrollbarStyle = GUI.skin.FindStyle(Settings.HIDDEN_SCROLLBAR_STYLE_NAME);
 			if (hiddenVerticalScrollbarStyle == null)
 			{
 				hiddenVerticalScrollbarStyle = GUI.skin.verticalScrollbar;
@@ -2801,19 +2800,19 @@ namespace BuildReportTool.Window.Screen
 
 			var verticalScrollbarStyle = GUI.skin.verticalScrollbar;
 
-			var listEntryStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_SMALL_STYLE_NAME);
+			var listEntryStyle = GUI.skin.FindStyle(Settings.LIST_SMALL_STYLE_NAME);
 			if (listEntryStyle == null)
 			{
 				listEntryStyle = GUI.skin.label;
 			}
 
-			var listAltEntryStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_SMALL_ALT_STYLE_NAME);
+			var listAltEntryStyle = GUI.skin.FindStyle(Settings.LIST_SMALL_ALT_STYLE_NAME);
 			if (listAltEntryStyle == null)
 			{
 				listAltEntryStyle = GUI.skin.label;
 			}
 
-			var listSelectedEntryStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_SMALL_SELECTED_NAME);
+			var listSelectedEntryStyle = GUI.skin.FindStyle(Settings.LIST_SMALL_SELECTED_NAME);
 			if (listSelectedEntryStyle == null)
 			{
 				listSelectedEntryStyle = GUI.skin.label;
@@ -2825,16 +2824,16 @@ namespace BuildReportTool.Window.Screen
 
 			// ----------------------------------------------------------
 			// column header
-			string sortTypeStyleName = BuildReportTool.Window.Settings.LIST_COLUMN_HEADER_STYLE_NAME;
+			string sortTypeStyleName = Settings.LIST_COLUMN_HEADER_STYLE_NAME;
 			if (allowSort && _currentSortType == columnType)
 			{
 				if (_currentSortOrder == BuildReportTool.AssetList.SortOrder.Descending)
 				{
-					sortTypeStyleName = BuildReportTool.Window.Settings.LIST_COLUMN_HEADER_DESC_STYLE_NAME;
+					sortTypeStyleName = Settings.LIST_COLUMN_HEADER_DESC_STYLE_NAME;
 				}
 				else
 				{
-					sortTypeStyleName = BuildReportTool.Window.Settings.LIST_COLUMN_HEADER_ASC_STYLE_NAME;
+					sortTypeStyleName = Settings.LIST_COLUMN_HEADER_ASC_STYLE_NAME;
 				}
 			}
 			var sortTypeStyle = GUI.skin.FindStyle(sortTypeStyleName);
@@ -2897,13 +2896,13 @@ namespace BuildReportTool.Window.Screen
 			bool allowSort, bool showScrollbar, BuildReportTool.AssetList assetListCollection, TextureData textureData,
 			SizePart[] assetList, ref Vector2 scrollbarPos)
 		{
-			var hiddenHorizontalScrollbarStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.HIDDEN_SCROLLBAR_STYLE_NAME);
+			var hiddenHorizontalScrollbarStyle = GUI.skin.FindStyle(Settings.HIDDEN_SCROLLBAR_STYLE_NAME);
 			if (hiddenHorizontalScrollbarStyle == null)
 			{
 				hiddenHorizontalScrollbarStyle = GUI.skin.horizontalScrollbar;
 			}
 
-			var hiddenVerticalScrollbarStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.HIDDEN_SCROLLBAR_STYLE_NAME);
+			var hiddenVerticalScrollbarStyle = GUI.skin.FindStyle(Settings.HIDDEN_SCROLLBAR_STYLE_NAME);
 			if (hiddenVerticalScrollbarStyle == null)
 			{
 				hiddenVerticalScrollbarStyle = GUI.skin.verticalScrollbar;
@@ -2911,19 +2910,19 @@ namespace BuildReportTool.Window.Screen
 
 			var verticalScrollbarStyle = GUI.skin.verticalScrollbar;
 
-			var listEntryStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_SMALL_STYLE_NAME);
+			var listEntryStyle = GUI.skin.FindStyle(Settings.LIST_SMALL_STYLE_NAME);
 			if (listEntryStyle == null)
 			{
 				listEntryStyle = GUI.skin.label;
 			}
 
-			var listAltEntryStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_SMALL_ALT_STYLE_NAME);
+			var listAltEntryStyle = GUI.skin.FindStyle(Settings.LIST_SMALL_ALT_STYLE_NAME);
 			if (listAltEntryStyle == null)
 			{
 				listAltEntryStyle = GUI.skin.label;
 			}
 
-			var listSelectedEntryStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_SMALL_SELECTED_NAME);
+			var listSelectedEntryStyle = GUI.skin.FindStyle(Settings.LIST_SMALL_SELECTED_NAME);
 			if (listSelectedEntryStyle == null)
 			{
 				listSelectedEntryStyle = GUI.skin.label;
@@ -2935,16 +2934,16 @@ namespace BuildReportTool.Window.Screen
 
 			// ----------------------------------------------------------
 			// column header
-			string sortTypeStyleName = BuildReportTool.Window.Settings.LIST_COLUMN_HEADER_STYLE_NAME;
+			string sortTypeStyleName = Settings.LIST_COLUMN_HEADER_STYLE_NAME;
 			if (allowSort && _currentSortType == BuildReportTool.AssetList.SortType.TextureData && _currentTextureDataSortType == textureDataId)
 			{
 				if (_currentSortOrder == BuildReportTool.AssetList.SortOrder.Descending)
 				{
-					sortTypeStyleName = BuildReportTool.Window.Settings.LIST_COLUMN_HEADER_DESC_STYLE_NAME;
+					sortTypeStyleName = Settings.LIST_COLUMN_HEADER_DESC_STYLE_NAME;
 				}
 				else
 				{
-					sortTypeStyleName = BuildReportTool.Window.Settings.LIST_COLUMN_HEADER_ASC_STYLE_NAME;
+					sortTypeStyleName = Settings.LIST_COLUMN_HEADER_ASC_STYLE_NAME;
 				}
 			}
 			var sortTypeStyle = GUI.skin.FindStyle(sortTypeStyleName);
@@ -3028,13 +3027,13 @@ namespace BuildReportTool.Window.Screen
 			bool allowSort, bool showScrollbar, BuildReportTool.AssetList assetListCollection, MeshData meshData,
 			SizePart[] assetList, ref Vector2 scrollbarPos)
 		{
-			var hiddenHorizontalScrollbarStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.HIDDEN_SCROLLBAR_STYLE_NAME);
+			var hiddenHorizontalScrollbarStyle = GUI.skin.FindStyle(Settings.HIDDEN_SCROLLBAR_STYLE_NAME);
 			if (hiddenHorizontalScrollbarStyle == null)
 			{
 				hiddenHorizontalScrollbarStyle = GUI.skin.horizontalScrollbar;
 			}
 
-			var hiddenVerticalScrollbarStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.HIDDEN_SCROLLBAR_STYLE_NAME);
+			var hiddenVerticalScrollbarStyle = GUI.skin.FindStyle(Settings.HIDDEN_SCROLLBAR_STYLE_NAME);
 			if (hiddenVerticalScrollbarStyle == null)
 			{
 				hiddenVerticalScrollbarStyle = GUI.skin.verticalScrollbar;
@@ -3042,19 +3041,19 @@ namespace BuildReportTool.Window.Screen
 
 			var verticalScrollbarStyle = GUI.skin.verticalScrollbar;
 
-			var listEntryStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_SMALL_STYLE_NAME);
+			var listEntryStyle = GUI.skin.FindStyle(Settings.LIST_SMALL_STYLE_NAME);
 			if (listEntryStyle == null)
 			{
 				listEntryStyle = GUI.skin.label;
 			}
 
-			var listAltEntryStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_SMALL_ALT_STYLE_NAME);
+			var listAltEntryStyle = GUI.skin.FindStyle(Settings.LIST_SMALL_ALT_STYLE_NAME);
 			if (listAltEntryStyle == null)
 			{
 				listAltEntryStyle = GUI.skin.label;
 			}
 
-			var listSelectedEntryStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_SMALL_SELECTED_NAME);
+			var listSelectedEntryStyle = GUI.skin.FindStyle(Settings.LIST_SMALL_SELECTED_NAME);
 			if (listSelectedEntryStyle == null)
 			{
 				listSelectedEntryStyle = GUI.skin.label;
@@ -3066,16 +3065,16 @@ namespace BuildReportTool.Window.Screen
 
 			// ----------------------------------------------------------
 			// column header
-			string sortTypeStyleName = BuildReportTool.Window.Settings.LIST_COLUMN_HEADER_STYLE_NAME;
+			string sortTypeStyleName = Settings.LIST_COLUMN_HEADER_STYLE_NAME;
 			if (allowSort && _currentSortType == BuildReportTool.AssetList.SortType.MeshData && _currentMeshDataSortType == meshDataId)
 			{
 				if (_currentSortOrder == BuildReportTool.AssetList.SortOrder.Descending)
 				{
-					sortTypeStyleName = BuildReportTool.Window.Settings.LIST_COLUMN_HEADER_DESC_STYLE_NAME;
+					sortTypeStyleName = Settings.LIST_COLUMN_HEADER_DESC_STYLE_NAME;
 				}
 				else
 				{
-					sortTypeStyleName = BuildReportTool.Window.Settings.LIST_COLUMN_HEADER_ASC_STYLE_NAME;
+					sortTypeStyleName = Settings.LIST_COLUMN_HEADER_ASC_STYLE_NAME;
 				}
 			}
 			var sortTypeStyle = GUI.skin.FindStyle(sortTypeStyleName);

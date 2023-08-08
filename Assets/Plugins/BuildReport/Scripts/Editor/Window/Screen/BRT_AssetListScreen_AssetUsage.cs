@@ -1,11 +1,9 @@
 ﻿//#define BRT_ASSET_LIST_SCREEN_DEBUG
 
 using System;
-using UnityEngine;
-using UnityEditor;
 using System.Collections.Generic;
-using System.Globalization;
-
+using UnityEditor;
+using UnityEngine;
 
 namespace BuildReportTool.Window.Screen
 {
@@ -126,15 +124,15 @@ namespace BuildReportTool.Window.Screen
 			}
 			else
 			{
-				var path = BuildReportTool.Util.GetAssetPath(assetPath);
-				var filename = BuildReportTool.Util.GetAssetFilename(assetPath);
+				var path = Util.GetAssetPath(assetPath);
+				var filename = Util.GetAssetFilename(assetPath);
 
 				entry.AssetPathSelected = string.Format("<color=#{0}>{1}</color><color=white><b>{2}</b></color>",
-					BuildReportTool.Window.Screen.AssetList.GetPathColor(true),
+					GetPathColor(true),
 					path, filename);
 
 				entry.AssetPath = string.Format("<color=#{0}>{1}</color><b>{2}</b>",
-					BuildReportTool.Window.Screen.AssetList.GetPathColor(false),
+					GetPathColor(false),
 					path, filename);
 
 				entry.AssetName = string.Format("<b>{0}</b>", filename);
@@ -186,9 +184,9 @@ namespace BuildReportTool.Window.Screen
 					{
 						entry.AssetPathSelected = string.Format(" {0}. <color=#{1}>{2}</color><b>{3}</b>",
 							(number + 1).ToString(),
-							BuildReportTool.Window.Screen.AssetList.GetPathColor(true),
-							BuildReportTool.Util.GetAssetPath(assetPath),
-							BuildReportTool.Util.GetAssetFilename(assetPath));
+							GetPathColor(true),
+							Util.GetAssetPath(assetPath),
+							Util.GetAssetFilename(assetPath));
 						entry.NumberForPathSelected = number;
 						_prettyAssetLabelsWithNumber[assetPath] = entry;
 					}
@@ -201,9 +199,9 @@ namespace BuildReportTool.Window.Screen
 					{
 						entry.AssetPath = string.Format(" {0}. <color=#{1}>{2}</color><b>{3}</b>",
 							(number + 1).ToString(),
-							BuildReportTool.Window.Screen.AssetList.GetPathColor(false),
-							BuildReportTool.Util.GetAssetPath(assetPath),
-							BuildReportTool.Util.GetAssetFilename(assetPath));
+							GetPathColor(false),
+							Util.GetAssetPath(assetPath),
+							Util.GetAssetFilename(assetPath));
 						entry.NumberForPath = number;
 						_prettyAssetLabelsWithNumber[assetPath] = entry;
 					}
@@ -216,7 +214,7 @@ namespace BuildReportTool.Window.Screen
 				if (string.IsNullOrEmpty(entry.AssetName) || entry.NumberForName != number)
 				{
 					entry.AssetName = string.Format(" {0}. <b>{1}</b>",
-						(number + 1).ToString(), BuildReportTool.Util.GetAssetFilename(assetPath));
+						(number + 1).ToString(), Util.GetAssetFilename(assetPath));
 					entry.NumberForName = number;
 					_prettyAssetLabelsWithNumber[assetPath] = entry;
 				}
@@ -718,7 +716,7 @@ namespace BuildReportTool.Window.Screen
 						var endUsersList = selectedAssetDependencies.GetEndUserLabels();
 						if (endUsersList.Count == 0)
 						{
-							BuildReportTool.AssetDependencies.PopulateAssetEndUsers(selectedAsset.Name, assetDependencies);
+							AssetDependencies.PopulateAssetEndUsers(selectedAsset.Name, assetDependencies);
 						}
 
 						assetUsageListHeight =
@@ -857,7 +855,7 @@ namespace BuildReportTool.Window.Screen
 						var endUsersList = selectedAssetDependencies.GetEndUserLabels();
 						if (endUsersList.Count == 0)
 						{
-							BuildReportTool.AssetDependencies.PopulateAssetEndUsers(selectedAsset.Name,
+							AssetDependencies.PopulateAssetEndUsers(selectedAsset.Name,
 								endUsersList, assetDependencies);
 						}
 
@@ -1028,9 +1026,9 @@ namespace BuildReportTool.Window.Screen
 			const int INSPECT_BUTTON_WIDTH = 50;
 			const int INSPECT_BUTTON_HEIGHT = 18;
 
-			var listEntryStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_SMALL_STYLE_NAME);
-			var listAltEntryStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_SMALL_ALT_STYLE_NAME);
-			var listSelectedEntryStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_SMALL_SELECTED_NAME);
+			var listEntryStyle = GUI.skin.FindStyle(Settings.LIST_SMALL_STYLE_NAME);
+			var listAltEntryStyle = GUI.skin.FindStyle(Settings.LIST_SMALL_ALT_STYLE_NAME);
+			var listSelectedEntryStyle = GUI.skin.FindStyle(Settings.LIST_SMALL_SELECTED_NAME);
 
 			if (listEntryStyle == null)
 			{
@@ -1298,9 +1296,9 @@ namespace BuildReportTool.Window.Screen
 			const int PING_BUTTON_WIDTH = 37;
 			const int PING_BUTTON_HEIGHT = 18;
 
-			var listEntryStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_SMALL_STYLE_NAME);
-			var listAltEntryStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_SMALL_ALT_STYLE_NAME);
-			var listSelectedEntryStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_SMALL_SELECTED_NAME);
+			var listEntryStyle = GUI.skin.FindStyle(Settings.LIST_SMALL_STYLE_NAME);
+			var listAltEntryStyle = GUI.skin.FindStyle(Settings.LIST_SMALL_ALT_STYLE_NAME);
+			var listSelectedEntryStyle = GUI.skin.FindStyle(Settings.LIST_SMALL_SELECTED_NAME);
 
 			if (listEntryStyle == null)
 			{
@@ -1528,9 +1526,9 @@ namespace BuildReportTool.Window.Screen
 			const int PING_BUTTON_WIDTH = 37;
 			const int PING_BUTTON_HEIGHT = 18;
 
-			var listEntryStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_SMALL_STYLE_NAME);
-			var listAltEntryStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_SMALL_ALT_STYLE_NAME);
-			var listSelectedEntryStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_SMALL_SELECTED_NAME);
+			var listEntryStyle = GUI.skin.FindStyle(Settings.LIST_SMALL_STYLE_NAME);
+			var listAltEntryStyle = GUI.skin.FindStyle(Settings.LIST_SMALL_ALT_STYLE_NAME);
+			var listSelectedEntryStyle = GUI.skin.FindStyle(Settings.LIST_SMALL_SELECTED_NAME);
 
 			if (listEntryStyle == null)
 			{
@@ -1601,7 +1599,7 @@ namespace BuildReportTool.Window.Screen
 						0, BRT_BuildReportWindow.LIST_HEIGHT);
 
 					int idxOfPrevious;
-					if (BuildReportTool.AssetDependencyGenerator.IsFileTypeBeforeAnother(usersFlattened, userFlattenedN,
+					if (AssetDependencyGenerator.IsFileTypeBeforeAnother(usersFlattened, userFlattenedN,
 						".mat", ".fbx", out idxOfPrevious))
 					{
 						prefixLabelRect.width = styleToUse.CalcSize(AssetUsageWhichIsUsedAsDefaultMaterialByLabel).x;
@@ -1774,7 +1772,7 @@ namespace BuildReportTool.Window.Screen
 			{
 				GUILayout.BeginHorizontal(BRT_BuildReportWindow.LayoutNone);
 
-				_assetUsageEntryLabel.text = BuildReportTool.Util.GetAssetFilename(_assetUserCrumbs[0].AssetPath);
+				_assetUsageEntryLabel.text = Util.GetAssetFilename(_assetUserCrumbs[0].AssetPath);
 				_assetUsageEntryLabel.image = AssetDatabase.GetCachedIcon(_assetUserCrumbs[0].AssetPath);
 				if (GUILayout.Toggle(_assetUserCrumbActiveIdx == 0, _assetUsageEntryLabel, BRT_BuildReportWindow.STYLE_BREADCRUMB_LEFT) &&
 				    _assetUserCrumbActiveIdx != 0)
@@ -1795,7 +1793,7 @@ namespace BuildReportTool.Window.Screen
 
 				for (int crumbN = 1, crumbLen = _assetUserCrumbs.Count; crumbN < crumbLen; ++crumbN)
 				{
-					_assetUsageEntryLabel.text = BuildReportTool.Util.GetAssetFilename(_assetUserCrumbs[crumbN].AssetPath);
+					_assetUsageEntryLabel.text = Util.GetAssetFilename(_assetUserCrumbs[crumbN].AssetPath);
 					_assetUsageEntryLabel.image = AssetDatabase.GetCachedIcon(_assetUserCrumbs[crumbN].AssetPath);
 
 					if (GUILayout.Toggle(_assetUserCrumbActiveIdx == crumbN, _assetUsageEntryLabel,

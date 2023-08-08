@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using Common.Architecture.Local.Services.Abstract.Callbacks;
-using Common.Architecture.Local.Services.Abstract.EventLoops;
 using Cysharp.Threading.Tasks;
 using GamePlay.Level.Fields.Factory;
 using GamePlay.Level.Services.AssembleCheck.Runtime;

@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using UnityEngine;
-using UnityEditor;
+using System.Text.RegularExpressions;
 using FuzzyString;
-
+using UnityEditor;
+using UnityEngine;
 
 namespace BuildReportTool.Window.Screen
 {
 	public partial class AssetList
 	{
-		BuildReportTool.SizePart[] _searchResults;
+		SizePart[] _searchResults;
 
 		const double SEARCH_DELAY = 0.75f;
 		double _lastSearchTime;
@@ -91,19 +90,19 @@ namespace BuildReportTool.Window.Screen
 			BuildReportTool.AssetList list = GetAssetListToDisplay(buildReportToDisplay);
 
 
-			BuildReportTool.FileFilterGroup filter = buildReportToDisplay.FileFilters;
+			FileFilterGroup filter = buildReportToDisplay.FileFilters;
 
 			if (BuildReportTool.Options.ShouldUseConfiguredFileFilters())
 			{
 				filter = _configuredFileFilterGroup;
 			}
 
-			List<BuildReportTool.SizePart> searchResults = new List<BuildReportTool.SizePart>();
+			List<SizePart> searchResults = new List<SizePart>();
 
 
-			BuildReportTool.SizePart[] assetListToSearchFrom = list.GetListToDisplay(filter);
+			SizePart[] assetListToSearchFrom = list.GetListToDisplay(filter);
 
-			var options = caseSensitive ? System.Text.RegularExpressions.RegexOptions.None : System.Text.RegularExpressions.RegexOptions.IgnoreCase;
+			var options = caseSensitive ? RegexOptions.None : RegexOptions.IgnoreCase;
 
 			for (int n = 0; n < assetListToSearchFrom.Length; ++n)
 			{
@@ -130,7 +129,7 @@ namespace BuildReportTool.Window.Screen
 						case SearchType.Regex:
 							try
 							{
-								assetIsMatch = System.Text.RegularExpressions.Regex.IsMatch(input, searchText, options);
+								assetIsMatch = Regex.IsMatch(input, searchText, options);
 							}
 							catch (ArgumentException)
 							{
@@ -142,7 +141,7 @@ namespace BuildReportTool.Window.Screen
 							break;
 						default:
 							// default is SearchType.Basic
-							assetIsMatch = System.Text.RegularExpressions.Regex.IsMatch(input, BuildReportTool.Util.WildCardToRegex(searchText), options);
+							assetIsMatch = Regex.IsMatch(input, Util.WildCardToRegex(searchText), options);
 							break;
 					}
 				}
@@ -162,14 +161,14 @@ namespace BuildReportTool.Window.Screen
 			_searchResults = searchResults.ToArray();
 		}
 
-		void SortBySearchRank(BuildReportTool.SizePart[] assetList, string searchText)
+		void SortBySearchRank(SizePart[] assetList, string searchText)
 		{
 			if (assetList.Length <= 0)
 			{
 				return;
 			}
 
-			System.Array.Sort(assetList, (entry1, entry2) =>
+			Array.Sort(assetList, (entry1, entry2) =>
 				GetFuzzyEqualityScore(searchText, entry1.Name)
 					.CompareTo(GetFuzzyEqualityScore(searchText, entry2.Name)));
 		}

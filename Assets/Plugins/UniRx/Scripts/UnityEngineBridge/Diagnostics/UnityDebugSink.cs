@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
+using Object = System.Object;
 
 namespace UniRx.Diagnostics
 {
@@ -21,7 +20,7 @@ namespace UniRx.Diagnostics
         {
             // avoid multithread exception.
             // (value.Context == null) can only be called from the main thread.
-            var ctx = (System.Object)value.Context;
+            var ctx = (Object)value.Context;
 
             switch (value.LogType)
             {

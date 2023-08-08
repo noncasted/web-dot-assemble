@@ -1,4 +1,5 @@
 ﻿using Menu.Common;
+using Menu.Common.Paths;
 
 namespace Menu.Settings.Common
 {

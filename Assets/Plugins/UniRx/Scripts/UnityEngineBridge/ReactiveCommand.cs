@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading;
-
+using UnityEngine.UI;
 #if CSHARP_7_OR_LATER || (UNITY_2018_3_OR_NEWER && (NET_STANDARD_2_0 || NET_4_6))
 using System.Threading.Tasks;
 using UniRx.InternalUtil;
@@ -173,7 +173,7 @@ namespace UniRx
     /// </summary>
     public class AsyncReactiveCommand<T> : IAsyncReactiveCommand<T>
     {
-        UniRx.InternalUtil.ImmutableList<Func<T, IObservable<Unit>>> asyncActions = UniRx.InternalUtil.ImmutableList<Func<T, IObservable<Unit>>>.Empty;
+        ImmutableList<Func<T, IObservable<Unit>>> asyncActions = ImmutableList<Func<T, IObservable<Unit>>>.Empty;
 
         readonly object gate = new object();
         readonly IReactiveProperty<bool> canExecuteSource;
@@ -281,7 +281,7 @@ namespace UniRx
             if (IsDisposed) return;
 
             IsDisposed = true;
-            asyncActions = UniRx.InternalUtil.ImmutableList<Func<T, IObservable<Unit>>>.Empty;
+            asyncActions = ImmutableList<Func<T, IObservable<Unit>>>.Empty;
         }
         class Subscription : IDisposable
         {
@@ -349,7 +349,7 @@ namespace UniRx
             return tcs.Task;
         }
 
-        public static System.Runtime.CompilerServices.TaskAwaiter<T> GetAwaiter<T>(this IReactiveCommand<T> command)
+        public static TaskAwaiter<T> GetAwaiter<T>(this IReactiveCommand<T> command)
         {
             return command.WaitUntilExecuteAsync(CancellationToken.None).GetAwaiter();
         }
@@ -364,7 +364,7 @@ namespace UniRx
         /// <summary>
         /// Bind ReactiveCommand to button's interactable and onClick.
         /// </summary>
-        public static IDisposable BindTo(this IReactiveCommand<Unit> command, UnityEngine.UI.Button button)
+        public static IDisposable BindTo(this IReactiveCommand<Unit> command, Button button)
         {
             var d1 = command.CanExecute.SubscribeToInteractable(button);
             var d2 = button.OnClickAsObservable().SubscribeWithState(command, (x, c) => c.Execute(x));
@@ -374,7 +374,7 @@ namespace UniRx
         /// <summary>
         /// Bind ReactiveCommand to button's interactable and onClick and register onClick action to command.
         /// </summary>
-        public static IDisposable BindToOnClick(this IReactiveCommand<Unit> command, UnityEngine.UI.Button button, Action<Unit> onClick)
+        public static IDisposable BindToOnClick(this IReactiveCommand<Unit> command, Button button, Action<Unit> onClick)
         {
             var d1 = command.CanExecute.SubscribeToInteractable(button);
             var d2 = button.OnClickAsObservable().SubscribeWithState(command, (x, c) => c.Execute(x));
@@ -386,7 +386,7 @@ namespace UniRx
         /// <summary>
         /// Bind canExecuteSource to button's interactable and onClick and register onClick action to command.
         /// </summary>
-        public static IDisposable BindToButtonOnClick(this IObservable<bool> canExecuteSource, UnityEngine.UI.Button button, Action<Unit> onClick, bool initialValue = true)
+        public static IDisposable BindToButtonOnClick(this IObservable<bool> canExecuteSource, Button button, Action<Unit> onClick, bool initialValue = true)
         {
             return ToReactiveCommand(canExecuteSource, initialValue).BindToOnClick(button, onClick);
         }
@@ -429,7 +429,7 @@ namespace UniRx
             return tcs.Task;
         }
 
-        public static System.Runtime.CompilerServices.TaskAwaiter<T> GetAwaiter<T>(this IAsyncReactiveCommand<T> command)
+        public static TaskAwaiter<T> GetAwaiter<T>(this IAsyncReactiveCommand<T> command)
         {
             return command.WaitUntilExecuteAsync(CancellationToken.None).GetAwaiter();
         }
@@ -445,7 +445,7 @@ namespace UniRx
         /// <summary>
         /// Bind AsyncRaectiveCommand to button's interactable and onClick.
         /// </summary>
-        public static IDisposable BindTo(this IAsyncReactiveCommand<Unit> command, UnityEngine.UI.Button button)
+        public static IDisposable BindTo(this IAsyncReactiveCommand<Unit> command, Button button)
         {
             var d1 = command.CanExecute.SubscribeToInteractable(button);
             var d2 = button.OnClickAsObservable().SubscribeWithState(command, (x, c) => c.Execute(x));
@@ -456,7 +456,7 @@ namespace UniRx
         /// <summary>
         /// Bind AsyncRaectiveCommand to button's interactable and onClick and register async action to command.
         /// </summary>
-        public static IDisposable BindToOnClick(this IAsyncReactiveCommand<Unit> command, UnityEngine.UI.Button button, Func<Unit, IObservable<Unit>> asyncOnClick)
+        public static IDisposable BindToOnClick(this IAsyncReactiveCommand<Unit> command, Button button, Func<Unit, IObservable<Unit>> asyncOnClick)
         {
             var d1 = command.CanExecute.SubscribeToInteractable(button);
             var d2 = button.OnClickAsObservable().SubscribeWithState(command, (x, c) => c.Execute(x));
@@ -468,7 +468,7 @@ namespace UniRx
         /// <summary>
         /// Create AsyncReactiveCommand and bind to button's interactable and onClick and register async action to command.
         /// </summary>
-        public static IDisposable BindToOnClick(this UnityEngine.UI.Button button, Func<Unit, IObservable<Unit>> asyncOnClick)
+        public static IDisposable BindToOnClick(this Button button, Func<Unit, IObservable<Unit>> asyncOnClick)
         {
             return new AsyncReactiveCommand().BindToOnClick(button, asyncOnClick);
         }
@@ -476,7 +476,7 @@ namespace UniRx
         /// <summary>
         /// Create AsyncReactiveCommand and bind sharedCanExecuteSource source to button's interactable and onClick and register async action to command.
         /// </summary>
-        public static IDisposable BindToOnClick(this UnityEngine.UI.Button button, IReactiveProperty<bool> sharedCanExecuteSource, Func<Unit, IObservable<Unit>> asyncOnClick)
+        public static IDisposable BindToOnClick(this Button button, IReactiveProperty<bool> sharedCanExecuteSource, Func<Unit, IObservable<Unit>> asyncOnClick)
         {
             return sharedCanExecuteSource.ToAsyncReactiveCommand().BindToOnClick(button, asyncOnClick);
         }

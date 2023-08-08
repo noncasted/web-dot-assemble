@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Xml.Serialization;
 using UnityEditor;
+using UnityEngine;
 
 namespace BuildReportTool
 {
@@ -9,8 +10,8 @@ namespace BuildReportTool
 	/// Class for holding which asset uses which.
 	/// This is the class that is serialized when saving an Asset Dependency Report to a file.
 	/// </summary>
-	[System.Serializable, System.Xml.Serialization.XmlRoot("AssetDependencies")]
-	public class AssetDependencies : BuildReportTool.IDataFile
+	[Serializable, XmlRoot("AssetDependencies")]
+	public class AssetDependencies : IDataFile
 	{
 		/// <summary>
 		/// Name of project folder.
@@ -25,16 +26,16 @@ namespace BuildReportTool
 		/// <summary>
 		/// When asset dependencies were calculated.
 		/// </summary>
-		public System.DateTime TimeGot;
+		public DateTime TimeGot;
 
 		public string GetDefaultFilename()
 		{
-			return BuildReportTool.Util.GetAssetDependenciesDefaultFilename(ProjectName, BuildType, TimeGot);
+			return Util.GetAssetDependenciesDefaultFilename(ProjectName, BuildType, TimeGot);
 		}
 
 		public string GetAccompanyingBuildReportFilename()
 		{
-			return BuildReportTool.Util.GetBuildInfoDefaultFilename(ProjectName, BuildType, TimeGot);
+			return Util.GetBuildInfoDefaultFilename(ProjectName, BuildType, TimeGot);
 		}
 
 		// ==================================================================================

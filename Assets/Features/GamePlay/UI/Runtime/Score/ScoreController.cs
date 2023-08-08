@@ -4,7 +4,6 @@ using Common.Architecture.Local.Services.Abstract.Callbacks;
 using Cysharp.Threading.Tasks;
 using GamePlay.Level.Services.Score.Runtime;
 using Global.Services.System.MessageBrokers.Runtime;
-using UnityEngine;
 
 namespace GamePlay.UI.Runtime.Score
 {

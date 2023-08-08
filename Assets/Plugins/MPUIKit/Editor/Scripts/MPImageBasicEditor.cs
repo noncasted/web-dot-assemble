@@ -1,9 +1,8 @@
 ﻿using System;
-using UnityEngine;
 using UnityEditor;
-using UnityEngine.UI;
 using UnityEditor.UI;
-
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace MPUIKIT.Editor {
     [CustomEditor(typeof(MPImageBasic))]

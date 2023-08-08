@@ -32,8 +32,8 @@ namespace VContainer.Unity
 
             var parent = destination.GetParent();
             var component = parent != null
-                ? UnityEngine.Object.Instantiate(prefab, parent)
-                : UnityEngine.Object.Instantiate(prefab);
+                ? Object.Instantiate(prefab, parent)
+                : Object.Instantiate(prefab);
 
             if (VContainerSettings.Instance != null && VContainerSettings.Instance.RemoveClonePostfix)
                 component.name = prefab.name;

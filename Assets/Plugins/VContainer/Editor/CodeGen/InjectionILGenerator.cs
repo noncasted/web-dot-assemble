@@ -9,9 +9,10 @@ using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
 using Unity.CompilationPipeline.Common.Diagnostics;
 using Unity.CompilationPipeline.Common.ILPostProcessing;
+using UnityEngine;
+using VContainer.Internal;
 using MethodAttributes = Mono.Cecil.MethodAttributes;
 using TypeAttributes = Mono.Cecil.TypeAttributes;
-using VContainer.Internal;
 
 namespace VContainer.Editor.CodeGen
 {
@@ -264,7 +265,7 @@ namespace VContainer.Editor.CodeGen
             processor.Emit(OpCodes.Nop);
 
             if (injectTypeInfo.InjectConstructor == null ||
-                injectTypeInfo.Type.IsSubclassOf(typeof(UnityEngine.Component)))
+                injectTypeInfo.Type.IsSubclassOf(typeof(Component)))
             {
                 processor.Emit(OpCodes.Ldnull);
                 processor.Emit(OpCodes.Ret);

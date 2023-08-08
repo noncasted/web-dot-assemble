@@ -4,6 +4,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace UniRx.Toolkit
 {
@@ -11,7 +13,7 @@ namespace UniRx.Toolkit
     /// Bass class of ObjectPool.
     /// </summary>
     public abstract class ObjectPool<T> : IDisposable
-        where T : UnityEngine.Component
+        where T : Component
     {
         bool isDisposed = false;
         Queue<T> q;
@@ -57,7 +59,7 @@ namespace UniRx.Toolkit
 
             var go = instance.gameObject;
             if (go == null) return;
-            UnityEngine.Object.Destroy(go);
+            Object.Destroy(go);
         }
 
         /// <summary>
@@ -236,7 +238,7 @@ namespace UniRx.Toolkit
     /// Bass class of ObjectPool. If needs asynchronous initialization, use this instead of standard ObjectPool.
     /// </summary>
     public abstract class AsyncObjectPool<T> : IDisposable
-        where T : UnityEngine.Component
+        where T : Component
     {
         bool isDisposed = false;
         Queue<T> q;
@@ -282,7 +284,7 @@ namespace UniRx.Toolkit
 
             var go = instance.gameObject;
             if (go == null) return;
-            UnityEngine.Object.Destroy(go);
+            Object.Destroy(go);
         }
 
         /// <summary>

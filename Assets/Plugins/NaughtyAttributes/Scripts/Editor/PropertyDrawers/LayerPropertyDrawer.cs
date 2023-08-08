@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
 using UnityEditor;
-using System;
+using UnityEditorInternal;
+using UnityEngine;
 
 namespace NaughtyAttributes.Editor
 {
@@ -41,7 +42,7 @@ namespace NaughtyAttributes.Editor
 
         private string[] GetLayers()
         {
-            return UnityEditorInternal.InternalEditorUtility.layers;
+            return InternalEditorUtility.layers;
         }
 
         private static void DrawPropertyForString(Rect rect, SerializedProperty property, GUIContent label, string[] layers)

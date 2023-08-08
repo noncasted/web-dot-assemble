@@ -1,9 +1,9 @@
-using UnityEngine;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 using System.Collections.Generic;
 using System.IO;
+using BuildReportTool;
+using UnityEngine;
+#if UNITY_EDITOR
+#endif
 
 namespace DldUtil
 {
@@ -116,7 +116,7 @@ namespace DldUtil
 			Debug.Log("traverse at: " + folder);
 			foreach (string file in Do(folder))
 			{
-				if (BuildReportTool.Util.IsFileOfType(file, ".prefab"))
+				if (Util.IsFileOfType(file, ".prefab"))
 				{
 					Debug.Log("traverse stack: " + Path.GetFileName(file));
 				}

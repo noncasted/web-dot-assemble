@@ -33,7 +33,7 @@ namespace NaughtyAttributes.Test
         public ShowIfNest1 nest1;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class ShowIfNest1
     {
         public bool show1;
@@ -68,7 +68,7 @@ namespace NaughtyAttributes.Test
         public ShowIfNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class ShowIfNest2
     {
         public bool show1;

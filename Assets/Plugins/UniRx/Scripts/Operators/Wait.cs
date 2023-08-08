@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using UniRx.InternalUtil;
 
 namespace UniRx.Operators
@@ -10,7 +11,7 @@ namespace UniRx.Operators
         readonly IObservable<T> source;
         readonly TimeSpan timeout;
 
-        System.Threading.ManualResetEvent semaphore;
+        ManualResetEvent semaphore;
 
         bool seenValue = false;
         T value = default(T);
@@ -24,7 +25,7 @@ namespace UniRx.Operators
 
         public T Run()
         {
-            semaphore = new System.Threading.ManualResetEvent(false);
+            semaphore = new ManualResetEvent(false);
             using (source.Subscribe(this))
             {
                 var waitComplete = (timeout == InfiniteTimeSpan)

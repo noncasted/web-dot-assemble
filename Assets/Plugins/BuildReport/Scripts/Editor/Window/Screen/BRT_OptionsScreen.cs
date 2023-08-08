@@ -1,8 +1,7 @@
-using UnityEngine;
-using UnityEditor;
 using System.Text.RegularExpressions;
+using UnityEditor;
 using UnityEditorInternal;
-
+using UnityEngine;
 
 namespace BuildReportTool.Window.Screen
 {
@@ -59,9 +58,9 @@ namespace BuildReportTool.Window.Screen
 		{
 			get
 			{
-				if (BuildReportTool.Util.IsInWinOS)
+				if (Util.IsInWinOS)
 					return Labels.OPEN_IN_FILE_BROWSER_WIN_LABEL;
-				if (BuildReportTool.Util.IsInMacOS)
+				if (Util.IsInMacOS)
 					return Labels.OPEN_IN_FILE_BROWSER_MAC_LABEL;
 
 				return Labels.OPEN_IN_FILE_BROWSER_DEFAULT_LABEL;
@@ -72,9 +71,9 @@ namespace BuildReportTool.Window.Screen
 		{
 			get
 			{
-				if (BuildReportTool.Util.IsInWinOS)
+				if (Util.IsInWinOS)
 					return Labels.SAVE_PATH_TYPE_PERSONAL_WIN_LABEL;
-				if (BuildReportTool.Util.IsInMacOS)
+				if (Util.IsInMacOS)
 					return Labels.SAVE_PATH_TYPE_PERSONAL_MAC_LABEL;
 
 				return Labels.SAVE_PATH_TYPE_PERSONAL_DEFAULT_LABEL;
@@ -223,19 +222,19 @@ namespace BuildReportTool.Window.Screen
 				requestRepaint = false;
 			}
 
-			var boxedLabelStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.BOXED_LABEL_STYLE_NAME);
+			var boxedLabelStyle = GUI.skin.FindStyle(Settings.BOXED_LABEL_STYLE_NAME);
 			if (boxedLabelStyle == null)
 			{
 				boxedLabelStyle = GUI.skin.box;
 			}
 
-			var header1Style = GUI.skin.FindStyle(BuildReportTool.Window.Settings.INFO_TITLE_STYLE_NAME);
+			var header1Style = GUI.skin.FindStyle(Settings.INFO_TITLE_STYLE_NAME);
 			if (header1Style == null)
 			{
 				header1Style = GUI.skin.label;
 			}
 
-			var header2Style = GUI.skin.FindStyle(BuildReportTool.Window.Settings.SUB_TITLE_STYLE_NAME);
+			var header2Style = GUI.skin.FindStyle(Settings.SUB_TITLE_STYLE_NAME);
 			if (header2Style == null)
 			{
 				header2Style = GUI.skin.label;
@@ -314,7 +313,7 @@ namespace BuildReportTool.Window.Screen
 
 			//GUILayout.Space(20);
 
-			GUILayout.Space(BuildReportTool.Window.Settings.CATEGORY_VERTICAL_SPACING);
+			GUILayout.Space(Settings.CATEGORY_VERTICAL_SPACING);
 
 			// === Data to include in the Build Report ===
 
@@ -495,14 +494,14 @@ namespace BuildReportTool.Window.Screen
 								spacing += 18;
 								textFieldRect.width -= spacing;
 								EditorGUI.DrawTextureTransparent(new Rect(textFieldRect.xMax + 3, elementRect.y + 5, 16, 16),
-									BuildReportTool.Util.IsRegexValid(element.Pattern) ? _iconValid : _iconInvalid);
+									Util.IsRegexValid(element.Pattern) ? _iconValid : _iconInvalid);
 							}
 							else
 							{
 								spacing += 50;
 								textFieldRect.width -= spacing;
 								GUI.Label(new Rect(textFieldRect.xMax + 3, elementRect.y + 5, 50, 16),
-									BuildReportTool.Util.IsRegexValid(element.Pattern) ? "Valid" : "Invalid");
+									Util.IsRegexValid(element.Pattern) ? "Valid" : "Invalid");
 							}
 						}
 
@@ -583,25 +582,25 @@ namespace BuildReportTool.Window.Screen
 				"Include Unused Assets in Mesh Data collecting", BRT_BuildReportWindow.LayoutNone);
 
 
-			GUILayout.Space(BuildReportTool.Window.Settings.CATEGORY_VERTICAL_SPACING);
+			GUILayout.Space(Settings.CATEGORY_VERTICAL_SPACING);
 			// === Editor Log File ===
 
 			GUILayout.Label("Editor Log File", header1Style, BRT_BuildReportWindow.LayoutNone);
 
 			// which Editor.log is used
 			GUILayout.BeginHorizontal(BRT_BuildReportWindow.LayoutNone);
-			GUILayout.Label(string.Format("{0}{1}: {2}", Labels.EDITOR_LOG_LABEL, BuildReportTool.Util.EditorLogPathOverrideMessage, BuildReportTool.Util.UsedEditorLogPath),
+			GUILayout.Label(string.Format("{0}{1}: {2}", Labels.EDITOR_LOG_LABEL, Util.EditorLogPathOverrideMessage, Util.UsedEditorLogPath),
 				BRT_BuildReportWindow.LayoutNone);
-			if (GUILayout.Button(OPEN_IN_FILE_BROWSER_OS_SPECIFIC_LABEL, BRT_BuildReportWindow.LayoutNone) && BuildReportTool.Util.UsedEditorLogExists)
+			if (GUILayout.Button(OPEN_IN_FILE_BROWSER_OS_SPECIFIC_LABEL, BRT_BuildReportWindow.LayoutNone) && Util.UsedEditorLogExists)
 			{
-				BuildReportTool.Util.OpenInFileBrowser(BuildReportTool.Util.UsedEditorLogPath);
+				Util.OpenInFileBrowser(Util.UsedEditorLogPath);
 			}
 
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
-			if (!BuildReportTool.Util.UsedEditorLogExists)
+			if (!Util.UsedEditorLogExists)
 			{
-				if (BuildReportTool.Util.IsDefaultEditorLogPathOverridden)
+				if (Util.IsDefaultEditorLogPathOverridden)
 				{
 					GUILayout.Label(Labels.OVERRIDE_LOG_NOT_FOUND_MSG, BRT_BuildReportWindow.LayoutNone);
 				}
@@ -634,7 +633,7 @@ namespace BuildReportTool.Window.Screen
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
 
-			GUILayout.Space(BuildReportTool.Window.Settings.CATEGORY_VERTICAL_SPACING);
+			GUILayout.Space(Settings.CATEGORY_VERTICAL_SPACING);
 
 
 			// === Asset Lists ===
@@ -707,7 +706,7 @@ namespace BuildReportTool.Window.Screen
 				BuildReportTool.Options.ShowTextureColumnTextureType, "Texture Type", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.TextureType);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.TextureType);
 				requestRepaint = true;
 			}
 
@@ -715,42 +714,42 @@ namespace BuildReportTool.Window.Screen
 				BuildReportTool.Options.ShowTextureColumnIsSRGB, "Is sRGB (Color Texture)", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.IsSRGB);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.IsSRGB);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnAlphaSource = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnAlphaSource, "Alpha Source", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.AlphaSource);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.AlphaSource);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnAlphaIsTransparency = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnAlphaIsTransparency, "Alpha Is Transparency", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.AlphaIsTransparency);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.AlphaIsTransparency);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnIgnorePngGamma = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnIgnorePngGamma, "Ignore PNG Gamma", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.IgnorePngGamma);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.IgnorePngGamma);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnNPotScale = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnNPotScale, "Non-Power of 2 Scale", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.NPotScale);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.NPotScale);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnIsReadable = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnIsReadable, "Read/Write Enabled", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.IsReadable);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.IsReadable);
 			}
 
 			GUILayout.EndVertical();
@@ -765,42 +764,42 @@ namespace BuildReportTool.Window.Screen
 				BuildReportTool.Options.ShowTextureColumnMipMapGenerated, "Mip Map Generated", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.MipMapGenerated);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.MipMapGenerated);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnMipMapFilter = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnMipMapFilter, "Mip Map Filter", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.MipMapFilter);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.MipMapFilter);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnStreamingMipMaps = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnStreamingMipMaps, "Streaming Mip Maps", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.StreamingMipMaps);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.StreamingMipMaps);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnBorderMipMaps = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnBorderMipMaps, "Border Mip Maps", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.BorderMipMaps);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.BorderMipMaps);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnPreserveCoverageMipMaps = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnPreserveCoverageMipMaps, "Preserve Coverage Mip Maps", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.PreserveCoverageMipMaps);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.PreserveCoverageMipMaps);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnFadeOutMipMaps = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnFadeOutMipMaps, "Fade Mip Maps", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.FadeOutMipMaps);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.FadeOutMipMaps);
 			}
 
 			GUILayout.EndVertical();
@@ -815,70 +814,70 @@ namespace BuildReportTool.Window.Screen
 				BuildReportTool.Options.ShowTextureColumnSpriteImportMode, "Sprite Mode", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.SpriteImportMode);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.SpriteImportMode);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnSpritePackingTag = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnSpritePackingTag, "Sprite Packing Tag", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.SpritePackingTag);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.SpritePackingTag);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnSpritePixelsPerUnit = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnSpritePixelsPerUnit, "Sprite Pixels Per Unit", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.SpritePixelsPerUnit);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.SpritePixelsPerUnit);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnQualifiesForSpritePacking = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnQualifiesForSpritePacking, "Qualifies for Sprite Packing", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.QualifiesForSpritePacking);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.QualifiesForSpritePacking);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnWrapMode = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnWrapMode, "Wrap Mode", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.WrapMode);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.WrapMode);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnWrapModeU = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnWrapModeU, "Wrap Mode U", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.WrapModeU);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.WrapModeU);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnWrapModeV = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnWrapModeV, "Wrap Mode V", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.WrapModeV);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.WrapModeV);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnWrapModeW = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnWrapModeW, "Wrap Mode W", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.WrapModeW);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.WrapModeW);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnFilterMode = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnFilterMode, "Filter Mode", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.FilterMode);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.FilterMode);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnAnisoLevel = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnAnisoLevel, "Anisotropic Filtering Level", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.AnisoLevel);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.AnisoLevel);
 			}
 
 			GUILayout.EndVertical();
@@ -893,56 +892,56 @@ namespace BuildReportTool.Window.Screen
 				BuildReportTool.Options.ShowTextureColumnMaxTextureSize, "Max Texture Size", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.MaxTextureSize);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.MaxTextureSize);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnResizeAlgorithm = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnResizeAlgorithm, "Resize Algorithm", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.TextureResizeAlgorithm);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.TextureResizeAlgorithm);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnTextureFormat = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnTextureFormat, "Texture Format", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.TextureFormat);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.TextureFormat);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnCompressionType = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnCompressionType, "Compression Type", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.CompressionType);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.CompressionType);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnCompressionIsCrunched = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnCompressionIsCrunched, "Compression Crunched", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.CompressionIsCrunched);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.CompressionIsCrunched);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnCompressionQuality = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnCompressionQuality, "Compression Quality", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.CompressionQuality);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.CompressionQuality);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnImportedWidthAndHeight = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnImportedWidthAndHeight, "Imported Width & Height", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.ImportedWidthAndHeight);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.ImportedWidthAndHeight);
 			}
 
 			BuildReportTool.Options.ShowTextureColumnRealWidthAndHeight = GUILayout.Toggle(
 				BuildReportTool.Options.ShowTextureColumnRealWidthAndHeight, "Source Width & Height", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.TextureData.GetTooltipTextFromId(BuildReportTool.TextureData.DataId.RealWidthAndHeight);
+				_hoveredControlTooltipText = TextureData.GetTooltipTextFromId(TextureData.DataId.RealWidthAndHeight);
 			}
 
 			GUILayout.EndVertical();
@@ -976,14 +975,14 @@ namespace BuildReportTool.Window.Screen
 				BuildReportTool.Options.ShowMeshColumnMeshFilterCount, "Non-Skinned Mesh Count", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.MeshData.GetTooltipTextFromId(BuildReportTool.MeshData.DataId.MeshFilterCount);
+				_hoveredControlTooltipText = MeshData.GetTooltipTextFromId(MeshData.DataId.MeshFilterCount);
 			}
 
 			BuildReportTool.Options.ShowMeshColumnSkinnedMeshRendererCount = GUILayout.Toggle(
 				BuildReportTool.Options.ShowMeshColumnSkinnedMeshRendererCount, "Skinned Mesh Count", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.MeshData.GetTooltipTextFromId(BuildReportTool.MeshData.DataId.SkinnedMeshRendererCount);
+				_hoveredControlTooltipText = MeshData.GetTooltipTextFromId(MeshData.DataId.SkinnedMeshRendererCount);
 			}
 
 			GUILayout.EndVertical();
@@ -998,21 +997,21 @@ namespace BuildReportTool.Window.Screen
 				BuildReportTool.Options.ShowMeshColumnSubMeshCount, "Sub-mesh Count", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.MeshData.GetTooltipTextFromId(BuildReportTool.MeshData.DataId.SubMeshCount);
+				_hoveredControlTooltipText = MeshData.GetTooltipTextFromId(MeshData.DataId.SubMeshCount);
 			}
 
 			BuildReportTool.Options.ShowMeshColumnVertexCount = GUILayout.Toggle(
 				BuildReportTool.Options.ShowMeshColumnVertexCount, "Vertex Count", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.MeshData.GetTooltipTextFromId(BuildReportTool.MeshData.DataId.VertexCount);
+				_hoveredControlTooltipText = MeshData.GetTooltipTextFromId(MeshData.DataId.VertexCount);
 			}
 
 			BuildReportTool.Options.ShowMeshColumnTriangleCount = GUILayout.Toggle(
 				BuildReportTool.Options.ShowMeshColumnTriangleCount, "Face Count", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.MeshData.GetTooltipTextFromId(BuildReportTool.MeshData.DataId.TriangleCount);
+				_hoveredControlTooltipText = MeshData.GetTooltipTextFromId(MeshData.DataId.TriangleCount);
 			}
 
 			GUILayout.EndVertical();
@@ -1027,14 +1026,14 @@ namespace BuildReportTool.Window.Screen
 				BuildReportTool.Options.ShowMeshColumnAnimationType, "Animation Type", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.MeshData.GetTooltipTextFromId(BuildReportTool.MeshData.DataId.AnimationType);
+				_hoveredControlTooltipText = MeshData.GetTooltipTextFromId(MeshData.DataId.AnimationType);
 			}
 
 			BuildReportTool.Options.ShowMeshColumnAnimationClipCount = GUILayout.Toggle(
 				BuildReportTool.Options.ShowMeshColumnAnimationClipCount, "Animation Clip Count", BRT_BuildReportWindow.LayoutNone);
 			if (Event.current.type == EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition))
 			{
-				_hoveredControlTooltipText = BuildReportTool.MeshData.GetTooltipTextFromId(BuildReportTool.MeshData.DataId.AnimationClipCount);
+				_hoveredControlTooltipText = MeshData.GetTooltipTextFromId(MeshData.DataId.AnimationClipCount);
 			}
 
 			GUILayout.EndVertical();
@@ -1117,11 +1116,11 @@ namespace BuildReportTool.Window.Screen
 
 			// display which file filter group is used
 			GUILayout.BeginHorizontal(BRT_BuildReportWindow.LayoutNone);
-			GUILayout.Label(string.Format("{0}{1}", Labels.FILTER_GROUP_FILE_PATH_LABEL, BuildReportTool.FiltersUsed.GetProperFileFilterGroupToUseFilePath()),
+			GUILayout.Label(string.Format("{0}{1}", Labels.FILTER_GROUP_FILE_PATH_LABEL, FiltersUsed.GetProperFileFilterGroupToUseFilePath()),
 				BRT_BuildReportWindow.LayoutNone); // display path to used file filter
 			if (GUILayout.Button(OPEN_IN_FILE_BROWSER_OS_SPECIFIC_LABEL, BRT_BuildReportWindow.LayoutNone))
 			{
-				BuildReportTool.Util.OpenInFileBrowser(BuildReportTool.FiltersUsed.GetProperFileFilterGroupToUseFilePath());
+				Util.OpenInFileBrowser(FiltersUsed.GetProperFileFilterGroupToUseFilePath());
 			}
 
 			GUILayout.FlexibleSpace();
@@ -1266,7 +1265,7 @@ namespace BuildReportTool.Window.Screen
 			GUILayout.EndHorizontal();
 
 
-			GUILayout.Space(BuildReportTool.Window.Settings.CATEGORY_VERTICAL_SPACING);
+			GUILayout.Space(Settings.CATEGORY_VERTICAL_SPACING);
 
 
 			// === Build Report Files ===
@@ -1278,7 +1277,7 @@ namespace BuildReportTool.Window.Screen
 			GUILayout.Label(string.Format("{0}{1}", Labels.SAVE_PATH_LABEL, BuildReportTool.Options.BuildReportSavePath), BRT_BuildReportWindow.LayoutNone);
 			if (GUILayout.Button(OPEN_IN_FILE_BROWSER_OS_SPECIFIC_LABEL, BRT_BuildReportWindow.LayoutNone))
 			{
-				BuildReportTool.Util.OpenInFileBrowser(BuildReportTool.Options.BuildReportSavePath);
+				Util.OpenInFileBrowser(BuildReportTool.Options.BuildReportSavePath);
 			}
 
 			GUILayout.FlexibleSpace();
@@ -1307,7 +1306,7 @@ namespace BuildReportTool.Window.Screen
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
 
-			GUILayout.Space(BuildReportTool.Window.Settings.CATEGORY_VERTICAL_SPACING);
+			GUILayout.Space(Settings.CATEGORY_VERTICAL_SPACING);
 
 
 			GUILayout.EndVertical();

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using UnityEngine;
 using UnityEditor;
+using UnityEditorInternal;
+using UnityEngine;
 
 namespace BuildReportTool.Window.Screen
 {
@@ -123,7 +124,7 @@ namespace BuildReportTool.Window.Screen
 			}
 
 			Texture2D prevArrow;
-			var prevArrowStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.BIG_LEFT_ARROW_ICON_STYLE_NAME);
+			var prevArrowStyle = GUI.skin.FindStyle(Settings.BIG_LEFT_ARROW_ICON_STYLE_NAME);
 			if (prevArrowStyle != null)
 			{
 				prevArrow = prevArrowStyle.normal.background;
@@ -134,7 +135,7 @@ namespace BuildReportTool.Window.Screen
 			}
 
 			Texture2D nextArrow;
-			var nextArrowStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.BIG_RIGHT_ARROW_ICON_STYLE_NAME);
+			var nextArrowStyle = GUI.skin.FindStyle(Settings.BIG_RIGHT_ARROW_ICON_STYLE_NAME);
 			if (nextArrowStyle != null)
 			{
 				nextArrow = nextArrowStyle.normal.background;
@@ -144,37 +145,37 @@ namespace BuildReportTool.Window.Screen
 				nextArrow = null;
 			}
 
-			var buttonStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.TOP_BAR_BTN_STYLE_NAME);
+			var buttonStyle = GUI.skin.FindStyle(Settings.TOP_BAR_BTN_STYLE_NAME);
 			if (buttonStyle == null)
 			{
 				buttonStyle = GUI.skin.button;
 			}
 
-			var topBarBgStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.TOP_BAR_BG_STYLE_NAME);
+			var topBarBgStyle = GUI.skin.FindStyle(Settings.TOP_BAR_BG_STYLE_NAME);
 			if (topBarBgStyle == null)
 			{
 				topBarBgStyle = GUI.skin.label;
 			}
 
-			var topBarLabelStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.TOP_BAR_LABEL_STYLE_NAME);
+			var topBarLabelStyle = GUI.skin.FindStyle(Settings.TOP_BAR_LABEL_STYLE_NAME);
 			if (topBarLabelStyle == null)
 			{
 				topBarLabelStyle = GUI.skin.label;
 			}
 
-			var columnHeaderStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_COLUMN_HEADER_STYLE_NAME);
+			var columnHeaderStyle = GUI.skin.FindStyle(Settings.LIST_COLUMN_HEADER_STYLE_NAME);
 			if (columnHeaderStyle == null)
 			{
 				columnHeaderStyle = GUI.skin.label;
 			}
 
-			var hiddenHorizontalScrollbarStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.HIDDEN_SCROLLBAR_STYLE_NAME);
+			var hiddenHorizontalScrollbarStyle = GUI.skin.FindStyle(Settings.HIDDEN_SCROLLBAR_STYLE_NAME);
 			if (hiddenHorizontalScrollbarStyle == null)
 			{
 				hiddenHorizontalScrollbarStyle = GUI.skin.horizontalScrollbar;
 			}
 
-			var hiddenVerticalScrollbarStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.HIDDEN_SCROLLBAR_STYLE_NAME);
+			var hiddenVerticalScrollbarStyle = GUI.skin.FindStyle(Settings.HIDDEN_SCROLLBAR_STYLE_NAME);
 			if (hiddenVerticalScrollbarStyle == null)
 			{
 				hiddenVerticalScrollbarStyle = GUI.skin.verticalScrollbar;
@@ -182,19 +183,19 @@ namespace BuildReportTool.Window.Screen
 
 			var verticalScrollbarStyle = GUI.skin.verticalScrollbar;
 
-			var listNormalStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_SMALL_STYLE_NAME);
+			var listNormalStyle = GUI.skin.FindStyle(Settings.LIST_SMALL_STYLE_NAME);
 			if (listNormalStyle == null)
 			{
 				listNormalStyle = GUI.skin.label;
 			}
 
-			var listAltStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_SMALL_ALT_STYLE_NAME);
+			var listAltStyle = GUI.skin.FindStyle(Settings.LIST_SMALL_ALT_STYLE_NAME);
 			if (listAltStyle == null)
 			{
 				listAltStyle = GUI.skin.label;
 			}
 
-			var listSelectedStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_SMALL_SELECTED_NAME);
+			var listSelectedStyle = GUI.skin.FindStyle(Settings.LIST_SMALL_SELECTED_NAME);
 			if (listSelectedStyle == null)
 			{
 				listSelectedStyle = GUI.skin.label;
@@ -759,19 +760,19 @@ namespace BuildReportTool.Window.Screen
 				EditorGUIUtility.GetBuiltinSkin(EditorGUIUtility.isProSkin ? EditorSkin.Scene : EditorSkin.Inspector);
 			var logCountStyle = nativeSkin.FindStyle("CN CountBadge");
 
-			var listNormalStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_NORMAL_STYLE_NAME);
+			var listNormalStyle = GUI.skin.FindStyle(Settings.LIST_NORMAL_STYLE_NAME);
 			if (listNormalStyle == null)
 			{
 				listNormalStyle = GUI.skin.label;
 			}
 
-			var listAltStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_NORMAL_ALT_STYLE_NAME);
+			var listAltStyle = GUI.skin.FindStyle(Settings.LIST_NORMAL_ALT_STYLE_NAME);
 			if (listAltStyle == null)
 			{
 				listAltStyle = GUI.skin.label;
 			}
 
-			var listSelectedStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_NORMAL_SELECTED_NAME);
+			var listSelectedStyle = GUI.skin.FindStyle(Settings.LIST_NORMAL_SELECTED_NAME);
 			if (listSelectedStyle == null)
 			{
 				listSelectedStyle = GUI.skin.label;
@@ -1010,7 +1011,7 @@ namespace BuildReportTool.Window.Screen
 			//Debug.Log(string.Format("filename: {0} lineNumText: {1}", filename, lineNumText));
 
 			int line = int.Parse(lineNumText);
-			UnityEditorInternal.InternalEditorUtility.OpenFileAtLineExternal(filename, line);
+			InternalEditorUtility.OpenFileAtLineExternal(filename, line);
 		}
 
 		static void SearchPrefabFromLog(string message)
@@ -1032,20 +1033,20 @@ namespace BuildReportTool.Window.Screen
 		/// <summary>
 		/// <see cref="UnityEditor.ProjectBrowser"/>
 		/// </summary>
-		static readonly System.Type ProjectBrowserType = Type.GetType("UnityEditor.ProjectBrowser,UnityEditor");
+		static readonly Type ProjectBrowserType = Type.GetType("UnityEditor.ProjectBrowser,UnityEditor");
 
 		/// <summary>
 		/// <see cref="UnityEditor.ProjectBrowser.SetSearch(string)"/>
 		/// </summary>
-		static readonly System.Reflection.MethodInfo ProjectBrowserSetSearchMethod = ProjectBrowserType.GetMethod("SetSearch",
-			System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance,
+		static readonly MethodInfo ProjectBrowserSetSearchMethod = ProjectBrowserType.GetMethod("SetSearch",
+			BindingFlags.Public | BindingFlags.Instance,
 			null, CallingConventions.Any, new[]{typeof(string)}, null);
 
 		/// <summary>
 		/// <see cref="UnityEditor.ProjectBrowser.SelectAll()"/>
 		/// </summary>
-		static readonly System.Reflection.MethodInfo ProjectBrowserSelectAllMethod = ProjectBrowserType.GetMethod("SelectAll",
-			System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+		static readonly MethodInfo ProjectBrowserSelectAllMethod = ProjectBrowserType.GetMethod("SelectAll",
+			BindingFlags.NonPublic | BindingFlags.Instance);
 
 		static void SearchPrefab(string prefabName)
 		{
@@ -1054,7 +1055,7 @@ namespace BuildReportTool.Window.Screen
 				return;
 			}
 
-			var projectWindow = UnityEditor.EditorWindow.GetWindow(ProjectBrowserType, false, "Project", true);
+			var projectWindow = EditorWindow.GetWindow(ProjectBrowserType, false, "Project", true);
 			if (projectWindow == null)
 			{
 				return;

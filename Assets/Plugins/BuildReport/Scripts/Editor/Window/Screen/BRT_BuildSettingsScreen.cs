@@ -1,6 +1,5 @@
-using UnityEngine;
 using UnityEditor;
-
+using UnityEngine;
 
 namespace BuildReportTool.Window.Screen
 {
@@ -47,13 +46,13 @@ namespace BuildReportTool.Window.Screen
 				return;
 			}
 
-			var nameStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.SETTING_NAME_STYLE_NAME);
+			var nameStyle = GUI.skin.FindStyle(Settings.SETTING_NAME_STYLE_NAME);
 			if (nameStyle == null)
 			{
 				nameStyle = GUI.skin.label;
 			}
 
-			var valueStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.SETTING_VALUE_NO_WRAP_STYLE_NAME);
+			var valueStyle = GUI.skin.FindStyle(Settings.SETTING_VALUE_NO_WRAP_STYLE_NAME);
 			if (valueStyle == null)
 			{
 				valueStyle = GUI.skin.label;
@@ -84,13 +83,13 @@ namespace BuildReportTool.Window.Screen
 				return;
 			}
 
-			var nameStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.SETTING_NAME_STYLE_NAME);
+			var nameStyle = GUI.skin.FindStyle(Settings.SETTING_NAME_STYLE_NAME);
 			if (nameStyle == null)
 			{
 				nameStyle = GUI.skin.label;
 			}
 
-			var valueStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.SETTING_VALUE_NO_WRAP_STYLE_NAME);
+			var valueStyle = GUI.skin.FindStyle(Settings.SETTING_VALUE_NO_WRAP_STYLE_NAME);
 			if (valueStyle == null)
 			{
 				valueStyle = GUI.skin.label;
@@ -129,13 +128,13 @@ namespace BuildReportTool.Window.Screen
 				return;
 			}
 
-			var nameStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.SETTING_NAME_STYLE_NAME);
+			var nameStyle = GUI.skin.FindStyle(Settings.SETTING_NAME_STYLE_NAME);
 			if (nameStyle == null)
 			{
 				nameStyle = GUI.skin.label;
 			}
 
-			var valueStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.SETTING_VALUE_NO_WRAP_STYLE_NAME);
+			var valueStyle = GUI.skin.FindStyle(Settings.SETTING_VALUE_NO_WRAP_STYLE_NAME);
 			if (valueStyle == null)
 			{
 				valueStyle = GUI.skin.label;
@@ -161,7 +160,7 @@ namespace BuildReportTool.Window.Screen
 
 		void DrawSettingsGroupTitle(string name)
 		{
-			var titleStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.INFO_TITLE_STYLE_NAME);
+			var titleStyle = GUI.skin.FindStyle(Settings.INFO_TITLE_STYLE_NAME);
 			if (titleStyle == null)
 			{
 				titleStyle = GUI.skin.label;
@@ -1103,13 +1102,13 @@ namespace BuildReportTool.Window.Screen
 				return;
 			}
 
-			var nameStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.SETTING_NAME_STYLE_NAME);
+			var nameStyle = GUI.skin.FindStyle(Settings.SETTING_NAME_STYLE_NAME);
 			if (nameStyle == null)
 			{
 				nameStyle = GUI.skin.label;
 			}
 
-			var valueStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.SETTING_VALUE_STYLE_NAME);
+			var valueStyle = GUI.skin.FindStyle(Settings.SETTING_VALUE_STYLE_NAME);
 			if (valueStyle == null)
 			{
 				valueStyle = GUI.skin.label;
@@ -1186,7 +1185,7 @@ namespace BuildReportTool.Window.Screen
 						}
 					}
 
-					if (!string.IsNullOrEmpty(packageList[n].Location) && packageList[n].Location != BuildReportTool.UnityBuildSettingsUtility.DEFAULT_REGISTRY_URL)
+					if (!string.IsNullOrEmpty(packageList[n].Location) && packageList[n].Location != UnityBuildSettingsUtility.DEFAULT_REGISTRY_URL)
 					{
 						GUILayout.TextField(packageList[n].Location, valueStyle);
 					}
@@ -1227,7 +1226,7 @@ namespace BuildReportTool.Window.Screen
 			}
 		}
 
-		void DrawPackagePingButton(BuildReportTool.UnityBuildSettings.PackageEntry packageEntry)
+		void DrawPackagePingButton(UnityBuildSettings.PackageEntry packageEntry)
 		{
 			if (!string.IsNullOrEmpty(packageEntry.LocalPath))
 			{
@@ -1237,7 +1236,7 @@ namespace BuildReportTool.Window.Screen
 				}
 				if (GUILayout.Button("Explore", "MiniButton"))
 				{
-					BuildReportTool.Util.OpenInFileBrowser(packageEntry.LocalPath);
+					Util.OpenInFileBrowser(packageEntry.LocalPath);
 				}
 			}
 		}
@@ -1287,19 +1286,19 @@ namespace BuildReportTool.Window.Screen
 				return;
 			}
 
-			var topBarBgStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.TOP_BAR_BG_STYLE_NAME);
+			var topBarBgStyle = GUI.skin.FindStyle(Settings.TOP_BAR_BG_STYLE_NAME);
 			if (topBarBgStyle == null)
 			{
 				topBarBgStyle = GUI.skin.box;
 			}
 
-			var topBarLabelStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.TOP_BAR_LABEL_STYLE_NAME);
+			var topBarLabelStyle = GUI.skin.FindStyle(Settings.TOP_BAR_LABEL_STYLE_NAME);
 			if (topBarLabelStyle == null)
 			{
 				topBarLabelStyle = GUI.skin.label;
 			}
 
-			var fileFilterPopupStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.FILE_FILTER_POPUP_STYLE_NAME);
+			var fileFilterPopupStyle = GUI.skin.FindStyle(Settings.FILE_FILTER_POPUP_STYLE_NAME);
 			if (fileFilterPopupStyle == null)
 			{
 				fileFilterPopupStyle = GUI.skin.label;

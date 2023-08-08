@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using UnityEngine;
 
 namespace UniRx
 {
@@ -120,7 +121,7 @@ namespace UniRx
         bool isDisposed = false;
 
 #if !UniRxLibrary
-        [UnityEngine.SerializeField]
+        [SerializeField]
 #endif
         readonly Dictionary<TKey, TValue> inner;
 

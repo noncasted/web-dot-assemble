@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace NaughtyAttributes.Test
 {
@@ -10,7 +11,7 @@ namespace NaughtyAttributes.Test
         public SceneNest1 nest1;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class SceneNest1
     {
         [Scene]
@@ -19,7 +20,7 @@ namespace NaughtyAttributes.Test
         public SceneNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public struct SceneNest2
     {
         [Scene]

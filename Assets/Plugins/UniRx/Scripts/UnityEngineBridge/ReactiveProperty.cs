@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using UniRx.InternalUtil;
 #if !UniRxLibrary
@@ -539,7 +540,7 @@ namespace UniRx
             return tcs.Task;
         }
 
-        public static System.Runtime.CompilerServices.TaskAwaiter<T> GetAwaiter<T>(this IReadOnlyReactiveProperty<T> source)
+        public static TaskAwaiter<T> GetAwaiter<T>(this IReadOnlyReactiveProperty<T> source)
         {
             return source.WaitUntilValueChangedAsync(CancellationToken.None).GetAwaiter();
         }

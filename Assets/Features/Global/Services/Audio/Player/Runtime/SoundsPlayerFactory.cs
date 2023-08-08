@@ -1,11 +1,12 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
 using Global.Services.Audio.Player.Common;
 using Global.Services.Setup.Service;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Global.Services.Audio.Player.Runtime
 {
-    [Sirenix.OdinInspector.InlineEditor]
+    [InlineEditor]
     [CreateAssetMenu(fileName = AudioRoutes.ServiceName,
         menuName = AudioRoutes.ServicePath)]
     public class SoundsPlayerFactory : ScriptableObject, IGlobalServiceFactory

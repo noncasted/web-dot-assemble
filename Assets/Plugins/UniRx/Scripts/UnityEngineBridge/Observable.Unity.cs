@@ -5,11 +5,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UniRx.InternalUtil;
+using UniRx.Operators;
 using UniRx.Triggers;
 using UnityEngine;
-using System.Threading;
-
 #if !UniRxLibrary
 using SchedulerUnity = UniRx.Scheduler;
 #endif
@@ -609,7 +609,7 @@ namespace UniRx
 
         public static IObservable<T> FromCoroutine<T>(Func<IObserver<T>, CancellationToken, IEnumerator> coroutine)
         {
-            return new UniRx.Operators.FromCoroutineObservable<T>(coroutine);
+            return new FromCoroutineObservable<T>(coroutine);
         }
 
         /// <summary>
@@ -618,7 +618,7 @@ namespace UniRx
         /// </summary>
         public static IObservable<T> FromMicroCoroutine<T>(Func<IObserver<T>, CancellationToken, IEnumerator> coroutine, FrameCountType frameCountType = FrameCountType.Update)
         {
-            return new UniRx.Operators.FromMicroCoroutineObservable<T>(coroutine, frameCountType);
+            return new FromMicroCoroutineObservable<T>(coroutine, frameCountType);
         }
 
         public static IObservable<Unit> SelectMany<T>(this IObservable<T> source, IEnumerator coroutine, bool publishEveryYield = false)
@@ -821,42 +821,42 @@ namespace UniRx
         public static IObservable<T> DelayFrame<T>(this IObservable<T> source, int frameCount, FrameCountType frameCountType = FrameCountType.Update)
         {
             if (frameCount < 0) throw new ArgumentOutOfRangeException("frameCount");
-            return new UniRx.Operators.DelayFrameObservable<T>(source, frameCount, frameCountType);
+            return new DelayFrameObservable<T>(source, frameCount, frameCountType);
         }
 
         public static IObservable<T> Sample<T, T2>(this IObservable<T> source, IObservable<T2> sampler)
         {
-            return new UniRx.Operators.SampleObservable<T, T2>(source, sampler);
+            return new SampleObservable<T, T2>(source, sampler);
         }
 
         public static IObservable<T> SampleFrame<T>(this IObservable<T> source, int frameCount, FrameCountType frameCountType = FrameCountType.Update)
         {
             if (frameCount < 0) throw new ArgumentOutOfRangeException("frameCount");
-            return new UniRx.Operators.SampleFrameObservable<T>(source, frameCount, frameCountType);
+            return new SampleFrameObservable<T>(source, frameCount, frameCountType);
         }
 
         public static IObservable<TSource> ThrottleFrame<TSource>(this IObservable<TSource> source, int frameCount, FrameCountType frameCountType = FrameCountType.Update)
         {
             if (frameCount < 0) throw new ArgumentOutOfRangeException("frameCount");
-            return new UniRx.Operators.ThrottleFrameObservable<TSource>(source, frameCount, frameCountType);
+            return new ThrottleFrameObservable<TSource>(source, frameCount, frameCountType);
         }
 
         public static IObservable<TSource> ThrottleFirstFrame<TSource>(this IObservable<TSource> source, int frameCount, FrameCountType frameCountType = FrameCountType.Update)
         {
             if (frameCount < 0) throw new ArgumentOutOfRangeException("frameCount");
-            return new UniRx.Operators.ThrottleFirstFrameObservable<TSource>(source, frameCount, frameCountType);
+            return new ThrottleFirstFrameObservable<TSource>(source, frameCount, frameCountType);
         }
 
         public static IObservable<T> TimeoutFrame<T>(this IObservable<T> source, int frameCount, FrameCountType frameCountType = FrameCountType.Update)
         {
             if (frameCount < 0) throw new ArgumentOutOfRangeException("frameCount");
-            return new UniRx.Operators.TimeoutFrameObservable<T>(source, frameCount, frameCountType);
+            return new TimeoutFrameObservable<T>(source, frameCount, frameCountType);
         }
 
         public static IObservable<T> DelayFrameSubscription<T>(this IObservable<T> source, int frameCount, FrameCountType frameCountType = FrameCountType.Update)
         {
             if (frameCount < 0) throw new ArgumentOutOfRangeException("frameCount");
-            return new UniRx.Operators.DelayFrameSubscriptionObservable<T>(source, frameCount, frameCountType);
+            return new DelayFrameSubscriptionObservable<T>(source, frameCount, frameCountType);
         }
 
         #endregion
@@ -1089,17 +1089,17 @@ namespace UniRx
 
         static IObservable<T> RepeatUntilCore<T>(this IEnumerable<IObservable<T>> sources, IObservable<Unit> trigger, GameObject lifeTimeChecker)
         {
-            return new UniRx.Operators.RepeatUntilObservable<T>(sources, trigger, lifeTimeChecker);
+            return new RepeatUntilObservable<T>(sources, trigger, lifeTimeChecker);
         }
 
-        public static IObservable<UniRx.FrameInterval<T>> FrameInterval<T>(this IObservable<T> source)
+        public static IObservable<FrameInterval<T>> FrameInterval<T>(this IObservable<T> source)
         {
-            return new UniRx.Operators.FrameIntervalObservable<T>(source);
+            return new FrameIntervalObservable<T>(source);
         }
 
-        public static IObservable<UniRx.TimeInterval<T>> FrameTimeInterval<T>(this IObservable<T> source, bool ignoreTimeScale = false)
+        public static IObservable<TimeInterval<T>> FrameTimeInterval<T>(this IObservable<T> source, bool ignoreTimeScale = false)
         {
-            return new UniRx.Operators.FrameTimeIntervalObservable<T>(source, ignoreTimeScale);
+            return new FrameTimeIntervalObservable<T>(source, ignoreTimeScale);
         }
 
         /// <summary>
@@ -1117,7 +1117,7 @@ namespace UniRx
         public static IObservable<IList<T>> BatchFrame<T>(this IObservable<T> source, int frameCount, FrameCountType frameCountType)
         {
             if (frameCount < 0) throw new ArgumentException("frameCount must be >= 0, frameCount:" + frameCount);
-            return new UniRx.Operators.BatchFrameObservable<T>(source, frameCount, frameCountType);
+            return new BatchFrameObservable<T>(source, frameCount, frameCountType);
         }
 
         /// <summary>
@@ -1134,7 +1134,7 @@ namespace UniRx
         public static IObservable<Unit> BatchFrame(this IObservable<Unit> source, int frameCount, FrameCountType frameCountType)
         {
             if (frameCount < 0) throw new ArgumentException("frameCount must be >= 0, frameCount:" + frameCount);
-            return new UniRx.Operators.BatchFrameObservable(source, frameCount, frameCountType);
+            return new BatchFrameObservable(source, frameCount, frameCountType);
         }
 
 #if UniRxLibrary

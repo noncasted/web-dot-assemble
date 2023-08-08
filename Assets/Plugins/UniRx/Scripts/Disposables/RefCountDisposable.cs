@@ -3,9 +3,7 @@
 // Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
+using System.Diagnostics.CodeAnalysis;
 
 namespace UniRx
 {
@@ -46,7 +44,7 @@ namespace UniRx
         /// Returns a dependent disposable that when disposed decreases the refcount on the underlying disposable.
         /// </summary>
         /// <returns>A dependent disposable contributing to the reference count that manages the underlying disposable's lifetime.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Backward compat + non-trivial work for a property getter.")]
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Backward compat + non-trivial work for a property getter.")]
         public IDisposable GetDisposable()
         {
             lock (_gate)
@@ -142,7 +140,7 @@ namespace UniRx
     {
         static IObservable<T> AddRef<T>(IObservable<T> xs, RefCountDisposable r)
         {
-            return Observable.Create<T>((IObserver<T> observer) => new CompositeDisposable(new IDisposable[]
+            return Create<T>((IObserver<T> observer) => new CompositeDisposable(new IDisposable[]
 	        {
 		        r.GetDisposable(),
 		        xs.Subscribe(observer)

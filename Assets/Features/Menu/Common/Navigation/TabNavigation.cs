@@ -2,7 +2,7 @@
 using Menu.StateMachine.Runtime;
 using UnityEngine;
 
-namespace Features.Menu.Common.Navigation
+namespace Menu.Common.Navigation
 {
     [DisallowMultipleComponent]
     public class TabNavigation : MonoBehaviour, ITabNavigation

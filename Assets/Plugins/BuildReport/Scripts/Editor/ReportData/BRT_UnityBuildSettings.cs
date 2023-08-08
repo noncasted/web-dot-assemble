@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 
 namespace BuildReportTool
 {
-	[System.Serializable]
+	[Serializable]
 	public class UnityBuildSettings
 	{
 		public string CompanyName; // PlayerSettings.companyName
@@ -524,7 +525,7 @@ namespace BuildReportTool
 		public string SamsungTVDescription; // PlayerSettings.SamsungTV.productDescription
 
 
-		[System.Serializable]
+		[Serializable]
 		public struct PackageEntry
 		{
 			/// <summary>
@@ -560,7 +561,7 @@ namespace BuildReportTool
 
 		public List<PackageEntry> PackageEntries = new List<PackageEntry>();
 
-		[System.Serializable]
+		[Serializable]
 		public struct BuiltInPackageEntry
 		{
 			public string PackageName;

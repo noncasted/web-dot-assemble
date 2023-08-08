@@ -2,14 +2,13 @@
 using UnityEditor;
 using UnityEngine;
 using VContainer.Unity;
-
 #if UNITY_2020_2_OR_NEWER
 using UnityEditor.Compilation;
 #endif
 
 namespace VContainer.Editor
 {
-    public sealed class ScriptTemplateProcessor : UnityEditor.AssetModificationProcessor
+    public sealed class ScriptTemplateProcessor : AssetModificationProcessor
     {
 #if UNITY_2020_2_OR_NEWER
         const string RootNamespaceBeginTag = "#ROOTNAMESPACEBEGIN#";

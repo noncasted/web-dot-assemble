@@ -31,7 +31,6 @@ using Menu.Settings.Global;
 using Menu.Shop.Global;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 using LocalizationAsset = Global.Services.UI.Localizations.Runtime.LocalizationAsset;
 
 namespace Global.Services.Setup.Implementation

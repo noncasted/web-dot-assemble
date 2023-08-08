@@ -1,4 +1,4 @@
-﻿namespace Menu.Common
+﻿namespace Menu.Common.Paths
 {
     public static class MenuAssetsPaths
     {

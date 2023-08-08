@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace UniRx.Operators
@@ -416,7 +417,7 @@ namespace UniRx.Operators
 
             public IDisposable Run()
             {
-                base.SetQueue(new System.Collections.ICollection[] { q1, q2, q3 });
+                base.SetQueue(new ICollection[] { q1, q2, q3 });
                 var s1 = parent.source1.Subscribe(new ZipObserver<T1>(gate, this, 0, q1));
                 var s2 = parent.source2.Subscribe(new ZipObserver<T2>(gate, this, 1, q2));
                 var s3 = parent.source3.Subscribe(new ZipObserver<T3>(gate, this, 2, q3));
@@ -505,7 +506,7 @@ namespace UniRx.Operators
 
             public IDisposable Run()
             {
-                base.SetQueue(new System.Collections.ICollection[] { q1, q2, q3, q4 });
+                base.SetQueue(new ICollection[] { q1, q2, q3, q4 });
                 var s1 = parent.source1.Subscribe(new ZipObserver<T1>(gate, this, 0, q1));
                 var s2 = parent.source2.Subscribe(new ZipObserver<T2>(gate, this, 1, q2));
                 var s3 = parent.source3.Subscribe(new ZipObserver<T3>(gate, this, 2, q3));
@@ -600,7 +601,7 @@ namespace UniRx.Operators
 
             public IDisposable Run()
             {
-                base.SetQueue(new System.Collections.ICollection[] { q1, q2, q3, q4, q5 });
+                base.SetQueue(new ICollection[] { q1, q2, q3, q4, q5 });
                 var s1 = parent.source1.Subscribe(new ZipObserver<T1>(gate, this, 0, q1));
                 var s2 = parent.source2.Subscribe(new ZipObserver<T2>(gate, this, 1, q2));
                 var s3 = parent.source3.Subscribe(new ZipObserver<T3>(gate, this, 2, q3));
@@ -701,7 +702,7 @@ namespace UniRx.Operators
 
             public IDisposable Run()
             {
-                base.SetQueue(new System.Collections.ICollection[] { q1, q2, q3, q4, q5, q6 });
+                base.SetQueue(new ICollection[] { q1, q2, q3, q4, q5, q6 });
                 var s1 = parent.source1.Subscribe(new ZipObserver<T1>(gate, this, 0, q1));
                 var s2 = parent.source2.Subscribe(new ZipObserver<T2>(gate, this, 1, q2));
                 var s3 = parent.source3.Subscribe(new ZipObserver<T3>(gate, this, 2, q3));
@@ -808,7 +809,7 @@ namespace UniRx.Operators
 
             public IDisposable Run()
             {
-                base.SetQueue(new System.Collections.ICollection[] { q1, q2, q3, q4, q5, q6, q7 });
+                base.SetQueue(new ICollection[] { q1, q2, q3, q4, q5, q6, q7 });
                 var s1 = parent.source1.Subscribe(new ZipObserver<T1>(gate, this, 0, q1));
                 var s2 = parent.source2.Subscribe(new ZipObserver<T2>(gate, this, 1, q2));
                 var s3 = parent.source3.Subscribe(new ZipObserver<T3>(gate, this, 2, q3));
@@ -863,7 +864,7 @@ namespace UniRx.Operators
 
     internal abstract class NthZipObserverBase<T> : OperatorObserverBase<T, T>, IZipObservable
     {
-        System.Collections.ICollection[] queues;
+        ICollection[] queues;
         bool[] isDone;
         int length;
 
@@ -871,7 +872,7 @@ namespace UniRx.Operators
         {
         }
 
-        protected void SetQueue(System.Collections.ICollection[] queues)
+        protected void SetQueue(ICollection[] queues)
         {
             this.queues = queues;
             this.length = queues.Length;

@@ -1,4 +1,5 @@
 ﻿using System;
+using UniRx.InternalUtil;
 
 namespace UniRx.Operators
 {
@@ -63,7 +64,7 @@ namespace UniRx.Operators
                 public SkipUntil(SkipUntilOuterObserver parent, IDisposable subscription)
                 {
                     this.parent = parent;
-                    observer = UniRx.InternalUtil.EmptyObserver<T>.Instance;
+                    observer = EmptyObserver<T>.Instance;
                     this.subscription = subscription;
                 }
 

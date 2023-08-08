@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace BuildReportTool
 {
-	[System.Serializable]
+	[Serializable]
 	public static class AssetDependencyGenerator
 	{
 #if BRT_ASSET_DEPENDENCY_TEST_COMMANDS
@@ -105,7 +105,7 @@ namespace BuildReportTool
 			Create(data, startingOpenSet, debugLog, recursiveGetDependencies);
 		}
 
-		public static void Create(AssetDependencies data, BuildReportTool.BuildInfo.SceneInBuild[] scenes,
+		public static void Create(AssetDependencies data, BuildInfo.SceneInBuild[] scenes,
 			bool debugLog = false)
 		{
 			var startingOpenSet = new Queue<string>();
@@ -122,7 +122,7 @@ namespace BuildReportTool
 			Create(data, startingOpenSet, debugLog);
 		}
 
-		public static void CreateForUsedAssetsOnly(AssetDependencies data, BuildReportTool.BuildInfo buildInfo,
+		public static void CreateForUsedAssetsOnly(AssetDependencies data, BuildInfo buildInfo,
 			bool debugLog = false)
 		{
 			if (buildInfo == null)
@@ -163,7 +163,7 @@ namespace BuildReportTool
 			Create(data, startingOpenSet, debugLog);
 		}
 
-		public static void CreateForAllAssets(AssetDependencies data, BuildReportTool.BuildInfo buildInfo,
+		public static void CreateForAllAssets(AssetDependencies data, BuildInfo buildInfo,
 			bool debugLog = false)
 		{
 			if (buildInfo == null)

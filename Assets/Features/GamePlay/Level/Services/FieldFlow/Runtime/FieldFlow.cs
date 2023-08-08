@@ -8,6 +8,7 @@ using GamePlay.Level.Fields.Runtime;
 using GamePlay.Level.Services.AssembleCheck.Factory;
 using GamePlay.Level.Services.AssembleCheck.Runtime;
 using GamePlay.Level.Services.DotMovers.Runtime;
+using GamePlay.Level.Services.FieldFlow.Seeder;
 using GamePlay.Level.Services.Score.Runtime;
 using GamePlay.Loop.Modes;
 

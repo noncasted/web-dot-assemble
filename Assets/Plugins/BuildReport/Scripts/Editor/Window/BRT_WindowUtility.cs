@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEditor;
-
+using UnityEngine;
 
 namespace BuildReportTool.Window
 {
@@ -19,13 +18,13 @@ namespace BuildReportTool.Window
 
 		public static void PingSelectedAssets(AssetList list)
 		{
-			var newSelection = new List<UnityEngine.Object>(list.GetSelectedCount());
+			var newSelection = new List<Object>(list.GetSelectedCount());
 
 			var iterator = list.GetSelectedEnumerator();
 			while (iterator.MoveNext())
 			{
 				var loadedObject =
-					AssetDatabase.LoadAssetAtPath(iterator.Current.Key, typeof(UnityEngine.Object));
+					AssetDatabase.LoadAssetAtPath(iterator.Current.Key, typeof(Object));
 				if (loadedObject != null)
 				{
 					newSelection.Add(loadedObject);
@@ -66,32 +65,32 @@ namespace BuildReportTool.Window
 
 		public static string GetProperBuildSizeDesc(BuildInfo buildReportToDisplay)
 		{
-			BuildReportTool.BuildPlatform buildPlatform =
-				BuildReportTool.ReportGenerator.GetBuildPlatformFromString(buildReportToDisplay.BuildType,
+			BuildPlatform buildPlatform =
+				ReportGenerator.GetBuildPlatformFromString(buildReportToDisplay.BuildType,
 					buildReportToDisplay.BuildTargetUsed);
 
 			switch (buildPlatform)
 			{
-				case BuildReportTool.BuildPlatform.MacOSX32:
+				case BuildPlatform.MacOSX32:
 					return Labels.BUILD_SIZE_MACOSX_DESC;
-				case BuildReportTool.BuildPlatform.MacOSX64:
+				case BuildPlatform.MacOSX64:
 					return Labels.BUILD_SIZE_MACOSX_DESC;
-				case BuildReportTool.BuildPlatform.MacOSXUniversal:
+				case BuildPlatform.MacOSXUniversal:
 					return Labels.BUILD_SIZE_MACOSX_DESC;
 
-				case BuildReportTool.BuildPlatform.Windows32:
+				case BuildPlatform.Windows32:
 					return Labels.BUILD_SIZE_WINDOWS_DESC;
-				case BuildReportTool.BuildPlatform.Windows64:
+				case BuildPlatform.Windows64:
 					return Labels.BUILD_SIZE_WINDOWS_DESC;
 
-				case BuildReportTool.BuildPlatform.Linux32:
+				case BuildPlatform.Linux32:
 					return Labels.BUILD_SIZE_STANDALONE_DESC;
-				case BuildReportTool.BuildPlatform.Linux64:
+				case BuildPlatform.Linux64:
 					return Labels.BUILD_SIZE_STANDALONE_DESC;
-				case BuildReportTool.BuildPlatform.LinuxUniversal:
+				case BuildPlatform.LinuxUniversal:
 					return Labels.BUILD_SIZE_LINUX_UNIVERSAL_DESC;
 
-				case BuildReportTool.BuildPlatform.Android:
+				case BuildPlatform.Android:
 					if (buildReportToDisplay.AndroidCreateProject)
 					{
 						return Labels.BUILD_SIZE_ANDROID_WITH_PROJECT_DESC;
@@ -104,10 +103,10 @@ namespace BuildReportTool.Window
 
 					return Labels.BUILD_SIZE_ANDROID_DESC;
 
-				case BuildReportTool.BuildPlatform.iOS:
+				case BuildPlatform.iOS:
 					return Labels.BUILD_SIZE_IOS_DESC;
 
-				case BuildReportTool.BuildPlatform.Web:
+				case BuildPlatform.Web:
 					return Labels.BUILD_SIZE_WEB_DESC;
 			}
 
@@ -122,19 +121,19 @@ namespace BuildReportTool.Window
 				return;
 			}
 
-			var labelStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.INFO_TITLE_STYLE_NAME);
+			var labelStyle = GUI.skin.FindStyle(Settings.INFO_TITLE_STYLE_NAME);
 			if (labelStyle == null)
 			{
 				labelStyle = GUI.skin.label;
 			}
 
-			var descStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.TINY_HELP_STYLE_NAME);
+			var descStyle = GUI.skin.FindStyle(Settings.TINY_HELP_STYLE_NAME);
 			if (descStyle == null)
 			{
 				descStyle = GUI.skin.label;
 			}
 
-			var valueStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.BIG_NUMBER_STYLE_NAME);
+			var valueStyle = GUI.skin.FindStyle(Settings.BIG_NUMBER_STYLE_NAME);
 			if (valueStyle == null)
 			{
 				valueStyle = GUI.skin.label;

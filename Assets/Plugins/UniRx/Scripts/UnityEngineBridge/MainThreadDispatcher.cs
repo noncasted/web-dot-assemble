@@ -4,10 +4,9 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Threading;
 using UniRx.InternalUtil;
+using UnityEditor;
 using UnityEngine;
 
 namespace UniRx
@@ -64,7 +63,7 @@ namespace UniRx
 
             EditorThreadDispatcher()
             {
-                UnityEditor.EditorApplication.update += Update;
+                EditorApplication.update += Update;
             }
 
             public void Enqueue(Action<object> action, object state)
@@ -223,7 +222,7 @@ namespace UniRx
 #endif
 
             var dispatcher = Instance;
-            if (!isQuitting && !object.ReferenceEquals(dispatcher, null))
+            if (!isQuitting && !ReferenceEquals(dispatcher, null))
             {
                 dispatcher.queueWorker.Enqueue(action, state);
             }
@@ -244,7 +243,7 @@ namespace UniRx
                 }
                 catch (Exception ex)
                 {
-                    var dispatcher = MainThreadDispatcher.Instance;
+                    var dispatcher = Instance;
                     if (dispatcher != null)
                     {
                         dispatcher.unhandledExceptionCallback(ex);
@@ -270,7 +269,7 @@ namespace UniRx
             }
             catch (Exception ex)
             {
-                var dispatcher = MainThreadDispatcher.Instance;
+                var dispatcher = Instance;
                 if (dispatcher != null)
                 {
                     dispatcher.unhandledExceptionCallback(ex);
@@ -291,7 +290,7 @@ namespace UniRx
             }
             catch (Exception ex)
             {
-                var dispatcher = MainThreadDispatcher.Instance;
+                var dispatcher = Instance;
                 if (dispatcher != null)
                 {
                     dispatcher.unhandledExceptionCallback(ex);
@@ -314,7 +313,7 @@ namespace UniRx
 #endif
 
                 var dispatcher = Instance;
-                if (!isQuitting && !object.ReferenceEquals(dispatcher, null))
+                if (!isQuitting && !ReferenceEquals(dispatcher, null))
                 {
                     dispatcher.queueWorker.Enqueue(_ =>
                     {
@@ -449,13 +448,13 @@ namespace UniRx
 
                 try
                 {
-                    dispatcher = GameObject.FindObjectOfType<MainThreadDispatcher>();
+                    dispatcher = FindObjectOfType<MainThreadDispatcher>();
                 }
                 catch
                 {
                     // Throw exception when calling from a worker thread.
                     var ex = new Exception("UniRx requires a MainThreadDispatcher component created on the main thread. Make sure it is added to the scene before calling UniRx from a worker thread.");
-                    UnityEngine.Debug.LogException(ex);
+                    Debug.LogException(ex);
                     throw ex;
                 }
 
@@ -570,14 +569,14 @@ namespace UniRx
                 else
                 {
                     // Remove component
-                    MonoBehaviour.Destroy(aDispatcher);
+                    Destroy(aDispatcher);
                 }
             }
         }
 
         public static void CullAllExcessDispatchers()
         {
-            var dispatchers = GameObject.FindObjectsOfType<MainThreadDispatcher>();
+            var dispatchers = FindObjectsOfType<MainThreadDispatcher>();
             for (int i = 0; i < dispatchers.Length; i++)
             {
                 DestroyDispatcher(dispatchers[i]);
@@ -588,7 +587,7 @@ namespace UniRx
         {
             if (instance == this)
             {
-                instance = GameObject.FindObjectOfType<MainThreadDispatcher>();
+                instance = FindObjectOfType<MainThreadDispatcher>();
                 initialized = instance != null;
 
                 /*

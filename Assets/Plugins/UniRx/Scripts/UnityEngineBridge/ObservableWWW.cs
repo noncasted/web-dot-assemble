@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Net;
+using System.Threading;
 using UnityEngine;
-
 #if !UniRxLibrary
 using ObservableUnity = UniRx.Observable;
 #endif
@@ -12,7 +14,6 @@ using ObservableUnity = UniRx.Observable;
 
 namespace UniRx
 {
-    using System.Threading;
 #if !(UNITY_METRO || UNITY_WP8) && (UNITY_4_4 || UNITY_4_3 || UNITY_4_2 || UNITY_4_1 || UNITY_4_0_1 || UNITY_4_0 || UNITY_3_5 || UNITY_3_4 || UNITY_3_3 || UNITY_3_2 || UNITY_3_1 || UNITY_3_0_0 || UNITY_3_0 || UNITY_2_6_1 || UNITY_2_6)
     // Fallback for Unity versions below 4.5
     using Hash = System.Collections.Hashtable;
@@ -21,8 +22,8 @@ namespace UniRx
     // Unity 4.5 release notes: 
     // WWW: deprecated 'WWW(string url, byte[] postData, Hashtable headers)', 
     // use 'public WWW(string url, byte[] postData, Dictionary<string, string> headers)' instead.
-    using Hash = System.Collections.Generic.Dictionary<string, string>;
-    using HashEntry = System.Collections.Generic.KeyValuePair<string, string>;
+    using Hash = Dictionary<string, string>;
+    using HashEntry = KeyValuePair<string, string>;
 #endif
 
 #if UNITY_2018_3_OR_NEWER
@@ -397,8 +398,8 @@ namespace UniRx
         public string RawErrorMessage { get; private set; }
         public bool HasResponse { get; private set; }
         public string Text { get; private set; }
-        public System.Net.HttpStatusCode StatusCode { get; private set; }
-        public System.Collections.Generic.Dictionary<string, string> ResponseHeaders { get; private set; }
+        public HttpStatusCode StatusCode { get; private set; }
+        public Dictionary<string, string> ResponseHeaders { get; private set; }
         public WWW WWW { get; private set; }
 
         // cache the text because if www was disposed, can't access it.
@@ -417,7 +418,7 @@ namespace UniRx
                 if (int.TryParse(splitted[0], out statusCode))
                 {
                     this.HasResponse = true;
-                    this.StatusCode = (System.Net.HttpStatusCode)statusCode;
+                    this.StatusCode = (HttpStatusCode)statusCode;
                 }
             }
         }

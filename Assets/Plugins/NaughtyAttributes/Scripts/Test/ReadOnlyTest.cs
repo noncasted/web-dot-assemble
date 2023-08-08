@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace NaughtyAttributes.Test
@@ -10,7 +11,7 @@ namespace NaughtyAttributes.Test
         public ReadOnlyNest1 nest1;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class ReadOnlyNest1
     {
         [ReadOnly]
@@ -20,7 +21,7 @@ namespace NaughtyAttributes.Test
         public ReadOnlyNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public struct ReadOnlyNest2
     {
         [ReadOnly]

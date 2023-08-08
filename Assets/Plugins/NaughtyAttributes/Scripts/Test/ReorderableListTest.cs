@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,7 +25,7 @@ namespace NaughtyAttributes.Test
         public List<MonoBehaviour> monoBehavioursList;
     }
 
-    [System.Serializable]
+    [Serializable]
     public struct SomeStruct
     {
         public int Int;

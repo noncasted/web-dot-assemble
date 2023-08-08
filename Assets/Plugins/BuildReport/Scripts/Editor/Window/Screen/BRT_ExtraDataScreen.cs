@@ -29,7 +29,7 @@ namespace BuildReportTool.Window.Screen
 			requestRepaint = false;
 
 
-			var textStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.SETTING_VALUE_STYLE_NAME);
+			var textStyle = GUI.skin.FindStyle(Settings.SETTING_VALUE_STYLE_NAME);
 			if (textStyle == null)
 			{
 				textStyle = GUI.skin.label;

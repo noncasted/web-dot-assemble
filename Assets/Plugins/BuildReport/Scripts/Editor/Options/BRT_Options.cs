@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using UnityEditorInternal;
 using UnityEngine;
-
 
 namespace BuildReportTool
 {
@@ -12,12 +12,12 @@ namespace BuildReportTool
 	/// Class for holding options.
 	/// This is the class that is serialized when saving the options.
 	/// </summary>
-	[System.Serializable, XmlRoot("BuildReportToolOptions")]
+	[Serializable, XmlRoot("BuildReportToolOptions")]
 	public class SavedOptions
 	{
 		public string EditorLogOverridePath;
 
-		public string BuildReportFolderName = BuildReportTool.Options.BUILD_REPORTS_DEFAULT_FOLDER_NAME;
+		public string BuildReportFolderName = Options.BUILD_REPORTS_DEFAULT_FOLDER_NAME;
 
 		/// <summary>
 		/// Where build reports are saved to: <br/>
@@ -290,13 +290,13 @@ namespace BuildReportTool
 
 		// =======================================================
 		//
-		static BuildReportTool.SavedOptions _savedOptions;
+		static SavedOptions _savedOptions;
 		static string _foundPathForSavedOptions;
 		const string SAVED_OPTIONS_FILENAME = "BuildReportToolOptions.xml";
 
 		static string DefaultOptionsPath
 		{
-			get { return string.Format("{0}ProjectSettings/{1}", BuildReportTool.Util.GetProjectPath(Application.dataPath), SAVED_OPTIONS_FILENAME); }
+			get { return string.Format("{0}ProjectSettings/{1}", Util.GetProjectPath(Application.dataPath), SAVED_OPTIONS_FILENAME); }
 		}
 
 		static bool IsBuildReportInRegularPaths
@@ -335,7 +335,7 @@ namespace BuildReportTool
 				var optionsInBuildReportFolder = DefaultOptionsPath;
 				if (File.Exists(optionsInBuildReportFolder))
 				{
-					_savedOptions = BuildReportTool.SavedOptions.Load(optionsInBuildReportFolder);
+					_savedOptions = SavedOptions.Load(optionsInBuildReportFolder);
 					_foundPathForSavedOptions = optionsInBuildReportFolder;
 					return;
 				}
@@ -346,7 +346,7 @@ namespace BuildReportTool
 					SAVED_OPTIONS_FILENAME);
 				if (File.Exists(optionsInPluginsBuildReport))
 				{
-					_savedOptions = BuildReportTool.SavedOptions.Load(optionsInPluginsBuildReport);
+					_savedOptions = SavedOptions.Load(optionsInPluginsBuildReport);
 					_foundPathForSavedOptions = optionsInPluginsBuildReport;
 					return;
 				}
@@ -356,14 +356,14 @@ namespace BuildReportTool
 				if (!IsBuildReportInRegularPaths)
 				{
 					string customBuildReportFolder =
-						BuildReportTool.Util.FindAssetFolder(Application.dataPath, BUILD_REPORT_TOOL_DEFAULT_FOLDER_NAME);
+						Util.FindAssetFolder(Application.dataPath, BUILD_REPORT_TOOL_DEFAULT_FOLDER_NAME);
 					if (!string.IsNullOrEmpty(customBuildReportFolder))
 					{
 						var optionsInCustomBuildReportFolder =
 							string.Format("{0}/{1}", customBuildReportFolder, SAVED_OPTIONS_FILENAME);
 						if (File.Exists(optionsInCustomBuildReportFolder))
 						{
-							_savedOptions = BuildReportTool.SavedOptions.Load(optionsInCustomBuildReportFolder);
+							_savedOptions = SavedOptions.Load(optionsInCustomBuildReportFolder);
 							_foundPathForSavedOptions = optionsInCustomBuildReportFolder;
 							return;
 						}
@@ -375,18 +375,18 @@ namespace BuildReportTool
 				var optionsInTopmostAssets = string.Format("{0}/{1}", Application.dataPath, SAVED_OPTIONS_FILENAME);
 				if (File.Exists(optionsInTopmostAssets))
 				{
-					_savedOptions = BuildReportTool.SavedOptions.Load(optionsInTopmostAssets);
+					_savedOptions = SavedOptions.Load(optionsInTopmostAssets);
 					_foundPathForSavedOptions = optionsInTopmostAssets;
 					return;
 				}
 
 				// ---------------------------------------------------
 				// look in Unity project folder (where Assets, Library, and ProjectSettings folder are)
-				var outsideAssets = BuildReportTool.Util.GetProjectPath(Application.dataPath);
+				var outsideAssets = Util.GetProjectPath(Application.dataPath);
 				var optionsOutsideAssets = string.Format("{0}{1}", outsideAssets, SAVED_OPTIONS_FILENAME);
 				if (File.Exists(optionsOutsideAssets))
 				{
-					_savedOptions = BuildReportTool.SavedOptions.Load(optionsOutsideAssets);
+					_savedOptions = SavedOptions.Load(optionsOutsideAssets);
 					_foundPathForSavedOptions = optionsOutsideAssets;
 					return;
 				}
@@ -398,19 +398,19 @@ namespace BuildReportTool
 				//Debug.LogFormat("Looking in {0}", optionsInProjectSettings);
 				if (File.Exists(optionsInProjectSettings))
 				{
-					_savedOptions = BuildReportTool.SavedOptions.Load(optionsInProjectSettings);
+					_savedOptions = SavedOptions.Load(optionsInProjectSettings);
 					_foundPathForSavedOptions = optionsInProjectSettings;
 					return;
 				}
 
 				// ---------------------------------------------------
 				// look in /My Documents/UnityBuildReports/
-				var optionsInMyDocs = string.Format("{0}/{1}/{2}", BuildReportTool.Util.GetUserHomeFolder(),
+				var optionsInMyDocs = string.Format("{0}/{1}/{2}", Util.GetUserHomeFolder(),
 					BUILD_REPORTS_DEFAULT_FOLDER_NAME, SAVED_OPTIONS_FILENAME);
 				//Debug.LogFormat("Looking in {0}", optionsInMyDocs);
 				if (File.Exists(optionsInMyDocs))
 				{
-					_savedOptions = BuildReportTool.SavedOptions.Load(optionsInMyDocs);
+					_savedOptions = SavedOptions.Load(optionsInMyDocs);
 					_foundPathForSavedOptions = optionsInMyDocs;
 					return;
 				}
@@ -427,7 +427,7 @@ namespace BuildReportTool
 				{
 					// there's a valid options file already
 					// just load that one
-					_savedOptions = BuildReportTool.SavedOptions.Load(_foundPathForSavedOptions);
+					_savedOptions = SavedOptions.Load(_foundPathForSavedOptions);
 				}
 			}
 
@@ -435,7 +435,7 @@ namespace BuildReportTool
 			// so create a new one at the default path
 			if (_savedOptions == null)
 			{
-				_savedOptions = new BuildReportTool.SavedOptions();
+				_savedOptions = new SavedOptions();
 				_foundPathForSavedOptions = DefaultOptionsPath;
 
 				var defaultFolder = Path.GetDirectoryName(_foundPathForSavedOptions);
@@ -732,16 +732,16 @@ namespace BuildReportTool
 		{
 			get
 			{
-				if (BuildReportTool.Options.SaveType == BuildReportTool.Options.SAVE_TYPE_PERSONAL)
+				if (SaveType == SAVE_TYPE_PERSONAL)
 				{
-					return string.Format("{0}/{1}", BuildReportTool.Util.GetUserHomeFolder(), BuildReportFolderName);
+					return string.Format("{0}/{1}", Util.GetUserHomeFolder(), BuildReportFolderName);
 				}
 				else
 				{
 					// assume BuildReportTool.Options.SaveType == BuildReportTool.Options.SAVE_TYPE_PROJECT
 
 					// makes use of Application.dataPath so it has to be called from the main thread
-					return string.Format("{0}/{1}", BuildReportTool.ReportGenerator.GetSavePathToProjectFolder(), BuildReportFolderName);
+					return string.Format("{0}/{1}", ReportGenerator.GetSavePathToProjectFolder(), BuildReportFolderName);
 				}
 			}
 		}
@@ -2460,7 +2460,7 @@ namespace BuildReportTool
 		{
 			get
 			{
-				return UnityEditorInternal.InternalEditorUtility.inBatchMode;
+				return InternalEditorUtility.inBatchMode;
 
 
 #if OTHER_BATCH_MODE_DETECTION_CODE

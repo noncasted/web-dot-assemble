@@ -1,13 +1,15 @@
-﻿using System.Collections;
+﻿#if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
+using UnityEngine.InputSystem;
+#endif
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
-#if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
-using UnityEngine.InputSystem;
-#endif
+using UnityEngine.UI;
 #if UNITY_EDITOR && UNITY_2021_1_OR_NEWER
 using Screen = UnityEngine.Device.Screen; // To support Device Simulator on Unity 2021.1+
 #endif
@@ -377,7 +379,7 @@ namespace IngameDebugConsole
 		internal StringBuilder sharedStringBuilder;
 
 		// Offset of DateTime.Now from DateTime.UtcNow
-		private System.TimeSpan localTimeUtcOffset;
+		private TimeSpan localTimeUtcOffset;
 
 		// Last recorded values of Time.realtimeSinceStartup and Time.frameCount on the main thread (because these Time properties can't be accessed from other threads)
 #if !IDG_OMIT_ELAPSED_TIME
@@ -395,7 +397,7 @@ namespace IngameDebugConsole
 		private PointerEventData nullPointerEventData;
 
 		// Callbacks for log window show/hide events
-		public System.Action OnLogWindowShown, OnLogWindowHidden;
+		public Action OnLogWindowShown, OnLogWindowHidden;
 
 #if UNITY_EDITOR
 		private bool isQuittingApplication;
@@ -513,7 +515,7 @@ namespace IngameDebugConsole
 			filterErrorButton.GetComponent<Button>().onClick.AddListener( FilterErrorButtonPressed );
 			snapToBottomButton.GetComponent<Button>().onClick.AddListener( () => SetSnapToBottom( true ) );
 
-			localTimeUtcOffset = System.DateTime.Now - System.DateTime.UtcNow;
+			localTimeUtcOffset = DateTime.Now - DateTime.UtcNow;
 			dummyLogEntryTimestamp = new DebugLogEntryTimestamp();
 			nullPointerEventData = new PointerEventData( null );
 
@@ -634,7 +636,7 @@ namespace IngameDebugConsole
 		{
 			queuedLogLimit = Mathf.Max( 0, queuedLogLimit );
 
-			if( UnityEditor.EditorApplication.isPlaying )
+			if( EditorApplication.isPlaying )
 			{
 				resizeButton.sprite = enableHorizontalResizing ? resizeIconAllDirections : resizeIconVerticalOnly;
 
@@ -1041,7 +1043,7 @@ namespace IngameDebugConsole
 			if( queuedLogEntriesTimestamps != null )
 			{
 				// It is 10 times faster to cache local time's offset from UtcNow and add it to UtcNow to get local time at any time
-				System.DateTime dateTime = System.DateTime.UtcNow + localTimeUtcOffset;
+				DateTime dateTime = DateTime.UtcNow + localTimeUtcOffset;
 #if !IDG_OMIT_ELAPSED_TIME && !IDG_OMIT_FRAMECOUNT
 				queuedLogEntryTimestamp = new DebugLogEntryTimestamp( dateTime, lastElapsedSeconds, lastFrameCount );
 #elif !IDG_OMIT_ELAPSED_TIME
@@ -1646,7 +1648,7 @@ namespace IngameDebugConsole
 
 			int count = uncollapsedLogEntriesIndices.Count;
 			int length = 0;
-			int newLineLength = System.Environment.NewLine.Length;
+			int newLineLength = Environment.NewLine.Length;
 			for( int i = 0; i < count; i++ )
 			{
 				DebugLogEntry entry = collapsedLogEntries[uncollapsedLogEntriesIndices[i]];
@@ -1677,7 +1679,7 @@ namespace IngameDebugConsole
 
 		private void SaveLogsToFile()
 		{
-			SaveLogsToFile( Path.Combine( Application.persistentDataPath, System.DateTime.Now.ToString( "dd-MM-yyyy--HH-mm-ss" ) + ".txt" ) );
+			SaveLogsToFile( Path.Combine( Application.persistentDataPath, DateTime.Now.ToString( "dd-MM-yyyy--HH-mm-ss" ) + ".txt" ) );
 		}
 
 		private void SaveLogsToFile( string filePath )

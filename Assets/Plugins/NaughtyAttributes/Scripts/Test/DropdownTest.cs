@@ -1,5 +1,6 @@
-using UnityEngine;
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace NaughtyAttributes.Test
 {
@@ -15,7 +16,7 @@ namespace NaughtyAttributes.Test
         public DropdownNest1 nest1;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class DropdownNest1
     {
         [Dropdown("StringValues")]
@@ -26,7 +27,7 @@ namespace NaughtyAttributes.Test
         public DropdownNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class DropdownNest2
     {
         [Dropdown("GetVectorValues")]

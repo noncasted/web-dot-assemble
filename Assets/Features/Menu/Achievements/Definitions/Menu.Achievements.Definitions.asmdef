@@ -1,3 +1,4 @@
 ﻿{
-  "name": "Menu.Achievements.Definitions"
+  "name": "Menu.Achievements.Definitions",
+  "references":[ "GUID:f6753ab44f5843a46895517ebcca08b5" ]
 }

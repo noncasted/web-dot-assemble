@@ -34,26 +34,26 @@ namespace VContainer.Unity
             InjectGameObjectRecursive(gameObject);
         }
 
-        public static T Instantiate<T>(this IObjectResolver resolver, T prefab) where T : UnityEngine.Object
+        public static T Instantiate<T>(this IObjectResolver resolver, T prefab) where T : Object
         {
             T instance;
             if (resolver.ApplicationOrigin is LifetimeScope scope)
             {
                 if (scope.IsRoot)
                 {
-                    instance = UnityEngine.Object.Instantiate(prefab);
-                    UnityEngine.Object.DontDestroyOnLoad(instance);
+                    instance = Object.Instantiate(prefab);
+                    Object.DontDestroyOnLoad(instance);
                 }
                 else
                 {
                     // Into the same scene as LifetimeScope
-                    instance = UnityEngine.Object.Instantiate(prefab, scope.transform);
+                    instance = Object.Instantiate(prefab, scope.transform);
                     ResetParent(instance);
                 }
             }
             else
             {
-                instance = UnityEngine.Object.Instantiate(prefab);
+                instance = Object.Instantiate(prefab);
             }
             SetName(instance, prefab);
 
@@ -62,9 +62,9 @@ namespace VContainer.Unity
         }
 
         public static T Instantiate<T>(this IObjectResolver resolver, T prefab, Transform parent, bool worldPositionStays = false)
-            where T : UnityEngine.Object
+            where T : Object
         {
-            var instance = UnityEngine.Object.Instantiate(prefab, parent, worldPositionStays);
+            var instance = Object.Instantiate(prefab, parent, worldPositionStays);
             SetName(instance, prefab);
 
             InjectUnityEngineObject(resolver, instance);
@@ -76,26 +76,26 @@ namespace VContainer.Unity
             T prefab,
             Vector3 position,
             Quaternion rotation)
-            where T : UnityEngine.Object
+            where T : Object
         {
             T instance;
             if (resolver.ApplicationOrigin is LifetimeScope scope)
             {
                 if (scope.IsRoot)
                 {
-                    instance = UnityEngine.Object.Instantiate(prefab, position, rotation);
-                    UnityEngine.Object.DontDestroyOnLoad(instance);
+                    instance = Object.Instantiate(prefab, position, rotation);
+                    Object.DontDestroyOnLoad(instance);
                 }
                 else
                 {
                     // Into the same scene as LifetimeScope
-                    instance = UnityEngine.Object.Instantiate(prefab, position, rotation, scope.transform);
+                    instance = Object.Instantiate(prefab, position, rotation, scope.transform);
                     ResetParent(instance);
                 }
             }
             else
             {
-                instance = UnityEngine.Object.Instantiate(prefab, position, rotation);
+                instance = Object.Instantiate(prefab, position, rotation);
             }
 
             SetName(instance, prefab);
@@ -109,16 +109,16 @@ namespace VContainer.Unity
             Vector3 position,
             Quaternion rotation,
             Transform parent)
-            where T : UnityEngine.Object
+            where T : Object
         {
-            var instance = UnityEngine.Object.Instantiate(prefab, position, rotation, parent);
+            var instance = Object.Instantiate(prefab, position, rotation, parent);
             SetName(instance, prefab);
 
             InjectUnityEngineObject(resolver, instance);
             return instance;
         }
 
-        static void InjectUnityEngineObject<T>(IObjectResolver resolver, T instance) where T : UnityEngine.Object
+        static void InjectUnityEngineObject<T>(IObjectResolver resolver, T instance) where T : Object
         {
             if (instance is GameObject gameObject)
                 resolver.InjectGameObject(gameObject);
@@ -132,7 +132,7 @@ namespace VContainer.Unity
                 resolver.Inject(instance);
         }
 
-        static void ResetParent<T>(T instance) where T : UnityEngine.Object
+        static void ResetParent<T>(T instance) where T : Object
         {
             switch (instance)
             {
@@ -145,7 +145,7 @@ namespace VContainer.Unity
             }
         }
 
-        static void SetName<T>(T instance, T prefab) where T : UnityEngine.Object
+        static void SetName<T>(T instance, T prefab) where T : Object
         {
             if (VContainerSettings.Instance != null && VContainerSettings.Instance.RemoveClonePostfix)
                 instance.name = prefab.name;

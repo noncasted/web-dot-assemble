@@ -1,7 +1,5 @@
-﻿using System.Threading;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using Menu.StateMachine.Definitions;
-using NaughtyAttributes;
 using UnityEngine;
 
 namespace Menu.StateMachine.Runtime

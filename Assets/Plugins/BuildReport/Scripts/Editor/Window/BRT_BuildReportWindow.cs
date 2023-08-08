@@ -3,11 +3,18 @@
 #if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
+using System.IO;
 using System.Threading;
 using BuildReportTool;
 using BuildReportTool.Window;
+using BuildReportTool.Window.Screen;
+using UnityEditor;
+using UnityEngine;
+using AssetList = BuildReportTool.Window.Screen.AssetList;
+using ExtraData = BuildReportTool.Window.Screen.ExtraData;
+using Help = BuildReportTool.Window.Screen.Help;
+using Object = UnityEngine.Object;
+using Options = BuildReportTool.Window.Screen.Options;
 
 // can't put this in a namespace since older versions of Unity doesn't allow that
 public class BRT_BuildReportWindow : EditorWindow
@@ -88,13 +95,13 @@ public class BRT_BuildReportWindow : EditorWindow
 
 		InitGUISkin();
 
-		if (BuildReportTool.Util.BuildInfoHasContents(_buildInfo))
+		if (Util.BuildInfoHasContents(_buildInfo))
 		{
 			//Debug.Log("recompiled " + _buildInfo.SavedPath);
 			if (!string.IsNullOrEmpty(_buildInfo.SavedPath))
 			{
-				BuildReportTool.BuildInfo loadedBuild = BuildReportTool.Util.OpenSerializedBuildInfo(_buildInfo.SavedPath);
-				if (BuildReportTool.Util.BuildInfoHasContents(loadedBuild))
+				BuildInfo loadedBuild = Util.OpenSerializedBuildInfo(_buildInfo.SavedPath);
+				if (Util.BuildInfoHasContents(loadedBuild))
 				{
 					_buildInfo = loadedBuild;
 				}
@@ -104,21 +111,21 @@ public class BRT_BuildReportWindow : EditorWindow
 				if (_buildInfo.HasUsedAssets)
 				{
 					_buildInfo.UsedAssets.AssignPerCategoryList(
-						BuildReportTool.ReportGenerator.SegregateAssetSizesPerCategory(_buildInfo.UsedAssets.All,
+						ReportGenerator.SegregateAssetSizesPerCategory(_buildInfo.UsedAssets.All,
 							_buildInfo.FileFilters));
 				}
 
 				if (_buildInfo.HasUnusedAssets)
 				{
 					_buildInfo.UnusedAssets.AssignPerCategoryList(
-						BuildReportTool.ReportGenerator.SegregateAssetSizesPerCategory(_buildInfo.UnusedAssets.All,
+						ReportGenerator.SegregateAssetSizesPerCategory(_buildInfo.UnusedAssets.All,
 							_buildInfo.FileFilters));
 				}
 			}
 		}
 
-		_usedAssetsScreen.SetListToDisplay(BuildReportTool.Window.Screen.AssetList.ListToDisplay.UsedAssets);
-		_unusedAssetsScreen.SetListToDisplay(BuildReportTool.Window.Screen.AssetList.ListToDisplay.UnusedAssets);
+		_usedAssetsScreen.SetListToDisplay(AssetList.ListToDisplay.UsedAssets);
+		_unusedAssetsScreen.SetListToDisplay(AssetList.ListToDisplay.UnusedAssets);
 
 		_overviewScreen.RefreshData(_buildInfo, _assetDependencies, _textureData, _meshData, _unityBuildReport);
 		_buildSettingsScreen.RefreshData(_buildInfo, _assetDependencies, _textureData, _meshData, _unityBuildReport);
@@ -148,14 +155,14 @@ public class BRT_BuildReportWindow : EditorWindow
 			_unusedAssetsScreen.Update(EditorApplication.timeSinceStartup, deltaTime, _buildInfo, _assetDependencies);
 		}
 
-		if (_buildInfo != null && BuildReportTool.ReportGenerator.IsFinishedGettingValues)
+		if (_buildInfo != null && ReportGenerator.IsFinishedGettingValues)
 		{
 			OnFinishGeneratingBuildReport();
 		}
 
 		// if Unity Editor has finished making a build and we are scheduled to create a Build Report...
-		if (BuildReportTool.Util.ShouldGetBuildReportNow &&
-		    !BuildReportTool.ReportGenerator.IsStillGettingValues &&
+		if (Util.ShouldGetBuildReportNow &&
+		    !ReportGenerator.IsStillGettingValues &&
 		    !EditorApplication.isCompiling)
 		{
 			//Debug.Log("BuildReportWindow getting build info right after the build... " + System.DateTime.Now);
@@ -183,21 +190,21 @@ public class BRT_BuildReportWindow : EditorWindow
 	// ==========================================================================================
 	// sub-screens
 
-	readonly BuildReportTool.Window.Screen.Overview _overviewScreen = new BuildReportTool.Window.Screen.Overview();
+	readonly Overview _overviewScreen = new Overview();
 
-	readonly BuildReportTool.Window.Screen.BuildSettings _buildSettingsScreen =
-		new BuildReportTool.Window.Screen.BuildSettings();
+	readonly BuildSettings _buildSettingsScreen =
+		new BuildSettings();
 
-	readonly BuildReportTool.Window.Screen.BuildStepsScreen _buildStepsScreen =
-		new BuildReportTool.Window.Screen.BuildStepsScreen();
+	readonly BuildStepsScreen _buildStepsScreen =
+		new BuildStepsScreen();
 
-	readonly BuildReportTool.Window.Screen.SizeStats _sizeStatsScreen = new BuildReportTool.Window.Screen.SizeStats();
-	readonly BuildReportTool.Window.Screen.AssetList _usedAssetsScreen = new BuildReportTool.Window.Screen.AssetList();
-	readonly BuildReportTool.Window.Screen.AssetList _unusedAssetsScreen = new BuildReportTool.Window.Screen.AssetList();
-	readonly BuildReportTool.Window.Screen.ExtraData _extraDataScreen = new BuildReportTool.Window.Screen.ExtraData();
+	readonly SizeStats _sizeStatsScreen = new SizeStats();
+	readonly AssetList _usedAssetsScreen = new AssetList();
+	readonly AssetList _unusedAssetsScreen = new AssetList();
+	readonly ExtraData _extraDataScreen = new ExtraData();
 
-	readonly BuildReportTool.Window.Screen.Options _optionsScreen = new BuildReportTool.Window.Screen.Options();
-	readonly BuildReportTool.Window.Screen.Help _helpScreen = new BuildReportTool.Window.Screen.Help();
+	readonly Options _optionsScreen = new Options();
+	readonly Help _helpScreen = new Help();
 
 
 	// ==========================================================================================
@@ -217,29 +224,29 @@ public class BRT_BuildReportWindow : EditorWindow
 	/// <summary>
 	/// The Build Report we're displaying.
 	/// </summary>
-	static BuildReportTool.BuildInfo _buildInfo;
+	static BuildInfo _buildInfo;
 
 	/// <summary>
 	/// The Asset Dependencies data being used
 	/// for whichever Build Report is displayed.
 	/// </summary>
-	static BuildReportTool.AssetDependencies _assetDependencies;
+	static AssetDependencies _assetDependencies;
 
 	/// <summary>
 	/// The TextureData being used
 	/// for whichever Build Report is displayed.
 	/// </summary>
-	static BuildReportTool.TextureData _textureData;
+	static TextureData _textureData;
 
 	/// <summary>
 	/// The MeshData being used
 	/// for whichever Build Report is displayed.
 	/// </summary>
-	static BuildReportTool.MeshData _meshData;
+	static MeshData _meshData;
 
-	static BuildReportTool.UnityBuildReport _unityBuildReport;
+	static UnityBuildReport _unityBuildReport;
 
-	static ExtraData _extraData;
+	static BuildReportTool.ExtraData _extraData;
 
 	public const bool FORCE_USE_DARK_SKIN = false;
 
@@ -354,7 +361,7 @@ public class BRT_BuildReportWindow : EditorWindow
 
 	static void AssignHoveredAssetEndUsers(AssetDependencies assetDependencies)
 	{
-		BuildReportTool.AssetDependencies.PopulateAssetEndUsers(HoveredAssetEntryPath, assetDependencies);
+		AssetDependencies.PopulateAssetEndUsers(HoveredAssetEntryPath, assetDependencies);
 	}
 
 	static AssetInfoType _hoveredAssetType = AssetInfoType.None;
@@ -478,9 +485,9 @@ public class BRT_BuildReportWindow : EditorWindow
 
 	void RecategorizeDisplayedBuildInfo()
 	{
-		if (BuildReportTool.Util.BuildInfoHasContents(_buildInfo))
+		if (Util.BuildInfoHasContents(_buildInfo))
 		{
-			BuildReportTool.ReportGenerator.RecategorizeAssetList(_buildInfo);
+			ReportGenerator.RecategorizeAssetList(_buildInfo);
 		}
 	}
 
@@ -666,11 +673,11 @@ public class BRT_BuildReportWindow : EditorWindow
 		string guiSkinToUse;
 		if (EditorGUIUtility.isProSkin || FORCE_USE_DARK_SKIN)
 		{
-			guiSkinToUse = BuildReportTool.Window.Settings.DARK_GUI_SKIN_FILENAME;
+			guiSkinToUse = Settings.DARK_GUI_SKIN_FILENAME;
 		}
 		else
 		{
-			guiSkinToUse = BuildReportTool.Window.Settings.DEFAULT_GUI_SKIN_FILENAME;
+			guiSkinToUse = Settings.DEFAULT_GUI_SKIN_FILENAME;
 		}
 
 		// try default path
@@ -684,7 +691,7 @@ public class BRT_BuildReportWindow : EditorWindow
 			Debug.LogWarning(BuildReportTool.Options.BUILD_REPORT_PACKAGE_MOVED_MSG);
 #endif
 
-			string folderPath = BuildReportTool.Util.FindAssetFolder(Application.dataPath,
+			string folderPath = Util.FindAssetFolder(Application.dataPath,
 				BuildReportTool.Options.BUILD_REPORT_TOOL_DEFAULT_FOLDER_NAME);
 			if (!string.IsNullOrEmpty(folderPath))
 			{
@@ -1000,7 +1007,7 @@ public class BRT_BuildReportWindow : EditorWindow
 	}
 
 
-	public void Init(BuildReportTool.BuildInfo buildInfo)
+	public void Init(BuildInfo buildInfo)
 	{
 		_buildInfo = buildInfo;
 
@@ -1017,19 +1024,19 @@ public class BRT_BuildReportWindow : EditorWindow
 	void Refresh(bool fromBuild)
 	{
 		GoToOverviewScreen();
-		BuildReportTool.ReportGenerator.RefreshData(fromBuild, ref _buildInfo, ref _assetDependencies, ref _textureData, ref _meshData);
+		ReportGenerator.RefreshData(fromBuild, ref _buildInfo, ref _assetDependencies, ref _textureData, ref _meshData);
 	}
 
 	bool IsWaitingForBuildCompletionToGenerateBuildReport
 	{
-		get { return BuildReportTool.Util.ShouldGetBuildReportNow && EditorApplication.isCompiling; }
+		get { return Util.ShouldGetBuildReportNow && EditorApplication.isCompiling; }
 	}
 
 	void OnFinishOpeningBuildReportFile()
 	{
 		_finishedOpeningFromThread = false;
 
-		if (BuildReportTool.Util.BuildInfoHasContents(_buildInfo))
+		if (Util.BuildInfoHasContents(_buildInfo))
 		{
 			_buildSettingsScreen.RefreshData(_buildInfo, _assetDependencies, _textureData, _meshData, _unityBuildReport);
 			_buildStepsScreen.RefreshData(_buildInfo, _assetDependencies, _textureData, _meshData, _unityBuildReport);
@@ -1048,7 +1055,7 @@ public class BRT_BuildReportWindow : EditorWindow
 
 	void OnFinishGeneratingBuildReport()
 	{
-		BuildReportTool.ReportGenerator.OnFinishedGetValues(_buildInfo, _assetDependencies, _textureData, _meshData);
+		ReportGenerator.OnFinishedGetValues(_buildInfo, _assetDependencies, _textureData, _meshData);
 		_buildInfo.UnescapeAssetNames();
 
 		GoToOverviewScreen();
@@ -1157,9 +1164,9 @@ public class BRT_BuildReportWindow : EditorWindow
 
 		_finishedOpeningFromThread = false;
 		GetValueMessage = "Opening...";
-		BuildReportTool.BuildInfo loadedBuild = BuildReportTool.Util.OpenSerializedBuildInfo(filepath, false);
+		BuildInfo loadedBuild = Util.OpenSerializedBuildInfo(filepath, false);
 
-		if (BuildReportTool.Util.BuildInfoHasContents(loadedBuild))
+		if (Util.BuildInfoHasContents(loadedBuild))
 		{
 			_buildInfo = loadedBuild;
 			_lastOpenedBuildInfoFilePath = filepath;
@@ -1169,10 +1176,10 @@ public class BRT_BuildReportWindow : EditorWindow
 			Debug.LogError(string.Format("Build Report Tool: Invalid data in build info file: {0}", filepath));
 		}
 
-		var assetDependenciesFilePath = BuildReportTool.Util.GetAssetDependenciesFilenameFromBuildInfo(filepath);
-		if (System.IO.File.Exists(assetDependenciesFilePath))
+		var assetDependenciesFilePath = Util.GetAssetDependenciesFilenameFromBuildInfo(filepath);
+		if (File.Exists(assetDependenciesFilePath))
 		{
-			var loadedAssetDependencies = BuildReportTool.Util.OpenSerialized<BuildReportTool.AssetDependencies>(assetDependenciesFilePath);
+			var loadedAssetDependencies = Util.OpenSerialized<AssetDependencies>(assetDependenciesFilePath);
 			if (loadedAssetDependencies != null)
 			{
 				_assetDependencies = loadedAssetDependencies;
@@ -1183,10 +1190,10 @@ public class BRT_BuildReportWindow : EditorWindow
 			_assetDependencies = null;
 		}
 
-		var textureDataFilePath = BuildReportTool.Util.GetTextureDataFilenameFromBuildInfo(filepath);
-		if (System.IO.File.Exists(textureDataFilePath))
+		var textureDataFilePath = Util.GetTextureDataFilenameFromBuildInfo(filepath);
+		if (File.Exists(textureDataFilePath))
 		{
-			var loadedTextureData = BuildReportTool.Util.OpenSerialized<BuildReportTool.TextureData>(textureDataFilePath);
+			var loadedTextureData = Util.OpenSerialized<TextureData>(textureDataFilePath);
 			if (loadedTextureData != null)
 			{
 				_textureData = loadedTextureData;
@@ -1197,10 +1204,10 @@ public class BRT_BuildReportWindow : EditorWindow
 			_textureData = null;
 		}
 
-		var meshDataFilePath = BuildReportTool.Util.GetMeshDataFilenameFromBuildInfo(filepath);
-		if (System.IO.File.Exists(meshDataFilePath))
+		var meshDataFilePath = Util.GetMeshDataFilenameFromBuildInfo(filepath);
+		if (File.Exists(meshDataFilePath))
 		{
-			var loadedMeshData = BuildReportTool.Util.OpenSerialized<BuildReportTool.MeshData>(meshDataFilePath);
+			var loadedMeshData = Util.OpenSerialized<MeshData>(meshDataFilePath);
 			if (loadedMeshData != null)
 			{
 				_meshData = loadedMeshData;
@@ -1211,13 +1218,13 @@ public class BRT_BuildReportWindow : EditorWindow
 			_meshData = null;
 		}
 
-		var unityBuildReportFilePath = BuildReportTool.Util.GetUnityBuildReportFilenameFromBuildInfo(filepath);
-		if (System.IO.File.Exists(unityBuildReportFilePath))
+		var unityBuildReportFilePath = Util.GetUnityBuildReportFilenameFromBuildInfo(filepath);
+		if (File.Exists(unityBuildReportFilePath))
 		{
 			try
 			{
 				var loadedUnityBuildReport =
-					BuildReportTool.Util.OpenSerialized<BuildReportTool.UnityBuildReport>(unityBuildReportFilePath);
+					Util.OpenSerialized<UnityBuildReport>(unityBuildReportFilePath);
 				if (loadedUnityBuildReport != null)
 				{
 					_unityBuildReport = loadedUnityBuildReport;
@@ -1240,10 +1247,10 @@ public class BRT_BuildReportWindow : EditorWindow
 			_unityBuildReport = null;
 		}
 
-		var extraDataFilePath = BuildReportTool.Util.GetExtraDataFilename(filepath).Replace('\\', '/');
-		if (System.IO.File.Exists(extraDataFilePath))
+		var extraDataFilePath = Util.GetExtraDataFilename(filepath).Replace('\\', '/');
+		if (File.Exists(extraDataFilePath))
 		{
-			_extraData.Contents = System.IO.File.ReadAllText(extraDataFilePath);
+			_extraData.Contents = File.ReadAllText(extraDataFilePath);
 			_extraData.SavedPath = extraDataFilePath;
 		}
 		else
@@ -1296,25 +1303,25 @@ public class BRT_BuildReportWindow : EditorWindow
 		// derive the build report file from it
 		if (filepath.DoesFileBeginWith("DEP-"))
 		{
-			var path = System.IO.Path.GetDirectoryName(filepath);
+			var path = Path.GetDirectoryName(filepath);
 			var filename = filepath.GetFileNameOnly();
 			filepath = string.Format("{0}/{1}", path, filename.Substring(4)); // filename without the "DEP-" at the start
 		}
 		else if (filepath.DoesFileBeginWith("TextureData-"))
 		{
-			var path = System.IO.Path.GetDirectoryName(filepath);
+			var path = Path.GetDirectoryName(filepath);
 			var filename = filepath.GetFileNameOnly();
 			filepath = string.Format("{0}/{1}", path, filename.Substring(12)); // filename without the "TextureData-" at the start
 		}
 		else if (filepath.DoesFileBeginWith("UBR-"))
 		{
-			var path = System.IO.Path.GetDirectoryName(filepath);
+			var path = Path.GetDirectoryName(filepath);
 			var filename = filepath.GetFileNameOnly();
 			filepath = string.Format("{0}/{1}", path, filename.Substring(4)); // filename without the "UBR-" at the start
 		}
 		else if (filepath.DoesFileBeginWith("ExtraData-"))
 		{
-			var path = System.IO.Path.GetDirectoryName(filepath);
+			var path = Path.GetDirectoryName(filepath);
 			var filename = filepath.GetFileNameOnly();
 			filepath = string.Format("{0}/{1}", path, filename.Substring(10)); // filename without the "ExtraData-" at the start
 		}
@@ -1382,19 +1389,19 @@ public class BRT_BuildReportWindow : EditorWindow
 	{
 		int toolbarX = 10;
 
-		var leftToolbarStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.TOOLBAR_LEFT_STYLE_NAME);
+		var leftToolbarStyle = GUI.skin.FindStyle(Settings.TOOLBAR_LEFT_STYLE_NAME);
 		if (leftToolbarStyle == null)
 		{
 			leftToolbarStyle = GUI.skin.button;
 		}
 
-		var midToolbarStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.TOOLBAR_MIDDLE_STYLE_NAME);
+		var midToolbarStyle = GUI.skin.FindStyle(Settings.TOOLBAR_MIDDLE_STYLE_NAME);
 		if (midToolbarStyle == null)
 		{
 			midToolbarStyle = GUI.skin.button;
 		}
 
-		var rightToolbarStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.TOOLBAR_RIGHT_STYLE_NAME);
+		var rightToolbarStyle = GUI.skin.FindStyle(Settings.TOOLBAR_RIGHT_STYLE_NAME);
 		if (rightToolbarStyle == null)
 		{
 			rightToolbarStyle = GUI.skin.button;
@@ -1421,7 +1428,7 @@ public class BRT_BuildReportWindow : EditorWindow
 		toolbarX += 40;
 
 		if (GUI.Button(new Rect(toolbarX, 5, 40, 40), _toolbarLabelSave, rightToolbarStyle) &&
-		    BuildReportTool.Util.BuildInfoHasContents(_buildInfo))
+		    Util.BuildInfoHasContents(_buildInfo))
 		{
 			string filepath = EditorUtility.SaveFilePanel(
 				Labels.SAVE_MSG,
@@ -1431,30 +1438,30 @@ public class BRT_BuildReportWindow : EditorWindow
 
 			if (!string.IsNullOrEmpty(filepath))
 			{
-				BuildReportTool.Util.Serialize(_buildInfo, filepath);
+				Util.Serialize(_buildInfo, filepath);
 
 				if (_assetDependencies != null && _assetDependencies.HasContents)
 				{
-					var assetDependenciesFilePath = BuildReportTool.Util.GetAssetDependenciesFilenameFromBuildInfo(filepath);
-					BuildReportTool.Util.Serialize(_assetDependencies, assetDependenciesFilePath);
+					var assetDependenciesFilePath = Util.GetAssetDependenciesFilenameFromBuildInfo(filepath);
+					Util.Serialize(_assetDependencies, assetDependenciesFilePath);
 				}
 
 				if (_textureData != null && _textureData.HasContents)
 				{
-					var textureDataFilePath = BuildReportTool.Util.GetTextureDataFilenameFromBuildInfo(filepath);
-					BuildReportTool.Util.Serialize(_textureData, textureDataFilePath);
+					var textureDataFilePath = Util.GetTextureDataFilenameFromBuildInfo(filepath);
+					Util.Serialize(_textureData, textureDataFilePath);
 				}
 
 				if (_meshData != null && _meshData.HasContents)
 				{
-					var meshDataFilePath = BuildReportTool.Util.GetMeshDataFilenameFromBuildInfo(filepath);
-					BuildReportTool.Util.Serialize(_meshData, meshDataFilePath);
+					var meshDataFilePath = Util.GetMeshDataFilenameFromBuildInfo(filepath);
+					Util.Serialize(_meshData, meshDataFilePath);
 				}
 
 				if (_unityBuildReport != null)
 				{
-					var unityBuildReportFilePath = BuildReportTool.Util.GetUnityBuildReportFilenameFromBuildInfo(filepath);
-					BuildReportTool.Util.Serialize(_unityBuildReport, unityBuildReportFilePath);
+					var unityBuildReportFilePath = Util.GetUnityBuildReportFilenameFromBuildInfo(filepath);
+					Util.Serialize(_unityBuildReport, unityBuildReportFilePath);
 				}
 			}
 		}
@@ -1486,7 +1493,7 @@ public class BRT_BuildReportWindow : EditorWindow
 		{
 			_noGuiSkinFound = _usedSkin == null;
 			_loadingValuesFromThread = !string.IsNullOrEmpty(GetValueMessage);
-			_buildInfoHasNoContentsToDisplay = !BuildReportTool.Util.BuildInfoHasContents(_buildInfo);
+			_buildInfoHasNoContentsToDisplay = !Util.BuildInfoHasContents(_buildInfo);
 		}
 
 		//GUI.Label(new Rect(5, 100, 800, 20), "BuildReportTool.Util.ShouldReload: " + BuildReportTool.Util.ShouldReload + " EditorApplication.isCompiling: " + EditorApplication.isCompiling);
@@ -1503,14 +1510,14 @@ public class BRT_BuildReportWindow : EditorWindow
 
 		DrawTopRowButtons();
 
-		if (GUI.skin.FindStyle(BuildReportTool.Window.Settings.VERSION_STYLE_NAME) != null)
+		if (GUI.skin.FindStyle(Settings.VERSION_STYLE_NAME) != null)
 		{
-			GUI.Label(new Rect(0, 0, position.width, 20), BuildReportTool.Info.ReadableVersion,
-				BuildReportTool.Window.Settings.VERSION_STYLE_NAME);
+			GUI.Label(new Rect(0, 0, position.width, 20), Info.ReadableVersion,
+				Settings.VERSION_STYLE_NAME);
 		}
 		else
 		{
-			GUI.Label(new Rect(position.width - 160, 0, position.width, 20), BuildReportTool.Info.ReadableVersion);
+			GUI.Label(new Rect(position.width - 160, 0, position.width, 20), Info.ReadableVersion);
 		}
 
 
@@ -1570,19 +1577,19 @@ public class BRT_BuildReportWindow : EditorWindow
 
 		int oldSelectedCategoryIdx = _selectedCategoryIdx;
 
-		var leftTabStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.TAB_LEFT_STYLE_NAME);
+		var leftTabStyle = GUI.skin.FindStyle(Settings.TAB_LEFT_STYLE_NAME);
 		if (leftTabStyle == null)
 		{
 			leftTabStyle = GUI.skin.button;
 		}
 
-		var midTabStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.TAB_MIDDLE_STYLE_NAME);
+		var midTabStyle = GUI.skin.FindStyle(Settings.TAB_MIDDLE_STYLE_NAME);
 		if (midTabStyle == null)
 		{
 			midTabStyle = GUI.skin.button;
 		}
 
-		var rightTabStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.TAB_RIGHT_STYLE_NAME);
+		var rightTabStyle = GUI.skin.FindStyle(Settings.TAB_RIGHT_STYLE_NAME);
 		if (rightTabStyle == null)
 		{
 			rightTabStyle = GUI.skin.button;
@@ -1769,7 +1776,7 @@ public class BRT_BuildReportWindow : EditorWindow
 		else //if (_assetListEntryHovered.Name.EndsWith(".prefab") || BuildReportTool.Util.IsFileAUnityMesh(_assetListEntryHovered.Name))
 		{
 #if UNITY_5_6_OR_NEWER
-			var loadedObj = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(assetName);
+			var loadedObj = AssetDatabase.LoadAssetAtPath<Object>(assetName);
 #else
 			var loadedObj = (UnityEngine.Object)AssetDatabase.LoadAssetAtPath(assetName, typeof(UnityEngine.Object));
 #endif
@@ -1969,14 +1976,14 @@ public class BRT_BuildReportWindow : EditorWindow
 
 	// -----------------------------------------------
 
-	public static void DrawThumbnailTooltip(Rect position, BuildReportTool.TextureData textureData)
+	public static void DrawThumbnailTooltip(Rect position, TextureData textureData)
 	{
 		DrawThumbnailTooltip(position, HoveredAssetEntryPath, HoveredAssetEntryRect, textureData);
 	}
 
 	static readonly GUIContent TextureDataTooltipLabel = new GUIContent();
 
-	static bool GetTextureDataForTooltip(string assetPath, BuildReportTool.TextureData textureData, out Vector2 labelSize)
+	static bool GetTextureDataForTooltip(string assetPath, TextureData textureData, out Vector2 labelSize)
 	{
 		if (textureData == null)
 		{
@@ -2030,14 +2037,14 @@ public class BRT_BuildReportWindow : EditorWindow
 		}
 	}
 
-	public static void DrawThumbnailTooltip(Rect position, string assetPath, Rect assetRect, BuildReportTool.TextureData textureData)
+	public static void DrawThumbnailTooltip(Rect position, string assetPath, Rect assetRect, TextureData textureData)
 	{
-		var thumbnailImage = BRT_BuildReportWindow.GetAssetPreview(assetPath);
+		var thumbnailImage = GetAssetPreview(assetPath);
 
 		if (thumbnailImage != null)
 		{
 			var desiredSize = Vector2.zero;
-			var thumbnailSize = BRT_BuildReportWindow.GetThumbnailSize();
+			var thumbnailSize = GetThumbnailSize();
 			desiredSize.x = thumbnailSize.x;
 			desiredSize.y = thumbnailSize.y;
 
@@ -2049,7 +2056,7 @@ public class BRT_BuildReportWindow : EditorWindow
 				desiredSize.y += textureDataLabelSize.y;
 			}
 
-			var tooltipRect = BRT_BuildReportWindow.DrawTooltip(position, desiredSize.x, desiredSize.y);
+			var tooltipRect = DrawTooltip(position, desiredSize.x, desiredSize.y);
 
 			DrawThumbnail(tooltipRect.x, tooltipRect.y, thumbnailSize, thumbnailImage);
 
@@ -2077,14 +2084,14 @@ public class BRT_BuildReportWindow : EditorWindow
 
 	public static void DrawEndUsersTooltip(Rect position, GUIContent label, List<GUIContent> endUsers, Rect assetRect)
 	{
-		var endUsersSize = BRT_BuildReportWindow.GetEndUsersListSize(label, endUsers);
+		var endUsersSize = GetEndUsersListSize(label, endUsers);
 
-		var tooltipRect = BRT_BuildReportWindow.DrawTooltip(position, endUsersSize.x, endUsersSize.y);
+		var tooltipRect = DrawTooltip(position, endUsersSize.x, endUsersSize.y);
 
-		BRT_BuildReportWindow.DrawEndUsersList(tooltipRect.position, label, endUsers);
+		DrawEndUsersList(tooltipRect.position, label, endUsers);
 	}
 
-	public static void DrawThumbnailEndUsersTooltip(Rect position, AssetDependencies assetDependencies, BuildReportTool.TextureData textureData)
+	public static void DrawThumbnailEndUsersTooltip(Rect position, AssetDependencies assetDependencies, TextureData textureData)
 	{
 		List<GUIContent> endUsersListToUse = GetEndUserLabelsFor(assetDependencies, HoveredAssetEntryPath);
 		DrawThumbnailEndUsersTooltip(position, HoveredAssetEntryPath, GetAppropriateEndUserLabelForHovered(),
@@ -2092,20 +2099,20 @@ public class BRT_BuildReportWindow : EditorWindow
 	}
 
 	public static void DrawThumbnailEndUsersTooltip(Rect position, string assetPath, GUIContent label,
-		List<GUIContent> endUsers, Rect assetRect, BuildReportTool.TextureData textureData)
+		List<GUIContent> endUsers, Rect assetRect, TextureData textureData)
 	{
-		var thumbnailImage = BRT_BuildReportWindow.GetAssetPreview(assetPath);
+		var thumbnailImage = GetAssetPreview(assetPath);
 
 		if (thumbnailImage != null)
 		{
 			var usedBySpacing = 5;
 
-			var thumbnailSize = BRT_BuildReportWindow.GetThumbnailSize();
+			var thumbnailSize = GetThumbnailSize();
 
 			// compute end users height and width
 			// then create a tooltip size that encompasses both thumbnail and end users list
 
-			Vector2 endUsersSize = BRT_BuildReportWindow.GetEndUsersListSize(label, endUsers);
+			Vector2 endUsersSize = GetEndUsersListSize(label, endUsers);
 			endUsersSize.y += usedBySpacing;
 
 			Vector2 tooltipSize = new Vector2(Mathf.Max(thumbnailSize.x, endUsersSize.x),
@@ -2119,12 +2126,12 @@ public class BRT_BuildReportWindow : EditorWindow
 				tooltipSize.y += textureDataLabelSize.y;
 			}
 
-			var tooltipRect = BRT_BuildReportWindow.DrawTooltip(position, tooltipSize.x, tooltipSize.y);
+			var tooltipRect = DrawTooltip(position, tooltipSize.x, tooltipSize.y);
 
 			// --------
 			// now draw the contents
 
-			BRT_BuildReportWindow.DrawThumbnail(tooltipRect.x, tooltipRect.y, thumbnailSize, thumbnailImage);
+			DrawThumbnail(tooltipRect.x, tooltipRect.y, thumbnailSize, thumbnailImage);
 
 			if (showTextureData)
 			{
@@ -2140,7 +2147,7 @@ public class BRT_BuildReportWindow : EditorWindow
 
 			var endUsersPos = tooltipRect.position;
 			endUsersPos.y += thumbnailSize.y + textureDataLabelSize.y + usedBySpacing;
-			BRT_BuildReportWindow.DrawEndUsersList(endUsersPos, label, endUsers);
+			DrawEndUsersList(endUsersPos, label, endUsers);
 		}
 	}
 

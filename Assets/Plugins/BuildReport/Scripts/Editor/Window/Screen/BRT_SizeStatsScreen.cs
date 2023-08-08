@@ -66,12 +66,12 @@ namespace BuildReportTool.Window.Screen
 
 			DrawTotalSize(buildReportToDisplay);
 
-			GUILayout.Space(BuildReportTool.Window.Settings.CATEGORY_HORIZONTAL_SPACING);
+			GUILayout.Space(Settings.CATEGORY_HORIZONTAL_SPACING);
 			GUILayout.BeginVertical();
 
 			DrawBuildSizes(buildReportToDisplay);
 
-			GUILayout.Space(BuildReportTool.Window.Settings.CATEGORY_VERTICAL_SPACING);
+			GUILayout.Space(Settings.CATEGORY_VERTICAL_SPACING);
 
 			DrawDLLList(buildReportToDisplay);
 
@@ -83,23 +83,23 @@ namespace BuildReportTool.Window.Screen
 		}
 
 
-		void DrawTotalSize(BuildReportTool.BuildInfo buildReportToDisplay)
+		void DrawTotalSize(BuildInfo buildReportToDisplay)
 		{
 			GUILayout.BeginVertical();
 
-			var bigLabelStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.INFO_TITLE_STYLE_NAME);
+			var bigLabelStyle = GUI.skin.FindStyle(Settings.INFO_TITLE_STYLE_NAME);
 			if (bigLabelStyle == null)
 			{
 				bigLabelStyle = GUI.skin.label;
 			}
 
-			var descStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.TINY_HELP_STYLE_NAME);
+			var descStyle = GUI.skin.FindStyle(Settings.TINY_HELP_STYLE_NAME);
 			if (descStyle == null)
 			{
 				descStyle = GUI.skin.label;
 			}
 
-			var valueStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.BIG_NUMBER_STYLE_NAME);
+			var valueStyle = GUI.skin.FindStyle(Settings.BIG_NUMBER_STYLE_NAME);
 			if (valueStyle == null)
 			{
 				valueStyle = GUI.skin.label;
@@ -111,11 +111,11 @@ namespace BuildReportTool.Window.Screen
 				// TotalBuildSize is really the used assets size
 				// CompressedBuildSize if present is the total build size
 
-				BuildReportTool.Window.Utility.DrawLargeSizeDisplay(Labels.USED_TOTAL_SIZE_LABEL,
+				Utility.DrawLargeSizeDisplay(Labels.USED_TOTAL_SIZE_LABEL,
 					Labels.USED_TOTAL_SIZE_DESC, buildReportToDisplay.TotalBuildSize);
 				GUILayout.Space(40);
-				BuildReportTool.Window.Utility.DrawLargeSizeDisplay(Labels.BUILD_TOTAL_SIZE_LABEL,
-					BuildReportTool.Window.Utility.GetProperBuildSizeDesc(buildReportToDisplay),
+				Utility.DrawLargeSizeDisplay(Labels.BUILD_TOTAL_SIZE_LABEL,
+					Utility.GetProperBuildSizeDesc(buildReportToDisplay),
 					buildReportToDisplay.CompressedBuildSize);
 			}
 			else
@@ -126,14 +126,14 @@ namespace BuildReportTool.Window.Screen
 					GUILayout.BeginVertical();
 
 					var buildPlatform =
-						BuildReportTool.ReportGenerator.GetBuildPlatformFromString(buildReportToDisplay.BuildType,
+						ReportGenerator.GetBuildPlatformFromString(buildReportToDisplay.BuildType,
 							buildReportToDisplay.BuildTargetUsed);
 
 					GUILayout.Label(
 						buildPlatform == BuildPlatform.iOS ? Labels.BUILD_XCODE_SIZE_LABEL : Labels.BUILD_TOTAL_SIZE_LABEL,
 						bigLabelStyle);
 
-					GUILayout.Label(BuildReportTool.Util.GetBuildSizePathDescription(buildReportToDisplay),
+					GUILayout.Label(Util.GetBuildSizePathDescription(buildReportToDisplay),
 						descStyle);
 
 					GUILayout.Label(buildReportToDisplay.TotalBuildSize, valueStyle);
@@ -147,7 +147,7 @@ namespace BuildReportTool.Window.Screen
 				// Used Assets
 				if (_hasUsedAssetsTotalSize)
 				{
-					BuildReportTool.Window.Utility.DrawLargeSizeDisplay(Labels.USED_TOTAL_SIZE_LABEL,
+					Utility.DrawLargeSizeDisplay(Labels.USED_TOTAL_SIZE_LABEL,
 						Labels.USED_TOTAL_SIZE_DESC, buildReportToDisplay.UsedTotalSize);
 					GUILayout.Space(40);
 				}
@@ -156,7 +156,7 @@ namespace BuildReportTool.Window.Screen
 				// Unused Assets
 				if (buildReportToDisplay.UnusedAssetsIncludedInCreation)
 				{
-					BuildReportTool.Window.Utility.DrawLargeSizeDisplay(Labels.UNUSED_TOTAL_SIZE_LABEL,
+					Utility.DrawLargeSizeDisplay(Labels.UNUSED_TOTAL_SIZE_LABEL,
 						Labels.UNUSED_TOTAL_SIZE_DESC, buildReportToDisplay.UnusedTotalSize);
 
 					if (buildReportToDisplay.ProcessUnusedAssetsInBatches)
@@ -184,31 +184,31 @@ namespace BuildReportTool.Window.Screen
 		}
 
 
-		void DrawAuxiliaryBuildSizes(BuildReportTool.BuildInfo buildReportToDisplay)
+		void DrawAuxiliaryBuildSizes(BuildInfo buildReportToDisplay)
 		{
-			BuildReportTool.BuildPlatform buildPlatform =
-				BuildReportTool.ReportGenerator.GetBuildPlatformFromString(buildReportToDisplay.BuildType,
+			BuildPlatform buildPlatform =
+				ReportGenerator.GetBuildPlatformFromString(buildReportToDisplay.BuildType,
 					buildReportToDisplay.BuildTargetUsed);
 
-			var bigLabelStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.INFO_TITLE_STYLE_NAME);
+			var bigLabelStyle = GUI.skin.FindStyle(Settings.INFO_TITLE_STYLE_NAME);
 			if (bigLabelStyle == null)
 			{
 				bigLabelStyle = GUI.skin.label;
 			}
 
-			var medLabelStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.INFO_SUBTITLE_BOLD_STYLE_NAME);
+			var medLabelStyle = GUI.skin.FindStyle(Settings.INFO_SUBTITLE_BOLD_STYLE_NAME);
 			if (medLabelStyle == null)
 			{
 				medLabelStyle = GUI.skin.label;
 			}
 
-			var valueStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.BIG_NUMBER_STYLE_NAME);
+			var valueStyle = GUI.skin.FindStyle(Settings.BIG_NUMBER_STYLE_NAME);
 			if (valueStyle == null)
 			{
 				valueStyle = GUI.skin.label;
 			}
 
-			if (buildPlatform == BuildReportTool.BuildPlatform.Web)
+			if (buildPlatform == BuildPlatform.Web)
 			{
 				GUILayout.Space(20);
 				GUILayout.BeginVertical();
@@ -216,7 +216,7 @@ namespace BuildReportTool.Window.Screen
 				GUILayout.Label(buildReportToDisplay.WebFileBuildSize, valueStyle);
 				GUILayout.EndVertical();
 			}
-			else if (buildPlatform == BuildReportTool.BuildPlatform.Android)
+			else if (buildPlatform == BuildPlatform.Android)
 			{
 				if (!buildReportToDisplay.AndroidCreateProject && buildReportToDisplay.AndroidUseAPKExpansionFiles)
 				{
@@ -246,32 +246,32 @@ namespace BuildReportTool.Window.Screen
 			if (buildReportToDisplay.HasStreamingAssets)
 			{
 				GUILayout.Space(20);
-				BuildReportTool.Window.Utility.DrawLargeSizeDisplay(Labels.STREAMING_ASSETS_TOTAL_SIZE_LABEL,
+				Utility.DrawLargeSizeDisplay(Labels.STREAMING_ASSETS_TOTAL_SIZE_LABEL,
 					Labels.STREAMING_ASSETS_SIZE_DESC, buildReportToDisplay.StreamingAssetsSize);
 			}
 		}
 
 
-		void DrawBuildSizes(BuildReportTool.BuildInfo buildReportToDisplay)
+		void DrawBuildSizes(BuildInfo buildReportToDisplay)
 		{
 			if (_hasCompressedBuildSize)
 			{
 				GUILayout.BeginVertical();
 			}
 
-			var bigLabelStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.INFO_TITLE_STYLE_NAME);
+			var bigLabelStyle = GUI.skin.FindStyle(Settings.INFO_TITLE_STYLE_NAME);
 			if (bigLabelStyle == null)
 			{
 				bigLabelStyle = GUI.skin.label;
 			}
 
-			var medLabelStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.INFO_SUBTITLE_BOLD_STYLE_NAME);
+			var medLabelStyle = GUI.skin.FindStyle(Settings.INFO_SUBTITLE_BOLD_STYLE_NAME);
 			if (medLabelStyle == null)
 			{
 				medLabelStyle = GUI.skin.label;
 			}
 
-			var labelStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.INFO_SUBTITLE_STYLE_NAME);
+			var labelStyle = GUI.skin.FindStyle(Settings.INFO_SUBTITLE_STYLE_NAME);
 			if (labelStyle == null)
 			{
 				labelStyle = GUI.skin.label;
@@ -303,13 +303,13 @@ namespace BuildReportTool.Window.Screen
 			}
 		}
 
-		void DrawDLLList(BuildReportTool.BuildInfo buildReportToDisplay)
+		void DrawDLLList(BuildInfo buildReportToDisplay)
 		{
-			BuildReportTool.BuildPlatform buildPlatform =
-				BuildReportTool.ReportGenerator.GetBuildPlatformFromString(buildReportToDisplay.BuildType,
+			BuildPlatform buildPlatform =
+				ReportGenerator.GetBuildPlatformFromString(buildReportToDisplay.BuildType,
 					buildReportToDisplay.BuildTargetUsed);
 
-			var bigLabelStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.INFO_TITLE_STYLE_NAME);
+			var bigLabelStyle = GUI.skin.FindStyle(Settings.INFO_TITLE_STYLE_NAME);
 			if (bigLabelStyle == null)
 			{
 				bigLabelStyle = GUI.skin.label;
@@ -364,15 +364,15 @@ namespace BuildReportTool.Window.Screen
 			GUILayout.EndHorizontal();
 		}
 
-		void DrawScriptDLLsList(BuildReportTool.BuildInfo buildReportToDisplay,
-			BuildReportTool.BuildPlatform buildPlatform)
+		void DrawScriptDLLsList(BuildInfo buildReportToDisplay,
+			BuildPlatform buildPlatform)
 		{
 			if (!_hasScriptDLLsToDisplay)
 			{
 				return;
 			}
 
-			var bigLabelStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.INFO_TITLE_STYLE_NAME);
+			var bigLabelStyle = GUI.skin.FindStyle(Settings.INFO_TITLE_STYLE_NAME);
 			if (bigLabelStyle == null)
 			{
 				bigLabelStyle = GUI.skin.label;
@@ -388,20 +388,20 @@ namespace BuildReportTool.Window.Screen
 		}
 
 
-		void DrawNames(BuildReportTool.SizePart[] list)
+		void DrawNames(SizePart[] list)
 		{
 			if (list == null)
 			{
 				return;
 			}
 
-			var listNormalStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_NORMAL_STYLE_NAME);
+			var listNormalStyle = GUI.skin.FindStyle(Settings.LIST_NORMAL_STYLE_NAME);
 			if (listNormalStyle == null)
 			{
 				listNormalStyle = GUI.skin.label;
 			}
 
-			var listAltStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_NORMAL_ALT_STYLE_NAME);
+			var listAltStyle = GUI.skin.FindStyle(Settings.LIST_NORMAL_ALT_STYLE_NAME);
 			if (listAltStyle == null)
 			{
 				listAltStyle = GUI.skin.label;
@@ -409,7 +409,7 @@ namespace BuildReportTool.Window.Screen
 
 			GUILayout.BeginVertical();
 			bool useAlt = false;
-			foreach (BuildReportTool.SizePart b in list)
+			foreach (SizePart b in list)
 			{
 				if (b.IsTotal) continue;
 				var styleToUse = useAlt ? listAltStyle : listNormalStyle;
@@ -420,20 +420,20 @@ namespace BuildReportTool.Window.Screen
 			GUILayout.EndVertical();
 		}
 
-		void DrawReadableSizes(BuildReportTool.SizePart[] list)
+		void DrawReadableSizes(SizePart[] list)
 		{
 			if (list == null)
 			{
 				return;
 			}
 
-			var listNormalStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_NORMAL_STYLE_NAME);
+			var listNormalStyle = GUI.skin.FindStyle(Settings.LIST_NORMAL_STYLE_NAME);
 			if (listNormalStyle == null)
 			{
 				listNormalStyle = GUI.skin.label;
 			}
 
-			var listAltStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_NORMAL_ALT_STYLE_NAME);
+			var listAltStyle = GUI.skin.FindStyle(Settings.LIST_NORMAL_ALT_STYLE_NAME);
 			if (listAltStyle == null)
 			{
 				listAltStyle = GUI.skin.label;
@@ -441,7 +441,7 @@ namespace BuildReportTool.Window.Screen
 
 			GUILayout.BeginVertical();
 			bool useAlt = false;
-			foreach (BuildReportTool.SizePart b in list)
+			foreach (SizePart b in list)
 			{
 				if (b.IsTotal) continue;
 				var styleToUse = useAlt ? listAltStyle : listNormalStyle;
@@ -452,20 +452,20 @@ namespace BuildReportTool.Window.Screen
 			GUILayout.EndVertical();
 		}
 
-		void DrawPercentages(BuildReportTool.SizePart[] list)
+		void DrawPercentages(SizePart[] list)
 		{
 			if (list == null)
 			{
 				return;
 			}
 
-			var listNormalStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_NORMAL_STYLE_NAME);
+			var listNormalStyle = GUI.skin.FindStyle(Settings.LIST_NORMAL_STYLE_NAME);
 			if (listNormalStyle == null)
 			{
 				listNormalStyle = GUI.skin.label;
 			}
 
-			var listAltStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_NORMAL_ALT_STYLE_NAME);
+			var listAltStyle = GUI.skin.FindStyle(Settings.LIST_NORMAL_ALT_STYLE_NAME);
 			if (listAltStyle == null)
 			{
 				listAltStyle = GUI.skin.label;
@@ -473,7 +473,7 @@ namespace BuildReportTool.Window.Screen
 
 			GUILayout.BeginVertical();
 			bool useAlt = false;
-			foreach (BuildReportTool.SizePart b in list)
+			foreach (SizePart b in list)
 			{
 				if (b.IsTotal) continue;
 				var styleToUse = useAlt ? listAltStyle : listNormalStyle;

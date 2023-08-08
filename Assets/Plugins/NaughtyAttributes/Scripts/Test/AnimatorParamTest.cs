@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace NaughtyAttributes.Test
 {
@@ -23,7 +24,7 @@ namespace NaughtyAttributes.Test
         }
     }
 
-    [System.Serializable]
+    [Serializable]
     public class AnimatorParamNest1
     {
         public Animator animator1;
@@ -38,7 +39,7 @@ namespace NaughtyAttributes.Test
         public AnimatorParamNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class AnimatorParamNest2
     {
         public Animator animator2;

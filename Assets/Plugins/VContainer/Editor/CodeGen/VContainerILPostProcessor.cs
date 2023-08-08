@@ -1,10 +1,9 @@
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using Unity.CompilationPipeline.Common.Diagnostics;
-using Unity.CompilationPipeline.Common.ILPostProcessing;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
+using Unity.CompilationPipeline.Common.Diagnostics;
+using Unity.CompilationPipeline.Common.ILPostProcessing;
 
 namespace VContainer.Editor.CodeGen
 {

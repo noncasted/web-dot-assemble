@@ -1,7 +1,7 @@
-using UnityEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace BuildReportTool
 {
@@ -9,31 +9,31 @@ namespace BuildReportTool
 	/// A collection of file entries in a build report.
 	/// Used to display the "Used Assets" and the "Unused Assets".
 	/// </summary>
-	[System.Serializable]
+	[Serializable]
 	public class AssetList
 	{
 		// ==================================================================================
 
 		[SerializeField]
-		BuildReportTool.SizePart[] _all;
+		SizePart[] _all;
 
 		int[] _viewOffsets;
 
 		[SerializeField]
-		BuildReportTool.SizePart[][] _perCategory;
+		SizePart[][] _perCategory;
 
 
 		[SerializeField]
 		string[] _labels;
 
 
-		public BuildReportTool.SizePart[] All
+		public SizePart[] All
 		{
 			get { return _all; }
 			set { _all = value; }
 		}
 
-		public BuildReportTool.SizePart[][] PerCategory
+		public SizePart[][] PerCategory
 		{
 			get { return _perCategory; }
 		}
@@ -46,9 +46,9 @@ namespace BuildReportTool
 
 		// ==================================================================================
 
-		BuildReportTool.SizePart[] _topLargest;
+		SizePart[] _topLargest;
 
-		public BuildReportTool.SizePart[] TopLargest
+		public SizePart[] TopLargest
 		{
 			get { return _topLargest; }
 		}
@@ -68,7 +68,7 @@ namespace BuildReportTool
 
 		void PostSetListAll(int numberOfTop)
 		{
-			List<BuildReportTool.SizePart> topLargestList = new List<BuildReportTool.SizePart>();
+			List<SizePart> topLargestList = new List<SizePart>();
 
 			// temporarily sort "All" list by raw size so we can get the top largest
 			AssetListUtility.SortAssetList(_all, SortType.RawSize, SortOrder.Descending);
@@ -123,8 +123,8 @@ namespace BuildReportTool
 		}
 
 		SortType _lastSortType = SortType.None;
-		BuildReportTool.TextureData.DataId _lastTextureSortType = BuildReportTool.TextureData.DataId.None;
-		BuildReportTool.MeshData.DataId _lastMeshSortType = BuildReportTool.MeshData.DataId.None;
+		TextureData.DataId _lastTextureSortType = TextureData.DataId.None;
+		MeshData.DataId _lastMeshSortType = MeshData.DataId.None;
 		SortOrder _lastSortOrder = SortOrder.None;
 
 		public SortType LastSortType
@@ -139,21 +139,21 @@ namespace BuildReportTool
 
 		readonly HashSet<int> _hasListBeenSorted = new HashSet<int>();
 
-		public void Resort(BuildReportTool.SizePart[] assetList)
+		public void Resort(SizePart[] assetList)
 		{
 			if (_lastSortType != SortType.None &&
-			    _lastTextureSortType == BuildReportTool.TextureData.DataId.None &&
-			    _lastMeshSortType == BuildReportTool.MeshData.DataId.None &&
+			    _lastTextureSortType == TextureData.DataId.None &&
+			    _lastMeshSortType == MeshData.DataId.None &&
 			    _lastSortOrder != SortOrder.None)
 			{
 				AssetListUtility.SortAssetList(assetList, _lastSortType, _lastSortOrder);
 			}
 		}
 
-		public void Sort(BuildReportTool.TextureData textureData, BuildReportTool.TextureData.DataId sortType, SortOrder sortOrder, BuildReportTool.FileFilterGroup fileFilters)
+		public void Sort(TextureData textureData, TextureData.DataId sortType, SortOrder sortOrder, FileFilterGroup fileFilters)
 		{
 			_lastTextureSortType = sortType;
-			_lastMeshSortType = BuildReportTool.MeshData.DataId.None;
+			_lastMeshSortType = MeshData.DataId.None;
 			_lastSortType = SortType.TextureData;
 			_lastSortOrder = sortOrder;
 
@@ -172,9 +172,9 @@ namespace BuildReportTool
 			}
 		}
 
-		public void Sort(BuildReportTool.MeshData meshData, BuildReportTool.MeshData.DataId sortType, SortOrder sortOrder, BuildReportTool.FileFilterGroup fileFilters)
+		public void Sort(MeshData meshData, MeshData.DataId sortType, SortOrder sortOrder, FileFilterGroup fileFilters)
 		{
-			_lastTextureSortType = BuildReportTool.TextureData.DataId.None;
+			_lastTextureSortType = TextureData.DataId.None;
 			_lastMeshSortType = sortType;
 			_lastSortType = SortType.MeshData;
 			_lastSortOrder = sortOrder;
@@ -194,10 +194,10 @@ namespace BuildReportTool
 			}
 		}
 
-		public void Sort(SortType sortType, SortOrder sortOrder, BuildReportTool.FileFilterGroup fileFilters)
+		public void Sort(SortType sortType, SortOrder sortOrder, FileFilterGroup fileFilters)
 		{
-			_lastTextureSortType = BuildReportTool.TextureData.DataId.None;
-			_lastMeshSortType = BuildReportTool.MeshData.DataId.None;
+			_lastTextureSortType = TextureData.DataId.None;
+			_lastMeshSortType = MeshData.DataId.None;
 			_lastSortType = sortType;
 			_lastSortOrder = sortOrder;
 
@@ -222,7 +222,7 @@ namespace BuildReportTool
 			//}
 		}
 
-		public void SortIfNeeded(BuildReportTool.FileFilterGroup fileFilters)
+		public void SortIfNeeded(FileFilterGroup fileFilters)
 		{
 			if (_lastSortType != SortType.None &&
 			    _lastSortOrder != SortOrder.None &&
@@ -266,7 +266,7 @@ namespace BuildReportTool
 		// Queries
 		// ==================================================================================
 
-		public List<BuildReportTool.SizePart> GetAllAsList()
+		public List<SizePart> GetAllAsList()
 		{
 			return _all.ToList();
 		}
@@ -310,9 +310,9 @@ namespace BuildReportTool
 			return 0;
 		}
 
-		public BuildReportTool.SizePart[] GetListToDisplay(FileFilterGroup fileFilters)
+		public SizePart[] GetListToDisplay(FileFilterGroup fileFilters)
 		{
-			BuildReportTool.SizePart[] ret = null;
+			SizePart[] ret = null;
 			if (fileFilters.SelectedFilterIdx == -1)
 			{
 				ret = All;
@@ -333,7 +333,7 @@ namespace BuildReportTool
 		{
 			for (int n = 0, len = _all.Length; n < len; ++n)
 			{
-				_all[n].Name = BuildReportTool.Util.MyHtmlDecode(_all[n].Name);
+				_all[n].Name = Util.MyHtmlDecode(_all[n].Name);
 			}
 
 
@@ -343,7 +343,7 @@ namespace BuildReportTool
 				{
 					for (int n = 0, len = _perCategory[catIdx].Length; n < len; ++n)
 					{
-						_perCategory[catIdx][n].Name = BuildReportTool.Util.MyHtmlDecode(_perCategory[catIdx][n].Name);
+						_perCategory[catIdx][n].Name = Util.MyHtmlDecode(_perCategory[catIdx][n].Name);
 					}
 				}
 			}
@@ -397,21 +397,21 @@ namespace BuildReportTool
 					var importedSize = BRT_LibCacheUtil.GetImportedFileSize(_all[n].Name);
 
 					_all[n].ImportedSizeBytes = importedSize;
-					_all[n].ImportedSize = BuildReportTool.Util.GetBytesReadable(importedSize);
+					_all[n].ImportedSize = Util.GetBytesReadable(importedSize);
 				}
 			}
 		}
 
 		public void PopulateSizeInAssetsFolder()
 		{
-			var projectPath = BuildReportTool.Util.GetProjectPath(Application.dataPath);
+			var projectPath = Util.GetProjectPath(Application.dataPath);
 			for (int n = 0, len = _all.Length; n < len; ++n)
 			{
-				string assetImportedPath = projectPath + BuildReportTool.Util.MyHtmlDecode(_all[n].Name);
+				string assetImportedPath = projectPath + Util.MyHtmlDecode(_all[n].Name);
 
-				var size = BuildReportTool.Util.GetFileSizeInBytes(assetImportedPath);
+				var size = Util.GetFileSizeInBytes(assetImportedPath);
 				_all[n].SizeInAssetsFolderBytes = size;
-				_all[n].SizeInAssetsFolder = BuildReportTool.Util.GetBytesReadable(size);
+				_all[n].SizeInAssetsFolder = Util.GetBytesReadable(size);
 			}
 		}
 
@@ -462,7 +462,7 @@ namespace BuildReportTool
 		// Commands: Initialization
 		// ==================================================================================
 
-		public void Init(BuildReportTool.SizePart[] all, BuildReportTool.SizePart[][] perCategory, int numberOfTop,
+		public void Init(SizePart[] all, SizePart[][] perCategory, int numberOfTop,
 			FileFilterGroup fileFilters)
 		{
 			All = all;
@@ -484,7 +484,7 @@ namespace BuildReportTool
 			RefreshFilterLabels(fileFilters);
 		}
 
-		public void Init(BuildReportTool.SizePart[] all, BuildReportTool.SizePart[][] perCategory, int numberOfTop,
+		public void Init(SizePart[] all, SizePart[][] perCategory, int numberOfTop,
 			FileFilterGroup fileFilters, SortType newSortType, SortOrder newSortOrder)
 		{
 			_lastSortType = newSortType;
@@ -493,14 +493,14 @@ namespace BuildReportTool
 			Init(all, perCategory, numberOfTop, fileFilters);
 		}
 
-		public void Reinit(BuildReportTool.SizePart[] all, BuildReportTool.SizePart[][] perCategory, int numberOfTop)
+		public void Reinit(SizePart[] all, SizePart[][] perCategory, int numberOfTop)
 		{
 			All = all;
 			PostSetListAll(numberOfTop);
 			_perCategory = perCategory;
 		}
 
-		public void AssignPerCategoryList(BuildReportTool.SizePart[][] perCategory)
+		public void AssignPerCategoryList(SizePart[][] perCategory)
 		{
 			_perCategory = perCategory;
 			_viewOffsets = new int[1 + _perCategory.Length]; // +1 since we need to include the "All" list
@@ -523,15 +523,15 @@ namespace BuildReportTool
 		// ==================================================================================
 
 		[SerializeField]
-		Dictionary<string, BuildReportTool.SizePart> _selectedForSum = new Dictionary<string, BuildReportTool.SizePart>();
+		Dictionary<string, SizePart> _selectedForSum = new Dictionary<string, SizePart>();
 
-		BuildReportTool.SizePart _lastSelected;
+		SizePart _lastSelected;
 
 
 		// Sum Selection: Queries
 		// --------------------------------------------------------------------
 
-		public bool InSumSelection(BuildReportTool.SizePart b)
+		public bool InSumSelection(SizePart b)
 		{
 			return _selectedForSum.ContainsKey(b.Name);
 		}
@@ -569,7 +569,7 @@ namespace BuildReportTool
 
 		public string GetReadableSizeOfSumSelection()
 		{
-			return BuildReportTool.Util.GetBytesReadable(GetSizeOfSumSelection());
+			return Util.GetBytesReadable(GetSizeOfSumSelection());
 		}
 
 		public bool AtLeastOneSelectedForSum
@@ -601,7 +601,7 @@ namespace BuildReportTool
 		// Sum Selection: Commands
 		// --------------------------------------------------------------------
 
-		public void ToggleSumSelection(BuildReportTool.SizePart b)
+		public void ToggleSumSelection(SizePart b)
 		{
 			if (InSumSelection(b))
 			{
@@ -613,12 +613,12 @@ namespace BuildReportTool
 			}
 		}
 
-		public void RemoveFromSumSelection(BuildReportTool.SizePart b)
+		public void RemoveFromSumSelection(SizePart b)
 		{
 			_selectedForSum.Remove(b.Name);
 		}
 
-		public void AddToSumSelection(BuildReportTool.SizePart b)
+		public void AddToSumSelection(SizePart b)
 		{
 			if (_selectedForSum.ContainsKey(b.Name))
 			{
@@ -633,7 +633,7 @@ namespace BuildReportTool
 
 		public void AddDisplayedRangeToSumSelection(FileFilterGroup fileFilters, int offset, int range)
 		{
-			BuildReportTool.SizePart[] listForSelection = GetListToDisplay(fileFilters);
+			SizePart[] listForSelection = GetListToDisplay(fileFilters);
 
 			for (int n = offset; n < offset + range; ++n)
 			{
@@ -646,7 +646,7 @@ namespace BuildReportTool
 
 		public void AddAllDisplayedToSumSelection(FileFilterGroup fileFilters)
 		{
-			BuildReportTool.SizePart[] listForSelection = GetListToDisplay(fileFilters);
+			SizePart[] listForSelection = GetListToDisplay(fileFilters);
 
 			for (int n = 0; n < listForSelection.Length; ++n)
 			{

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace NaughtyAttributes.Test
 {
@@ -18,7 +19,7 @@ namespace NaughtyAttributes.Test
 
         public CurveRangeNest1 nest1;
 
-        [System.Serializable]
+        [Serializable]
         public class CurveRangeNest1
         {
             [CurveRange(0, 0, 1, 1, EColor.Green)]
@@ -27,7 +28,7 @@ namespace NaughtyAttributes.Test
             public CurveRangeNest2 nest2;
         }
 
-        [System.Serializable]
+        [Serializable]
         public class CurveRangeNest2
         {
             [CurveRange(0, 0, 5, 5, EColor.Blue)]

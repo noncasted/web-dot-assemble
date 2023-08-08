@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using UnityEngine;
 
 namespace VContainer.Unity
 {
@@ -65,7 +66,7 @@ namespace VContainer.Unity
                 }
                 catch (Exception ex)
                 {
-                    UnityEngine.Debug.LogException(ex);
+                    Debug.LogException(ex);
                 }
 
                 if (continuous)

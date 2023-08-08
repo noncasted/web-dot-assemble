@@ -3,7 +3,7 @@
 // Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
 using System;
-using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace UniRx.InternalUtil
 {
@@ -56,7 +56,7 @@ namespace UniRx.InternalUtil
         public int CompareTo(ScheduledItem other)
         {
             // MSDN: By definition, any object compares greater than null, and two null references compare equal to each other. 
-            if (object.ReferenceEquals(other, null))
+            if (ReferenceEquals(other, null))
                 return 1;
 
             return DueTime.CompareTo(other.DueTime);
@@ -123,7 +123,7 @@ namespace UniRx.InternalUtil
         /// <remarks>This operator does not provide results consistent with the IComparable implementation. Instead, it implements reference equality.</remarks>
         public static bool operator ==(ScheduledItem left, ScheduledItem right)
         {
-            return object.ReferenceEquals(left, right);
+            return ReferenceEquals(left, right);
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace UniRx.InternalUtil
         /// <returns>true if the obj parameter is a ScheduledItem&lt;TAbsolute&gt; object and is equal to the current ScheduledItem&lt;TAbsolute&gt; object; otherwise, false.</returns>
         public override bool Equals(object obj)
         {
-            return object.ReferenceEquals(this, obj);
+            return ReferenceEquals(this, obj);
         }
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace UniRx.InternalUtil
     /// Efficient scheduler queue that maintains scheduled items sorted by absolute time.
     /// </summary>
     /// <remarks>This type is not thread safe; users should ensure proper synchronization.</remarks>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix", Justification = "But it *is* a queue!")]
+    [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix", Justification = "But it *is* a queue!")]
     internal class SchedulerQueue
     {
         private readonly PriorityQueue<ScheduledItem> _queue;

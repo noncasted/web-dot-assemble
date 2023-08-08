@@ -1,6 +1,5 @@
-using UnityEngine;
 using UnityEditor;
-
+using UnityEngine;
 
 namespace BuildReportTool.Window.Screen
 {
@@ -16,10 +15,10 @@ namespace BuildReportTool.Window.Screen
 		public override void RefreshData(BuildInfo buildReport, AssetDependencies assetDependencies, TextureData textureData, MeshData meshData, UnityBuildReport unityBuildReport)
 		{
 			const string README_FILENAME = "README.txt";
-			string readmeContents = BuildReportTool.Util.GetPackageFileContents(README_FILENAME);
+			string readmeContents = Util.GetPackageFileContents(README_FILENAME);
 
 			const string CHANGELOG_FILENAME = "VERSION.txt";
-			string changelogContents = BuildReportTool.Util.GetPackageFileContents(CHANGELOG_FILENAME);
+			string changelogContents = Util.GetPackageFileContents(CHANGELOG_FILENAME);
 
 			if (!string.IsNullOrEmpty(readmeContents) && readmeContents.Length > LABEL_LENGTH)
 			{

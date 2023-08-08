@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace NaughtyAttributes.Test
@@ -10,7 +11,7 @@ namespace NaughtyAttributes.Test
         public LabelNest1 nest1;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class LabelNest1
     {
         [Label("Label 1")]
@@ -20,7 +21,7 @@ namespace NaughtyAttributes.Test
         public LabelNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class LabelNest2
     {
         [Label("Label 2")]

@@ -4,35 +4,35 @@ namespace BuildReportTool
 {
 	public static partial class AssetListUtility
 	{
-		public static void SortAssetList(BuildReportTool.SizePart[] assetList, BuildReportTool.MeshData meshData, MeshData.DataId meshSortType, BuildReportTool.AssetList.SortOrder sortOrder)
+		public static void SortAssetList(SizePart[] assetList, MeshData meshData, MeshData.DataId meshSortType, AssetList.SortOrder sortOrder)
 		{
 			switch (meshSortType)
 			{
-				case BuildReportTool.MeshData.DataId.MeshFilterCount:
+				case MeshData.DataId.MeshFilterCount:
 					SortMeshData(assetList, meshData, sortOrder, entry => entry.MeshFilterCount);
 					break;
-				case BuildReportTool.MeshData.DataId.SkinnedMeshRendererCount:
+				case MeshData.DataId.SkinnedMeshRendererCount:
 					SortMeshData(assetList, meshData, sortOrder, entry => entry.SkinnedMeshRendererCount);
 					break;
-				case BuildReportTool.MeshData.DataId.SubMeshCount:
+				case MeshData.DataId.SubMeshCount:
 					SortMeshData(assetList, meshData, sortOrder, entry => entry.SubMeshCount);
 					break;
-				case BuildReportTool.MeshData.DataId.VertexCount:
+				case MeshData.DataId.VertexCount:
 					SortMeshData(assetList, meshData, sortOrder, entry => entry.VertexCount);
 					break;
-				case BuildReportTool.MeshData.DataId.TriangleCount:
+				case MeshData.DataId.TriangleCount:
 					SortMeshData(assetList, meshData, sortOrder, entry => entry.TriangleCount);
 					break;
-				case BuildReportTool.MeshData.DataId.AnimationType:
+				case MeshData.DataId.AnimationType:
 					SortMeshData(assetList, meshData, sortOrder, entry => entry.AnimationType);
 					break;
-				case BuildReportTool.MeshData.DataId.AnimationClipCount:
+				case MeshData.DataId.AnimationClipCount:
 					SortMeshData(assetList, meshData, sortOrder, entry => entry.AnimationClipCount);
 					break;
 			}
 		}
 
-		static void SortMeshData(BuildReportTool.SizePart[] assetList, BuildReportTool.MeshData meshData, BuildReportTool.AssetList.SortOrder sortOrder, Func<BuildReportTool.MeshData.Entry, int> func)
+		static void SortMeshData(SizePart[] assetList, MeshData meshData, AssetList.SortOrder sortOrder, Func<MeshData.Entry, int> func)
 		{
 			var meshEntries = meshData.GetMeshData();
 
@@ -50,7 +50,7 @@ namespace BuildReportTool
 			SortByInt(assetList, sortOrder);
 		}
 
-		static void SortMeshData(BuildReportTool.SizePart[] assetList, BuildReportTool.MeshData meshData, BuildReportTool.AssetList.SortOrder sortOrder, Func<BuildReportTool.MeshData.Entry, string> func)
+		static void SortMeshData(SizePart[] assetList, MeshData meshData, AssetList.SortOrder sortOrder, Func<MeshData.Entry, string> func)
 		{
 			var meshEntries = meshData.GetMeshData();
 

@@ -1,5 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
 using UnityEditor;
+using UnityEngine;
 
 namespace NaughtyAttributes.Editor
 {
@@ -13,7 +14,7 @@ namespace NaughtyAttributes.Editor
                 return GetPropertyHeight(property);
             }
 
-            System.Type propertyType = PropertyUtility.GetPropertyType(property);
+            Type propertyType = PropertyUtility.GetPropertyType(property);
             if (typeof(ScriptableObject).IsAssignableFrom(propertyType))
             {
                 ScriptableObject scriptableObject = property.objectReferenceValue as ScriptableObject;
@@ -35,7 +36,7 @@ namespace NaughtyAttributes.Editor
                                 do
                                 {
                                     SerializedProperty childProperty = serializedObject.FindProperty(iterator.name);
-                                    if (childProperty.name.Equals("m_Script", System.StringComparison.Ordinal))
+                                    if (childProperty.name.Equals("m_Script", StringComparison.Ordinal))
                                     {
                                         continue;
                                     }
@@ -78,7 +79,7 @@ namespace NaughtyAttributes.Editor
             }
             else
             {
-                System.Type propertyType = PropertyUtility.GetPropertyType(property);
+                Type propertyType = PropertyUtility.GetPropertyType(property);
                 if (typeof(ScriptableObject).IsAssignableFrom(propertyType))
                 {
                     ScriptableObject scriptableObject = property.objectReferenceValue as ScriptableObject;
@@ -160,7 +161,7 @@ namespace NaughtyAttributes.Editor
                         do
                         {
                             SerializedProperty childProperty = serializedObject.FindProperty(iterator.name);
-                            if (childProperty.name.Equals("m_Script", System.StringComparison.Ordinal))
+                            if (childProperty.name.Equals("m_Script", StringComparison.Ordinal))
                             {
                                 continue;
                             }

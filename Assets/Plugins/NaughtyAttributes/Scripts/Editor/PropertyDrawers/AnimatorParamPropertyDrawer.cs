@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
 using UnityEditor.Animations;
@@ -95,7 +96,7 @@ namespace NaughtyAttributes.Editor
 
             for (int i = 0; i < animatorParameters.Count; i++)
             {
-                if (paramName.Equals(animatorParameters[i].name, System.StringComparison.Ordinal))
+                if (paramName.Equals(animatorParameters[i].name, StringComparison.Ordinal))
                 {
                     index = i + 1; // +1 because the first option is reserved for (None)
                     break;
@@ -107,7 +108,7 @@ namespace NaughtyAttributes.Editor
             int newIndex = EditorGUI.Popup(rect, label.text, index, displayOptions);
             string newValue = newIndex == 0 ? null : animatorParameters[newIndex - 1].name;
 
-            if (!property.stringValue.Equals(newValue, System.StringComparison.Ordinal))
+            if (!property.stringValue.Equals(newValue, StringComparison.Ordinal))
             {
                 property.stringValue = newValue;
             }

@@ -2,9 +2,8 @@
 using GamePlay.Level.Dots.Factory;
 using GamePlay.Level.Dots.Runtime.LifeFlow;
 using GamePlay.Level.Fields.Runtime;
-using UnityEngine;
 
-namespace GamePlay.Level.Services.FieldFlow.Runtime
+namespace GamePlay.Level.Services.FieldFlow.Seeder
 {
     public class FieldSeeder : IFieldSeeder
     {

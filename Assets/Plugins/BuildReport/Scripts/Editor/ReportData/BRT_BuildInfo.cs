@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEditor;
 
 namespace BuildReportTool
@@ -7,8 +9,8 @@ namespace BuildReportTool
 	/// Class for holding a Build Report.
 	/// This is the class that is serialized when saving a Build Report to a file.
 	/// </summary>
-	[System.Serializable, System.Xml.Serialization.XmlRoot("BuildInfo")]
-	public partial class BuildInfo : BuildReportTool.IDataFile
+	[Serializable, XmlRoot("BuildInfo")]
+	public partial class BuildInfo : IDataFile
 	{
 		// General Info
 		// ==================================================================================
@@ -28,12 +30,12 @@ namespace BuildReportTool
 		/// <summary>
 		/// When build was created.
 		/// </summary>
-		public System.DateTime BuildTimeGot;
+		public DateTime BuildTimeGot;
 
 		/// <summary>
 		/// When report was created.
 		/// </summary>
-		public System.DateTime TimeGot;
+		public DateTime TimeGot;
 
 		/// <summary>
 		/// When build was created, in readable format.
@@ -50,22 +52,22 @@ namespace BuildReportTool
 		/// <summary>
 		/// How long it took to create this Build Report.
 		/// </summary>
-		System.TimeSpan _reportGenerationTime;
+		TimeSpan _reportGenerationTime;
 
 		/// <inheritdoc cref="_reportGenerationTime"/>
-		[System.Xml.Serialization.XmlIgnore]
-		public System.TimeSpan ReportGenerationTime
+		[XmlIgnore]
+		public TimeSpan ReportGenerationTime
 		{
 			get { return _reportGenerationTime; }
 			set { _reportGenerationTime = value; }
 		}
 
 		/// <inheritdoc cref="_reportGenerationTime"/>
-		[System.Xml.Serialization.XmlElement("ReportGenerationTime")]
+		[XmlElement("ReportGenerationTime")]
 		public long ReportGenerationTimeInTicks
 		{
 			get { return _reportGenerationTime.Ticks; }
-			set { _reportGenerationTime = new System.TimeSpan(value); }
+			set { _reportGenerationTime = new TimeSpan(value); }
 		}
 
 		// -----------------------------------------------
@@ -73,20 +75,20 @@ namespace BuildReportTool
 		/// <summary>
 		/// How long it took to create the build.
 		/// </summary>
-		System.TimeSpan _buildDurationTime;
+		TimeSpan _buildDurationTime;
 
-		[System.Xml.Serialization.XmlIgnore]
-		public System.TimeSpan BuildDurationTime
+		[XmlIgnore]
+		public TimeSpan BuildDurationTime
 		{
 			get { return _buildDurationTime; }
 			set { _buildDurationTime = value; }
 		}
 
-		[System.Xml.Serialization.XmlElement("BuildDurationTime")]
+		[XmlElement("BuildDurationTime")]
 		public long BuildTimeDurationTicks
 		{
 			get { return _buildDurationTime.Ticks; }
-			set { _buildDurationTime = new System.TimeSpan(value); }
+			set { _buildDurationTime = new TimeSpan(value); }
 		}
 
 		// -----------------------------------------------
@@ -201,7 +203,7 @@ namespace BuildReportTool
 		// Category Sizes
 		// ==================================================================================
 
-		public BuildReportTool.SizePart[] BuildSizes;
+		public SizePart[] BuildSizes;
 
 
 		// File entries
@@ -210,19 +212,19 @@ namespace BuildReportTool
 		/// <summary>
 		/// All Mono/.NET DLL files used in the build, and their file sizes.
 		/// </summary>
-		public BuildReportTool.SizePart[] MonoDLLs;
+		public SizePart[] MonoDLLs;
 
 		/// <summary>
 		/// All managed DLL files from the project's Assets folder
 		/// that were used in the build, and their file sizes.
 		/// </summary>
-		public BuildReportTool.SizePart[] ScriptDLLs;
+		public SizePart[] ScriptDLLs;
 
 		/// <summary>
 		/// All the Unity API managed DLL files
 		/// that were used in the build, and their file sizes.
 		/// </summary>
-		public BuildReportTool.SizePart[] UnityEngineDLLs;
+		public SizePart[] UnityEngineDLLs;
 
 		/// <summary>
 		/// File filters used at time of Build Report creation

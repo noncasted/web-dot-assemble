@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using System.Text;
+using UnityEngine;
 using UnityEngine.EventSystems;
-using System.Text;
+using UnityEngine.UI;
 #if UNITY_EDITOR
 using UnityEditor;
 using System.Text.RegularExpressions;

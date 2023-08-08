@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace UniRx.Diagnostics
 {
@@ -16,7 +15,7 @@ namespace UniRx.Diagnostics
         // options
 
         /// <summary>[Optional]</summary>
-        public UnityEngine.Object Context { get; private set; }
+        public Object Context { get; private set; }
         /// <summary>[Optional]</summary>
         public Exception Exception { get; private set; }
         /// <summary>[Optional]</summary>
@@ -24,7 +23,7 @@ namespace UniRx.Diagnostics
         /// <summary>[Optional]</summary>
         public object State { get; private set; }
 
-        public LogEntry(string loggerName, LogType logType, DateTime timestamp, string message, UnityEngine.Object context = null, Exception exception = null, string stackTrace = null, object state = null)
+        public LogEntry(string loggerName, LogType logType, DateTime timestamp, string message, Object context = null, Exception exception = null, string stackTrace = null, object state = null)
             : this()
         {
             this.LoggerName = loggerName;

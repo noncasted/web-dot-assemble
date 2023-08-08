@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace UniRx.Diagnostics
 {
@@ -20,7 +19,7 @@ namespace UniRx.Diagnostics
         }
 
         /// <summary>Output LogType.Log but only enables isDebugBuild</summary>
-        public virtual void Debug(object message, UnityEngine.Object context = null)
+        public virtual void Debug(object message, Object context = null)
         {
             if (!isInitialized)
             {
@@ -59,7 +58,7 @@ namespace UniRx.Diagnostics
             }
         }
 
-        public virtual void Log(object message, UnityEngine.Object context = null)
+        public virtual void Log(object message, Object context = null)
         {
             logPublisher(new LogEntry(
                 message: (message != null) ? message.ToString() : "",
@@ -79,7 +78,7 @@ namespace UniRx.Diagnostics
                 context: null));
         }
 
-        public virtual void Warning(object message, UnityEngine.Object context = null)
+        public virtual void Warning(object message, Object context = null)
         {
             logPublisher(new LogEntry(
                 message: (message != null) ? message.ToString() : "",
@@ -99,7 +98,7 @@ namespace UniRx.Diagnostics
                 context: null));
         }
 
-        public virtual void Error(object message, UnityEngine.Object context = null)
+        public virtual void Error(object message, Object context = null)
         {
             logPublisher(new LogEntry(
                 message: (message != null) ? message.ToString() : "",
@@ -119,7 +118,7 @@ namespace UniRx.Diagnostics
                 context: null));
         }
 
-        public virtual void Exception(Exception exception, UnityEngine.Object context = null)
+        public virtual void Exception(Exception exception, Object context = null)
         {
             logPublisher(new LogEntry(
                 message: (exception != null) ? exception.ToString() : "",

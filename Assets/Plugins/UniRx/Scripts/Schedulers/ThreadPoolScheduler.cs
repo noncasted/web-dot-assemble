@@ -1,9 +1,8 @@
 ﻿#if !UNITY_METRO
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading;
 using UniRx.InternalUtil;
 
 namespace UniRx
@@ -84,7 +83,7 @@ namespace UniRx
                     _disposable.Disposable = Disposable.Create(Unroot);
 
                     _action = action;
-                    _timer = new System.Threading.Timer(Tick, null, dueTime, TimeSpan.FromMilliseconds(System.Threading.Timeout.Infinite));
+                    _timer = new System.Threading.Timer(Tick, null, dueTime, TimeSpan.FromMilliseconds(Timeout.Infinite));
 
                     lock (s_timers)
                     {

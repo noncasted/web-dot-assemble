@@ -26,11 +26,14 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
+using UnityEngine;
 
 namespace MiniJSON {
     // Example usage:
@@ -314,17 +317,17 @@ namespace MiniJSON {
 
                 if (number.IndexOf('.') == -1 && number.IndexOf('E') == -1 && number.IndexOf('e') == -1) {
                     long parsedInt;
-                    Int64.TryParse(number, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out parsedInt);
+                    Int64.TryParse(number, NumberStyles.Any, CultureInfo.InvariantCulture, out parsedInt);
                     if (parsedInt == 0) {
                         ulong parsedUInt;
-                        UInt64.TryParse(number, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out parsedUInt);
+                        UInt64.TryParse(number, NumberStyles.Any, CultureInfo.InvariantCulture, out parsedUInt);
                         return parsedUInt;
                     }
                     return parsedInt;
                 }
 
                 double parsedDouble;
-                Double.TryParse(number, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out parsedDouble);
+                Double.TryParse(number, NumberStyles.Any, CultureInfo.InvariantCulture, out parsedDouble);
                 return parsedDouble;
             }
 
@@ -554,7 +557,7 @@ namespace MiniJSON {
                 // They always have, I'm just letting you know.
                 // Previously floats and doubles lost precision too.
                 if (value is float) {
-                    var numberToString = ((float)value).ToString("R", System.Globalization.CultureInfo.InvariantCulture);
+                    var numberToString = ((float)value).ToString("R", CultureInfo.InvariantCulture);
                     if (numberToString.IndexOf('.') < 0 && numberToString.IndexOf("E", StringComparison.OrdinalIgnoreCase) < 0) {
                         // if whole number, add a ".0" at the end
                         numberToString = string.Format("{0}.0", numberToString);
@@ -571,7 +574,7 @@ namespace MiniJSON {
                     builder.Append(value);
                 } else if (value is double
                     || value is decimal) {
-                    var numberToString = Convert.ToDouble(value).ToString("R", System.Globalization.CultureInfo.InvariantCulture);
+                    var numberToString = Convert.ToDouble(value).ToString("R", CultureInfo.InvariantCulture);
                     if (numberToString.IndexOf('.') < 0 && numberToString.IndexOf("E", StringComparison.OrdinalIgnoreCase) < 0) {
                         // if whole number, add a ".0" at the end
                         numberToString = string.Format("{0}.0", numberToString);
@@ -579,7 +582,7 @@ namespace MiniJSON {
                     builder.Append(numberToString);
                 } else {
 #if UNITY_5_3_OR_NEWER
-                    builder.Append(UnityEngine.JsonUtility.ToJson(value));
+                    builder.Append(JsonUtility.ToJson(value));
 #endif
                 }
             }

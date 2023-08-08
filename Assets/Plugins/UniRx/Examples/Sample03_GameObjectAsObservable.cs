@@ -1,7 +1,9 @@
 ﻿#if !(UNITY_IPHONE || UNITY_ANDROID || UNITY_METRO)
 
+using UniRx.Triggers;
 using UnityEngine;
-using UniRx.Triggers; // for enable gameObject.EventAsObservbale()
+
+// for enable gameObject.EventAsObservbale()
 
 namespace UniRx.Examples
 {

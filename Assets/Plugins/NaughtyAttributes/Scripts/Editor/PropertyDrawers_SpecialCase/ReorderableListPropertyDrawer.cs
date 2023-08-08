@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEditorInternal;
-using System.Collections.Generic;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace NaughtyAttributes.Editor
 {
@@ -108,15 +110,15 @@ namespace NaughtyAttributes.Editor
 
         private Object GetAssignableObject(Object obj, ReorderableList list)
         {
-            System.Type listType = PropertyUtility.GetPropertyType(list.serializedProperty);
-            System.Type elementType = ReflectionUtility.GetListElementType(listType);
+            Type listType = PropertyUtility.GetPropertyType(list.serializedProperty);
+            Type elementType = ReflectionUtility.GetListElementType(listType);
 
             if (elementType == null)
             {
                 return null;
             }
 
-            System.Type objType = obj.GetType();
+            Type objType = obj.GetType();
 
             if (elementType.IsAssignableFrom(objType))
             {

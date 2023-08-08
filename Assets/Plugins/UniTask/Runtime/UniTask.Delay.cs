@@ -1,10 +1,11 @@
 ﻿#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-using Cysharp.Threading.Tasks.Internal;
 using System;
 using System.Collections;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using Cysharp.Threading.Tasks.Internal;
+using UnityEditor;
 using UnityEngine;
 
 namespace Cysharp.Threading.Tasks
@@ -84,7 +85,7 @@ namespace Cysharp.Threading.Tasks
         [Obsolete("Use WaitForEndOfFrame(MonoBehaviour) instead or UniTask.Yield(PlayerLoopTiming.LastPostLateUpdate). Equivalent for coroutine's WaitForEndOfFrame requires MonoBehaviour(runner of Coroutine).")]
         public static UniTask WaitForEndOfFrame(CancellationToken cancellationToken)
         {
-            return UniTask.Yield(PlayerLoopTiming.LastPostLateUpdate, cancellationToken);
+            return Yield(PlayerLoopTiming.LastPostLateUpdate, cancellationToken);
         }
 
         public static UniTask WaitForEndOfFrame(MonoBehaviour coroutineRunner, CancellationToken cancellationToken = default)
@@ -108,7 +109,7 @@ namespace Cysharp.Threading.Tasks
         /// </summary>
         public static UniTask WaitForFixedUpdate(CancellationToken cancellationToken)
         {
-            return UniTask.Yield(PlayerLoopTiming.LastFixedUpdate, cancellationToken);
+            return Yield(PlayerLoopTiming.LastFixedUpdate, cancellationToken);
         }
 
         public static UniTask DelayFrame(int delayFrameCount, PlayerLoopTiming delayTiming = PlayerLoopTiming.Update, CancellationToken cancellationToken = default(CancellationToken))
@@ -148,7 +149,7 @@ namespace Cysharp.Threading.Tasks
 
 #if UNITY_EDITOR
             // force use Realtime.
-            if (PlayerLoopHelper.IsMainThread && !UnityEditor.EditorApplication.isPlaying)
+            if (PlayerLoopHelper.IsMainThread && !EditorApplication.isPlaying)
             {
                 delayType = DelayType.Realtime;
             }
@@ -356,7 +357,7 @@ namespace Cysharp.Threading.Tasks
             }
         }
 
-        sealed class WaitForEndOfFramePromise : IUniTaskSource, ITaskPoolNode<WaitForEndOfFramePromise>, System.Collections.IEnumerator
+        sealed class WaitForEndOfFramePromise : IUniTaskSource, ITaskPoolNode<WaitForEndOfFramePromise>, IEnumerator
         {
             static TaskPool<WaitForEndOfFramePromise> pool;
             WaitForEndOfFramePromise nextNode;
@@ -557,7 +558,7 @@ namespace Cysharp.Threading.Tasks
                     {
 #if UNITY_EDITOR
                         // force use Realtime.
-                        if (PlayerLoopHelper.IsMainThread && !UnityEditor.EditorApplication.isPlaying)
+                        if (PlayerLoopHelper.IsMainThread && !EditorApplication.isPlaying)
                         {
                             //goto ++currentFrameCount
                         }

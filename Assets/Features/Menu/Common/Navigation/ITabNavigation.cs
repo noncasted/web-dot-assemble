@@ -1,6 +1,6 @@
 ﻿using Menu.StateMachine.Runtime;
 
-namespace Features.Menu.Common.Navigation
+namespace Menu.Common.Navigation
 {
     public interface ITabNavigation
     {

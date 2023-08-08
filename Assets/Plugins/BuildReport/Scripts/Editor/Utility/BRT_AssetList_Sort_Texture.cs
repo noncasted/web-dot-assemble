@@ -4,101 +4,101 @@ namespace BuildReportTool
 {
 	public static partial class AssetListUtility
 	{
-		public static void SortAssetList(BuildReportTool.SizePart[] assetList, BuildReportTool.TextureData textureData, TextureData.DataId textureSortType, BuildReportTool.AssetList.SortOrder sortOrder)
+		public static void SortAssetList(SizePart[] assetList, TextureData textureData, TextureData.DataId textureSortType, AssetList.SortOrder sortOrder)
 		{
 			switch (textureSortType)
 			{
-				case BuildReportTool.TextureData.DataId.TextureType:
+				case TextureData.DataId.TextureType:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.TextureType);
 					break;
-				case BuildReportTool.TextureData.DataId.IsSRGB:
+				case TextureData.DataId.IsSRGB:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.IsSRGB);
 					break;
-				case BuildReportTool.TextureData.DataId.AlphaSource:
+				case TextureData.DataId.AlphaSource:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.AlphaSource);
 					break;
-				case BuildReportTool.TextureData.DataId.AlphaIsTransparency:
+				case TextureData.DataId.AlphaIsTransparency:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.AlphaIsTransparency);
 					break;
-				case BuildReportTool.TextureData.DataId.IgnorePngGamma:
+				case TextureData.DataId.IgnorePngGamma:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.IgnorePngGamma);
 					break;
-				case BuildReportTool.TextureData.DataId.NPotScale:
+				case TextureData.DataId.NPotScale:
 					SortNPotScale(assetList, textureData, sortOrder);
 					break;
-				case BuildReportTool.TextureData.DataId.IsReadable:
+				case TextureData.DataId.IsReadable:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.IsReadable);
 					break;
-				case BuildReportTool.TextureData.DataId.MipMapGenerated:
+				case TextureData.DataId.MipMapGenerated:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.MipMapGenerated);
 					break;
-				case BuildReportTool.TextureData.DataId.MipMapFilter:
+				case TextureData.DataId.MipMapFilter:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.MipMapFilter);
 					break;
-				case BuildReportTool.TextureData.DataId.StreamingMipMaps:
+				case TextureData.DataId.StreamingMipMaps:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.StreamingMipMaps);
 					break;
-				case BuildReportTool.TextureData.DataId.BorderMipMaps:
+				case TextureData.DataId.BorderMipMaps:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.BorderMipMaps);
 					break;
-				case BuildReportTool.TextureData.DataId.PreserveCoverageMipMaps:
+				case TextureData.DataId.PreserveCoverageMipMaps:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.PreserveCoverageMipMaps);
 					break;
-				case BuildReportTool.TextureData.DataId.FadeOutMipMaps:
+				case TextureData.DataId.FadeOutMipMaps:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.FadeOutMipMaps);
 					break;
-				case BuildReportTool.TextureData.DataId.SpriteImportMode:
+				case TextureData.DataId.SpriteImportMode:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.SpriteImportMode);
 					break;
-				case BuildReportTool.TextureData.DataId.SpritePackingTag:
+				case TextureData.DataId.SpritePackingTag:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.SpritePackingTag);
 					break;
-				case BuildReportTool.TextureData.DataId.SpritePixelsPerUnit:
+				case TextureData.DataId.SpritePixelsPerUnit:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.SpritePixelsPerUnit);
 					break;
-				case BuildReportTool.TextureData.DataId.QualifiesForSpritePacking:
+				case TextureData.DataId.QualifiesForSpritePacking:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.QualifiesForSpritePacking);
 					break;
-				case BuildReportTool.TextureData.DataId.WrapMode:
+				case TextureData.DataId.WrapMode:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.WrapMode);
 					break;
-				case BuildReportTool.TextureData.DataId.WrapModeU:
+				case TextureData.DataId.WrapModeU:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.WrapModeU);
 					break;
-				case BuildReportTool.TextureData.DataId.WrapModeV:
+				case TextureData.DataId.WrapModeV:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.WrapModeV);
 					break;
-				case BuildReportTool.TextureData.DataId.WrapModeW:
+				case TextureData.DataId.WrapModeW:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.WrapModeW);
 					break;
-				case BuildReportTool.TextureData.DataId.FilterMode:
+				case TextureData.DataId.FilterMode:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.FilterMode);
 					break;
-				case BuildReportTool.TextureData.DataId.AnisoLevel:
+				case TextureData.DataId.AnisoLevel:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.AnisoLevel);
 					break;
-				case BuildReportTool.TextureData.DataId.MaxTextureSize:
+				case TextureData.DataId.MaxTextureSize:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.GetShownMaxTextureSize());
 					break;
-				case BuildReportTool.TextureData.DataId.TextureResizeAlgorithm:
+				case TextureData.DataId.TextureResizeAlgorithm:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.GetShownTextureResizeAlgorithm());
 					break;
-				case BuildReportTool.TextureData.DataId.TextureFormat:
+				case TextureData.DataId.TextureFormat:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.GetShownTextureFormat());
 					break;
-				case BuildReportTool.TextureData.DataId.CompressionType:
+				case TextureData.DataId.CompressionType:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.GetShownCompressionType());
 					break;
-				case BuildReportTool.TextureData.DataId.CompressionIsCrunched:
+				case TextureData.DataId.CompressionIsCrunched:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.GetShownCompressionIsCrunched());
 					break;
-				case BuildReportTool.TextureData.DataId.CompressionQuality:
+				case TextureData.DataId.CompressionQuality:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.GetShownCompressionQuality());
 					break;
-				case BuildReportTool.TextureData.DataId.ImportedWidthAndHeight:
+				case TextureData.DataId.ImportedWidthAndHeight:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.GetImportedPixelCount());
 					break;
-				case BuildReportTool.TextureData.DataId.RealWidthAndHeight:
+				case TextureData.DataId.RealWidthAndHeight:
 					SortTextureData(assetList, textureData, sortOrder, entry => entry.GetRealPixelCount());
 					break;
 			}
@@ -106,8 +106,8 @@ namespace BuildReportTool
 
 		static int CompareNPotScale(string nPotScale1, string nPotScale2)
 		{
-			var nPotScale1IsNoneNot = nPotScale1 == BuildReportTool.TextureData.NPOT_SCALE_NONE_NOT_POT;
-			var nPotScale2IsNoneNot = nPotScale1 == BuildReportTool.TextureData.NPOT_SCALE_NONE_NOT_POT;
+			var nPotScale1IsNoneNot = nPotScale1 == TextureData.NPOT_SCALE_NONE_NOT_POT;
+			var nPotScale2IsNoneNot = nPotScale1 == TextureData.NPOT_SCALE_NONE_NOT_POT;
 
 			if (nPotScale1IsNoneNot && !nPotScale2IsNoneNot)
 			{
@@ -123,11 +123,11 @@ namespace BuildReportTool
 
 		// =============================================================================================================
 
-		static void SortByInt(BuildReportTool.SizePart[] assetList, BuildReportTool.AssetList.SortOrder sortOrder)
+		static void SortByInt(SizePart[] assetList, AssetList.SortOrder sortOrder)
 		{
-			if (sortOrder == BuildReportTool.AssetList.SortOrder.Descending)
+			if (sortOrder == AssetList.SortOrder.Descending)
 			{
-				Array.Sort(assetList, delegate(BuildReportTool.SizePart entry1, BuildReportTool.SizePart entry2)
+				Array.Sort(assetList, delegate(SizePart entry1, SizePart entry2)
 				{
 					int sortResult = entry2.GetIntAuxData().CompareTo(entry1.GetIntAuxData());
 					if (sortResult != 0)
@@ -147,7 +147,7 @@ namespace BuildReportTool
 			}
 			else
 			{
-				Array.Sort(assetList, delegate(BuildReportTool.SizePart entry1, BuildReportTool.SizePart entry2)
+				Array.Sort(assetList, delegate(SizePart entry1, SizePart entry2)
 				{
 					int sortResult = entry1.GetIntAuxData().CompareTo(entry2.GetIntAuxData());
 					if (sortResult != 0)
@@ -167,11 +167,11 @@ namespace BuildReportTool
 			}
 		}
 
-		static void SortByFloat(BuildReportTool.SizePart[] assetList, BuildReportTool.AssetList.SortOrder sortOrder)
+		static void SortByFloat(SizePart[] assetList, AssetList.SortOrder sortOrder)
 		{
-			if (sortOrder == BuildReportTool.AssetList.SortOrder.Descending)
+			if (sortOrder == AssetList.SortOrder.Descending)
 			{
-				Array.Sort(assetList, delegate(BuildReportTool.SizePart entry1, BuildReportTool.SizePart entry2)
+				Array.Sort(assetList, delegate(SizePart entry1, SizePart entry2)
 				{
 					int sortResult = entry1.GetFloatAuxData().CompareTo(entry2.GetFloatAuxData());
 					if (sortResult != 0)
@@ -191,7 +191,7 @@ namespace BuildReportTool
 			}
 			else
 			{
-				Array.Sort(assetList, delegate(BuildReportTool.SizePart entry1, BuildReportTool.SizePart entry2)
+				Array.Sort(assetList, delegate(SizePart entry1, SizePart entry2)
 				{
 					int sortResult = entry2.GetFloatAuxData().CompareTo(entry1.GetFloatAuxData());
 					if (sortResult != 0)
@@ -211,11 +211,11 @@ namespace BuildReportTool
 			}
 		}
 
-		static void SortByText(BuildReportTool.SizePart[] assetList, BuildReportTool.AssetList.SortOrder sortOrder)
+		static void SortByText(SizePart[] assetList, AssetList.SortOrder sortOrder)
 		{
-			if (sortOrder == BuildReportTool.AssetList.SortOrder.Descending)
+			if (sortOrder == AssetList.SortOrder.Descending)
 			{
-				Array.Sort(assetList, delegate(BuildReportTool.SizePart entry1, BuildReportTool.SizePart entry2)
+				Array.Sort(assetList, delegate(SizePart entry1, SizePart entry2)
 				{
 					int sortTextureTypeResult = string.Compare(entry1.GetTextAuxData(), entry2.GetTextAuxData(), StringComparison.OrdinalIgnoreCase);
 					if (sortTextureTypeResult != 0)
@@ -235,7 +235,7 @@ namespace BuildReportTool
 			}
 			else
 			{
-				Array.Sort(assetList, delegate(BuildReportTool.SizePart entry1, BuildReportTool.SizePart entry2)
+				Array.Sort(assetList, delegate(SizePart entry1, SizePart entry2)
 				{
 					int sortTextureTypeResult = string.Compare(entry2.GetTextAuxData(), entry1.GetTextAuxData(), StringComparison.OrdinalIgnoreCase);
 					if (sortTextureTypeResult != 0)
@@ -255,11 +255,11 @@ namespace BuildReportTool
 			}
 		}
 
-		static void SortByText(BuildReportTool.SizePart[] assetList, BuildReportTool.AssetList.SortOrder sortOrder, Func<string, string, int> compare)
+		static void SortByText(SizePart[] assetList, AssetList.SortOrder sortOrder, Func<string, string, int> compare)
 		{
-			if (sortOrder == BuildReportTool.AssetList.SortOrder.Descending)
+			if (sortOrder == AssetList.SortOrder.Descending)
 			{
-				Array.Sort(assetList, delegate(BuildReportTool.SizePart entry1, BuildReportTool.SizePart entry2)
+				Array.Sort(assetList, delegate(SizePart entry1, SizePart entry2)
 				{
 					int sortTextureTypeResult = compare(entry1.GetTextAuxData(), entry2.GetTextAuxData());
 					if (sortTextureTypeResult != 0)
@@ -279,7 +279,7 @@ namespace BuildReportTool
 			}
 			else
 			{
-				Array.Sort(assetList, delegate(BuildReportTool.SizePart entry1, BuildReportTool.SizePart entry2)
+				Array.Sort(assetList, delegate(SizePart entry1, SizePart entry2)
 				{
 					int sortTextureTypeResult = compare(entry2.GetTextAuxData(), entry1.GetTextAuxData());
 					if (sortTextureTypeResult != 0)
@@ -301,7 +301,7 @@ namespace BuildReportTool
 
 		// =============================================================================================================
 
-		static void SortTextureData(BuildReportTool.SizePart[] assetList, BuildReportTool.TextureData textureData, BuildReportTool.AssetList.SortOrder sortOrder, Func<BuildReportTool.TextureData.Entry, bool> func)
+		static void SortTextureData(SizePart[] assetList, TextureData textureData, AssetList.SortOrder sortOrder, Func<TextureData.Entry, bool> func)
 		{
 			var textureEntries = textureData.GetTextureData();
 
@@ -319,7 +319,7 @@ namespace BuildReportTool
 			SortByInt(assetList, sortOrder);
 		}
 
-		static void SortTextureData(BuildReportTool.SizePart[] assetList, BuildReportTool.TextureData textureData, BuildReportTool.AssetList.SortOrder sortOrder, Func<BuildReportTool.TextureData.Entry, string> func)
+		static void SortTextureData(SizePart[] assetList, TextureData textureData, AssetList.SortOrder sortOrder, Func<TextureData.Entry, string> func)
 		{
 			var textureEntries = textureData.GetTextureData();
 
@@ -337,7 +337,7 @@ namespace BuildReportTool
 			SortByText(assetList, sortOrder);
 		}
 
-		static void SortTextureData(BuildReportTool.SizePart[] assetList, BuildReportTool.TextureData textureData, BuildReportTool.AssetList.SortOrder sortOrder, Func<BuildReportTool.TextureData.Entry, float> func)
+		static void SortTextureData(SizePart[] assetList, TextureData textureData, AssetList.SortOrder sortOrder, Func<TextureData.Entry, float> func)
 		{
 			var textureEntries = textureData.GetTextureData();
 
@@ -355,7 +355,7 @@ namespace BuildReportTool
 			SortByFloat(assetList, sortOrder);
 		}
 
-		static void SortTextureData(BuildReportTool.SizePart[] assetList, BuildReportTool.TextureData textureData, BuildReportTool.AssetList.SortOrder sortOrder, Func<BuildReportTool.TextureData.Entry, int> func)
+		static void SortTextureData(SizePart[] assetList, TextureData textureData, AssetList.SortOrder sortOrder, Func<TextureData.Entry, int> func)
 		{
 			var textureEntries = textureData.GetTextureData();
 
@@ -374,7 +374,7 @@ namespace BuildReportTool
 		}
 
 		// NPotScale sort is special: we want the "None (Not Power of 2)" values to go at top, ignoring alphabetical order for that special value
-		static void SortNPotScale(BuildReportTool.SizePart[] assetList, BuildReportTool.TextureData textureData, BuildReportTool.AssetList.SortOrder sortOrder)
+		static void SortNPotScale(SizePart[] assetList, TextureData textureData, AssetList.SortOrder sortOrder)
 		{
 			var textureEntries = textureData.GetTextureData();
 
@@ -389,16 +389,16 @@ namespace BuildReportTool
 				assetList[n].SetTextAuxData(textData);
 			}
 
-			if (sortOrder == BuildReportTool.AssetList.SortOrder.Descending)
+			if (sortOrder == AssetList.SortOrder.Descending)
 			{
-				Array.Sort(assetList, delegate(BuildReportTool.SizePart entry1, BuildReportTool.SizePart entry2)
+				Array.Sort(assetList, delegate(SizePart entry1, SizePart entry2)
 				{
 					string nPotScale1 = entry1.GetTextAuxData();
 					string nPotScale2 = entry2.GetTextAuxData();
 
 					// put non-power-of-2 at top
-					bool nPotScale1IsNoneNot = nPotScale1 == BuildReportTool.TextureData.NPOT_SCALE_NONE_NOT_POT;
-					bool nPotScale2IsNoneNot = nPotScale2 == BuildReportTool.TextureData.NPOT_SCALE_NONE_NOT_POT;
+					bool nPotScale1IsNoneNot = nPotScale1 == TextureData.NPOT_SCALE_NONE_NOT_POT;
+					bool nPotScale2IsNoneNot = nPotScale2 == TextureData.NPOT_SCALE_NONE_NOT_POT;
 					if (nPotScale1IsNoneNot && !nPotScale2IsNoneNot)
 					{
 						return -1;
@@ -427,14 +427,14 @@ namespace BuildReportTool
 			}
 			else
 			{
-				Array.Sort(assetList, delegate(BuildReportTool.SizePart entry1, BuildReportTool.SizePart entry2)
+				Array.Sort(assetList, delegate(SizePart entry1, SizePart entry2)
 				{
 					string nPotScale1 = entry1.GetTextAuxData();
 					string nPotScale2 = entry2.GetTextAuxData();
 
 					// put non-power-of-2 at bottom
-					bool nPotScale1IsNoneNot = nPotScale1 == BuildReportTool.TextureData.NPOT_SCALE_NONE_NOT_POT;
-					bool nPotScale2IsNoneNot = nPotScale2 == BuildReportTool.TextureData.NPOT_SCALE_NONE_NOT_POT;
+					bool nPotScale1IsNoneNot = nPotScale1 == TextureData.NPOT_SCALE_NONE_NOT_POT;
+					bool nPotScale2IsNoneNot = nPotScale2 == TextureData.NPOT_SCALE_NONE_NOT_POT;
 					if (nPotScale1IsNoneNot && !nPotScale2IsNoneNot)
 					{
 						return 1;

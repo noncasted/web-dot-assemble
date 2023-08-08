@@ -1,7 +1,8 @@
-﻿using UnityEngine;
-using UnityEditor;
-using System;
+﻿using System;
 using System.Reflection;
+using UnityEditor;
+using UnityEditorInternal;
+using UnityEngine;
 
 namespace NaughtyAttributes.Editor
 {
@@ -42,7 +43,7 @@ namespace NaughtyAttributes.Editor
 
         private string[] GetLayers()
         {
-            Type internalEditorUtilityType = typeof(UnityEditorInternal.InternalEditorUtility);
+            Type internalEditorUtilityType = typeof(InternalEditorUtility);
             PropertyInfo sortingLayersProperty = internalEditorUtilityType.GetProperty("sortingLayerNames", BindingFlags.Static | BindingFlags.NonPublic);
             return (string[])sortingLayersProperty.GetValue(null, new object[0]);
         }

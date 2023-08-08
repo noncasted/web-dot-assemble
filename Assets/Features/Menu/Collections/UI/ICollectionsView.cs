@@ -1,4 +1,4 @@
-﻿using Features.Menu.Common.Navigation;
+﻿using Menu.Common.Navigation;
 using UnityEngine;
 
 namespace Menu.Collections.UI

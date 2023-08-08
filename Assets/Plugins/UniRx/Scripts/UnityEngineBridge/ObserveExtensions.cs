@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Threading;
 using UniRx.InternalUtil;
 using UniRx.Triggers;
-
+using UnityEngine;
+using Object = UnityEngine.Object;
 #if !UniRxLibrary
 using ObservableUnity = UniRx.Observable;
 #endif
@@ -42,8 +43,8 @@ namespace UniRx
             if (source == null) return Observable.Empty<TProperty>();
             if (comparer == null) comparer = UnityEqualityComparer.GetDefault<TProperty>();
 
-            var unityObject = source as UnityEngine.Object;
-            var isUnityObject = source is UnityEngine.Object;
+            var unityObject = source as Object;
+            var isUnityObject = source is Object;
             if (isUnityObject && unityObject == null) return Observable.Empty<TProperty>();
 
             // MicroCoroutine does not publish value immediately, so publish value on subscribe.
@@ -156,7 +157,7 @@ namespace UniRx
             }
         }
 
-        static IEnumerator PublishUnityObjectValueChanged<TSource, TProperty>(UnityEngine.Object unityObject, TProperty firstValue, Func<TSource, TProperty> propertySelector, IEqualityComparer<TProperty> comparer, IObserver<TProperty> observer, CancellationToken cancellationToken, bool fastDestroyCheck)
+        static IEnumerator PublishUnityObjectValueChanged<TSource, TProperty>(Object unityObject, TProperty firstValue, Func<TSource, TProperty> propertySelector, IEqualityComparer<TProperty> comparer, IObserver<TProperty> observer, CancellationToken cancellationToken, bool fastDestroyCheck)
         {
             var currentValue = default(TProperty);
             var prevValue = firstValue;
@@ -167,10 +168,10 @@ namespace UniRx
             {
                 ObservableDestroyTrigger destroyTrigger = null;
                 {
-                    var gameObject = unityObject as UnityEngine.GameObject;
+                    var gameObject = unityObject as GameObject;
                     if (gameObject == null)
                     {
-                        var comp = unityObject as UnityEngine.Component;
+                        var comp = unityObject as Component;
                         if (comp != null)
                         {
                             gameObject = comp.gameObject;
@@ -251,7 +252,7 @@ namespace UniRx
             }
         }
 
-        static ObservableDestroyTrigger GetOrAddDestroyTrigger(UnityEngine.GameObject go)
+        static ObservableDestroyTrigger GetOrAddDestroyTrigger(GameObject go)
         {
             var dt = go.GetComponent<ObservableDestroyTrigger>();
             if (dt == null)

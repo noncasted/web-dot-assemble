@@ -1,7 +1,6 @@
-using System.Collections.Generic;
 using System.Globalization;
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
 namespace BuildReportTool.Window.Screen
 {
@@ -39,49 +38,49 @@ namespace BuildReportTool.Window.Screen
 				return;
 			}
 
-			var titleStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.MAIN_TITLE_STYLE_NAME);
+			var titleStyle = GUI.skin.FindStyle(Settings.MAIN_TITLE_STYLE_NAME);
 			if (titleStyle == null)
 			{
 				titleStyle = GUI.skin.label;
 			}
 
-			var bigLabelStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.INFO_TITLE_STYLE_NAME);
+			var bigLabelStyle = GUI.skin.FindStyle(Settings.INFO_TITLE_STYLE_NAME);
 			if (bigLabelStyle == null)
 			{
 				bigLabelStyle = GUI.skin.label;
 			}
 
-			var bigValueStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.INFO_SUBTITLE_STYLE_NAME);
+			var bigValueStyle = GUI.skin.FindStyle(Settings.INFO_SUBTITLE_STYLE_NAME);
 			if (bigValueStyle == null)
 			{
 				bigValueStyle = GUI.skin.label;
 			}
 
-			var bigNumberStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.BIG_NUMBER_STYLE_NAME);
+			var bigNumberStyle = GUI.skin.FindStyle(Settings.BIG_NUMBER_STYLE_NAME);
 			if (bigNumberStyle == null)
 			{
 				bigNumberStyle = GUI.skin.label;
 			}
 
-			var smallLabelStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.SETTING_NAME_STYLE_NAME);
+			var smallLabelStyle = GUI.skin.FindStyle(Settings.SETTING_NAME_STYLE_NAME);
 			if (smallLabelStyle == null)
 			{
 				smallLabelStyle = GUI.skin.label;
 			}
 
-			var smallValueStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.SETTING_VALUE_STYLE_NAME);
+			var smallValueStyle = GUI.skin.FindStyle(Settings.SETTING_VALUE_STYLE_NAME);
 			if (smallValueStyle == null)
 			{
 				smallValueStyle = GUI.skin.label;
 			}
 
-			var helpDescriptionStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.TINY_HELP_STYLE_NAME);
+			var helpDescriptionStyle = GUI.skin.FindStyle(Settings.TINY_HELP_STYLE_NAME);
 			if (helpDescriptionStyle == null)
 			{
 				helpDescriptionStyle = GUI.skin.label;
 			}
 
-			var infoDescriptionStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.INFO_TEXT_STYLE_NAME);
+			var infoDescriptionStyle = GUI.skin.FindStyle(Settings.INFO_TEXT_STYLE_NAME);
 			if (infoDescriptionStyle == null)
 			{
 				infoDescriptionStyle = GUI.skin.label;
@@ -134,7 +133,7 @@ namespace BuildReportTool.Window.Screen
 				GUILayout.BeginVertical();
 				GUILayout.Label(Labels.BUILD_TOTAL_SIZE_LABEL, bigLabelStyle);
 
-				GUILayout.Label(BuildReportTool.Util.GetBuildSizePathDescription(buildReportToDisplay), helpDescriptionStyle);
+				GUILayout.Label(Util.GetBuildSizePathDescription(buildReportToDisplay), helpDescriptionStyle);
 
 				GUILayout.Label(buildReportToDisplay.TotalBuildSize, bigNumberStyle);
 				GUILayout.EndVertical();
@@ -368,7 +367,7 @@ namespace BuildReportTool.Window.Screen
 				return;
 			}
 
-			BuildReportTool.SizePart[] assetsToShow = assetList.TopLargest;
+			SizePart[] assetsToShow = assetList.TopLargest;
 
 			if (assetsToShow == null)
 			{
@@ -376,25 +375,25 @@ namespace BuildReportTool.Window.Screen
 				return;
 			}
 
-			var listNormalStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_NORMAL_STYLE_NAME);
+			var listNormalStyle = GUI.skin.FindStyle(Settings.LIST_NORMAL_STYLE_NAME);
 			if (listNormalStyle == null)
 			{
 				listNormalStyle = GUI.skin.label;
 			}
 
-			var listAltStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_NORMAL_ALT_STYLE_NAME);
+			var listAltStyle = GUI.skin.FindStyle(Settings.LIST_NORMAL_ALT_STYLE_NAME);
 			if (listAltStyle == null)
 			{
 				listAltStyle = GUI.skin.label;
 			}
 
-			var listIconNormalStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_ICON_STYLE_NAME);
+			var listIconNormalStyle = GUI.skin.FindStyle(Settings.LIST_ICON_STYLE_NAME);
 			if (listIconNormalStyle == null)
 			{
 				listIconNormalStyle = GUI.skin.label;
 			}
 
-			var listIconAltStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_ICON_ALT_STYLE_NAME);
+			var listIconAltStyle = GUI.skin.FindStyle(Settings.LIST_ICON_ALT_STYLE_NAME);
 			if (listIconAltStyle == null)
 			{
 				listIconAltStyle = GUI.skin.label;
@@ -409,7 +408,7 @@ namespace BuildReportTool.Window.Screen
 			bool useAlt = true;
 
 			var newEntryHoveredIdx = -1;
-			BuildReportTool.SizePart newEntryHovered = null;
+			SizePart newEntryHovered = null;
 			Rect newEntryHoveredRect = new Rect();
 			Rect iconRect = new Rect();
 			var hoveringOverIcon = false;
@@ -421,7 +420,7 @@ namespace BuildReportTool.Window.Screen
 			GUILayout.BeginVertical();
 			for (int n = 0; n < assetsToShow.Length; ++n)
 			{
-				BuildReportTool.SizePart b = assetsToShow[n];
+				SizePart b = assetsToShow[n];
 
 				var styleToUse = useAlt ? listAltStyle : listNormalStyle;
 				var iconStyleToUse = useAlt ? listIconAltStyle : listIconNormalStyle;
@@ -465,7 +464,7 @@ namespace BuildReportTool.Window.Screen
 					}
 				}
 
-				string prettyName = string.Format(" {0}. {1}", (n + 1).ToString(), BuildReportTool.Util.GetAssetFilename(b.Name));
+				string prettyName = string.Format(" {0}. {1}", (n + 1).ToString(), Util.GetAssetFilename(b.Name));
 				if (GUILayout.Button(prettyName, styleToUse, BRT_BuildReportWindow.Layout100To400x30))
 				{
 					Utility.PingAssetInProject(b.Name);
@@ -541,7 +540,7 @@ namespace BuildReportTool.Window.Screen
 			GUILayout.BeginVertical();
 			for (int n = 0; n < assetsToShow.Length; ++n)
 			{
-				BuildReportTool.SizePart b = assetsToShow[n];
+				SizePart b = assetsToShow[n];
 
 				var styleToUse = useAlt ? listAltStyle : listNormalStyle;
 
@@ -555,7 +554,7 @@ namespace BuildReportTool.Window.Screen
 			GUILayout.EndHorizontal();
 		}
 
-		void DrawScenesInBuild(BuildReportTool.BuildInfo.SceneInBuild[] scenesInBuild)
+		void DrawScenesInBuild(BuildInfo.SceneInBuild[] scenesInBuild)
 		{
 			if (scenesInBuild == null || scenesInBuild.Length == 0)
 			{
@@ -564,31 +563,31 @@ namespace BuildReportTool.Window.Screen
 			}
 
 
-			var bigLabelStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.INFO_TITLE_STYLE_NAME);
+			var bigLabelStyle = GUI.skin.FindStyle(Settings.INFO_TITLE_STYLE_NAME);
 			if (bigLabelStyle == null)
 			{
 				bigLabelStyle = GUI.skin.label;
 			}
 
-			var listNormalStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_NORMAL_STYLE_NAME);
+			var listNormalStyle = GUI.skin.FindStyle(Settings.LIST_NORMAL_STYLE_NAME);
 			if (listNormalStyle == null)
 			{
 				listNormalStyle = GUI.skin.label;
 			}
 
-			var listAltStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_NORMAL_ALT_STYLE_NAME);
+			var listAltStyle = GUI.skin.FindStyle(Settings.LIST_NORMAL_ALT_STYLE_NAME);
 			if (listAltStyle == null)
 			{
 				listAltStyle = GUI.skin.label;
 			}
 
-			var listIconNormalStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_ICON_STYLE_NAME);
+			var listIconNormalStyle = GUI.skin.FindStyle(Settings.LIST_ICON_STYLE_NAME);
 			if (listIconNormalStyle == null)
 			{
 				listIconNormalStyle = GUI.skin.label;
 			}
 
-			var listIconAltStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.LIST_ICON_ALT_STYLE_NAME);
+			var listIconAltStyle = GUI.skin.FindStyle(Settings.LIST_ICON_ALT_STYLE_NAME);
 			if (listIconAltStyle == null)
 			{
 				listIconAltStyle = GUI.skin.label;
@@ -662,23 +661,23 @@ namespace BuildReportTool.Window.Screen
 				if (string.IsNullOrEmpty(scenesInBuild[n].Path))
 				{
 					prettyName = string.Format("<color=#{0}><i>Missing</i></color>",
-						BuildReportTool.Window.Screen.AssetList.GetPathColor(false));
+						AssetList.GetPathColor(false));
 				}
 				else
 				{
-					var pathName = BuildReportTool.Util.GetAssetPath(scenesInBuild[n].Path);
+					var pathName = Util.GetAssetPath(scenesInBuild[n].Path);
 					var fileName = scenesInBuild[n].Path.GetFileNameOnly();
 
 					if (scenesInBuild[n].Enabled)
 					{
 						prettyName = string.Format("<color=#{0}>{1}</color><b>{2}</b>",
-							BuildReportTool.Window.Screen.AssetList.GetPathColor(false),
+							AssetList.GetPathColor(false),
 							pathName, fileName);
 					}
 					else
 					{
 						prettyName = string.Format("<color=#{0}>{1}<b>{2}</b></color>",
-							BuildReportTool.Window.Screen.AssetList.GetPathColor(false),
+							AssetList.GetPathColor(false),
 							pathName, fileName);
 					}
 				}

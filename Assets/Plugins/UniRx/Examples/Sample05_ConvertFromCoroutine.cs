@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Threading;
 using UnityEngine;
+
 #if UNITY_2018_3_OR_NEWER
 #pragma warning disable CS0618
 #endif
@@ -20,7 +21,7 @@ namespace UniRx.Examples
         // IEnumerator with callback
         static IEnumerator GetWWWCore(string url, IObserver<string> observer, CancellationToken cancellationToken)
         {
-            var www = new UnityEngine.WWW(url);
+            var www = new WWW(url);
             while (!www.isDone && !cancellationToken.IsCancellationRequested)
             {
                 yield return null;

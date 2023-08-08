@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UniRx.Operators;
 
 namespace UniRx
@@ -36,7 +36,7 @@ namespace UniRx
             var result = source.Catch((TException ex) =>
             {
                 errorAction(ex);
-                return Observable.Empty<TSource>();
+                return Empty<TSource>();
             });
             return result;
         }
@@ -48,7 +48,7 @@ namespace UniRx
 
         public static IObservable<TSource> Retry<TSource>(this IObservable<TSource> source, int retryCount)
         {
-            return System.Linq.Enumerable.Repeat(source, retryCount).Catch();
+            return Enumerable.Repeat(source, retryCount).Catch();
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace UniRx
             this IObservable<TSource> source, Action<TException> onError, int retryCount, TimeSpan delay, IScheduler delayScheduler)
             where TException : Exception
         {
-            var result = Observable.Defer(() =>
+            var result = Defer(() =>
             {
                 var dueTime = (delay.Ticks < 0) ? TimeSpan.Zero : delay;
                 var count = 0;
@@ -123,7 +123,7 @@ namespace UniRx
                         ? (dueTime == TimeSpan.Zero)
                             ? self.SubscribeOn(Scheduler.CurrentThread)
                             : self.DelaySubscription(dueTime, delayScheduler).SubscribeOn(Scheduler.CurrentThread)
-                        : Observable.Throw<TSource>(ex);
+                        : Throw<TSource>(ex);
                 });
                 return self;
             });

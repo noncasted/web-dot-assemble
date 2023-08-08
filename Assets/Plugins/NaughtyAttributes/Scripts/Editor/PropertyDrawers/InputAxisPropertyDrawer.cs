@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEditor;
@@ -47,7 +48,7 @@ namespace NaughtyAttributes.Editor
                 // we skip index 0 as that is a special custom case
                 for (int i = 1; i < axes.Length; i++)
                 {
-                    if (axes[i].Equals(propertyString, System.StringComparison.Ordinal))
+                    if (axes[i].Equals(propertyString, StringComparison.Ordinal))
                     {
                         index = i;
                         break;
@@ -60,7 +61,7 @@ namespace NaughtyAttributes.Editor
                 // Adjust the actual string value of the property based on the selection
                 string newValue = newIndex > 0 ? axes[newIndex] : string.Empty;
 
-                if (!property.stringValue.Equals(newValue, System.StringComparison.Ordinal))
+                if (!property.stringValue.Equals(newValue, StringComparison.Ordinal))
                 {
                     property.stringValue = newValue;
                 }

@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.EventSystems;
-using System.Collections;
+using UnityEngine.UI;
 #if UNITY_EDITOR && UNITY_2021_1_OR_NEWER
 using Screen = UnityEngine.Device.Screen; // To support Device Simulator on Unity 2021.1+
 #endif

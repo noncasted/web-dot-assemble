@@ -3,9 +3,9 @@ using System.Collections;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
-using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace NaughtyAttributes.Editor
 {
@@ -132,7 +132,7 @@ namespace NaughtyAttributes.Editor
             }
         }
 
-        public static void Button(UnityEngine.Object target, MethodInfo methodInfo)
+        public static void Button(Object target, MethodInfo methodInfo)
         {
             bool visible = ButtonUtility.IsVisible(target, methodInfo);
             if (!visible)
@@ -198,7 +198,7 @@ namespace NaughtyAttributes.Editor
             }
         }
 
-        public static void NativeProperty_Layout(UnityEngine.Object target, PropertyInfo property)
+        public static void NativeProperty_Layout(Object target, PropertyInfo property)
         {
             object value = property.GetValue(target, null);
 
@@ -214,7 +214,7 @@ namespace NaughtyAttributes.Editor
             }
         }
 
-        public static void NonSerializedField_Layout(UnityEngine.Object target, FieldInfo field)
+        public static void NonSerializedField_Layout(Object target, FieldInfo field)
         {
             object value = field.GetValue(target);
 
@@ -236,7 +236,7 @@ namespace NaughtyAttributes.Editor
             EditorGUI.DrawRect(rect, color);
         }
 
-        public static void HelpBox(Rect rect, string message, MessageType type, UnityEngine.Object context = null, bool logToConsole = false)
+        public static void HelpBox(Rect rect, string message, MessageType type, Object context = null, bool logToConsole = false)
         {
             EditorGUI.HelpBox(rect, message, type);
 
@@ -246,7 +246,7 @@ namespace NaughtyAttributes.Editor
             }
         }
 
-        public static void HelpBox_Layout(string message, MessageType type, UnityEngine.Object context = null, bool logToConsole = false)
+        public static void HelpBox_Layout(string message, MessageType type, Object context = null, bool logToConsole = false)
         {
             EditorGUILayout.HelpBox(message, type);
 
@@ -339,15 +339,15 @@ namespace NaughtyAttributes.Editor
                 {
                     EditorGUILayout.RectIntField(label, (RectInt)value);
                 }
-                else if (typeof(UnityEngine.Object).IsAssignableFrom(valueType))
+                else if (typeof(Object).IsAssignableFrom(valueType))
                 {
-                    EditorGUILayout.ObjectField(label, (UnityEngine.Object)value, valueType, true);
+                    EditorGUILayout.ObjectField(label, (Object)value, valueType, true);
                 }
                 else if (valueType.BaseType == typeof(Enum))
                 {
                     EditorGUILayout.EnumPopup(label, (Enum)value);
                 }
-                else if (valueType.BaseType == typeof(System.Reflection.TypeInfo))
+                else if (valueType.BaseType == typeof(TypeInfo))
                 {
                     EditorGUILayout.TextField(label, value.ToString());
                 }
@@ -360,7 +360,7 @@ namespace NaughtyAttributes.Editor
             }
         }
 
-        private static void DebugLogMessage(string message, MessageType type, UnityEngine.Object context)
+        private static void DebugLogMessage(string message, MessageType type, Object context)
         {
             switch (type)
             {

@@ -1,6 +1,6 @@
 ﻿using GamePlay.Level.Dots.Definitions;
 
-namespace GamePlay.Level.Services.FieldFlow.Runtime
+namespace GamePlay.Level.Services.FieldFlow.Seeder
 {
     public interface IFieldSeeder
     {

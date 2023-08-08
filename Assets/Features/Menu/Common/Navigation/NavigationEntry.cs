@@ -2,7 +2,7 @@
 using Menu.StateMachine.Definitions;
 using UnityEngine;
 
-namespace Features.Menu.Common.Navigation
+namespace Menu.Common.Navigation
 {
     [Serializable]
     public class NavigationEntry

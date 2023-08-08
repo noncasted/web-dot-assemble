@@ -2,9 +2,11 @@
 	#define UNITY_5_2_AND_LESSER
 #endif
 
-using UnityEditor;
-using System.Linq;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Serialization;
+using UnityEditor;
 
 namespace BuildReportTool
 {
@@ -64,7 +66,7 @@ namespace BuildReportTool
 				return TimeGotReadable;
 			}
 
-			return TimeGot.ToString(BuildReportTool.ReportGenerator.TIME_OF_BUILD_FORMAT);
+			return TimeGot.ToString(ReportGenerator.TIME_OF_BUILD_FORMAT);
 		}
 
 		public string UnityVersionDisplayed
@@ -82,12 +84,12 @@ namespace BuildReportTool
 
 		public string GetDefaultFilename()
 		{
-			return BuildReportTool.Util.GetBuildInfoDefaultFilename(ProjectName, BuildType, BuildTimeGot);
+			return Util.GetBuildInfoDefaultFilename(ProjectName, BuildType, BuildTimeGot);
 		}
 
 		public string GetAccompanyingAssetDependenciesFilename()
 		{
-			return BuildReportTool.Util.GetAssetDependenciesDefaultFilename(ProjectName, BuildType, BuildTimeGot);
+			return Util.GetAssetDependenciesDefaultFilename(ProjectName, BuildType, BuildTimeGot);
 		}
 
 		// old size values were only TotalBuildSize and CompressedBuildSize
@@ -140,30 +142,30 @@ namespace BuildReportTool
 		{
 			FileFilterGroup fileFiltersToUse = FileFilters;
 
-			if (BuildReportTool.Options.ShouldUseConfiguredFileFilters())
+			if (Options.ShouldUseConfiguredFileFilters())
 			{
-				fileFiltersToUse = BuildReportTool.FiltersUsed.GetProperFileFilterGroupToUse();
+				fileFiltersToUse = FiltersUsed.GetProperFileFilterGroupToUse();
 				//Debug.Log("going to use configured file filters instead... loaded: " + (fileFiltersToUse != null));
 			}
 
 			if (UsedAssets != null)
 			{
 				UsedAssets.AssignPerCategoryList(
-					BuildReportTool.ReportGenerator.SegregateAssetSizesPerCategory(UsedAssets.All, fileFiltersToUse));
+					ReportGenerator.SegregateAssetSizesPerCategory(UsedAssets.All, fileFiltersToUse));
 
 				UsedAssets.RefreshFilterLabels(fileFiltersToUse);
 
-				UsedAssets.ResortDefault(BuildReportTool.Options.NumberOfTopLargestUsedAssetsToShow);
+				UsedAssets.ResortDefault(Options.NumberOfTopLargestUsedAssetsToShow);
 			}
 
 			if (UnusedAssets != null)
 			{
 				UnusedAssets.AssignPerCategoryList(
-					BuildReportTool.ReportGenerator.SegregateAssetSizesPerCategory(UnusedAssets.All, fileFiltersToUse));
+					ReportGenerator.SegregateAssetSizesPerCategory(UnusedAssets.All, fileFiltersToUse));
 
 				UnusedAssets.RefreshFilterLabels(fileFiltersToUse);
 
-				UnusedAssets.ResortDefault(BuildReportTool.Options.NumberOfTopLargestUnusedAssetsToShow);
+				UnusedAssets.ResortDefault(Options.NumberOfTopLargestUnusedAssetsToShow);
 			}
 		}
 
@@ -176,18 +178,18 @@ namespace BuildReportTool
 
 			FileFilterGroup fileFiltersToUse = FileFilters;
 
-			if (BuildReportTool.Options.ShouldUseConfiguredFileFilters())
+			if (Options.ShouldUseConfiguredFileFilters())
 			{
-				fileFiltersToUse = BuildReportTool.FiltersUsed.GetProperFileFilterGroupToUse();
+				fileFiltersToUse = FiltersUsed.GetProperFileFilterGroupToUse();
 				//Debug.Log("going to use configured file filters instead... loaded: " + (fileFiltersToUse != null));
 			}
 
 			UsedAssets.AssignPerCategoryList(
-				BuildReportTool.ReportGenerator.SegregateAssetSizesPerCategory(UsedAssets.All, fileFiltersToUse));
+				ReportGenerator.SegregateAssetSizesPerCategory(UsedAssets.All, fileFiltersToUse));
 
 			UsedAssets.RefreshFilterLabels(fileFiltersToUse);
 
-			UsedAssets.ResortDefault(BuildReportTool.Options.NumberOfTopLargestUsedAssetsToShow);
+			UsedAssets.ResortDefault(Options.NumberOfTopLargestUsedAssetsToShow);
 		}
 
 		public void RecategorizeUnusedAssets()
@@ -199,18 +201,18 @@ namespace BuildReportTool
 
 			FileFilterGroup fileFiltersToUse = FileFilters;
 
-			if (BuildReportTool.Options.ShouldUseConfiguredFileFilters())
+			if (Options.ShouldUseConfiguredFileFilters())
 			{
-				fileFiltersToUse = BuildReportTool.FiltersUsed.GetProperFileFilterGroupToUse();
+				fileFiltersToUse = FiltersUsed.GetProperFileFilterGroupToUse();
 				//Debug.Log("going to use configured file filters instead... loaded: " + (fileFiltersToUse != null));
 			}
 
 			UnusedAssets.AssignPerCategoryList(
-				BuildReportTool.ReportGenerator.SegregateAssetSizesPerCategory(UnusedAssets.All, fileFiltersToUse));
+				ReportGenerator.SegregateAssetSizesPerCategory(UnusedAssets.All, fileFiltersToUse));
 
 			UnusedAssets.RefreshFilterLabels(fileFiltersToUse);
 
-			UnusedAssets.ResortDefault(BuildReportTool.Options.NumberOfTopLargestUnusedAssetsToShow);
+			UnusedAssets.ResortDefault(Options.NumberOfTopLargestUnusedAssetsToShow);
 		}
 
 		void CalculateUsedAssetsDerivedSizes()
@@ -219,14 +221,14 @@ namespace BuildReportTool
 			{
 				for (int n = 0, len = UsedAssets.All.Length; n < len; ++n)
 				{
-					UsedAssets.All[n].DerivedSize = BuildReportTool.Util.GetApproxSizeFromString(UsedAssets.All[n].Size);
+					UsedAssets.All[n].DerivedSize = Util.GetApproxSizeFromString(UsedAssets.All[n].Size);
 				}
 			}
 		}
 
 		public void SortSizes()
 		{
-			System.Array.Sort(BuildSizes, delegate(BuildReportTool.SizePart b1, BuildReportTool.SizePart b2)
+			Array.Sort(BuildSizes, delegate(SizePart b1, SizePart b2)
 			{
 				if (b1.Percentage > b2.Percentage) return -1;
 				else if (b1.Percentage < b2.Percentage) return 1;
@@ -372,8 +374,8 @@ namespace BuildReportTool
 
 			for (int n = 0, len = BuildSizes.Length; n < len; ++n)
 			{
-				BuildSizes[n].Percentage = System.Math.Round((BuildSizes[n].UsableSize / totalSize) * 100, 2,
-					System.MidpointRounding.AwayFromZero);
+				BuildSizes[n].Percentage = Math.Round((BuildSizes[n].UsableSize / totalSize) * 100, 2,
+					MidpointRounding.AwayFromZero);
 			}
 
 
@@ -387,7 +389,7 @@ namespace BuildReportTool
 			ChangeTotalSize(totalSize);
 		}
 
-		long GetSizeSumForUsedAssets(string assetFolderName, System.Func<string, bool> fileTypePredicate)
+		long GetSizeSumForUsedAssets(string assetFolderName, Func<string, bool> fileTypePredicate)
 		{
 			if (UsedAssets == null || UsedAssets.All == null)
 			{
@@ -395,17 +397,17 @@ namespace BuildReportTool
 			}
 
 			return UsedAssets.All.Where(part =>
-				                 BuildReportTool.Util.IsFileInAPath(part.Name, assetFolderName) &&
+				                 Util.IsFileInAPath(part.Name, assetFolderName) &&
 				                 fileTypePredicate(part.Name))
 			                 .Sum(part => BRT_LibCacheUtil.GetImportedFileSize(part.Name));
 		}
 
-		static void AddToSize(BuildReportTool.SizePart buildSize, long sizeToAdd)
+		static void AddToSize(SizePart buildSize, long sizeToAdd)
 		{
 			if (buildSize != null)
 			{
 				buildSize.DerivedSize += sizeToAdd;
-				buildSize.Size = BuildReportTool.Util.GetBytesReadable(buildSize.DerivedSize);
+				buildSize.Size = Util.GetBytesReadable(buildSize.DerivedSize);
 			}
 		}
 
@@ -416,7 +418,7 @@ namespace BuildReportTool
 				return;
 			}
 
-			BuildReportTool.SizePart buildSize = BuildSizes.FirstOrDefault(part => part.Name == buildSizeName);
+			SizePart buildSize = BuildSizes.FirstOrDefault(part => part.Name == buildSizeName);
 
 			if (buildSize != null)
 			{
@@ -435,7 +437,7 @@ namespace BuildReportTool
 				return;
 			}
 
-			BuildReportTool.SizePart buildSize = BuildSizes.FirstOrDefault(part => part.IsTotal);
+			SizePart buildSize = BuildSizes.FirstOrDefault(part => part.IsTotal);
 
 			if (buildSize != null)
 			{
@@ -451,20 +453,20 @@ namespace BuildReportTool
 
 		void ChangeTotalSize(double newSize)
 		{
-			if (System.Math.Abs(newSize) < 0.01)
+			if (Math.Abs(newSize) < 0.01)
 			{
 				// disallow zero total size
 				return;
 			}
 
-			BuildReportTool.SizePart totalSize = BuildSizes.FirstOrDefault(part => part.IsTotal);
+			SizePart totalSize = BuildSizes.FirstOrDefault(part => part.IsTotal);
 
 			if (totalSize != null)
 			{
 				//Debug.LogFormat("total size before: {0}", totalSize.DerivedSize);
 
 				totalSize.DerivedSize = newSize;
-				totalSize.Size = BuildReportTool.Util.GetBytesReadable(totalSize.DerivedSize);
+				totalSize.Size = Util.GetBytesReadable(totalSize.DerivedSize);
 
 				UsedTotalSize = totalSize.Size;
 
@@ -481,13 +483,13 @@ namespace BuildReportTool
 		/// <summary>
 		/// Needed for ParseDLLs
 		/// </summary>
-		[System.Xml.Serialization.XmlIgnore]
+		[XmlIgnore]
 		public ApiCompatibilityLevel MonoLevel;
 
 		/// <summary>
 		/// Needed for ParseDLLs
 		/// </summary>
-		[System.Xml.Serialization.XmlIgnore]
+		[XmlIgnore]
 		public StrippingLevel CodeStrippingLevel;
 
 
@@ -524,7 +526,7 @@ namespace BuildReportTool
 		/// <summary>
 		/// Last asset number that each batch displays.
 		/// </summary>
-		[System.Xml.Serialization.XmlIgnore]
+		[XmlIgnore]
 		public List<int> UnusedAssetsBatchFinalNum = new List<int>();
 
 		public void ResetUnusedAssetsBatchData()

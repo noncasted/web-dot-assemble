@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
 
 namespace NaughtyAttributes.Editor
@@ -24,7 +26,7 @@ namespace NaughtyAttributes.Editor
                 List<string> tagList = new List<string>();
                 tagList.Add("(None)");
                 tagList.Add("Untagged");
-                tagList.AddRange(UnityEditorInternal.InternalEditorUtility.tags);
+                tagList.AddRange(InternalEditorUtility.tags);
 
                 string propertyString = property.stringValue;
                 int index = 0;
@@ -32,7 +34,7 @@ namespace NaughtyAttributes.Editor
                 // we skip index 0 as that is a special custom case
                 for (int i = 1; i < tagList.Count; i++)
                 {
-                    if (tagList[i].Equals(propertyString, System.StringComparison.Ordinal))
+                    if (tagList[i].Equals(propertyString, StringComparison.Ordinal))
                     {
                         index = i;
                         break;
@@ -45,7 +47,7 @@ namespace NaughtyAttributes.Editor
                 // Adjust the actual string value of the property based on the selection
                 string newValue = newIndex > 0 ? tagList[newIndex] : string.Empty;
 
-                if (!property.stringValue.Equals(newValue, System.StringComparison.Ordinal))
+                if (!property.stringValue.Equals(newValue, StringComparison.Ordinal))
                 {
                     property.stringValue = newValue;
                 }

@@ -6,5 +6,6 @@ namespace Menu.Achievements.Definitions
     {
         Sprite Icon { get; }
         string Text { get; }
+        AchievementType Type { get; }
     }
 }

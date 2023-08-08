@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 // using System.Linq; do not use LINQ
-using System.Text;
 
 namespace UniRx
 {
@@ -267,7 +267,7 @@ namespace UniRx
         /// Returns an enumerator that iterates through the CompositeDisposable.
         /// </summary>
         /// <returns>An enumerator to iterate over the disposables.</returns>
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }

@@ -1,4 +1,5 @@
 ﻿using Menu.Common;
+using Menu.Common.Paths;
 
 namespace Menu.Achievements.Common
 {
@@ -9,5 +10,8 @@ namespace Menu.Achievements.Common
         
         public const string ControllerName = MenuAssetsPrefixes.Service + "Achievements_Ui";
         public const string ControllerPath = MenuAssetsPaths.Root + "Achievements/Ui";
+        
+        public const string EntryName = "Achievement_";
+        public const string EntryPath = MenuAssetsPaths.Root + "Achievements/Entry";
     }
 }

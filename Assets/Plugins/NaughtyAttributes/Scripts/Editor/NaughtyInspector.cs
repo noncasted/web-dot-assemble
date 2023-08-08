@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace NaughtyAttributes.Editor
 {
     [CanEditMultipleObjects]
-    [CustomEditor(typeof(UnityEngine.Object), true)]
+    [CustomEditor(typeof(Object), true)]
     public class NaughtyInspector : UnityEditor.Editor
     {
         private List<SerializedProperty> _serializedProperties = new List<SerializedProperty>();
@@ -75,7 +77,7 @@ namespace NaughtyAttributes.Editor
             // Draw non-grouped serialized properties
             foreach (var property in GetNonGroupedProperties(_serializedProperties))
             {
-                if (property.name.Equals("m_Script", System.StringComparison.Ordinal))
+                if (property.name.Equals("m_Script", StringComparison.Ordinal))
                 {
                     using (new EditorGUI.DisabledScope(disabled: true))
                     {

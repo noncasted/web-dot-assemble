@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace NaughtyAttributes.Test
@@ -13,7 +14,7 @@ namespace NaughtyAttributes.Test
         public ShowAssetPreviewNest1 nest1;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class ShowAssetPreviewNest1
     {
         [ShowAssetPreview]
@@ -25,7 +26,7 @@ namespace NaughtyAttributes.Test
         public ShowAssetPreviewNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class ShowAssetPreviewNest2
     {
         [ShowAssetPreview]

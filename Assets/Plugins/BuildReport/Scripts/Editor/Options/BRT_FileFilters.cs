@@ -1,12 +1,13 @@
 using System;
-using UnityEngine;
-using UnityEditor;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using BuildReportTool.Window;
+using UnityEditor;
+using UnityEngine;
 
 namespace BuildReportTool
 {
-	[System.Serializable]
+	[Serializable]
 	public class FileFilters
 	{
 		public FileFilters(string label, string[] filters)
@@ -200,7 +201,7 @@ namespace BuildReportTool
 	}
 
 
-	[System.Serializable, XmlRoot("FileFilterGroup")]
+	[Serializable, XmlRoot("FileFilterGroup")]
 	public class FileFilterGroup
 	{
 		[SerializeField]
@@ -310,12 +311,12 @@ namespace BuildReportTool
 
 		public bool Draw(AssetList assetList, float width)
 		{
-			BuildReportTool.Options.FileFilterDisplay displayType = BuildReportTool.Options.GetOptionFileFilterDisplay();
+			Options.FileFilterDisplay displayType = Options.GetOptionFileFilterDisplay();
 			switch (displayType)
 			{
-				case BuildReportTool.Options.FileFilterDisplay.DropDown:
+				case Options.FileFilterDisplay.DropDown:
 					return DrawFiltersAsDropDown(assetList, width);
-				case BuildReportTool.Options.FileFilterDisplay.Buttons:
+				case Options.FileFilterDisplay.Buttons:
 					return DrawFiltersAsButtons(assetList, width);
 			}
 
@@ -324,13 +325,13 @@ namespace BuildReportTool
 
 		bool DrawFiltersAsDropDown(AssetList assetList, float width)
 		{
-			var topBarLabelStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.TOP_BAR_LABEL_STYLE_NAME);
+			var topBarLabelStyle = GUI.skin.FindStyle(Settings.TOP_BAR_LABEL_STYLE_NAME);
 			if (topBarLabelStyle == null)
 			{
 				topBarLabelStyle = GUI.skin.label;
 			}
 
-			var topBarPopupStyle = GUI.skin.FindStyle(BuildReportTool.Window.Settings.FILE_FILTER_POPUP_STYLE_NAME);
+			var topBarPopupStyle = GUI.skin.FindStyle(Settings.FILE_FILTER_POPUP_STYLE_NAME);
 			if (topBarPopupStyle == null)
 			{
 				topBarPopupStyle = GUI.skin.label;

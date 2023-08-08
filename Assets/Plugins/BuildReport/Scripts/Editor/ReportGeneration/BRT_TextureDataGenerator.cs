@@ -1,14 +1,18 @@
 ﻿#define BRT_USE_INTERNAL_TEXTURE_IMPORTER_METHODS
 
+using System;
 using System.Collections.Generic;
+using System.Reflection;
+using ImageUtility;
 using UnityEditor;
+using UnityEditor.AssetImporters;
 using UnityEngine;
 
 namespace BuildReportTool
 {
 	public static class TextureDataGenerator
 	{
-		public static void CreateForUsedAssetsOnly(TextureData data, BuildReportTool.BuildInfo buildInfo, bool debugLog = false)
+		public static void CreateForUsedAssetsOnly(TextureData data, BuildInfo buildInfo, bool debugLog = false)
 		{
 			if (buildInfo == null)
 			{
@@ -17,7 +21,7 @@ namespace BuildReportTool
 			}
 			if (debugLog) Debug.Log("Will create TextureData for Used Assets");
 
-			BuildReportTool.BuildPlatform buildPlatform = BuildReportTool.ReportGenerator.GetBuildPlatformFromString(buildInfo.BuildType, buildInfo.BuildTargetUsed);
+			BuildPlatform buildPlatform = ReportGenerator.GetBuildPlatformFromString(buildInfo.BuildType, buildInfo.BuildTargetUsed);
 
 			var textureDataEntries = data.GetTextureData();
 			textureDataEntries.Clear();
@@ -25,7 +29,7 @@ namespace BuildReportTool
 			AppendTextureData(data, buildPlatform, buildInfo.UsedAssets.All, false, debugLog);
 		}
 
-		public static void CreateForAllAssets(TextureData data, BuildReportTool.BuildInfo buildInfo, bool debugLog = false)
+		public static void CreateForAllAssets(TextureData data, BuildInfo buildInfo, bool debugLog = false)
 		{
 			if (buildInfo == null)
 			{
@@ -34,7 +38,7 @@ namespace BuildReportTool
 			}
 			if (debugLog) Debug.Log("Will create TextureData for Used & Unused Assets");
 
-			BuildReportTool.BuildPlatform buildPlatform = BuildReportTool.ReportGenerator.GetBuildPlatformFromString(buildInfo.BuildType, buildInfo.BuildTargetUsed);
+			BuildPlatform buildPlatform = ReportGenerator.GetBuildPlatformFromString(buildInfo.BuildType, buildInfo.BuildTargetUsed);
 
 			var textureDataEntries = data.GetTextureData();
 			textureDataEntries.Clear();
@@ -43,7 +47,7 @@ namespace BuildReportTool
 			AppendTextureData(data, buildPlatform, buildInfo.UnusedAssets.All, false, debugLog);
 		}
 
-		static void AppendTextureData(TextureData data, BuildReportTool.BuildPlatform buildPlatform, IList<SizePart> assets, bool overwriteExistingEntries, bool debugLog = false)
+		static void AppendTextureData(TextureData data, BuildPlatform buildPlatform, IList<SizePart> assets, bool overwriteExistingEntries, bool debugLog = false)
 		{
 			if (debugLog) Debug.LogFormat("Creating Texture Data for {0} assets", assets.Count.ToString());
 
@@ -313,11 +317,11 @@ namespace BuildReportTool
 			{
 				if (Mathf.IsPowerOfTwo(result.ImportedWidth) && Mathf.IsPowerOfTwo(result.ImportedHeight))
 				{
-					result.NPotScale = BuildReportTool.TextureData.NPOT_SCALE_NONE_IS_POT;
+					result.NPotScale = TextureData.NPOT_SCALE_NONE_IS_POT;
 				}
 				else
 				{
-					result.NPotScale = BuildReportTool.TextureData.NPOT_SCALE_NONE_NOT_POT;
+					result.NPotScale = TextureData.NPOT_SCALE_NONE_NOT_POT;
 				}
 			}
 			else
@@ -479,23 +483,23 @@ namespace BuildReportTool
 		/// <see cref="TextureImporter.GetSourceTextureInformation()"/> for getting image's real width and height.
 		/// This method is private, at least as of Unity 2020.1.17f1.
 		/// </summary>
-		static readonly System.Reflection.MethodInfo TextureImporterGetSourceTextureInformation =
+		static readonly MethodInfo TextureImporterGetSourceTextureInformation =
 			typeof(TextureImporter).GetMethod("GetSourceTextureInformation",
-				System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+				BindingFlags.NonPublic | BindingFlags.Instance);
 #endif
 
 		/// <summary>
 		/// <see cref="TextureImporter.GetWidthAndHeight(ref int, ref int)"/> for getting image's real width and height.
 		/// This method is internal, at least as of Unity 2020.1.17f1.
 		/// </summary>
-		static readonly System.Reflection.MethodInfo TextureImporterGetWidthAndHeight =
+		static readonly MethodInfo TextureImporterGetWidthAndHeight =
 			typeof(TextureImporter).GetMethod("GetWidthAndHeight",
-				System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+				BindingFlags.NonPublic | BindingFlags.Instance);
 
 		static object[] _getWidthAndHeightParameters;
 #endif
 
-		static ImageUtility.Dimensions GetImageRealWidthAndHeight(string assetPath, TextureImporter textureImporter, bool debugLog = false)
+		static Dimensions GetImageRealWidthAndHeight(string assetPath, TextureImporter textureImporter, bool debugLog = false)
 		{
 			// Using UnityEditor.TextureImporter.GetSourceTextureInformation is preferred, since it will work with all Unity-supported image types.
 			// But since it's a private method, Unity makes no guarantee that it will still be available in future versions.
@@ -523,7 +527,7 @@ namespace BuildReportTool
 			if (TextureImporterGetSourceTextureInformation != null)
 			{
 #if UNITY_2020_2_OR_NEWER // SourceTextureInformation was moved out of Experimental namespace in Unity 2020.2
-				var sourceTextureInfo = (UnityEditor.AssetImporters.SourceTextureInformation)
+				var sourceTextureInfo = (SourceTextureInformation)
 #else
 				var sourceTextureInfo = (UnityEditor.Experimental.AssetImporters.SourceTextureInformation)
 #endif
@@ -532,7 +536,7 @@ namespace BuildReportTool
 				if (debugLog) Debug.LogFormat("Got dimensions (using GetSourceTextureInformation) for {0} {1}x{2}",
 					assetPath, sourceTextureInfo.width.ToString(), sourceTextureInfo.height.ToString());
 
-				ImageUtility.Dimensions returnValue;
+				Dimensions returnValue;
 				returnValue.Width = sourceTextureInfo.width;
 				returnValue.Height = sourceTextureInfo.height;
 				return returnValue;
@@ -547,7 +551,7 @@ namespace BuildReportTool
 				}
 				TextureImporterGetWidthAndHeight.Invoke(textureImporter, _getWidthAndHeightParameters);
 
-				ImageUtility.Dimensions returnValue;
+				Dimensions returnValue;
 				returnValue.Width = (int)_getWidthAndHeightParameters[0];
 				returnValue.Height = (int)_getWidthAndHeightParameters[1];
 
@@ -557,17 +561,17 @@ namespace BuildReportTool
 				return returnValue;
 			}
 #endif
-			if (assetPath.EndsWith(".jpg", System.StringComparison.OrdinalIgnoreCase) ||
-			    assetPath.EndsWith(".jpeg", System.StringComparison.OrdinalIgnoreCase) ||
-			    assetPath.EndsWith(".png", System.StringComparison.OrdinalIgnoreCase) ||
-			    assetPath.EndsWith(".bmp", System.StringComparison.OrdinalIgnoreCase) ||
-			    assetPath.EndsWith(".gif", System.StringComparison.OrdinalIgnoreCase))
+			if (assetPath.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
+			    assetPath.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase) ||
+			    assetPath.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
+			    assetPath.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase) ||
+			    assetPath.EndsWith(".gif", StringComparison.OrdinalIgnoreCase))
 			{
 				// remove 6 for the "Assets" at the start, before prefixing it with the project path
 				var assetFullPath = string.Format("{0}{1}", Application.dataPath, assetPath.Substring(6));
 				//if (debugLog) Debug.LogFormat("Full path of: {0}\n{1}", assetPath, assetFullPath);
 
-				var returnValue = ImageUtility.Dimension.Get(assetFullPath);
+				var returnValue = Dimension.Get(assetFullPath);
 
 				if (debugLog) Debug.LogFormat("Got dimensions (using ImageDimensions.Get.AsTuple) for {0} {1}x{2}",
 					assetPath, returnValue.Width.ToString(), returnValue.Height.ToString());
@@ -576,7 +580,7 @@ namespace BuildReportTool
 			}
 
 			// none of the options worked. no choice but to return error values
-			return ImageUtility.Dimensions.ErrorValue;
+			return Dimensions.ErrorValue;
 		}
 	}
 }

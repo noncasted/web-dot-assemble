@@ -21,6 +21,7 @@ using Global.Services.Publisher.Yandex.Purchases;
 using Global.Services.Publisher.Yandex.Review;
 using Global.Services.Setup.Service;
 using Global.Services.Setup.Service.Scenes;
+using Menu.Achievements.Global;
 using NaughtyAttributes;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -140,7 +141,8 @@ namespace Global.Services.Publisher.Yandex.Bootstrap
             return new IStorageEntry[]
             {
                 new LevelsSave(),
-                new SoundSave()
+                new SoundSave(),
+                new AchievementsSave(),
             };
         }
     }

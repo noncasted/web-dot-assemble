@@ -1,10 +1,10 @@
 ﻿ #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-using System;
-using System.Threading;
-using UnityEngine.Rendering;
+ using System;
+ using System.Threading;
+ using UnityEngine.Rendering;
 
-namespace Cysharp.Threading.Tasks
+ namespace Cysharp.Threading.Tasks
 {
     public static partial class UnityAsyncExtensions
     {

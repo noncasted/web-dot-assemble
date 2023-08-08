@@ -36,11 +36,17 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
+using DldUtil;
+using MiniJSON;
+using UnityEditor;
+using UnityEditor.Rendering;
+using UnityEditor.WindowsStandalone;
+using UnityEngine;
+using UnityEngine.XR;
 #if !UNITY_5_1_AND_LESSER // 5.2 and greater
 using System.Linq;
 #endif
-using UnityEditor;
-using UnityEngine;
 
 namespace BuildReportTool
 {
@@ -278,12 +284,12 @@ namespace BuildReportTool
 
 #if UNITY_EDITOR_WIN
 #if UNITY_5_6_OR_NEWER
-			settings.WinIncludeNativePdbFilesInBuild = UnityEditor.WindowsStandalone.UserBuildSettings.copyPDBFiles;
+			settings.WinIncludeNativePdbFilesInBuild = UserBuildSettings.copyPDBFiles;
 #else
 			settings.WinIncludeNativePdbFilesInBuild = false;
 #endif
 #if UNITY_2017_1_OR_NEWER
-			settings.WinCreateVisualStudioSolution = UnityEditor.WindowsStandalone.UserBuildSettings.createSolution;
+			settings.WinCreateVisualStudioSolution = UserBuildSettings.createSolution;
 #else
 			settings.WinCreateVisualStudioSolution = false;
 #endif
@@ -344,13 +350,13 @@ namespace BuildReportTool
 			// code settings
 			// ---------------------------------------------------------------
 
-			Dictionary<string, DldUtil.GetRspDefines.Entry> customDefines = DldUtil.GetRspDefines.GetDefines();
+			Dictionary<string, GetRspDefines.Entry> customDefines = GetRspDefines.GetDefines();
 
 			List<string> defines = new List<string>();
 			defines.AddRange(EditorUserBuildSettings.activeScriptCompilationDefines);
 
 
-			foreach (KeyValuePair<string, DldUtil.GetRspDefines.Entry> customDefine in customDefines)
+			foreach (KeyValuePair<string, GetRspDefines.Entry> customDefine in customDefines)
 			{
 				if (customDefine.Value.TimesDefinedInBuiltIn == 0)
 				{
@@ -402,7 +408,7 @@ namespace BuildReportTool
 
 #if (UNITY_EDITOR_WIN || UNITY_EDITOR_OSX)
 #if UNITY_5_5_OR_NEWER
-			settings.RenderingPathUsed = UnityEditor.Rendering.EditorGraphicsSettings
+			settings.RenderingPathUsed = EditorGraphicsSettings
 			                                        .GetTierSettings(EditorUserBuildSettings.selectedBuildTargetGroup,
 				                                        Graphics.activeTier).renderingPath.ToString();
 #else
@@ -413,7 +419,7 @@ namespace BuildReportTool
 #if !UNITY_5_1_AND_LESSER && !UNITY_2019_3_OR_NEWER // 5.2 to 2019.2
 			settings.EnableVirtualRealitySupport = PlayerSettings.virtualRealitySupported;
 #elif UNITY_2019_3_OR_NEWER
-			settings.EnableVirtualRealitySupport = UnityEngine.XR.XRSettings.enabled;
+			settings.EnableVirtualRealitySupport = XRSettings.enabled;
 #endif
 
 #if !UNITY_2022_2_OR_NEWER
@@ -1011,18 +1017,18 @@ namespace BuildReportTool
 			projectPath = projectPath.Substring(0, projectPath.Length - 6);
 
 			string manifestJsonPath = string.Format("{0}Packages/manifest.json", projectPath);
-			if (!System.IO.File.Exists(manifestJsonPath))
+			if (!File.Exists(manifestJsonPath))
 			{
 				// no manifest.json in project
 				return;
 			}
-			string manifestJsonText = System.IO.File.ReadAllText(manifestJsonPath);
+			string manifestJsonText = File.ReadAllText(manifestJsonPath);
 
 			string packagesLockJsonText;
 			string packagesLockJsonPath = string.Format("{0}Packages/packages-lock.json", projectPath);
-			if (System.IO.File.Exists(packagesLockJsonPath))
+			if (File.Exists(packagesLockJsonPath))
 			{
-				packagesLockJsonText = System.IO.File.ReadAllText(packagesLockJsonPath);
+				packagesLockJsonText = File.ReadAllText(packagesLockJsonPath);
 			}
 			else
 			{
@@ -1035,10 +1041,10 @@ namespace BuildReportTool
 		public const string DEFAULT_REGISTRY_URL = "https://packages.unity.com";
 
 		static void PopulatePackageList(string manifestJsonText, string packagesLockJsonText,
-			List<BuildReportTool.UnityBuildSettings.PackageEntry> packageList, List<BuildReportTool.UnityBuildSettings.BuiltInPackageEntry> builtInPackageList)
+			List<UnityBuildSettings.PackageEntry> packageList, List<UnityBuildSettings.BuiltInPackageEntry> builtInPackageList)
 		{
 			//Debug.Log($"Exists: {manifestJsonPath}");
-			var manifest = MiniJSON.Json.Deserialize(manifestJsonText) as Dictionary<string, object>;
+			var manifest = Json.Deserialize(manifestJsonText) as Dictionary<string, object>;
 			if (manifest == null)
 			{
 				return;
@@ -1068,7 +1074,7 @@ namespace BuildReportTool
 			Dictionary<string, object> externalLock;
 			if (!string.IsNullOrEmpty(packagesLockJsonText))
 			{
-				var locks = MiniJSON.Json.Deserialize(packagesLockJsonText) as Dictionary<string, object>;
+				var locks = Json.Deserialize(packagesLockJsonText) as Dictionary<string, object>;
 				if (locks != null && locks.ContainsKey("dependencies"))
 				{
 					externalLock = locks["dependencies"] as Dictionary<string, object>;
@@ -1113,14 +1119,14 @@ namespace BuildReportTool
 
 						if (pair.Key.StartsWith("com.unity.modules."))
 						{
-							BuildReportTool.UnityBuildSettings.BuiltInPackageEntry newBuiltInEntry;
+							UnityBuildSettings.BuiltInPackageEntry newBuiltInEntry;
 							newBuiltInEntry.PackageName = pair.Key;
 							newBuiltInEntry.DisplayName = null;
 							builtInPackageList.Add(newBuiltInEntry);
 							continue;
 						}
 
-						BuildReportTool.UnityBuildSettings.PackageEntry newEntry;
+						UnityBuildSettings.PackageEntry newEntry;
 						newEntry.PackageName = pair.Key;
 						newEntry.DisplayName = null;
 						newEntry.VersionUsed = null;
@@ -1246,9 +1252,9 @@ namespace BuildReportTool
 							if (!string.IsNullOrEmpty(newEntry.LocalPath))
 							{
 								string packageManifestPath = string.Format("{0}package.json", newEntry.LocalPath);
-								if (System.IO.File.Exists(packageManifestPath))
+								if (File.Exists(packageManifestPath))
 								{
-									var packageManifest = MiniJSON.Json.Deserialize(System.IO.File.ReadAllText(packageManifestPath)) as Dictionary<string, object>;
+									var packageManifest = Json.Deserialize(File.ReadAllText(packageManifestPath)) as Dictionary<string, object>;
 									if (packageManifest != null && packageManifest.ContainsKey("displayName"))
 									{
 										newEntry.DisplayName = packageManifest["displayName"] as string;
@@ -1281,10 +1287,10 @@ namespace BuildReportTool
 
 		const int DEFAULT_SHORT_HASH_LENGTH = 10;
 
-		static string GetPackageCachePath(BuildReportTool.UnityBuildSettings.PackageEntry entry, string projectPackagesCachePath)
+		static string GetPackageCachePath(UnityBuildSettings.PackageEntry entry, string projectPackagesCachePath)
 		{
 			string packageCachePath = string.Format("{0}{1}@{2}/", projectPackagesCachePath, entry.PackageName, entry.VersionUsed);
-			if (System.IO.Directory.Exists(packageCachePath))
+			if (Directory.Exists(packageCachePath))
 			{
 				return packageCachePath;
 			}
@@ -1297,7 +1303,7 @@ namespace BuildReportTool
 					projectPackagesCachePath, entry.PackageName,
 					entry.VersionUsed.Substring(0, DEFAULT_SHORT_HASH_LENGTH));
 
-				if (System.IO.Directory.Exists(packageCachePath))
+				if (Directory.Exists(packageCachePath))
 				{
 					return packageCachePath;
 				}
@@ -1330,7 +1336,7 @@ namespace BuildReportTool
 			}
 
 #if UNITY_EDITOR_WIN
-			string localAppDataVar = System.Environment.GetEnvironmentVariable("LOCALAPPDATA");
+			string localAppDataVar = Environment.GetEnvironmentVariable("LOCALAPPDATA");
 			if (string.IsNullOrEmpty(localAppDataVar))
 			{
 				return null;
@@ -1344,7 +1350,7 @@ namespace BuildReportTool
 			packageCachePath = string.Format("{0}/Unity/cache/packages/{1}/{2}@{3}/",
 				localAppDataVar, registryName, entry.PackageName, entry.VersionUsed);
 
-			if (System.IO.Directory.Exists(packageCachePath))
+			if (Directory.Exists(packageCachePath))
 			{
 				return packageCachePath;
 			}
@@ -1357,7 +1363,7 @@ namespace BuildReportTool
 					localAppDataVar, registryName, entry.PackageName,
 					entry.VersionUsed.Substring(0, DEFAULT_SHORT_HASH_LENGTH));
 
-				if (System.IO.Directory.Exists(packageCachePath))
+				if (Directory.Exists(packageCachePath))
 				{
 					return packageCachePath;
 				}

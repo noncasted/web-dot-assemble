@@ -1,7 +1,7 @@
-using UnityEngine;
-using UnityEditor;
 using System.IO;
-
+using BuildReportTool;
+using UnityEditor;
+using UnityEngine;
 
 public static class BRT_LibCacheUtil
 {
@@ -14,23 +14,23 @@ public static class BRT_LibCacheUtil
 	{
 		long result = -1;
 
-		assetPath = BuildReportTool.Util.MyHtmlDecode(assetPath);
+		assetPath = Util.MyHtmlDecode(assetPath);
 
 		// files in "StreamingAssets" folder do not get imported
 		// in the 1st place, so skip them
-		if (BuildReportTool.Util.IsFileStreamingAsset(assetPath))
+		if (Util.IsFileStreamingAsset(assetPath))
 		{
 			return -1;
 		}
 
 		// files like Thumbs.db or .DS_Store files do not get imported
-		if (BuildReportTool.Util.IsUselessFile(assetPath))
+		if (Util.IsUselessFile(assetPath))
 		{
 			return -1;
 		}
 
 		// Unix-style hidden files do not get imported
-		if (BuildReportTool.Util.IsFileAUnixHiddenFile(assetPath))
+		if (Util.IsFileAUnixHiddenFile(assetPath))
 		{
 			return -1;
 		}
@@ -49,7 +49,7 @@ public static class BRT_LibCacheUtil
 
 			if (File.Exists(assetImportedPath))
 			{
-				result = BuildReportTool.Util.GetFileSizeInBytes(assetImportedPath);
+				result = Util.GetFileSizeInBytes(assetImportedPath);
 			}
 			else
 			{
@@ -58,7 +58,7 @@ public static class BRT_LibCacheUtil
 					Path.GetFullPath(Application.dataPath + "../../Library/metadata/" + guid.Substring(0, 2) + "/" + guid);
 				if (File.Exists(assetImportedPath))
 				{
-					result = BuildReportTool.Util.GetFileSizeInBytes(assetImportedPath);
+					result = Util.GetFileSizeInBytes(assetImportedPath);
 				}
 			}
 		}

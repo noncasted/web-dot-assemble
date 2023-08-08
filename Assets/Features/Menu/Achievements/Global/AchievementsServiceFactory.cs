@@ -17,7 +17,7 @@ namespace Menu.Achievements.Global
             IGlobalCallbacks callbacks)
         {
             builder.Register<Achievements>()
-                .As<IAchievementsProvider>()
+                .As<IAchievements>()
                 .AsCallbackListener();
         }
     }

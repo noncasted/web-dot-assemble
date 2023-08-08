@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Xml.Serialization;
+using UnityEditor;
+using UnityEditor.Build.Reporting;
 using UnityEngine;
 
 namespace BuildReportTool
@@ -23,8 +27,8 @@ namespace BuildReportTool
 	/// We also favor saving enums into strings since they are merely displayed for the user, and will not be further processed.
 	/// Converting them to string also helps with backwards compatibility in case a future version of Unity deletes an enum value or renames it.
 	/// </summary>
-	[System.Serializable]
-	public class UnityBuildReport : BuildReportTool.IDataFile
+	[Serializable]
+	public class UnityBuildReport : IDataFile
 	{
 		/// <summary>
 		/// Name of project folder.
@@ -39,11 +43,11 @@ namespace BuildReportTool
 		/// <summary>
 		/// When UnityBuildReport was collected.
 		/// </summary>
-		public System.DateTime TimeGot;
+		public DateTime TimeGot;
 
-		public UnityEditor.BuildOptions BuildOptions;
+		public BuildOptions BuildOptions;
 
-		public bool HasBuildOption(UnityEditor.BuildOptions optionToCheck)
+		public bool HasBuildOption(BuildOptions optionToCheck)
 		{
 			return (BuildOptions & optionToCheck) == optionToCheck;
 		}
@@ -54,12 +58,12 @@ namespace BuildReportTool
 		public BuildProcessStep[] BuildProcessSteps;
 
 #if UNITY_2018_1_OR_NEWER
-		public void SetFrom(UnityEditor.Build.Reporting.BuildReport buildReport)
+		public void SetFrom(BuildReport buildReport)
 		{
 			string outputFolder = buildReport.summary.outputPath;
 			int outputPathLength;
 
-			if (System.IO.Directory.Exists(outputFolder))
+			if (Directory.Exists(outputFolder))
 			{
 				if (outputFolder.EndsWith("/") || outputFolder.EndsWith("\\"))
 				{
@@ -72,11 +76,11 @@ namespace BuildReportTool
 					outputPathLength = outputFolder.Length+1;
 				}
 			}
-			else if (System.IO.File.Exists(outputFolder))
+			else if (File.Exists(outputFolder))
 			{
 				// output path is a file, likely the executable file
 				// so get the parent folder of that file
-				outputFolder = System.IO.Path.GetDirectoryName(outputFolder);
+				outputFolder = Path.GetDirectoryName(outputFolder);
 
 				if (!string.IsNullOrEmpty(outputFolder))
 				{
@@ -342,11 +346,11 @@ namespace BuildReportTool
 
 		public string GetDefaultFilename()
 		{
-			return BuildReportTool.Util.GetUnityBuildReportDefaultFilename(ProjectName, BuildType, TimeGot);
+			return Util.GetUnityBuildReportDefaultFilename(ProjectName, BuildType, TimeGot);
 		}
 	}
 
-	[System.Serializable]
+	[Serializable]
 	public struct OutputFile
 	{
 		public string FilePath;
@@ -354,7 +358,7 @@ namespace BuildReportTool
 		public ulong Size;
 	}
 
-	[System.Serializable]
+	[Serializable]
 	public struct BuildProcessStep
 	{
 		public int Depth;
@@ -438,22 +442,22 @@ namespace BuildReportTool
 
 		TimeSpan _duration;
 
-		[System.Xml.Serialization.XmlIgnore]
-		public System.TimeSpan Duration
+		[XmlIgnore]
+		public TimeSpan Duration
 		{
 			get { return _duration; }
 			set { _duration = value; }
 		}
 
-		[System.Xml.Serialization.XmlElement("Duration")]
+		[XmlElement("Duration")]
 		public long DurationTicks
 		{
 			get { return _duration.Ticks; }
-			set { _duration = new System.TimeSpan(value); }
+			set { _duration = new TimeSpan(value); }
 		}
 	}
 
-	[System.Serializable]
+	[Serializable]
 	public struct BuildLogMessage
 	{
 		public string LogType;

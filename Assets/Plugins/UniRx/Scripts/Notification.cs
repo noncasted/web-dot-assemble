@@ -5,10 +5,10 @@
 
 // Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.Collections.Generic;
-using System;
 using UniRx.InternalUtil;
 
 #pragma warning disable 0659
@@ -167,9 +167,9 @@ namespace UniRx
             /// </summary>
             public override bool Equals(Notification<T> other)
             {
-                if (Object.ReferenceEquals(this, other))
+                if (ReferenceEquals(this, other))
                     return true;
-                if (Object.ReferenceEquals(other, null))
+                if (ReferenceEquals(other, null))
                     return false;
                 if (other.Kind != NotificationKind.OnNext)
                     return false;
@@ -301,13 +301,13 @@ namespace UniRx
             /// </summary>
             public override bool Equals(Notification<T> other)
             {
-                if (Object.ReferenceEquals(this, other))
+                if (ReferenceEquals(this, other))
                     return true;
-                if (Object.ReferenceEquals(other, null))
+                if (ReferenceEquals(other, null))
                     return false;
                 if (other.Kind != NotificationKind.OnError)
                     return false;
-                return Object.Equals(Exception, other.Exception);
+                return Equals(Exception, other.Exception);
             }
 
             /// <summary>
@@ -428,9 +428,9 @@ namespace UniRx
             /// </summary>
             public override bool Equals(Notification<T> other)
             {
-                if (Object.ReferenceEquals(this, other))
+                if (ReferenceEquals(this, other))
                     return true;
-                if (Object.ReferenceEquals(other, null))
+                if (ReferenceEquals(other, null))
                     return false;
                 return other.Kind == NotificationKind.OnCompleted;
             }
@@ -531,7 +531,7 @@ namespace UniRx
         /// </remarks>
         public static bool operator ==(Notification<T> left, Notification<T> right)
         {
-            if (object.ReferenceEquals(left, right))
+            if (ReferenceEquals(left, right))
                 return true;
 
             if ((object)left == null || (object)right == null)

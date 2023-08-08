@@ -7,7 +7,7 @@ namespace BuildReportTool
 {
 	public static class MeshDataGenerator
 	{
-		public static void CreateForUsedAssetsOnly(MeshData data, BuildReportTool.BuildInfo buildInfo, bool debugLog = false)
+		public static void CreateForUsedAssetsOnly(MeshData data, BuildInfo buildInfo, bool debugLog = false)
 		{
 			if (buildInfo == null)
 			{
@@ -22,7 +22,7 @@ namespace BuildReportTool
 			AppendMeshData(data, buildInfo.UsedAssets.All, false, debugLog);
 		}
 
-		public static void CreateForAllAssets(MeshData data, BuildReportTool.BuildInfo buildInfo, bool debugLog = false)
+		public static void CreateForAllAssets(MeshData data, BuildInfo buildInfo, bool debugLog = false)
 		{
 			if (buildInfo == null)
 			{

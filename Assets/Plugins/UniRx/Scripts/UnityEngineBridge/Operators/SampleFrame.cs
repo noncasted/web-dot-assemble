@@ -1,10 +1,9 @@
-﻿using System;
-
-#if UniRxLibrary
+﻿#if UniRxLibrary
 using UnityObservable = UniRx.ObservableUnity;
 #else
 using UnityObservable = UniRx.Observable;
 #endif
+using System;
 
 namespace UniRx.Operators
 {

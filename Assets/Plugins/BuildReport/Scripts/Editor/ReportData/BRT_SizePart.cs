@@ -1,9 +1,11 @@
+using System;
+
 namespace BuildReportTool
 {
 	/// <summary>
 	/// Represents one entry in an asset list.
 	/// </summary>
-	[System.Serializable]
+	[Serializable]
 	public class SizePart
 	{
 		/// <summary>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace UniRx.Operators
@@ -27,7 +28,7 @@ namespace UniRx.Operators
             readonly BatchFrameObservable<T> parent;
             readonly object gate = new object();
             readonly BooleanDisposable cancellationToken = new BooleanDisposable();
-            readonly System.Collections.IEnumerator timer;
+            readonly IEnumerator timer;
             bool isRunning;
             bool isCompleted;
             List<T> list;
@@ -95,7 +96,7 @@ namespace UniRx.Operators
             }
 
             // reuse, no gc allocate
-            class ReusableEnumerator : System.Collections.IEnumerator
+            class ReusableEnumerator : IEnumerator
             {
                 readonly BatchFrame parent;
                 int currentFrame;
@@ -169,7 +170,7 @@ namespace UniRx.Operators
             readonly BatchFrameObservable parent;
             readonly object gate = new object();
             readonly BooleanDisposable cancellationToken = new BooleanDisposable();
-            readonly System.Collections.IEnumerator timer;
+            readonly IEnumerator timer;
 
             bool isRunning;
             bool isCompleted;
@@ -234,7 +235,7 @@ namespace UniRx.Operators
             }
 
             // reuse, no gc allocate
-            class ReusableEnumerator : System.Collections.IEnumerator
+            class ReusableEnumerator : IEnumerator
             {
                 readonly BatchFrame parent;
                 int currentFrame;

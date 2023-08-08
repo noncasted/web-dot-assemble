@@ -1,10 +1,9 @@
 ﻿#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-using Cysharp.Threading.Tasks.Internal;
 using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.ExceptionServices;
 using System.Threading;
+using UnityEngine.Events;
 
 namespace Cysharp.Threading.Tasks
 {
@@ -143,7 +142,7 @@ namespace Cysharp.Threading.Tasks
         /// Create async void(UniTaskVoid) UnityAction.
         /// For exampe: onClick.AddListener(UniTask.UnityAction(async () => { /* */ } ))
         /// </summary>
-        public static UnityEngine.Events.UnityAction UnityAction(Func<UniTaskVoid> asyncAction)
+        public static UnityAction UnityAction(Func<UniTaskVoid> asyncAction)
         {
             return () => asyncAction().Forget();
         }
@@ -152,7 +151,7 @@ namespace Cysharp.Threading.Tasks
         /// Create async void(UniTaskVoid) UnityAction.
         /// For exampe: onClick.AddListener(UniTask.UnityAction(FooAsync, this.GetCancellationTokenOnDestroy()))
         /// </summary>
-        public static UnityEngine.Events.UnityAction UnityAction(Func<CancellationToken, UniTaskVoid> asyncAction, CancellationToken cancellationToken)
+        public static UnityAction UnityAction(Func<CancellationToken, UniTaskVoid> asyncAction, CancellationToken cancellationToken)
         {
             return () => asyncAction(cancellationToken).Forget();
         }
@@ -359,7 +358,7 @@ namespace Cysharp.Threading.Tasks
         {
             Func<UniTask> factory;
             UniTask task;
-            UniTask.Awaiter awaiter;
+            Awaiter awaiter;
 
             public DeferPromise(Func<UniTask> factory)
             {
@@ -489,7 +488,7 @@ namespace Cysharp.Threading.Tasks
 
     internal static class CompletedTasks
     {
-        public static readonly UniTask<AsyncUnit> AsyncUnit = UniTask.FromResult(Cysharp.Threading.Tasks.AsyncUnit.Default);
+        public static readonly UniTask<AsyncUnit> AsyncUnit = UniTask.FromResult(Tasks.AsyncUnit.Default);
         public static readonly UniTask<bool> True = UniTask.FromResult(true);
         public static readonly UniTask<bool> False = UniTask.FromResult(false);
         public static readonly UniTask<int> Zero = UniTask.FromResult(0);

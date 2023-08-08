@@ -2,10 +2,21 @@
 #define UNITY_4_AND_GREATER
 #endif
 
-using UnityEngine;
-using UnityEditor;
 using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
+using System.IO;
+using System.Security;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Xml;
+using System.Xml.Serialization;
+using DldUtil;
+using UnityEditor;
+using UnityEditor.Build.Reporting;
+using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace BuildReportTool
 {
@@ -19,7 +30,7 @@ namespace BuildReportTool
 			int majorIdx;
 			for (majorIdx = 0, len = unityVersion.Length; majorIdx < len; ++majorIdx)
 			{
-				if (System.Char.IsDigit(unityVersion[majorIdx]) && unityVersion[majorIdx] != '.')
+				if (Char.IsDigit(unityVersion[majorIdx]) && unityVersion[majorIdx] != '.')
 				{
 					majorVersion += unityVersion[majorIdx];
 				}
@@ -187,7 +198,7 @@ namespace BuildReportTool
 
 		public static void SaveBuildTime()
 		{
-			EditorPrefs.SetString(BUILD_TIME_START, System.DateTime.Now.ToString("u", System.Globalization.CultureInfo.InvariantCulture));
+			EditorPrefs.SetString(BUILD_TIME_START, DateTime.Now.ToString("u", CultureInfo.InvariantCulture));
 		}
 
 		public static bool HasBuildTime()
@@ -195,14 +206,14 @@ namespace BuildReportTool
 			return EditorPrefs.HasKey(BUILD_TIME_START) || _savedBuildTimeStart.Ticks > 0;
 		}
 
-		static System.DateTime _savedBuildTimeStart = new DateTime(0);
+		static DateTime _savedBuildTimeStart = new DateTime(0);
 
-		public static System.DateTime LoadBuildTime(bool clearKey = true)
+		public static DateTime LoadBuildTime(bool clearKey = true)
 		{
 			if (EditorPrefs.HasKey(BUILD_TIME_START))
 			{
 				string text = EditorPrefs.GetString(BUILD_TIME_START);
-				_savedBuildTimeStart = System.DateTime.ParseExact(text, "u", System.Globalization.CultureInfo.InvariantCulture);
+				_savedBuildTimeStart = DateTime.ParseExact(text, "u", CultureInfo.InvariantCulture);
 				if (clearKey)
 				{
 					EditorPrefs.DeleteKey(BUILD_TIME_START);
@@ -220,10 +231,10 @@ namespace BuildReportTool
 			}
 		}
 
-		public static void SaveBuildTimeDuration(System.DateTime buildTimeStart)
+		public static void SaveBuildTimeDuration(DateTime buildTimeStart)
 		{
-			var timeSpanBuildStart = new System.TimeSpan(buildTimeStart.Ticks);
-			var timeSpanNow = new System.TimeSpan(System.DateTime.Now.Ticks);
+			var timeSpanBuildStart = new TimeSpan(buildTimeStart.Ticks);
+			var timeSpanNow = new TimeSpan(DateTime.Now.Ticks);
 			var buildDurationTime = timeSpanNow - timeSpanBuildStart;
 
 			// ----------------------
@@ -231,33 +242,33 @@ namespace BuildReportTool
 			EditorPrefs.SetString(BUILD_TIME_DURATION, buildDurationTime.ToString());
 		}
 
-		public static void SaveBuildTime(System.DateTime buildTimeStart)
+		public static void SaveBuildTime(DateTime buildTimeStart)
 		{
-			EditorPrefs.SetString(BUILD_TIME_START, buildTimeStart.ToString("u", System.Globalization.CultureInfo.InvariantCulture));
+			EditorPrefs.SetString(BUILD_TIME_START, buildTimeStart.ToString("u", CultureInfo.InvariantCulture));
 		}
 
-		public static void SaveBuildTimeDuration(System.TimeSpan buildTimeDuration)
+		public static void SaveBuildTimeDuration(TimeSpan buildTimeDuration)
 		{
 			EditorPrefs.SetString(BUILD_TIME_DURATION, buildTimeDuration.ToString());
 		}
 
-		public static System.TimeSpan LoadBuildTimeDuration()
+		public static TimeSpan LoadBuildTimeDuration()
 		{
 			string text = EditorPrefs.GetString(BUILD_TIME_DURATION);
-			var gotTimeSpan = System.TimeSpan.Parse(text);
+			var gotTimeSpan = TimeSpan.Parse(text);
 			return gotTimeSpan;
 		}
 
 #if UNITY_2018_1_OR_NEWER
-		public static void SaveUnityBuildReportToCurrent(UnityEditor.Build.Reporting.BuildReport report)
+		public static void SaveUnityBuildReportToCurrent(BuildReport report)
 		{
 			var buildTimeStart = LoadBuildTime(false);
 
 			string buildType;
-			string gotBuildType = BuildReportTool.ReportGenerator.GetBuildTypeFromEditorLog(BuildReportTool.Util.UsedEditorLogPath);
+			string gotBuildType = ReportGenerator.GetBuildTypeFromEditorLog(UsedEditorLogPath);
 			if (string.IsNullOrEmpty(gotBuildType))
 			{
-				var buildPlatform = BuildReportTool.ReportGenerator.GetBuildPlatformFromString(gotBuildType, EditorUserBuildSettings.activeBuildTarget);
+				var buildPlatform = ReportGenerator.GetBuildPlatformFromString(gotBuildType, EditorUserBuildSettings.activeBuildTarget);
 				buildType = buildPlatform.ToString();
 			}
 			else
@@ -265,44 +276,44 @@ namespace BuildReportTool
 				buildType = gotBuildType;
 			}
 
-			var br = new BuildReportTool.UnityBuildReport();
-			br.ProjectName = BuildReportTool.Util.GetProjectName(Application.dataPath);
+			var br = new UnityBuildReport();
+			br.ProjectName = GetProjectName(Application.dataPath);
 			br.BuildType = buildType;
 			br.TimeGot = buildTimeStart;
 			br.SetFrom(report);
-			BuildReportTool.Util.SerializeAtFolder(br, BuildReportTool.Options.BuildReportSavePath);
+			SerializeAtFolder(br, Options.BuildReportSavePath);
 		}
 
-		public static void SaveUnityBuildReportToTemp(UnityEditor.Build.Reporting.BuildReport report)
+		public static void SaveUnityBuildReportToTemp(BuildReport report)
 		{
-			var savePath = string.Format("{0}{1}", System.IO.Path.GetTempPath(), "BR.txt");
+			var savePath = string.Format("{0}{1}", Path.GetTempPath(), "BR.txt");
 
-			var br = new BuildReportTool.UnityBuildReport();
+			var br = new UnityBuildReport();
 			br.SetFrom(report);
 			br.OnBeforeSave();
-			var x = new System.Xml.Serialization.XmlSerializer(typeof(BuildReportTool.UnityBuildReport));
-			System.IO.TextWriter writer = new System.IO.StreamWriter(savePath);
+			var x = new XmlSerializer(typeof(UnityBuildReport));
+			TextWriter writer = new StreamWriter(savePath);
 			x.Serialize(writer, br);
 			writer.Close();
 		}
 #endif
 
-		public static BuildReportTool.UnityBuildReport LoadUnityBuildReportFromTemp()
+		public static UnityBuildReport LoadUnityBuildReportFromTemp()
 		{
-			var savePath = string.Format("{0}{1}", System.IO.Path.GetTempPath(), "BR.txt");
+			var savePath = string.Format("{0}{1}", Path.GetTempPath(), "BR.txt");
 
-			BuildReportTool.UnityBuildReport ret = null;
+			UnityBuildReport ret = null;
 
-			var x = new System.Xml.Serialization.XmlSerializer(typeof(BuildReportTool.UnityBuildReport));
+			var x = new XmlSerializer(typeof(UnityBuildReport));
 
 			try
 			{
 				// no corrections in the xml file
 				// proceed to open the file normally
-				using (var fs = new System.IO.FileStream(savePath, System.IO.FileMode.Open))
+				using (var fs = new FileStream(savePath, FileMode.Open))
 				{
-					System.Xml.XmlReader reader = new System.Xml.XmlTextReader(fs);
-					ret = (BuildReportTool.UnityBuildReport) x.Deserialize(reader);
+					XmlReader reader = new XmlTextReader(fs);
+					ret = (UnityBuildReport) x.Deserialize(reader);
 					fs.Close();
 				}
 			}
@@ -320,7 +331,7 @@ namespace BuildReportTool
 			return ret;
 		}
 
-		public static string ToReadableString(this System.TimeSpan timeSpan)
+		public static string ToReadableString(this TimeSpan timeSpan)
 		{
 			var totalSeconds = timeSpan.TotalSeconds;
 			if (totalSeconds >= 1.0)
@@ -342,16 +353,16 @@ namespace BuildReportTool
 			}
 		}
 
-		public static void DebugLogBuildReport(BuildReportTool.UnityBuildReport report)
+		public static void DebugLogBuildReport(UnityBuildReport report)
 		{
-			var sb = new System.Text.StringBuilder();
+			var sb = new StringBuilder();
 			sb.AppendFormat("Build Files {0}\n\n", report.OutputFiles.Length.ToString());
 
 			for (int i = 0; i < report.OutputFiles.Length; i++)
 			{
 				sb.AppendFormat("File {0}: {1} ({2}) {3}\n",
 					(i+1).ToString(), report.OutputFiles[i].FilePath, report.OutputFiles[i].Role,
-					BuildReportTool.Util.GetBytesReadable(report.OutputFiles[i].Size));
+					GetBytesReadable(report.OutputFiles[i].Size));
 				if ((i+1) % 100 == 0)
 				{
 					Debug.Log(sb.ToString());
@@ -430,9 +441,9 @@ namespace BuildReportTool
 		}
 
 #if UNITY_2018_1_OR_NEWER
-		public static void DebugLogBuildReport(UnityEditor.Build.Reporting.BuildReport report)
+		public static void DebugLogBuildReport(BuildReport report)
 		{
-			var sb = new System.Text.StringBuilder();
+			var sb = new StringBuilder();
 #if !UNITY_2022_2_OR_NEWER
 			var files = report.files;
 #else
@@ -444,7 +455,7 @@ namespace BuildReportTool
 			{
 				sb.AppendFormat("File {0}: {1} ({2}) {3}\n",
 					(i+1).ToString(), files[i].path, files[i].role,
-					BuildReportTool.Util.GetBytesReadable(files[i].size));
+					GetBytesReadable(files[i].size));
 				if ((i+1) % 100 == 0)
 				{
 					Debug.Log(sb.ToString());
@@ -512,7 +523,7 @@ namespace BuildReportTool
 			Debug.Log(sb.ToString());
 			sb.Length = 0;
 
-			sb.AppendFormat("Build Size: {0}", BuildReportTool.Util.GetBytesReadable(report.summary.totalSize));
+			sb.AppendFormat("Build Size: {0}", GetBytesReadable(report.summary.totalSize));
 
 			sb.AppendFormat("\nBuild Result: {0}", report.summary.result);
 			sb.AppendFormat("\nWarnings: {0} Errors: {1}", report.summary.totalWarnings.ToString(), report.summary.totalErrors.ToString());
@@ -594,7 +605,7 @@ namespace BuildReportTool
 
 		public static string FindAssetFolder(string folderToStart, string desiredFolderName)
 		{
-			string[] folderEntries = System.IO.Directory.GetDirectories(folderToStart);
+			string[] folderEntries = Directory.GetDirectories(folderToStart);
 
 			for (int n = 0, len = folderEntries.Length; n < len; ++n)
 			{
@@ -627,7 +638,7 @@ namespace BuildReportTool
 				return string.Empty;
 			}
 
-			var directoryName = System.IO.Path.GetDirectoryName(path);
+			var directoryName = Path.GetDirectoryName(path);
 			// System.IO.Path.GetDirectoryName insists on converting / to \ so we need to fix that manually
 			return string.IsNullOrEmpty(directoryName) ? directoryName : directoryName.Replace("\\", "/");
 		}
@@ -639,8 +650,8 @@ namespace BuildReportTool
 				return string.Empty;
 			}
 
-			BuildReportTool.BuildPlatform buildPlatform =
-				BuildReportTool.ReportGenerator.GetBuildPlatformFromString(buildReport.BuildType,
+			BuildPlatform buildPlatform =
+				ReportGenerator.GetBuildPlatformFromString(buildReport.BuildType,
 					buildReport.BuildTargetUsed);
 
 			if (buildPlatform == BuildPlatform.Windows32 ||
@@ -654,8 +665,8 @@ namespace BuildReportTool
 				// in 32 bit builds, `buildFilePath` is the executable file (.x86 file). we still need the Data folder
 				// in 64 bit builds, `buildFilePath` is the executable file (.x86_64 file). we still need the Data folder
 
-				var exeFile = System.IO.Path.GetFileName(buildReport.BuildFilePath);
-				var dataFolder = BuildReportTool.Util.ReplaceFileType(exeFile, "_Data");
+				var exeFile = Path.GetFileName(buildReport.BuildFilePath);
+				var dataFolder = ReplaceFileType(exeFile, "_Data");
 				var buildParentFolder = GetPathParentFolder(buildReport.BuildFilePath);
 
 				return string.Format("File size of {0} and the {1} folder in <b><color=white>{2}</color></b>", exeFile, dataFolder,
@@ -666,9 +677,9 @@ namespace BuildReportTool
 			{
 				// in universal builds, `buildFilePath` is the 32-bit executable. we still need the 64-bit executable and the Data folder
 
-				var exe32File = System.IO.Path.GetFileName(buildReport.BuildFilePath);
-				var exe64File = BuildReportTool.Util.ReplaceFileType(exe32File, ".x86_64");
-				var dataFolder = BuildReportTool.Util.ReplaceFileType(exe32File, "_Data");
+				var exe32File = Path.GetFileName(buildReport.BuildFilePath);
+				var exe64File = ReplaceFileType(exe32File, ".x86_64");
+				var dataFolder = ReplaceFileType(exe32File, "_Data");
 				var buildParentFolder = GetPathParentFolder(buildReport.BuildFilePath);
 
 				return string.Format("File size of {0}, {1}, and the {2} folder in <b><color=white>{3}</color></b>", exe32File, exe64File,
@@ -681,13 +692,13 @@ namespace BuildReportTool
 
 		public static double GetObbSizeInEclipseProject(string eclipseProjectPath)
 		{
-			if (string.IsNullOrEmpty(eclipseProjectPath) || !System.IO.Directory.Exists(eclipseProjectPath))
+			if (string.IsNullOrEmpty(eclipseProjectPath) || !Directory.Exists(eclipseProjectPath))
 			{
 				return 0;
 			}
 
 			double obbSize = 0;
-			foreach (string file in DldUtil.TraverseDirectory.Do(eclipseProjectPath))
+			foreach (string file in TraverseDirectory.Do(eclipseProjectPath))
 			{
 				if (IsFileOfType(file, ".main.obb"))
 				{
@@ -701,7 +712,7 @@ namespace BuildReportTool
 
 		public static string GetObbSizeInEclipseProjectReadable(string eclipseProjectPath)
 		{
-			if (string.IsNullOrEmpty(eclipseProjectPath) || !System.IO.Directory.Exists(eclipseProjectPath))
+			if (string.IsNullOrEmpty(eclipseProjectPath) || !Directory.Exists(eclipseProjectPath))
 			{
 				return string.Empty;
 			}
@@ -722,12 +733,12 @@ namespace BuildReportTool
 
 		public static double GetPathSizeInBytes(string fileOrFolder)
 		{
-			if (System.IO.Directory.Exists(fileOrFolder))
+			if (Directory.Exists(fileOrFolder))
 			{
 				return GetFolderSizeInBytes(fileOrFolder);
 			}
 
-			if (System.IO.File.Exists(fileOrFolder))
+			if (File.Exists(fileOrFolder))
 			{
 				return GetFileSizeInBytes(fileOrFolder);
 			}
@@ -737,13 +748,13 @@ namespace BuildReportTool
 
 		public static double GetFolderSizeInBytes(string folderPath)
 		{
-			if (string.IsNullOrEmpty(folderPath) || !System.IO.Directory.Exists(folderPath))
+			if (string.IsNullOrEmpty(folderPath) || !Directory.Exists(folderPath))
 			{
 				return 0;
 			}
 
 			double totalBytesOfFilesInFolder = 0;
-			foreach (string file in DldUtil.TraverseDirectory.Do(folderPath))
+			foreach (string file in TraverseDirectory.Do(folderPath))
 			{
 				totalBytesOfFilesInFolder += GetFileSizeInBytes(file);
 			}
@@ -753,7 +764,7 @@ namespace BuildReportTool
 
 		public static string GetFolderSizeReadable(string folderPath)
 		{
-			if (string.IsNullOrEmpty(folderPath) || !System.IO.Directory.Exists(folderPath))
+			if (string.IsNullOrEmpty(folderPath) || !Directory.Exists(folderPath))
 			{
 				return string.Empty;
 			}
@@ -776,12 +787,12 @@ namespace BuildReportTool
 		// expects filename given to be full path
 		public static long GetFileSizeInBytes(string filename)
 		{
-			if (string.IsNullOrEmpty(filename) || !System.IO.File.Exists(filename))
+			if (string.IsNullOrEmpty(filename) || !File.Exists(filename))
 			{
 				return 0;
 			}
 
-			var fi = new System.IO.FileInfo(filename);
+			var fi = new FileInfo(filename);
 			return fi.Length;
 		}
 
@@ -929,8 +940,8 @@ namespace BuildReportTool
 
 		static bool TextFileHasContents(string filepath, string contents)
 		{
-			var fs = new System.IO.FileStream(filepath, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite);
-			var sr = new System.IO.StreamReader(fs);
+			var fs = new FileStream(filepath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+			var sr = new StreamReader(fs);
 
 			bool ret = false;
 
@@ -957,8 +968,8 @@ namespace BuildReportTool
 		public static string GetTextFileContents(string file)
 		{
 			// thanks to http://answers.unity3d.com/questions/167518/reading-editorlog-in-the-editor.html
-			var fs = new System.IO.FileStream(file, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite);
-			var sr = new System.IO.StreamReader(fs);
+			var fs = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+			var sr = new StreamReader(fs);
 
 			string contents = sr.ReadToEnd();
 
@@ -990,7 +1001,7 @@ namespace BuildReportTool
 
 			if (HaveToUseSystemForDelete(file))
 			{
-				string fileAbsPath = System.IO.Path.Combine(projectFolder, file);
+				string fileAbsPath = Path.Combine(projectFolder, file);
 				//Debug.Log("will system delete " + fileAbsPath);
 				SystemDeleteFile(fileAbsPath);
 			}
@@ -1003,7 +1014,7 @@ namespace BuildReportTool
 
 		static void SystemDeleteFile(string file)
 		{
-			System.IO.File.Delete(file);
+			File.Delete(file);
 		}
 
 
@@ -1064,7 +1075,7 @@ namespace BuildReportTool
 			return filepath.EndsWith(typeExtenstion, StringComparison.OrdinalIgnoreCase);
 		}
 
-		static readonly char[] InvalidPathChars = System.IO.Path.GetInvalidPathChars();
+		static readonly char[] InvalidPathChars = Path.GetInvalidPathChars();
 
 		public static bool DoesFileHaveInvalidPathChars(this string filepath)
 		{
@@ -1082,7 +1093,7 @@ namespace BuildReportTool
 			{
 				return filepath;
 			}
-			return System.IO.Path.GetFileName(filepath);
+			return Path.GetFileName(filepath);
 		}
 
 		public static string GetFileNameOnlyNoExtension(this string filepath)
@@ -1091,7 +1102,7 @@ namespace BuildReportTool
 			{
 				return filepath;
 			}
-			return System.IO.Path.GetFileNameWithoutExtension(filepath);
+			return Path.GetFileNameWithoutExtension(filepath);
 		}
 
 		public static bool IsFileName(string filepath, string filenameToCheck)
@@ -1410,11 +1421,11 @@ namespace BuildReportTool
 		{
 			// try default path first
 			string defaultBuildReportToolFullPath =
-				Application.dataPath + "/" + BuildReportTool.Options.BUILD_REPORT_TOOL_DEFAULT_FOLDER_NAME;
+				Application.dataPath + "/" + Options.BUILD_REPORT_TOOL_DEFAULT_FOLDER_NAME;
 
 			string filePath = defaultBuildReportToolFullPath + "/" + filename;
 
-			if (System.IO.File.Exists(filePath))
+			if (File.Exists(filePath))
 			{
 				return GetTextFileContents(filePath);
 			}
@@ -1426,14 +1437,14 @@ namespace BuildReportTool
 			Debug.LogWarning(BuildReportTool.Options.BUILD_REPORT_PACKAGE_MOVED_MSG);
 #endif
 
-			string folderPath = BuildReportTool.Util.FindAssetFolder(Application.dataPath,
-				BuildReportTool.Options.BUILD_REPORT_TOOL_DEFAULT_FOLDER_NAME);
+			string folderPath = FindAssetFolder(Application.dataPath,
+				Options.BUILD_REPORT_TOOL_DEFAULT_FOLDER_NAME);
 
 			if (!string.IsNullOrEmpty(folderPath))
 			{
 				filePath = folderPath + "/" + filename;
 
-				if (System.IO.File.Exists(filePath))
+				if (File.Exists(filePath))
 				{
 					return GetTextFileContents(filePath);
 				}
@@ -1473,7 +1484,7 @@ namespace BuildReportTool
 						deletedSoFar.ToString(), filesReallyDeletedPlural, totalToDelete.ToString());
 					if (showRecoverableMsg)
 					{
-						cancelMsg += string.Format(" Those files can be recovered from your {0}.", BuildReportTool.Util.NameOfOSTrashFolder);
+						cancelMsg += string.Format(" Those files can be recovered from your {0}.", NameOfOSTrashFolder);
 					}
 				}
 				else
@@ -1509,10 +1520,10 @@ namespace BuildReportTool
 		{
 			get
 			{
-				string homePath = (System.Environment.OSVersion.Platform == PlatformID.Unix ||
-				                   System.Environment.OSVersion.Platform == PlatformID.MacOSX)
-					                  ? System.Environment.GetEnvironmentVariable("HOME")
-					                  : System.Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
+				string homePath = (Environment.OSVersion.Platform == PlatformID.Unix ||
+				                   Environment.OSVersion.Platform == PlatformID.MacOSX)
+					                  ? Environment.GetEnvironmentVariable("HOME")
+					                  : Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
 
 				return homePath;
 			}
@@ -1521,7 +1532,7 @@ namespace BuildReportTool
 		//[MenuItem("Window/Test 3")]
 		public static string GetUserHomeFolder()
 		{
-			var ret = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+			var ret = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 			//Debug.Log("GetUserHomeFolder: " + ret);
 			ret = ret.Replace("\\", "/");
 			return ret;
@@ -1547,7 +1558,7 @@ namespace BuildReportTool
 			// try mac
 			string macPath = path.Replace("\\", "/"); // mac finder doesn't like backward slashes
 
-			if (System.IO.Directory.Exists(macPath)) // if path requested is a folder, automatically open insides of that folder
+			if (Directory.Exists(macPath)) // if path requested is a folder, automatically open insides of that folder
 			{
 				openInsidesOfFolder = true;
 			}
@@ -1569,9 +1580,9 @@ namespace BuildReportTool
 			//Debug.Log("arguments: " + arguments);
 			try
 			{
-				System.Diagnostics.Process.Start("open", arguments);
+				Process.Start("open", arguments);
 			}
-			catch (System.ComponentModel.Win32Exception e)
+			catch (Win32Exception e)
 			{
 				// tried to open mac finder in windows
 				// just silently skip error
@@ -1587,16 +1598,16 @@ namespace BuildReportTool
 			// try windows
 			string winPath = path.Replace("/", "\\"); // windows explorer doesn't like forward slashes
 
-			if (System.IO.Directory.Exists(winPath)) // if path requested is a folder, automatically open insides of that folder
+			if (Directory.Exists(winPath)) // if path requested is a folder, automatically open insides of that folder
 			{
 				openInsidesOfFolder = true;
 			}
 
 			try
 			{
-				System.Diagnostics.Process.Start("explorer.exe", (openInsidesOfFolder ? "/root," : "/select,") + winPath);
+				Process.Start("explorer.exe", (openInsidesOfFolder ? "/root," : "/select,") + winPath);
 			}
-			catch (System.ComponentModel.Win32Exception e)
+			catch (Win32Exception e)
 			{
 				// tried to open win explorer in mac
 				// just silently skip error
@@ -1649,12 +1660,12 @@ namespace BuildReportTool
 			// try getting from LOCALAPPDATA
 			// this is the one used from after Windows XP
 
-			string localAppDataVar = System.Environment.GetEnvironmentVariable("LOCALAPPDATA");
+			string localAppDataVar = Environment.GetEnvironmentVariable("LOCALAPPDATA");
 
 			if (!string.IsNullOrEmpty(localAppDataVar))
 			{
 				string nonXpStyleAppDataPath = localAppDataVar.Replace("\\", "/");
-				if (System.IO.Directory.Exists(nonXpStyleAppDataPath))
+				if (Directory.Exists(nonXpStyleAppDataPath))
 				{
 					return nonXpStyleAppDataPath + editorLogSubPath;
 				}
@@ -1663,12 +1674,12 @@ namespace BuildReportTool
 			// didn't find it in LOCALAPPDATA
 			// try USERPROFILE (WinXP style)
 
-			string userProfileVar = System.Environment.GetEnvironmentVariable("USERPROFILE");
+			string userProfileVar = Environment.GetEnvironmentVariable("USERPROFILE");
 
 			if (!string.IsNullOrEmpty(userProfileVar))
 			{
 				string xpStyleAppDataPath = userProfileVar.Replace("\\", "/") + "/Local Settings/Application Data";
-				if (System.IO.Directory.Exists(xpStyleAppDataPath))
+				if (Directory.Exists(xpStyleAppDataPath))
 				{
 					return xpStyleAppDataPath + editorLogSubPath;
 				}
@@ -1683,8 +1694,8 @@ namespace BuildReportTool
 		{
 			get
 			{
-				if (System.Environment.OSVersion.Platform == PlatformID.Unix ||
-				    System.Environment.OSVersion.Platform == PlatformID.MacOSX)
+				if (Environment.OSVersion.Platform == PlatformID.Unix ||
+				    Environment.OSVersion.Platform == PlatformID.MacOSX)
 				{
 					return UserHomePath + "/Library/Logs/Unity/Editor.log";
 				}
@@ -1697,8 +1708,8 @@ namespace BuildReportTool
 		{
 			get
 			{
-				if (System.Environment.OSVersion.Platform == PlatformID.Unix ||
-				    System.Environment.OSVersion.Platform == PlatformID.MacOSX)
+				if (Environment.OSVersion.Platform == PlatformID.Unix ||
+				    Environment.OSVersion.Platform == PlatformID.MacOSX)
 				{
 					return UserHomePath + "/Library/Logs/Unity/Editor-prev.log";
 				}
@@ -1713,7 +1724,7 @@ namespace BuildReportTool
 			{
 				if (IsDefaultEditorLogPathOverridden)
 				{
-					return BuildReportTool.Options.EditorLogOverridePath;
+					return Options.EditorLogOverridePath;
 				}
 
 				return EditorLogDefaultPath;
@@ -1735,12 +1746,12 @@ namespace BuildReportTool
 
 		public static bool IsDefaultEditorLogPathOverridden
 		{
-			get { return !string.IsNullOrEmpty(BuildReportTool.Options.EditorLogOverridePath); }
+			get { return !string.IsNullOrEmpty(Options.EditorLogOverridePath); }
 		}
 
 		public static bool UsedEditorLogExists
 		{
-			get { return System.IO.File.Exists(UsedEditorLogPath); }
+			get { return File.Exists(UsedEditorLogPath); }
 		}
 
 
@@ -1804,11 +1815,11 @@ namespace BuildReportTool
 				//
 				buildFolder += "/Contents/Data/Managed";
 			}
-			else if (System.IO.Directory.Exists(buildFolder + "/Data/Managed/")) // iOS
+			else if (Directory.Exists(buildFolder + "/Data/Managed/")) // iOS
 			{
 				buildFolder += "/Data/Managed";
 			}
-			else if (!System.IO.Directory.Exists(buildFolder))
+			else if (!Directory.Exists(buildFolder))
 			{
 				// happens with users who use custom build scripts
 				//Debug.LogWarning("Folder \"" + buildFolder + "\" does not exist.");
@@ -1879,11 +1890,11 @@ namespace BuildReportTool
 				//
 				buildFolder += "/Contents/Data";
 			}
-			else if (System.IO.Directory.Exists(buildFolder + "/Data")) // iOS
+			else if (Directory.Exists(buildFolder + "/Data")) // iOS
 			{
 				buildFolder += "/Data";
 			}
-			else if (!System.IO.Directory.Exists(buildFolder))
+			else if (!Directory.Exists(buildFolder))
 			{
 				// happens with users who use custom builders
 				//Debug.LogWarning("Folder \"" + buildFolder + "\" does not exist.");
@@ -1908,7 +1919,7 @@ namespace BuildReportTool
 		{
 			string tempFolder = GetProjectTempStagingArea(projectDataPath) + "/Data/Managed/";
 
-			if (System.IO.Directory.Exists(tempFolder))
+			if (Directory.Exists(tempFolder))
 			{
 				path = tempFolder;
 				return true;
@@ -1924,7 +1935,7 @@ namespace BuildReportTool
 
 			//Debug.Log(tempFolder);
 
-			if (System.IO.Directory.Exists(tempFolder))
+			if (Directory.Exists(tempFolder))
 			{
 				path = tempFolder;
 				return true;
@@ -1983,7 +1994,7 @@ namespace BuildReportTool
 			for (int n = 0, len = pathTries.Length; n < len; ++n)
 			{
 				tryPath = pathTries[n];
-				if (System.IO.Directory.Exists(tryPath))
+				if (Directory.Exists(tryPath))
 				{
 					break;
 				}
@@ -2041,14 +2052,14 @@ namespace BuildReportTool
 			return EditorBuildSettings.scenes;
 		}
 
-		public static BuildReportTool.SizePart CreateSizePartFromFile(string filename, string fileFullPath,
+		public static SizePart CreateSizePartFromFile(string filename, string fileFullPath,
 			bool getRawSize = true)
 		{
-			var outPart = new BuildReportTool.SizePart();
+			var outPart = new SizePart();
 
-			outPart.Name = System.Security.SecurityElement.Escape(filename);
+			outPart.Name = SecurityElement.Escape(filename);
 
-			if (System.IO.File.Exists(fileFullPath))
+			if (File.Exists(fileFullPath))
 			{
 				if (getRawSize)
 				{
@@ -2066,7 +2077,7 @@ namespace BuildReportTool
 				long importedSizeBytes = -1;
 
 				outPart.ImportedSizeBytes = importedSizeBytes;
-				outPart.ImportedSize = BuildReportTool.Util.GetBytesReadable(importedSizeBytes);
+				outPart.ImportedSize = GetBytesReadable(importedSizeBytes);
 			}
 			else
 			{
@@ -2083,19 +2094,19 @@ namespace BuildReportTool
 
 		static void SaveTextFile(string saveFilePath, string data)
 		{
-			string folder = System.IO.Path.GetDirectoryName(saveFilePath);
+			string folder = Path.GetDirectoryName(saveFilePath);
 
 			if (!string.IsNullOrEmpty(folder))
 			{
-				System.IO.Directory.CreateDirectory(folder);
+				Directory.CreateDirectory(folder);
 			}
 
 #if UNITY_WEBPLAYER && !UNITY_EDITOR
 		Debug.LogError("Current build target is set to Web Player. Cannot perform file input/output when in Web Player.");
 #else
-			System.IO.StreamWriter
-				write = new System.IO.StreamWriter(saveFilePath, false,
-					System.Text.Encoding.UTF8); // Unity's TextAsset.text borks when encoding used is UTF8 :(
+			StreamWriter
+				write = new StreamWriter(saveFilePath, false,
+					Encoding.UTF8); // Unity's TextAsset.text borks when encoding used is UTF8 :(
 			write.Write(data);
 			write.Flush();
 			write.Close();
@@ -2168,16 +2179,16 @@ namespace BuildReportTool
 		}
 
 
-		public static BuildReportTool.BuildInfo OpenSerializedBuildInfo(string serializedBuildInfoFilePath, bool fromMainThread = true)
+		public static BuildInfo OpenSerializedBuildInfo(string serializedBuildInfoFilePath, bool fromMainThread = true)
 		{
-			if (!System.IO.File.Exists(serializedBuildInfoFilePath))
+			if (!File.Exists(serializedBuildInfoFilePath))
 			{
 				return null;
 			}
 
-			BuildReportTool.BuildInfo ret = null;
+			BuildInfo ret = null;
 
-			var x = new System.Xml.Serialization.XmlSerializer(typeof(BuildReportTool.BuildInfo));
+			var x = new XmlSerializer(typeof(BuildInfo));
 
 			string correctedXmlData = FixXmlBuildReportFile(serializedBuildInfoFilePath);
 
@@ -2187,17 +2198,17 @@ namespace BuildReportTool
 				// and we should load that updated content instead of reading the file
 				if (!string.IsNullOrEmpty(correctedXmlData))
 				{
-					System.IO.TextReader reader = new System.IO.StringReader(correctedXmlData);
-					ret = (BuildReportTool.BuildInfo) x.Deserialize(reader);
+					TextReader reader = new StringReader(correctedXmlData);
+					ret = (BuildInfo) x.Deserialize(reader);
 				}
 				else
 				{
 					// no corrections in the xml file
 					// proceed to open the file normally
-					using (var fs = new System.IO.FileStream(serializedBuildInfoFilePath, System.IO.FileMode.Open))
+					using (var fs = new FileStream(serializedBuildInfoFilePath, FileMode.Open))
 					{
-						System.Xml.XmlReader reader = new System.Xml.XmlTextReader(fs);
-						ret = (BuildReportTool.BuildInfo) x.Deserialize(reader);
+						XmlReader reader = new XmlTextReader(fs);
+						ret = (BuildInfo) x.Deserialize(reader);
 						fs.Close();
 					}
 				}
@@ -2223,29 +2234,29 @@ namespace BuildReportTool
 			return ret;
 		}
 
-		public static bool BuildInfoHasContents(BuildReportTool.BuildInfo n)
+		public static bool BuildInfoHasContents(BuildInfo n)
 		{
 			return n != null && n.HasContents;
 		}
 
 		// ---------------------------------
 
-		public static T OpenSerialized<T>(string filePath) where T : class, BuildReportTool.IDataFile
+		public static T OpenSerialized<T>(string filePath) where T : class, IDataFile
 		{
-			if (!System.IO.File.Exists(filePath))
+			if (!File.Exists(filePath))
 			{
 				return null;
 			}
 
 			T ret = null;
 
-			var x = new System.Xml.Serialization.XmlSerializer(typeof(T));
+			var x = new XmlSerializer(typeof(T));
 
 			// no corrections in the xml file
 			// proceed to open the file normally
-			using (var fs = new System.IO.FileStream(filePath, System.IO.FileMode.Open))
+			using (var fs = new FileStream(filePath, FileMode.Open))
 			{
-				System.Xml.XmlReader reader = new System.Xml.XmlTextReader(fs);
+				XmlReader reader = new XmlTextReader(fs);
 				ret = (T) x.Deserialize(reader);
 				fs.Close();
 			}
@@ -2263,66 +2274,66 @@ namespace BuildReportTool
 
 		const string SAVE_DATE_TIME_FORMAT = "yyyyMMMdd-HHmmss";
 
-		public static string GetBuildInfoDefaultFilename(string projectName, string buildType, System.DateTime timeGot)
+		public static string GetBuildInfoDefaultFilename(string projectName, string buildType, DateTime timeGot)
 		{
 			return string.Format("{0}-{1}-{2}.xml", projectName, buildType, timeGot.ToString(SAVE_DATE_TIME_FORMAT));
 		}
 
 		public static string GetAssetDependenciesDefaultFilename(string projectName, string buildType,
-			System.DateTime timeGot)
+			DateTime timeGot)
 		{
 			return string.Format("DEP-{0}-{1}-{2}.xml", projectName, buildType, timeGot.ToString(SAVE_DATE_TIME_FORMAT));
 		}
 
 		public static string GetTextureDataDefaultFilename(string projectName, string buildType,
-			System.DateTime timeGot)
+			DateTime timeGot)
 		{
 			return string.Format("TextureData-{0}-{1}-{2}.xml", projectName, buildType, timeGot.ToString(SAVE_DATE_TIME_FORMAT));
 		}
 
 		public static string GetMeshDataDefaultFilename(string projectName, string buildType,
-			System.DateTime timeGot)
+			DateTime timeGot)
 		{
 			return string.Format("MeshData-{0}-{1}-{2}.xml", projectName, buildType, timeGot.ToString(SAVE_DATE_TIME_FORMAT));
 		}
 
 		public static string GetUnityBuildReportDefaultFilename(string projectName, string buildType,
-			System.DateTime timeGot)
+			DateTime timeGot)
 		{
 			return string.Format("UBR-{0}-{1}-{2}.xml", projectName, buildType, timeGot.ToString(SAVE_DATE_TIME_FORMAT));
 		}
 
 		public static string GetAssetDependenciesFilenameFromBuildInfo(string filepath)
 		{
-			var folderPath = System.IO.Path.GetDirectoryName(filepath);
+			var folderPath = Path.GetDirectoryName(filepath);
 			var filename = filepath.GetFileNameOnly();
 			return string.Format("{0}/DEP-{1}", folderPath, filename);
 		}
 
 		public static string GetTextureDataFilenameFromBuildInfo(string filepath)
 		{
-			var folderPath = System.IO.Path.GetDirectoryName(filepath);
+			var folderPath = Path.GetDirectoryName(filepath);
 			var filename = filepath.GetFileNameOnly();
 			return string.Format("{0}/TextureData-{1}", folderPath, filename);
 		}
 
 		public static string GetMeshDataFilenameFromBuildInfo(string filepath)
 		{
-			var folderPath = System.IO.Path.GetDirectoryName(filepath);
+			var folderPath = Path.GetDirectoryName(filepath);
 			var filename = filepath.GetFileNameOnly();
 			return string.Format("{0}/MeshData-{1}", folderPath, filename);
 		}
 
 		public static string GetUnityBuildReportFilenameFromBuildInfo(string filepath)
 		{
-			var folderPath = System.IO.Path.GetDirectoryName(filepath);
+			var folderPath = Path.GetDirectoryName(filepath);
 			var filename = filepath.GetFileNameOnly();
 			return string.Format("{0}/UBR-{1}", folderPath, filename);
 		}
 
 		public static string GetExtraDataFilename(string filepath)
 		{
-			var folderPath = System.IO.Path.GetDirectoryName(filepath);
+			var folderPath = Path.GetDirectoryName(filepath);
 			var filename = filepath.GetFileNameOnlyNoExtension();
 			return string.Format("{0}/ExtraData-{1}.txt", folderPath, filename);
 		}
@@ -2330,14 +2341,14 @@ namespace BuildReportTool
 		// ---------------------------------
 
 		public static string SerializeAtFolder<T>(T data,
-			string folderPathToSaveTo) where T : class, BuildReportTool.IDataFile
+			string folderPathToSaveTo) where T : class, IDataFile
 		{
 			string filePath;
 			if (!string.IsNullOrEmpty(folderPathToSaveTo))
 			{
-				if (!System.IO.Directory.Exists(folderPathToSaveTo))
+				if (!Directory.Exists(folderPathToSaveTo))
 				{
-					System.IO.Directory.CreateDirectory(folderPathToSaveTo);
+					Directory.CreateDirectory(folderPathToSaveTo);
 				}
 
 				char lastChar = folderPathToSaveTo[folderPathToSaveTo.Length - 1];
@@ -2360,13 +2371,13 @@ namespace BuildReportTool
 			return filePath;
 		}
 
-		public static void Serialize<T>(T data, string fullPathToSaveTo) where T : class, BuildReportTool.IDataFile
+		public static void Serialize<T>(T data, string fullPathToSaveTo) where T : class, IDataFile
 		{
 			fullPathToSaveTo = fullPathToSaveTo.Replace("\\", "/");
 			data.OnBeforeSave();
 
-			var xmlSerializer = new System.Xml.Serialization.XmlSerializer(typeof(T));
-			var writer = new System.IO.StreamWriter(fullPathToSaveTo);
+			var xmlSerializer = new XmlSerializer(typeof(T));
+			var writer = new StreamWriter(fullPathToSaveTo);
 			xmlSerializer.Serialize(writer, data);
 			writer.Close();
 
@@ -2384,7 +2395,7 @@ namespace BuildReportTool
 				value = string.Format("*{0}*", value);
 			}
 
-			return string.Format("^{0}$", System.Text.RegularExpressions.Regex.Escape(value).Replace("\\*", ".*"));
+			return string.Format("^{0}$", Regex.Escape(value).Replace("\\*", ".*"));
 		}
 
 		public static bool IsRegexValid(string testPattern)
@@ -2401,7 +2412,7 @@ namespace BuildReportTool
 			{
 				try
 				{
-					System.Text.RegularExpressions.Regex.Match("", testPattern);
+					Regex.Match("", testPattern);
 				}
 				catch (ArgumentException)
 				{

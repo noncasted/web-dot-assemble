@@ -1,5 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
 using UnityEditor;
+using UnityEngine;
 
 namespace BuildReportTool
 {
@@ -7,7 +8,7 @@ namespace BuildReportTool
 	{
 		public static void OnPreBuild()
 		{
-			BuildReportTool.Util.SaveBuildTime();
+			Util.SaveBuildTime();
 		}
 
 		/// <summary>
@@ -132,18 +133,18 @@ namespace BuildReportTool
 		public static string CreateReport(string[] scenes, string buildLocation, BuildTarget buildTarget,
 			string customEditorLogPath = null, string customSavePath = null)
 		{
-			BuildReportTool.Util.BuildTargetOfLastBuild = buildTarget;
+			Util.BuildTargetOfLastBuild = buildTarget;
 
 			var editorLogPathToUse = !string.IsNullOrEmpty(customEditorLogPath)
 				                         ? customEditorLogPath
-				                         : BuildReportTool.Util.UsedEditorLogPath;
+				                         : Util.UsedEditorLogPath;
 
 			if (!DoesEditorLogHaveBuildInfo(editorLogPathToUse))
 			{
-				if (BuildReportTool.Util.IsDefaultEditorLogPathOverridden)
+				if (Util.IsDefaultEditorLogPathOverridden)
 				{
 					Debug.LogWarning(string.Format(NO_BUILD_INFO_OVERRIDDEN_LOG_WARNING, editorLogPathToUse,
-						BuildReportTool.Options.FoundPathForSavedOptions));
+						Options.FoundPathForSavedOptions));
 				}
 				else if (CheckIfUnityHasNoLogArgument())
 				{
@@ -157,48 +158,48 @@ namespace BuildReportTool
 				return null;
 			}
 
-			var timeNow = System.DateTime.Now;
+			var timeNow = DateTime.Now;
 			_lastPathToBuiltProject = buildLocation;
 
 			Init(true, ref _lastKnownBuildInfo, scenes);
 			_lastKnownBuildInfo.TimeGot = timeNow;
 			_lastKnownBuildInfo.TimeGotReadable = timeNow.ToString(TIME_OF_BUILD_FORMAT);
 
-			System.DateTime timeBuildStarted;
-			if (BuildReportTool.Util.HasBuildTime())
+			DateTime timeBuildStarted;
+			if (Util.HasBuildTime())
 			{
-				timeBuildStarted = BuildReportTool.Util.LoadBuildTime();
+				timeBuildStarted = Util.LoadBuildTime();
 			}
 			else
 			{
 				timeBuildStarted = timeNow;
 			}
 
-			if (BuildReportTool.Options.CalculateAssetDependencies)
+			if (Options.CalculateAssetDependencies)
 			{
 				if (_lastKnownAssetDependencies == null)
 				{
-					_lastKnownAssetDependencies = new BuildReportTool.AssetDependencies();
+					_lastKnownAssetDependencies = new AssetDependencies();
 				}
 
 				_lastKnownAssetDependencies.TimeGot = timeBuildStarted;
 			}
 
-			if (BuildReportTool.Options.CollectTextureImportSettings)
+			if (Options.CollectTextureImportSettings)
 			{
 				if (_lastKnownTextureData == null)
 				{
-					_lastKnownTextureData = new BuildReportTool.TextureData();
+					_lastKnownTextureData = new TextureData();
 				}
 
 				_lastKnownTextureData.TimeGot = timeBuildStarted;
 			}
 
-			if (BuildReportTool.Options.CollectMeshData)
+			if (Options.CollectMeshData)
 			{
 				if (_lastKnownMeshData == null)
 				{
-					_lastKnownMeshData = new BuildReportTool.MeshData();
+					_lastKnownMeshData = new MeshData();
 				}
 
 				_lastKnownMeshData.TimeGot = timeBuildStarted;
@@ -213,7 +214,7 @@ namespace BuildReportTool
 
 			_lastEditorLogPath = editorLogPathToUse;
 
-			if (BuildReportTool.Options.IncludeUnusedPrefabsInReportCreation)
+			if (Options.IncludeUnusedPrefabsInReportCreation)
 			{
 				RefreshListOfAllPrefabsUsedInAllScenesIncludedInBuild();
 			}

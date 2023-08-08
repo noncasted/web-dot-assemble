@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using UniRx.InternalUtil;
-
 #if (NET_4_6 || NET_STANDARD_2_0)
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -303,7 +302,7 @@ namespace UniRx
         /// </summary>
         /// <returns>The last element of the subject. Throws an InvalidOperationException if no element was received.</returns>
         /// <exception cref="InvalidOperationException">The source sequence is empty.</exception>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Await pattern for C# and VB compilers.")]
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Await pattern for C# and VB compilers.")]
         public T GetResult()
         {
             if (!isStopped)

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace NaughtyAttributes.Test
@@ -17,7 +18,7 @@ namespace NaughtyAttributes.Test
         public int maxElixir = 100;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class ProgressBarNest1
     {
         [ProgressBar("Mana", 100, EColor.Blue)]
@@ -26,7 +27,7 @@ namespace NaughtyAttributes.Test
         public ProgressBarNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class ProgressBarNest2
     {
         [ProgressBar("Stamina", 100, EColor.Green)]

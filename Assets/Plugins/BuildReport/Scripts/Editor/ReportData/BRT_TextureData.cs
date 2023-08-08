@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Xml.Serialization;
 using UnityEngine;
 
 namespace BuildReportTool
 {
-	[System.Serializable, System.Xml.Serialization.XmlRoot("TextureData")]
-	public class TextureData : BuildReportTool.IDataFile
+	[Serializable, XmlRoot("TextureData")]
+	public class TextureData : IDataFile
 	{
 		// ==================================================================================
 
@@ -23,16 +24,16 @@ namespace BuildReportTool
 		/// <summary>
 		/// When TextureData was collected.
 		/// </summary>
-		public System.DateTime TimeGot;
+		public DateTime TimeGot;
 
 		public string GetDefaultFilename()
 		{
-			return BuildReportTool.Util.GetTextureDataDefaultFilename(ProjectName, BuildType, TimeGot);
+			return Util.GetTextureDataDefaultFilename(ProjectName, BuildType, TimeGot);
 		}
 
 		public string GetAccompanyingBuildReportFilename()
 		{
-			return BuildReportTool.Util.GetBuildInfoDefaultFilename(ProjectName, BuildType, TimeGot);
+			return Util.GetBuildInfoDefaultFilename(ProjectName, BuildType, TimeGot);
 		}
 
 		/// <summary>

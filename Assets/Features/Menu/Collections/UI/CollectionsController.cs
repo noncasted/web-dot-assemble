@@ -1,5 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using Menu.StateMachine.Definitions;
+﻿using Menu.StateMachine.Definitions;
 using Menu.StateMachine.Runtime;
 using UnityEngine;
 

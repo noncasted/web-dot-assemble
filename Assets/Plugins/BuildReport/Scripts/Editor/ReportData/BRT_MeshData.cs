@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Xml.Serialization;
 using UnityEngine;
 
 namespace BuildReportTool
 {
-	[System.Serializable, System.Xml.Serialization.XmlRoot("MeshData")]
-	public class MeshData : BuildReportTool.IDataFile
+	[Serializable, XmlRoot("MeshData")]
+	public class MeshData : IDataFile
 	{
 		// ==================================================================================
 
@@ -23,16 +23,16 @@ namespace BuildReportTool
 		/// <summary>
 		/// When MeshData was collected.
 		/// </summary>
-		public System.DateTime TimeGot;
+		public DateTime TimeGot;
 
 		public string GetDefaultFilename()
 		{
-			return BuildReportTool.Util.GetMeshDataDefaultFilename(ProjectName, BuildType, TimeGot);
+			return Util.GetMeshDataDefaultFilename(ProjectName, BuildType, TimeGot);
 		}
 
 		public string GetAccompanyingBuildReportFilename()
 		{
-			return BuildReportTool.Util.GetBuildInfoDefaultFilename(ProjectName, BuildType, TimeGot);
+			return Util.GetBuildInfoDefaultFilename(ProjectName, BuildType, TimeGot);
 		}
 
 		/// <summary>

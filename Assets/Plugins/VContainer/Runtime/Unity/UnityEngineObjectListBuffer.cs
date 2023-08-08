@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Object = UnityEngine.Object;
 
 namespace VContainer.Unity
 {
-    static class UnityEngineObjectListBuffer<T> where T : UnityEngine.Object
+    static class UnityEngineObjectListBuffer<T> where T : Object
     {
         const int DefaultCapacity = 32;
 

@@ -1,4 +1,5 @@
 using System.Text;
+using UnityEngine.Sprites;
 
 namespace UnityEngine.UI.MPUIKIT {
     public static class MPImageHelper {
@@ -11,7 +12,7 @@ namespace UnityEngine.UI.MPUIKIT {
 
             Vector4 v = GetDrawingDimensions(preserveAspect, activeSprite, canvas, rectTransform);
             Vector4 uv = (activeSprite != null)
-                ? Sprites.DataUtility.GetOuterUV(activeSprite)
+                ? DataUtility.GetOuterUV(activeSprite)
                 : new Vector4(0, 0, 1, 1);
 
             Color32 color32 = color;
@@ -62,7 +63,7 @@ namespace UnityEngine.UI.MPUIKIT {
             Vector2 size = new Vector2(v.z - v.x, v.w - v.y);
             
             Vector4 outer = activeSprite != null
-                ? Sprites.DataUtility.GetOuterUV(activeSprite)
+                ? DataUtility.GetOuterUV(activeSprite)
                 : new Vector4(0, 0, 1, 1);
             UIVertex uiv = UIVertex.simpleVert;
             uiv.color = color;
@@ -251,7 +252,7 @@ namespace UnityEngine.UI.MPUIKIT {
 
         private static Vector4 GetDrawingDimensions(bool shouldPreserveAspect, Sprite activeSprite, Canvas canvas,
             RectTransform rectTransform) {
-            var padding = activeSprite == null ? Vector4.zero : Sprites.DataUtility.GetPadding(activeSprite);
+            var padding = activeSprite == null ? Vector4.zero : DataUtility.GetPadding(activeSprite);
             var size = activeSprite == null
                 ? new Vector2(rectTransform.rect.width, rectTransform.rect.height)
                 : new Vector2(activeSprite.rect.width, activeSprite.rect.height);

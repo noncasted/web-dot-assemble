@@ -200,11 +200,11 @@ namespace BuildReportTool
 
 		static void SaveFileFilterGroupToFile(string saveFilePath, FileFilterGroup filterGroup)
 		{
-			System.Xml.Serialization.XmlSerializer x = new System.Xml.Serialization.XmlSerializer(typeof(FileFilterGroup));
+			XmlSerializer x = new XmlSerializer(typeof(FileFilterGroup));
 
 			saveFilePath = saveFilePath.Replace("\\", "/");
 
-			System.IO.TextWriter writer = new System.IO.StreamWriter(saveFilePath);
+			TextWriter writer = new StreamWriter(saveFilePath);
 			x.Serialize(writer, filterGroup);
 			writer.Close();
 
@@ -231,7 +231,7 @@ namespace BuildReportTool
 
 		public static string GetProperFileFilterGroupToUseFilePath()
 		{
-			return GetProperFileFilterGroupToUseFilePath(BuildReportTool.Options.BuildReportSavePath);
+			return GetProperFileFilterGroupToUseFilePath(Options.BuildReportSavePath);
 		}
 
 		public static string GetProperFileFilterGroupToUseFilePath(string userFileFilterSavePath)
@@ -243,7 +243,7 @@ namespace BuildReportTool
 			// attempt to get from default Build Report Tool folder: Assets/BuildReport/Config/FileFiltersUsed.xml
 
 			string fileFilterGroupAtDefaultAssetsPath =
-				BuildReportTool.Options.BUILD_REPORT_TOOL_DEFAULT_PATH + "/" + FILE_FILTERS_USED_FILENAME;
+				Options.BUILD_REPORT_TOOL_DEFAULT_PATH + "/" + FILE_FILTERS_USED_FILENAME;
 
 			if (File.Exists(fileFilterGroupAtDefaultAssetsPath))
 			{
@@ -274,7 +274,7 @@ namespace BuildReportTool
 			}
 
 			string fileFilterGroupAtUserPersonalFolderDefaultName =
-				BuildReportTool.Util.GetUserHomeFolder() + "/" + BuildReportTool.Options.BUILD_REPORTS_DEFAULT_FOLDER_NAME +
+				Util.GetUserHomeFolder() + "/" + Options.BUILD_REPORTS_DEFAULT_FOLDER_NAME +
 				"/" + FILE_FILTERS_USED_FILENAME;
 			if (File.Exists(fileFilterGroupAtUserPersonalFolderDefaultName))
 			{
@@ -296,7 +296,7 @@ namespace BuildReportTool
 
 		public static FileFilterGroup GetProperFileFilterGroupToUse()
 		{
-			return GetProperFileFilterGroupToUse(BuildReportTool.Options.BuildReportSavePath);
+			return GetProperFileFilterGroupToUse(Options.BuildReportSavePath);
 		}
 
 		public static FileFilterGroup GetProperFileFilterGroupToUse(string userFileFilterSavePath)

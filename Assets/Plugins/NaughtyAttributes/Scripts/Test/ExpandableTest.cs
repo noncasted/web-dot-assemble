@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace NaughtyAttributes.Test
 {
@@ -13,7 +14,7 @@ namespace NaughtyAttributes.Test
         public ExpandableScriptableObjectNest1 nest1;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class ExpandableScriptableObjectNest1
     {
         [Expandable]
@@ -22,7 +23,7 @@ namespace NaughtyAttributes.Test
         public ExpandableScriptableObjectNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class ExpandableScriptableObjectNest2
     {
         [Expandable]

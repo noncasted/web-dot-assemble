@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace NaughtyAttributes.Test
@@ -16,7 +17,7 @@ namespace NaughtyAttributes.Test
         }
     }
 
-    [System.Serializable]
+    [Serializable]
     public class TagNest1
     {
         [Tag]
@@ -25,7 +26,7 @@ namespace NaughtyAttributes.Test
         public TagNest2 nest2;
     }
 
-    [System.Serializable]
+    [Serializable]
     public struct TagNest2
     {
         [Tag]
