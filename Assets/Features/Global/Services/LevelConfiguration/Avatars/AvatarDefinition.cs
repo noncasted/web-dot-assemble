@@ -10,7 +10,9 @@ namespace Global.Services.LevelConfiguration.Avatars
     public class AvatarDefinition : ScriptableObject, IAvatarDefinition
     {
         [SerializeField] private Sprite _sprite;
+        [SerializeField] private int _id;
 
+        public int Id => _id;   
         public Sprite Sprite => _sprite;
     }
 }

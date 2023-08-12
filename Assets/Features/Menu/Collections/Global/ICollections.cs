@@ -1,7 +1,12 @@
-﻿namespace Menu.Collections.Global
+﻿using System.Collections.Generic;
+using Global.Services.LevelConfiguration.Avatars;
+
+namespace Menu.Collections.Global
 {
     public interface ICollections
     {
-        
+        IReadOnlyList<AvatarHandle> All { get; }
+
+        void Unlock(IAvatarDefinition definition);
     }
 }
