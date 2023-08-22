@@ -2,8 +2,13 @@
 {
     public class LeaderboardsDebugAPI : ILeaderboardsAPI
     {
-        public void SetLeaderBoard_Internal(string target, int score)
+        public void SetLeaderboard_Internal(string target, int score)
         {
+        }
+
+        public void GetLeaderboard_Internal(string target, int quantityTop, int quantityAround)
+        {
+            
         }
     }
 }

@@ -1,32 +1,39 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Common.Serialization.SerializableDictionaries
 {
-    public abstract class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>,
-        ISerializationCallbackReceiver
+    [Serializable]
+    public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>,ISerializationCallbackReceiver
     {
-        [SerializeField] [HideInInspector] private readonly List<TKey> _keys = new();
+        [SerializeField] private TKey[] _keys;
 
-        [SerializeField] [HideInInspector] private readonly List<TValue> _values = new();
+        [SerializeField] private TValue[] _values;
 
         public void OnAfterDeserialize()
         {
             Clear();
-
-            for (var i = 0; i < _keys.Count && i < _values.Count; i++)
+            
+            for (var i = 0; i < _keys.Length && i < _values.Length; i++)
                 this[_keys[i]] = _values[i];
         }
 
         public void OnBeforeSerialize()
         {
-            _keys.Clear();
-            _values.Clear();
+            var count = this.Count;
+
+            _keys = new TKey[count];
+            _values = new TValue[count];
+
+            var i = 0;
 
             foreach (var item in this)
             {
-                _keys.Add(item.Key);
-                _values.Add(item.Value);
+                _keys[i] = item.Key;
+                _values[i] = item.Value;
+
+                i++;
             }
         }
     }

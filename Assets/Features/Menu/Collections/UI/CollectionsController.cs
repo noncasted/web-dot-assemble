@@ -6,16 +6,12 @@ namespace Menu.Collections.UI
 {
     public class CollectionsController : ICollectionsController, ITab
     {
-        public CollectionsController(ICollectionsView view, IStateMachine stateMachine)
+        public CollectionsController(ICollectionsView view)
         {
             _view = view;
-            _stateMachine = stateMachine;
-            
-            _view.Navigation.Construct(stateMachine);
         }
 
         private readonly ICollectionsView _view;
-        private readonly IStateMachine _stateMachine;
 
         public RectTransform Transform => _view.Transform;
 

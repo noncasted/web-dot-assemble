@@ -11,7 +11,7 @@ namespace Global.Services.Publisher.Abstract.Saves
         private Dictionary<int, bool> _unlocked = new();
         private Dictionary<int, bool> _assembled = new();
 
-        public string Key => SavesPaths.Levels;
+        public string SaveKey => SavesPaths.Levels;
         public event Action Changed;
 
         public void CreateDefault()

@@ -1,16 +1,13 @@
 ﻿using Menu.StateMachine.Definitions;
-using Menu.StateMachine.Runtime;
 using UnityEngine;
 
 namespace Menu.Main.UI
 {
     public class MainController : IMainController, ITab
     {
-        public MainController(IMainView view, IStateMachine stateMachine)
+        public MainController(IMainView view)
         {
             _view = view;
-            
-            view.Navigation.Construct(stateMachine);
         }
 
         private readonly IMainView _view;

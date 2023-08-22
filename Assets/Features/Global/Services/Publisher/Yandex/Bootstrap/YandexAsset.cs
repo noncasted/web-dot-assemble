@@ -69,8 +69,8 @@ namespace Global.Services.Publisher.Yandex.Bootstrap
             builder.Register<LanguageProvider>()
                 .As<ILanguageProvider>();
 
-            builder.Register<Leaderboards>()
-                .As<ILeaderboards>();
+            builder.Register<LeaderboardsProvider>()
+                .As<ILeaderboardsProvider>();
 
             builder.Register<Reviews>()
                 .As<IReviews>();

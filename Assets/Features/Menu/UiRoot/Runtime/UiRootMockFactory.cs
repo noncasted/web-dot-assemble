@@ -2,6 +2,7 @@
 using Common.Architecture.Local.Services.Abstract;
 using Cysharp.Threading.Tasks;
 using Global.Services.Scenes.ScenesFlow.Runtime.Abstract;
+using Menu.Common.Navigation;
 using Menu.UiRoot.Common;
 using NaughtyAttributes;
 using Sirenix.OdinInspector;
@@ -14,8 +15,6 @@ namespace Menu.UiRoot.Runtime
         menuName = UiRootRoutes.MockPath)]
     public class UiRootMockFactory : BaseUiRootFactory
     {
-        [SerializeField] [Scene] private string _scene;
-        
         public override async UniTask Create(
             IDependencyRegister builder,
             ILocalServiceBinder serviceBinder,
@@ -23,6 +22,9 @@ namespace Menu.UiRoot.Runtime
             IEventLoopsRegistry callbacks)
         {
             var linker = FindFirstObjectByType<MenuUiLinker>();
+            
+            for (var i = 0; i < linker.Root.childCount; i++)
+                linker.Root.GetChild(i).gameObject.SetActive(true);
             
             builder.RegisterInstance(linker.Achievements);
             builder.RegisterInstance(linker.Collections);
@@ -32,6 +34,11 @@ namespace Menu.UiRoot.Runtime
             builder.RegisterInstance(linker.Settings);
             builder.RegisterInstance(linker.ShopView);
             builder.RegisterInstance(linker.TabTransitionPoints);
+
+            var navigations = FindObjectsByType<TabNavigation>(FindObjectsSortMode.None);
+
+            foreach (var navigation in navigations)
+                builder.Inject(navigation);
         }
     }
 }

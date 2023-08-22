@@ -17,7 +17,7 @@ namespace Global.Services.Publisher.Yandex.DataStorages
             foreach (var entry in entries)
             {
                 entry.Changed += OnEntryChanged;
-                _entries[entry.Key] = entry;
+                _entries[entry.SaveKey] = entry;
             }
         }
 

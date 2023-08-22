@@ -11,7 +11,7 @@ namespace Menu.Collections.Global
         
         public event Action Changed;
         
-        public string Key => "Collections";
+        public string SaveKey => "Collections";
 
         public IReadOnlyDictionary<int, bool> Avatars => _avatars;
 

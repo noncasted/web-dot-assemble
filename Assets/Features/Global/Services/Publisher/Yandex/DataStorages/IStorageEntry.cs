@@ -4,7 +4,7 @@ namespace Global.Services.Publisher.Yandex.DataStorages
 {
     public interface IStorageEntry
     {
-        string Key { get; }
+        string SaveKey { get; }
         event Action Changed;
 
         void CreateDefault();

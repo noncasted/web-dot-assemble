@@ -8,9 +8,11 @@ namespace Menu.Achievements.Global
 {
     public class AchievementsSave : IStorageEntry
     {
+        public const string Key = "Achievements";
+        
         private Dictionary<AchievementType, int> _entries;
         
-        public string Key => "Achievements";
+        public string SaveKey => "Achievements";
         public event Action Changed;
 
         public IReadOnlyDictionary<AchievementType, int> Entries => _entries;

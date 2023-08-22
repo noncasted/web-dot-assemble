@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using Menu.StateMachine.Runtime;
 using UnityEngine;
+using VContainer;
 
 namespace Menu.Common.Navigation
 {
@@ -11,7 +12,8 @@ namespace Menu.Common.Navigation
         
         private IStateMachine _stateMachine;
 
-        public void Construct(IStateMachine stateMachine)
+        [Inject]
+        private void Construct(IStateMachine stateMachine)
         {
             _stateMachine = stateMachine;
         }

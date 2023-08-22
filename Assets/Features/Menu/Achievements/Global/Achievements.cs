@@ -8,23 +8,23 @@ namespace Menu.Achievements.Global
 {
     public class Achievements : IAchievements, IGlobalBootstrapListener
     {
-        public Achievements(IDataStorage storage, IAchievementFactory factory, IAchievementsConfig config)
+        public Achievements(IDataStorage storage, IAchievementFactory factory, IAchievementsConfigsRegistry configsRegistry)
         {
             _storage = storage;
             _factory = factory;
-            _config = config;
+            _configsRegistry = configsRegistry;
         }
         
         private readonly IDataStorage _storage;
         private readonly IAchievementFactory _factory;
-        private readonly IAchievementsConfig _config;
+        private readonly IAchievementsConfigsRegistry _configsRegistry;
 
         private readonly Dictionary<AchievementType, IAchievement> _achievements = new();
 
         public void OnBootstrapped()
         {
-            var saves = _storage.GetEntry<AchievementsSave>("achievements");
-            var configs = _config.GetConfigs();
+            var saves = _storage.GetEntry<AchievementsSave>(AchievementsSave.Key);
+            var configs = _configsRegistry.GetConfigs();
 
             foreach (var config in configs)
             {

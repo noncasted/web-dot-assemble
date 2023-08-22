@@ -11,12 +11,15 @@ namespace Menu.Leaderboards.Global
         menuName = LeaderboardsRoutes.ServicePath)]
     public class LeaderboardsFactory : ScriptableObject, IGlobalServiceFactory
     {
+        [SerializeField] private LeaderboardsConfig _config;
+        
         public void Create(
             IDependencyRegister builder,
             IGlobalServiceBinder serviceBinder,
             IGlobalCallbacks callbacks)
         {
             builder.Register<Leaderboards>()
+                .WithParameter<ILeaderboardsConfig>(_config)
                 .As<ILeaderboards>();
         }
     }

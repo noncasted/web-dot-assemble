@@ -6,7 +6,7 @@ namespace Global.Services.Publisher.Abstract.Saves
     [Serializable]
     public class SoundSave : IStorageEntry
     {
-        public string Key => SavesPaths.Sounds;
+        public string SaveKey => SavesPaths.Sounds;
         public event Action Changed;
 
         public bool IsMuted { get; private set; }

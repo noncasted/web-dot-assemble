@@ -14,14 +14,18 @@ namespace Menu.UiRoot.Runtime
     [DisallowMultipleComponent]
     public class MenuUiLinker : MonoBehaviour
     {
+        [SerializeField] private Transform _root;
+        
         [SerializeField] private AchievementsView _achievements;
-        [FormerlySerializedAs("_avatarCollections")] [SerializeField] private CollectionsView _collections;
+        [SerializeField] private CollectionsView _collections;
         [SerializeField] private LeaderboardsView _leaderboards;
         [SerializeField] private MainView _main;
         [SerializeField] private QuestsView _quests;
         [SerializeField] private SettingsView _settings;
         [SerializeField] private ShopView _shopView;
         [SerializeField] private TabTransitionsRegistry _tabTransitionPoints;
+
+        public Transform Root => _root;
         
         public IAchievementsView Achievements => _achievements;
         public ICollectionsView Collections => _collections;

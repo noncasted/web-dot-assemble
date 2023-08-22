@@ -1,4 +1,5 @@
-﻿using Menu.StateMachine.Definitions;
+﻿using System.Threading;
+using Menu.StateMachine.Definitions;
 using UnityEngine;
 
 namespace Menu.Achievements.UI
@@ -11,6 +12,8 @@ namespace Menu.Achievements.UI
         }
 
         private readonly IAchievementsView _view;
+
+        private CancellationTokenSource _cancellation; 
 
         public RectTransform Transform => _view.Transform;
         

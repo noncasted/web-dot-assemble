@@ -3,6 +3,7 @@ using Common.Architecture.Local.Services.Abstract;
 using Cysharp.Threading.Tasks;
 using Global.Services.Scenes.ScenesFlow.Handling.Data;
 using Global.Services.Scenes.ScenesFlow.Runtime.Abstract;
+using Menu.Common.Navigation;
 using Menu.UiRoot.Common;
 using NaughtyAttributes;
 using Sirenix.OdinInspector;
@@ -27,6 +28,9 @@ namespace Menu.UiRoot.Runtime
             var sceneData = await sceneLoader.Load(loadData);
             var linker = sceneData.Searched;
 
+            for (var i = 0; i < linker.Root.childCount; i++)
+                linker.Root.GetChild(i).gameObject.SetActive(true);
+
             builder.RegisterInstance(linker.Achievements);
             builder.RegisterInstance(linker.Collections);
             builder.RegisterInstance(linker.Leaderboards);
@@ -35,6 +39,11 @@ namespace Menu.UiRoot.Runtime
             builder.RegisterInstance(linker.Settings);
             builder.RegisterInstance(linker.ShopView);
             builder.RegisterInstance(linker.TabTransitionPoints);
+
+            var navigations = FindObjectsByType<TabNavigation>(FindObjectsSortMode.None);
+
+            foreach (var navigation in navigations)
+                builder.Inject(navigation);
         }
     }
 }

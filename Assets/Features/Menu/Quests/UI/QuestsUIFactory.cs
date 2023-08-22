@@ -22,7 +22,8 @@ namespace Menu.Quests.UI
         {
             builder.Register<QuestsController>()
                 .As<IQuestsController>()
-                .AsTab<QuestsController>(_tabDefinition);
+                .AsTab<QuestsController>(_tabDefinition)
+                .AsSelfResolvable();
         }
     }
 }

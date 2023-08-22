@@ -31,7 +31,7 @@ namespace Common.Architecture.DiContainer.Runtime
         {
             foreach (var registration in _registrations)
                 registration.ResolveWithCallbacks(resolver, callbackRegistry);
-
+            
             foreach (var injection in _injections)
                 injection.Inject(resolver);
         }

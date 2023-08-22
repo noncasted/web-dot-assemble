@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Menu.Achievements.Definitions;
-using UnityEngine;
 
 namespace Menu.Achievements.Global
 {
-    public class AchievementFactory : ScriptableObject, IAchievementFactory
+    public class AchievementFactory : IAchievementFactory
     {
         public IAchievement Create(AchievementConfig config, IReadOnlyDictionary<AchievementType, int> save)
         {

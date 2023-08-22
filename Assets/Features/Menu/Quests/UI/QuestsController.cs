@@ -16,12 +16,12 @@ namespace Menu.Quests.UI
         
         public void Activate()
         {
-            
+            _view.Navigation.Enable();
         }
 
         public void Deactivate()
         {
-            
+            _view.Navigation.Disable();
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Menu.Common;
-using Menu.Common.Paths;
+﻿using Menu.Common.Paths;
 
 namespace Menu.Achievements.Common
 {
@@ -13,5 +12,11 @@ namespace Menu.Achievements.Common
         
         public const string EntryName = "Achievement_";
         public const string EntryPath = MenuAssetsPaths.Root + "Achievements/Entry";
+        
+        public const string RegistryName = "AchievementsRegistry";
+        public const string RegistryPath = MenuAssetsPaths.Root + "Achievements/Registry";
+        
+        public const string EntryViewConfigName = "EntryViewConfig";
+        public const string EntryViewConfigPath = MenuAssetsPaths.Root + "Achievements/EntryViewConfig";
     }
 }

@@ -6,6 +6,7 @@ namespace Global.Services.Publisher.Yandex.Common
     public class YandexCallbacks : MonoBehaviour
     {
         public event Action<string> UserDataReceived;
+        public event Action<string> LeaderboardsReceived;
         public event Action InterstitialShown;
         public event Action<string> InterstitialFailed;
         public event Action RewardedAdClosed;
@@ -17,6 +18,11 @@ namespace Global.Services.Publisher.Yandex.Common
         public void OnUserDataReceived(string data)
         {
             UserDataReceived?.Invoke(data);
+        }
+        
+        public void OnLeaderboardsReceived(string data)
+        {
+            LeaderboardsReceived?.Invoke(data);
         }
 
         public void OnInterstitialShown()

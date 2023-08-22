@@ -6,14 +6,16 @@ namespace Menu.Main.UI
     [DisallowMultipleComponent]
     public class MainView : MonoBehaviour, IMainView
     {
-        [SerializeField] private TabNavigation _navigation;
+        private ITabNavigation _navigation;
+        private RectTransform _transform;
 
         public ITabNavigation Navigation => _navigation;
-        public RectTransform Transform { get; private set; }
+        public RectTransform Transform => _transform;   
 
         private void Awake()
         {
-            Transform = GetComponent<RectTransform>();
+            _navigation = GetComponent<ITabNavigation>();
+            _transform = GetComponent<RectTransform>();
         }
     }
 }

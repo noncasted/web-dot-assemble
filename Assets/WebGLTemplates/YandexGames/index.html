@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | ManRun</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+
+    <!-- Yandex Games SDK -->
+    <script src="https://yandex.ru/games/sdk/v2"></script>
+
+    <!-- Yandex.RTB -->
+    <script>window.yaContextCb = window.yaContextCb || []</script>
+    <script src="https://yandex.ru/ads/system/context.js" async></script>
+
+</head>
+<body>
+
+<div id="unity-container" style="position: absolute; width: 100%; height: 100%; left: 0;  top: 0;">
+    <canvas id="unity-canvas" style="position: absolute; width: 100%; height: 100%"></canvas>
+
+    <div style="position:absolute; width: 100%; height: 10%; bottom: 0;">
+        <!-- Yandex.RTB R-A-1774866-27 -->
+        <div id="yandex_rtb_R-A-1774866-27"></div>
+        <script>
+            window.yaContextCb.push(() => {
+                Ya.Context.AdvManager.render({
+                    renderTo: 'yandex_rtb_R-A-1774866-27',
+                    blockId: 'R-A-1774866-27'
+                })
+            })
+        </script>
+    </div>
+
+    <div id="unity-loading-bar">
+        <div id="unity-logo"></div>
+        <div id="unity-progress-bar-empty">
+            <div id="unity-progress-bar-full"></div>
+        </div>
+    </div>
+    <div id="unity-warning"></div>
+
+</div>
+
+<script>
+    let _leaderboards;
+    let _payments = null;
+    let _player;
+
+    YaGames.init().then(
+        ysdk => {
+            console.log('Begin initialization');
+            window.ysdk = ysdk;
+            auth();
+            initLib();
+            initPayments();
+            console.log('Yandex SDK initialized');
+        });
+
+    function auth() {
+        initPlayer()
+            .then(player => {
+                if (player.getMode() === 'lite') {
+                    // Игрок не авторизован.
+                    ysdk.auth.openAuthDialog().then(() => {
+                        // Игрок успешно авторизован
+                        initPlayer().catch(error => {
+                            console.log(error);
+                            // Ошибка при инициализации объекта Player.
+                        });
+                    }).catch(() => {
+                        // Игрок не авторизован.
+                    });
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                // Ошибка при инициализации объекта Player.
+            });
+    }
+
+    function initLib() {
+        ysdk.getLeaderboards()
+            .then(leaderboards => _leaderboards = leaderboards);
+    }
+
+    function initPayments() {
+        ysdk.getPayments({signed: true})
+            .then(_payments => {
+                // Покупки доступны.
+                _payments = _payments;
+            })
+            .catch(error => {
+                console.log(error);
+
+                // Покупки недоступны. Включите монетизацию в консоли разработчика.
+                // Убедитесь, что на вкладке Покупки консоли разработчика присутствует таблица
+                // хотя бы с одним внутриигровым товаром и надписью «Покупки разрешены».
+            })
+    }
+
+    function SendCallback(target) {
+        console.log("send callback to " + target);
+
+        myGameInstance.SendMessage("YandexCallbacks", target);
+    }
+
+    function SendDataCallback(target, data) {
+        console.log("send data callback to " + target);
+        myGameInstance.SendMessage("YandexCallbacks", target, data);
+    }
+
+    function initPlayer() {
+        return ysdk
+            .getPlayer()
+            .then(_player => {
+                _player = _player;
+
+                return _player;
+            });
+    }
+
+    function Review() {
+        ysdk.feedback.canReview()
+            .then(({value, reason}) => {
+                if (value) {
+                    ysdk.feedback.requestReview()
+                        .then(({feedbackSent}) => {
+                            console.log(feedbackSent);
+                            SendCallback("OnReview");
+                        })
+                } else {
+                    console.log(reason)
+                    SendCallback("OnReview");
+                }
+            }).catch(error => {
+            SendCallback("OnReview");
+        })
+    }
+
+    function SaveUserData(data) {
+        let dateString = UTF8ToString(data);
+        let parsedData = JSON.parse(dateString);
+        _player.setData(parsedData);
+    }
+
+    function GetUserData() {
+        _player.getData().then(data => {
+            const rawData = JSON.stringify(data);
+            console.log("On data received");
+            console.log(rawData);
+            SendDataCallback("OnUserDataReceived", rawData);
+        });
+    }
+
+    function SetLeaderboard(target, value) {
+        _leaderboards.setLeaderboardScore(target, value);
+    }
+
+    function GetLeaderboardEntries(target, quantityTop, quantityAround) {
+        _leaderboards.getLeaderboardEntries(target, {
+            quantityTop: quantityTop,
+            includeUser: true,
+            quantityAround: quantityAround
+        })
+            .then(res => {
+                console.log(res);
+                const rawData = JSON.stringify(res);
+                SendDataCallback("OnLeaderboardsReceived", rawData)
+            });
+    }
+
+    function GetLang() {
+        const lang = ysdk.environment.i18n.lang;
+        const bufferSize = lengthBytesUTF8(lang) + 1;
+        const buffer = _malloc(bufferSize);
+        stringToUTF8(lang, buffer, bufferSize);
+        return buffer;
+    }
+
+    function ShowFullscreenAd() {
+        ysdk.adv.showFullscreenAdv({
+            callbacks: {
+                onClose: function (wasShown) {
+                    SendCallback("OnInterstitialShown");
+                },
+                onError: function (error) {
+                    SendDataCallback("OnInterstitialShown", error);
+                }
+            }
+        })
+    }
+
+    function ShowRewardedAd() {
+        ysdk.adv.showRewardedVideo({
+            callbacks: {
+                onOpen: () => {
+                    console.log('Video ad open.');
+                },
+                onRewarded: () => {
+                    console.log('Rewarded!');
+                    SendCallback("OnRewarded");
+                },
+                onClose: () => {
+                    console.log('Video ad closed.');
+                    SendCallback("OnRewardedClose");
+                },
+                onError: (e) => {
+                    console.log('Error while open video ad:', e);
+                    SendDataCallback("OnRewardedError", e);
+                }
+            }
+        })
+    }
+
+    function Purchase(purchaseId) {
+        _payments.purchase({id: purchaseId}).then(purchase => {
+            SendDataCallback("OnPurchaseSuccess", purchaseId)
+        }).catch(err => {
+            SendDataCallback("OnPurchaseFailed", err)
+        })
+    }
+
+</script>
+
+<script>
+    let container = document.querySelector("#unity-container");
+    let canvas = document.querySelector("#unity-canvas");
+    let loadingBar = document.querySelector("#unity-loading-bar");
+    let progressBarFull = document.querySelector("#unity-progress-bar-full");
+    let fullscreenButton = document.querySelector("#unity-fullscreen-button");
+    let warningBanner = document.querySelector("#unity-warning");
+
+    let buildUrl = "Build";
+    let loaderUrl = buildUrl + "/Build.loader.js";
+
+    let config = {
+        dataUrl: buildUrl + "/Build.data.unityweb",
+        frameworkUrl: buildUrl + "/Build.framework.js.unityweb",
+        codeUrl: buildUrl + "/Build.wasm.unityweb",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "Bitach",
+        productName: "ImageAssemble",
+        productVersion: "0.1.0"
+    };
+
+    // By default Unity keeps WebGL canvas render target size matched with
+    // the DOM size of the canvas element (scaled by window.devicePixelRatio)
+    // Set this to false if you want to decouple this synchronization from
+    // happening inside the engine, and you would instead like to size up
+    // the canvas DOM size and WebGL render target sizes yourself.
+    // config.matchWebGLToCanvasSize = false;
+
+    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // Mobile device style: fill the whole browser client area with the game canvas:
+
+        let meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        container.className = "unity-mobile";
+
+        // To lower canvas resolution on mobile devices to gain some
+        // performance, uncomment the following line:
+        // config.devicePixelRatio = 1;
+
+        canvas.style.width = window.innerWidth + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+    } else {
+        // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
+
+        canvas.style.width = "100%";
+        canvas.style.height = "100%";
+    }
+
+    loadingBar.style.display = "block";
+
+    let myGameInstance = null;
+
+    let script = document.createElement("script");
+    script.src = loaderUrl;
+
+    console.log('load game');
+
+    script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+            progressBarFull.style.width = 100 * progress + "%";
+        }).then((unityInstance) => {
+            myGameInstance = unityInstance;
+            loadingBar.style.display = "none";
+            console.log('on loaded');
+
+            //fullscreenButton.onclick = () => {
+            //    unityInstance.SetFullscreen(1);
+            //};
+        }).catch((message) => {
+            alert(message);
+        });
+    };
+
+    document.body.appendChild(script);
+</script>
+</body>
+</html>

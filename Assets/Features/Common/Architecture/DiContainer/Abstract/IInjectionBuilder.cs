@@ -6,4 +6,4 @@ namespace Common.Architecture.DiContainer.Abstract
     {
         void Inject(IObjectResolver resolver);
     }
-}
+}   
