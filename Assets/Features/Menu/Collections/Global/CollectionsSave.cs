@@ -7,11 +7,13 @@ namespace Menu.Collections.Global
 {
     public class CollectionsSave : IStorageEntry
     {
+        public const string Key = "collections";
+        
         private Dictionary<int, bool> _avatars;
         
         public event Action Changed;
         
-        public string SaveKey => "Collections";
+        public string SaveKey => Key;
 
         public IReadOnlyDictionary<int, bool> Avatars => _avatars;
 

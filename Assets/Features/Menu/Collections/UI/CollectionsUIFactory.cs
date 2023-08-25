@@ -22,7 +22,8 @@ namespace Menu.Collections.UI
         {
             builder.Register<CollectionsController>()
                 .As<ICollectionsController>()
-                .AsTab<CollectionsController>(_tabDefinition);
+                .AsTab<CollectionsController>(_tabDefinition)
+                .AsCallbackListener();
         }
     }
 }

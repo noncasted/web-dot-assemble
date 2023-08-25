@@ -1,4 +1,5 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
+using Global.Services.LevelConfiguration.Avatars;
 using Global.Services.Setup.Service;
 using Menu.Collections.Common;
 using Sirenix.OdinInspector;
@@ -11,13 +12,17 @@ namespace Menu.Collections.Global
         menuName = CollectionsRoutes.ServicePath)]
     public class CollectionsFactory : ScriptableObject, IGlobalServiceFactory
     {
+        [SerializeField] private AvatarsRegistry _registry;
+        
         public void Create(
             IDependencyRegister builder,
             IGlobalServiceBinder serviceBinder,
             IGlobalCallbacks callbacks)
         {
             builder.Register<Collections>()
-                .As<ICollections>();
+                .WithParameter<IAvatarsRegistry>(_registry)
+                .As<ICollections>()
+                .AsCallbackListener();
         }
     }
 }

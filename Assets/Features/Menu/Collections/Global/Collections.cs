@@ -34,14 +34,14 @@ namespace Menu.Collections.Global
         
         public void OnBootstrapped()
         {
-            _save = _storage.GetEntry<CollectionsSave>("collections");
+            _save = _storage.GetEntry<CollectionsSave>(CollectionsSave.Key);
 
             foreach (var (id, isUnlocked) in _save.Avatars)
             {
                 var avatar = _allFromId[id];
                 var handle = new AvatarHandle(avatar, isUnlocked);
                 _all[avatar] = handle;
-            }   
+            }
         }
         
         public void Unlock(IAvatarDefinition definition)

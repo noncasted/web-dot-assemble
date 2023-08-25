@@ -12,5 +12,8 @@ namespace Global.Services.LevelConfiguration.Common
         
         public const string AvatarName = "AvatarDefinition";
         public const string AvatarPath = GlobalAssetsPaths.Root + "Configuration/Avatar";
+        
+        public const string AvatarsRegistryName = "AvatarsRegistry";
+        public const string AvatarsRegistryPath = GlobalAssetsPaths.Root + "Configuration/AvatarsRegistry";
     }
 }

@@ -10,5 +10,8 @@ namespace Menu.Collections.Common
 
         public const string ControllerName = MenuAssetsPrefixes.Service + "Collections_Ui";
         public const string ControllerPath = MenuAssetsPaths.Root + "Collections/Ui";
+        
+        public const string EntryViewConfigName = "EntryViewConfig";
+        public const string EntryViewConfigPath = MenuAssetsPaths.Root + "Collections/EntryViewConfig";
     }
 }

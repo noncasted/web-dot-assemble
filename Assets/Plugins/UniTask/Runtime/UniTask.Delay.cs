@@ -112,6 +112,7 @@ namespace Cysharp.Threading.Tasks
             return Yield(PlayerLoopTiming.LastFixedUpdate, cancellationToken);
         }
 
+        
         public static UniTask DelayFrame(int delayFrameCount, PlayerLoopTiming delayTiming = PlayerLoopTiming.Update, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (delayFrameCount < 0)
@@ -128,6 +129,12 @@ namespace Cysharp.Threading.Tasks
             return Delay(delayTimeSpan, ignoreTimeScale, delayTiming, cancellationToken);
         }
 
+        public static UniTask Delay(float delay)
+        {
+            var time = Mathf.CeilToInt(delay * 1000);
+            return Delay(time);
+        }
+        
         public static UniTask Delay(TimeSpan delayTimeSpan, bool ignoreTimeScale = false, PlayerLoopTiming delayTiming = PlayerLoopTiming.Update, CancellationToken cancellationToken = default(CancellationToken))
         {
             var delayType = ignoreTimeScale ? DelayType.UnscaledDeltaTime : DelayType.DeltaTime;
