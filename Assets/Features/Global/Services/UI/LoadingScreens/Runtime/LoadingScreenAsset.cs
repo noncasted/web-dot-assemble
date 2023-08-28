@@ -1,14 +1,14 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
 using Cysharp.Threading.Tasks;
-using Global.Services.Setup.Service;
-using Global.Services.Setup.Service.Scenes;
-using Global.Services.UI.LoadingScreens.Common;
-using Global.Services.UI.LoadingScreens.Logs;
+using Global.Setup.Service;
+using Global.Setup.Service.Scenes;
+using Global.UI.LoadingScreens.Common;
+using Global.UI.LoadingScreens.Logs;
 using NaughtyAttributes;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Global.Services.UI.LoadingScreens.Runtime
+namespace Global.UI.LoadingScreens.Runtime
 {
     [InlineEditor]
     [CreateAssetMenu(fileName = LoadingScreenRouter.ServiceName,

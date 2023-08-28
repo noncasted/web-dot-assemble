@@ -1,7 +1,7 @@
-﻿using Global.Services.Cameras.CurrentCameras.Logs;
+﻿using Global.Cameras.CurrentCameras.Logs;
 using UnityEngine;
 
-namespace Global.Services.Cameras.CurrentCameras.Runtime
+namespace Global.Cameras.CurrentCameras.Runtime
 {
     public class CurrentCamera : ICurrentCamera
     {

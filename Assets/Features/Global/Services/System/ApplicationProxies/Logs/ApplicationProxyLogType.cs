@@ -1,4 +1,4 @@
-﻿namespace Global.Services.System.ApplicationProxies.Logs
+﻿namespace Global.System.ApplicationProxies.Logs
 {
     public enum ApplicationProxyLogType
     {

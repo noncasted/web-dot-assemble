@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b72481767d6b5274d83a8899cac94491, type: 3}
   m_Name: MenuService_Achievements_Global
   m_EditorClassIdentifier: 
+  _debug: {fileID: 11400000, guid: 4f7ef6c642ef0a5458a1e6affb34ea08, type: 2}
   _registry: {fileID: 11400000, guid: 9a94d887fa256284fb8a1782a6855c51, type: 2}

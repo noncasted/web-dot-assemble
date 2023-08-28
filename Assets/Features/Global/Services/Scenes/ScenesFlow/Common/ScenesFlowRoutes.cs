@@ -1,6 +1,6 @@
 ﻿using Global.Common;
 
-namespace Global.Services.Scenes.ScenesFlow.Common
+namespace Global.Scenes.ScenesFlow.Common
 {
     public static class ScenesFlowRoutes
     {

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using VContainer.Unity;
 
-namespace Global.Services.Setup.Scope
+namespace Global.Setup.Scope
 {
     [DisallowMultipleComponent]
     public class GlobalScope : LifetimeScope

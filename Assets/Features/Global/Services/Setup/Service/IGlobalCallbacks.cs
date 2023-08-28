@@ -1,7 +1,7 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 
-namespace Global.Services.Setup.Service
+namespace Global.Setup.Service
 {
     public interface IGlobalCallbacks
     {

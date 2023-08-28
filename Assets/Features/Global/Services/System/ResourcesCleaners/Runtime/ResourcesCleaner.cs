@@ -1,8 +1,8 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
-using Global.Services.System.ResourcesCleaners.Logs;
+using Global.System.ResourcesCleaners.Logs;
 
-namespace Global.Services.System.ResourcesCleaners.Runtime
+namespace Global.System.ResourcesCleaners.Runtime
 {
     public class ResourcesCleaner : IResourcesCleaner
     {

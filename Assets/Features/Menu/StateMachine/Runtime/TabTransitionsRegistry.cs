@@ -10,6 +10,8 @@ namespace Menu.StateMachine.Runtime
     {
         [SerializeField] private RectTransform[] _left;
         [SerializeField] private RectTransform[] _right;
+        [SerializeField] private RectTransform[] _top;
+        [SerializeField] private RectTransform[] _bottom;
 
         [SerializeField] private RectTransform _center;
         
@@ -30,6 +32,20 @@ namespace Menu.StateMachine.Runtime
                 {
                     var from = GetRandom(_left);
                     var to = GetRandom(_right);
+
+                    return new TransitionPoints(from, to, center);
+                }
+                case TabTransitionType.TopToBottom:
+                {
+                    var from = GetRandom(_top);
+                    var to = GetRandom(_bottom);
+
+                    return new TransitionPoints(from, to, center);
+                }
+                case TabTransitionType.BottomToTop:
+                {
+                    var from = GetRandom(_bottom);
+                    var to = GetRandom(_top);
 
                     return new TransitionPoints(from, to, center);
                 }

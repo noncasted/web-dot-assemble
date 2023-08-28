@@ -2,8 +2,8 @@
 using Common.Architecture.Local.Services.Abstract;
 using Cysharp.Threading.Tasks;
 using GamePlay.Services.Background.Common;
-using Global.Services.Scenes.ScenesFlow.Handling.Data;
-using Global.Services.Scenes.ScenesFlow.Runtime.Abstract;
+using Global.Scenes.ScenesFlow.Handling.Data;
+using Global.Scenes.ScenesFlow.Runtime.Abstract;
 using NaughtyAttributes;
 using Sirenix.OdinInspector;
 using UnityEngine;

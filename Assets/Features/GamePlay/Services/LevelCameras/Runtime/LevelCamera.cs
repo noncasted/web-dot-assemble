@@ -1,8 +1,8 @@
 ﻿using Common.Architecture.Local.Services.Abstract.Callbacks;
 using GamePlay.Services.LevelCameras.Logs;
-using Global.Services.Cameras.CurrentCameras.Runtime;
-using Global.Services.Inputs.View.Runtime.Projection;
-using Global.Services.System.Updaters.Runtime.Abstract;
+using Global.Cameras.CurrentCameras.Runtime;
+using Global.Inputs.View.Runtime.Projection;
+using Global.System.Updaters.Runtime.Abstract;
 using UnityEngine;
 using VContainer;
 

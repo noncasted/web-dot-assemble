@@ -1,4 +1,4 @@
-﻿using Global.Services.Setup.Service;
+﻿using Global.Setup.Service;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

@@ -1,4 +1,4 @@
-﻿namespace Global.Services.Audio.Listener.Runtime
+﻿namespace Global.Audio.Listener.Runtime
 {
     public interface IAudioListenerSwitcher
     {

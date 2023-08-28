@@ -1,6 +1,6 @@
-﻿using Global.Services.Publisher.Yandex.Debugs.Ads;
+﻿using Global.Publisher.Yandex.Debugs.Ads;
 
-namespace Global.Services.Publisher.Yandex.Advertisement
+namespace Global.Publisher.Yandex.Advertisement
 {
     public class AdsDebugAPI : IAdsAPI
     {

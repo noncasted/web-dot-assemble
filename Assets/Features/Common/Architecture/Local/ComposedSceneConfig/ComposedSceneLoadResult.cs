@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Common.Architecture.Local.Services.Abstract.Callbacks;
-using Global.Services.Scenes.ScenesFlow.Handling.Result;
+using Global.Scenes.ScenesFlow.Handling.Result;
 using VContainer.Unity;
 
 namespace Common.Architecture.Local.ComposedSceneConfig

@@ -3,7 +3,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace Global.Services.Inputs.View.Runtime.Mouses
+namespace Global.Inputs.View.Runtime.Mouses
 {
     public interface IMouseInput
     {

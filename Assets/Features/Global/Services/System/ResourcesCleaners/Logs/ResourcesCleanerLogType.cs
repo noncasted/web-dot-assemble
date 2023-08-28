@@ -1,4 +1,4 @@
-﻿namespace Global.Services.System.ResourcesCleaners.Logs
+﻿namespace Global.System.ResourcesCleaners.Logs
 {
     public enum ResourcesCleanerLogType
     {

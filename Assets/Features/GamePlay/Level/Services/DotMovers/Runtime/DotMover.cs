@@ -8,9 +8,9 @@ using GamePlay.Level.Dots.Runtime.DragHandlers;
 using GamePlay.Level.Fields.Runtime;
 using GamePlay.Level.Services.DotMovers.Pathfinding;
 using GamePlay.Level.Services.FieldFlow.Seeder;
-using Global.Services.Inputs.View.Runtime.Mouses;
-using Global.Services.System.MessageBrokers.Runtime;
-using Global.Services.System.Updaters.Runtime.Abstract;
+using Global.Inputs.View.Runtime.Mouses;
+using Global.System.MessageBrokers.Runtime;
+using Global.System.Updaters.Runtime.Abstract;
 using UnityEngine;
 
 namespace GamePlay.Level.Services.DotMovers.Runtime

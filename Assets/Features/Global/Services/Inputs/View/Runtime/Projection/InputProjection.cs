@@ -1,8 +1,8 @@
-﻿using Global.Services.Cameras.CameraUtilities.Runtime;
+﻿using Global.Cameras.CameraUtilities.Runtime;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Global.Services.Inputs.View.Runtime.Projection
+namespace Global.Inputs.View.Runtime.Projection
 {
     public class InputProjection : IInputProjection
     {

@@ -1,10 +1,10 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Global.Services.Debugs.Console.Common;
-using Global.Services.Setup.Service;
+using Global.Debugs.Console.Common;
+using Global.Setup.Service;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Global.Services.Debugs.Console.Runtime
+namespace Global.Debugs.Console.Runtime
 {
     [InlineEditor]
     [CreateAssetMenu(fileName = DebugConsoleRoutes.ServiceName,

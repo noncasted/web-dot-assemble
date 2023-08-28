@@ -1,12 +1,12 @@
 ﻿using System;
-using Global.Services.Publisher.Abstract.DataStorages;
-using Global.Services.Publisher.Abstract.Saves;
-using Global.Services.Setup.Service.Callbacks;
-using Global.Services.System.MessageBrokers.Runtime;
+using Global.Publisher.Abstract.DataStorages;
+using Global.Publisher.Abstract.Saves;
+using Global.Setup.Service.Callbacks;
+using Global.System.MessageBrokers.Runtime;
 using UnityEngine;
 using VContainer;
 
-namespace Global.Services.Audio.Player.Runtime
+namespace Global.Audio.Player.Runtime
 {
     [DisallowMultipleComponent]
     public class SoundsVolumeSwitcher : MonoBehaviour, IGlobalBootstrapListener

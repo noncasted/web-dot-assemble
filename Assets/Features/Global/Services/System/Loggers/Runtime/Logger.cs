@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Global.Services.System.Loggers.Runtime
+namespace Global.System.Loggers.Runtime
 {
     public class Logger : ILogger
     {

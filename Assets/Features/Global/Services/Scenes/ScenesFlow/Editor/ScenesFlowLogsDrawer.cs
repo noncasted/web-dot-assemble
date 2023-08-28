@@ -1,8 +1,8 @@
 ﻿using Common.Serialization.ReadOnlyDictionaries.Editor;
-using Global.Services.Scenes.ScenesFlow.Logs;
+using Global.Scenes.ScenesFlow.Logs;
 using UnityEditor;
 
-namespace Global.Services.Scenes.ScenesFlow.Editor
+namespace Global.Scenes.ScenesFlow.Editor
 {
     [ReadOnlyDictionaryPriority]
     [CustomPropertyDrawer(typeof(ScenesFlowLogs))]

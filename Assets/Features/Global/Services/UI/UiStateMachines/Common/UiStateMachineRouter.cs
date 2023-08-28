@@ -1,6 +1,6 @@
 ﻿using Global.Common;
 
-namespace Global.Services.UI.UiStateMachines.Common
+namespace Global.UI.UiStateMachines.Common
 {
     public static class UiStateMachineRouter
     {

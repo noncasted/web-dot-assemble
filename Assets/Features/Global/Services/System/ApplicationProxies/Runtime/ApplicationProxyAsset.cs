@@ -1,11 +1,11 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Global.Services.Setup.Service;
-using Global.Services.System.ApplicationProxies.Common;
-using Global.Services.System.ApplicationProxies.Logs;
+using Global.Setup.Service;
+using Global.System.ApplicationProxies.Common;
+using Global.System.ApplicationProxies.Logs;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Global.Services.System.ApplicationProxies.Runtime
+namespace Global.System.ApplicationProxies.Runtime
 {
     [InlineEditor]
     [CreateAssetMenu(fileName = ApplicationProxyRoutes.ServiceName,

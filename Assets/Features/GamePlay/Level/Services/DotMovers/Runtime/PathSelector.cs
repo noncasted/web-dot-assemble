@@ -4,8 +4,8 @@ using GamePlay.Level.Cells.Runtime;
 using GamePlay.Level.Dots.Runtime;
 using GamePlay.Level.Fields.Runtime;
 using GamePlay.Level.Services.DotMovers.Pathfinding;
-using Global.Services.Inputs.View.Runtime.Mouses;
-using Global.Services.System.Updaters.Runtime.Abstract;
+using Global.Inputs.View.Runtime.Mouses;
+using Global.System.Updaters.Runtime.Abstract;
 using UnityEngine;
 
 namespace GamePlay.Level.Services.DotMovers.Runtime

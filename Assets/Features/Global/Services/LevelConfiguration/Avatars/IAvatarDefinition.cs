@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Global.Services.LevelConfiguration.Avatars
+namespace Global.LevelConfiguration.Avatars
 {
     public interface IAvatarDefinition
     {

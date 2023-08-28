@@ -1,5 +1,5 @@
 ﻿using Common.Architecture.ObjectsPools.Common;
-using Global.Services.System.Loggers.Runtime;
+using Global.System.Loggers.Runtime;
 using UnityEngine;
 
 namespace Common.Architecture.ObjectsPools.Logs

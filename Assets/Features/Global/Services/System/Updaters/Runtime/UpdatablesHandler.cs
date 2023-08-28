@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Global.Services.System.Updaters.Runtime
+namespace Global.System.Updaters.Runtime
 {
     public class UpdatablesHandler<T>
     {

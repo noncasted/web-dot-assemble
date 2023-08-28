@@ -3,6 +3,8 @@
     public enum TabTransitionType
     {
         RightToLeft,
-        LeftToRight
+        LeftToRight,
+        TopToBottom,
+        BottomToTop,
     }
 }

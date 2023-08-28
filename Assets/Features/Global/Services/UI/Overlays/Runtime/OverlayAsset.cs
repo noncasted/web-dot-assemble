@@ -1,13 +1,13 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
 using Cysharp.Threading.Tasks;
-using Global.Services.Setup.Service;
-using Global.Services.Setup.Service.Scenes;
-using Global.Services.UI.Overlays.Common;
+using Global.Setup.Service;
+using Global.Setup.Service.Scenes;
+using Global.UI.Overlays.Common;
 using NaughtyAttributes;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Global.Services.UI.Overlays.Runtime
+namespace Global.UI.Overlays.Runtime
 {
     [InlineEditor]
     [CreateAssetMenu(fileName = OverlayRouter.ServiceName,

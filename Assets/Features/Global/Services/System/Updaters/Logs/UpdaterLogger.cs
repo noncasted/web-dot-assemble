@@ -1,6 +1,6 @@
-﻿using Global.Services.System.Loggers.Runtime;
+﻿using Global.System.Loggers.Runtime;
 
-namespace Global.Services.System.Updaters.Logs
+namespace Global.System.Updaters.Logs
 {
     public class UpdaterLogger
     {

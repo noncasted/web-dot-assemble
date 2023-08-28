@@ -1,11 +1,11 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Global.Services.Cameras.CurrentCameras.Common;
-using Global.Services.Cameras.CurrentCameras.Logs;
-using Global.Services.Setup.Service;
+using Global.Cameras.CurrentCameras.Common;
+using Global.Cameras.CurrentCameras.Logs;
+using Global.Setup.Service;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Global.Services.Cameras.CurrentCameras.Runtime
+namespace Global.Cameras.CurrentCameras.Runtime
 {
     [InlineEditor]
     [CreateAssetMenu(fileName = CurrentCameraRoutes.ServiceName,

@@ -1,4 +1,4 @@
-﻿namespace Global.Services.Publisher.Abstract.DataStorages
+﻿namespace Global.Publisher.Abstract.DataStorages
 {
     public interface IDataStorage
     {

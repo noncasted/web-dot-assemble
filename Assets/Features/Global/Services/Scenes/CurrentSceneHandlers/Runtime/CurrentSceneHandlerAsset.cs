@@ -1,11 +1,11 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Global.Services.Scenes.CurrentSceneHandlers.Common;
-using Global.Services.Scenes.CurrentSceneHandlers.Logs;
-using Global.Services.Setup.Service;
+using Global.Scenes.CurrentSceneHandlers.Common;
+using Global.Scenes.CurrentSceneHandlers.Logs;
+using Global.Setup.Service;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Global.Services.Scenes.CurrentSceneHandlers.Runtime
+namespace Global.Scenes.CurrentSceneHandlers.Runtime
 {
     [InlineEditor]
     [CreateAssetMenu(fileName = CurrentSceneHandlerRoutes.ServiceName,

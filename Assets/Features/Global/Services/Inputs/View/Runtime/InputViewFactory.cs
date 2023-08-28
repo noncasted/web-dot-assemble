@@ -1,17 +1,17 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Global.Services.Inputs.Common;
-using Global.Services.Inputs.Constranits.Storage;
-using Global.Services.Inputs.View.Logs;
-using Global.Services.Inputs.View.Runtime.Actions;
-using Global.Services.Inputs.View.Runtime.Conversion;
-using Global.Services.Inputs.View.Runtime.Listeners;
-using Global.Services.Inputs.View.Runtime.Mouses;
-using Global.Services.Inputs.View.Runtime.Projection;
-using Global.Services.Setup.Service;
+using Global.Inputs.Common;
+using Global.Inputs.Constranits.Storage;
+using Global.Inputs.View.Logs;
+using Global.Inputs.View.Runtime.Actions;
+using Global.Inputs.View.Runtime.Conversion;
+using Global.Inputs.View.Runtime.Listeners;
+using Global.Inputs.View.Runtime.Mouses;
+using Global.Inputs.View.Runtime.Projection;
+using Global.Setup.Service;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Global.Services.Inputs.View.Runtime
+namespace Global.Inputs.View.Runtime
 {
     [InlineEditor]
     [CreateAssetMenu(fileName = InputRouter.ServiceName,

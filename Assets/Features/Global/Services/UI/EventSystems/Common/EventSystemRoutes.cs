@@ -1,6 +1,6 @@
 ﻿using Global.Common;
 
-namespace Global.Services.UI.EventSystems.Common
+namespace Global.UI.EventSystems.Common
 {
     public class EventSystemRoutes
     {

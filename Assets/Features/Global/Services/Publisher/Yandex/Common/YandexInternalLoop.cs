@@ -1,7 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
-using Global.Services.Setup.Service.Callbacks;
+using Global.Setup.Service.Callbacks;
 
-namespace Global.Services.Publisher.Yandex.Common
+namespace Global.Publisher.Yandex.Common
 {
     public class YandexInternalLoop : IGlobalInternalCallbackLoop
     {

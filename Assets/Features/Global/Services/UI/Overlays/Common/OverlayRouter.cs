@@ -1,6 +1,6 @@
 ﻿using Global.Common;
 
-namespace Global.Services.UI.Overlays.Common
+namespace Global.UI.Overlays.Common
 {
     public static class OverlayRouter
     {

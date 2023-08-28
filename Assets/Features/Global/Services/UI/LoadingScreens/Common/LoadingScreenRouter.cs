@@ -1,6 +1,6 @@
 ﻿using Global.Common;
 
-namespace Global.Services.UI.LoadingScreens.Common
+namespace Global.UI.LoadingScreens.Common
 {
     public static class LoadingScreenRouter
     {

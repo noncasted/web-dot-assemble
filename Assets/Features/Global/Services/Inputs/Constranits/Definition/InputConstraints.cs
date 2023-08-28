@@ -1,4 +1,4 @@
-﻿namespace Global.Services.Inputs.Constranits.Definition
+﻿namespace Global.Inputs.Constranits.Definition
 {
     public enum InputConstraints
     {

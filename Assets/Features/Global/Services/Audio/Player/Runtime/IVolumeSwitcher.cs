@@ -1,4 +1,4 @@
-﻿namespace Global.Services.Audio.Player.Runtime
+﻿namespace Global.Audio.Player.Runtime
 {
     public interface IVolumeSwitcher
     {

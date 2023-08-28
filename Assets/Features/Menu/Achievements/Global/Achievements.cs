@@ -1,26 +1,29 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Global.Services.Publisher.Abstract.DataStorages;
-using Global.Services.Setup.Service.Callbacks;
+using Global.Publisher.Abstract.DataStorages;
+using Global.Setup.Service.Callbacks;
 using Menu.Achievements.Definitions;
 
 namespace Menu.Achievements.Global
 {
     public class Achievements : IAchievements, IGlobalBootstrapListener
-    {   
-        public Achievements(IDataStorage storage, IAchievementFactory factory, IAchievementsConfigsRegistry configsRegistry)
+    {
+        public Achievements(
+            IDataStorage storage,
+            IAchievementFactory factory,
+            IAchievementsConfigsRegistry configsRegistry)
         {
             _storage = storage;
             _factory = factory;
             _configsRegistry = configsRegistry;
         }
-        
+
         private readonly IDataStorage _storage;
         private readonly IAchievementFactory _factory;
         private readonly IAchievementsConfigsRegistry _configsRegistry;
-        
+
         private readonly Dictionary<AchievementType, IAchievement> _achievements = new();
-        
+
         public void OnBootstrapped()
         {
             var saves = _storage.GetEntry<AchievementsSave>(AchievementsSave.Key);
@@ -41,11 +44,11 @@ namespace Menu.Achievements.Global
         public IReadOnlyList<IAchievement> GetProgressed()
         {
             var progressed = new List<IAchievement>();
-            
+
             foreach (var (_, value) in _achievements)
             {
                 var progress = value.Progress;
-                
+
                 if (progress.Value <= progress.PreviousFetch)
                     continue;
 
@@ -59,6 +62,11 @@ namespace Menu.Achievements.Global
         {
             foreach (var (_, value) in _achievements)
                 value.Progress.Fetch();
+        }
+
+        public IAchievement Get(AchievementType type)
+        {
+            return _achievements[type];
         }
     }
 }

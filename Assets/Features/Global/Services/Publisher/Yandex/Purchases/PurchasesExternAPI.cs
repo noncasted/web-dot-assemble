@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace Global.Services.Publisher.Yandex.Purchases
+namespace Global.Publisher.Yandex.Purchases
 {
     public class PurchasesExternAPI : IPurchasesAPI
     {

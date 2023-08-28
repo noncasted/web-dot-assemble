@@ -1,5 +1,5 @@
-﻿using Global.Services.Audio.Player.Runtime;
-using Global.Services.System.MessageBrokers.Runtime;
+﻿using Global.Audio.Player.Runtime;
+using Global.System.MessageBrokers.Runtime;
 using UnityEngine;
 using UnityEngine.UI;
 

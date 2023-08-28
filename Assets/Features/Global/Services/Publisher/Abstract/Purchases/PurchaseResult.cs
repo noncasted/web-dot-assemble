@@ -1,4 +1,4 @@
-﻿namespace Global.Services.Publisher.Abstract.Purchases
+﻿namespace Global.Publisher.Abstract.Purchases
 {
     public enum PurchaseResult
     {

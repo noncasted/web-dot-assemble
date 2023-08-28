@@ -1,6 +1,6 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Global.Services.LevelConfiguration.Avatars;
-using Global.Services.Setup.Service;
+using Global.LevelConfiguration.Avatars;
+using Global.Setup.Service;
 using Menu.Collections.Common;
 using Sirenix.OdinInspector;
 using UnityEngine;

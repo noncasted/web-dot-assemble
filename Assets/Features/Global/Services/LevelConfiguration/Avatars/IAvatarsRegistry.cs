@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Global.Services.LevelConfiguration.Avatars
+namespace Global.LevelConfiguration.Avatars
 {
     public interface IAvatarsRegistry
     {

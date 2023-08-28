@@ -1,6 +1,6 @@
 ﻿using Global.Common;
 
-namespace Global.Services.Publisher.Common
+namespace Global.Publisher.Common
 {
     public static class PublisherRoutes
     {

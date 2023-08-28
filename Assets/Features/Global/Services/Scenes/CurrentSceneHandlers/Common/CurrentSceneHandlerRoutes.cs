@@ -1,6 +1,6 @@
 ﻿using Global.Common;
 
-namespace Global.Services.Scenes.CurrentSceneHandlers.Common
+namespace Global.Scenes.CurrentSceneHandlers.Common
 {
     public static class CurrentSceneHandlerRoutes
     {

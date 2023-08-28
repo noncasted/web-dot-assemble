@@ -1,6 +1,6 @@
 ﻿using Global.Common;
 
-namespace Global.Services.System.DestroyHandlers.Common
+namespace Global.System.DestroyHandlers.Common
 {
     public class DestroyHandlerRoutes
     {

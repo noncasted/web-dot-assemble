@@ -1,8 +1,8 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using Global.Bootstrappers;
-using Global.Services.Setup.Service;
-using Global.Services.Setup.Service.Callbacks;
+using Global.Setup.Service;
+using Global.Setup.Service.Callbacks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using VContainer;

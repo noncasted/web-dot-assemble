@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Global.Services.UI.UiStateMachines.Runtime
+namespace Global.UI.UiStateMachines.Runtime
 {
     public class StateHandle
     {

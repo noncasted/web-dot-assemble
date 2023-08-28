@@ -1,9 +1,9 @@
 ﻿using Cysharp.Threading.Tasks;
-using Global.Services.Publisher.Abstract.Purchases;
-using Global.Services.Publisher.Yandex.Common;
+using Global.Publisher.Abstract.Purchases;
+using Global.Publisher.Yandex.Common;
 using UnityEngine;
 
-namespace Global.Services.Publisher.Yandex.Purchases
+namespace Global.Publisher.Yandex.Purchases
 {
     public class PurchaseProcessor : IPurchaseProcessor
     {

@@ -1,5 +1,5 @@
 ﻿using Global.GameLoops.Common;
-using Global.Services.System.Loggers.Runtime;
+using Global.System.Loggers.Runtime;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

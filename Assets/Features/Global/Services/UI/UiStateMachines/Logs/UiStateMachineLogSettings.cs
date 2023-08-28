@@ -1,9 +1,9 @@
-﻿using Global.Services.System.Loggers.Runtime;
-using Global.Services.UI.UiStateMachines.Common;
+﻿using Global.System.Loggers.Runtime;
+using Global.UI.UiStateMachines.Common;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Global.Services.UI.UiStateMachines.Logs
+namespace Global.UI.UiStateMachines.Logs
 {
     [InlineEditor(InlineEditorObjectFieldModes.Boxed)]
     [CreateAssetMenu(fileName = UiStateMachineRouter.LogsName,

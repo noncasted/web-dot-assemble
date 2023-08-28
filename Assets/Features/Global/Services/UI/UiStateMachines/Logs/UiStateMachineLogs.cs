@@ -1,6 +1,6 @@
 ﻿using Common.Serialization.ReadOnlyDictionaries.Runtime;
 
-namespace Global.Services.UI.UiStateMachines.Logs
+namespace Global.UI.UiStateMachines.Logs
 {
 
     public class UiStateMachineLogs : ReadOnlyDictionary<UiStateMachineLogType, bool>

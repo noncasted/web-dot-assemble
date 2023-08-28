@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Global.Services.UI.Overlays.Runtime
+namespace Global.UI.Overlays.Runtime
 {
     [DisallowMultipleComponent]
     public class OverlayBootstrapper : MonoBehaviour

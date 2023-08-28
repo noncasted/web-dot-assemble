@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Global.Services.Inputs.View.Runtime.Projection
+namespace Global.Inputs.View.Runtime.Projection
 {
     public interface IInputProjection
     {

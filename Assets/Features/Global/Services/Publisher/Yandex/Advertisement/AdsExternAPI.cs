@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace Global.Services.Publisher.Yandex.Advertisement
+namespace Global.Publisher.Yandex.Advertisement
 {
     public class AdsExternAPI : IAdsAPI
     {

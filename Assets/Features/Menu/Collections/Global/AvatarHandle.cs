@@ -1,4 +1,4 @@
-﻿using Global.Services.LevelConfiguration.Avatars;
+﻿using Global.LevelConfiguration.Avatars;
 
 namespace Menu.Collections.Global
 {

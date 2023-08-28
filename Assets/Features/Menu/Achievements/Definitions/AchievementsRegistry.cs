@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Common.Serialization.ScriptableRegistries;
 using Menu.Achievements.Common;
-using Menu.Achievements.Global;
 using UnityEngine;
 
 namespace Menu.Achievements.Definitions

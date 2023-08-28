@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Global.Services.Inputs.View.Runtime.Actions
+namespace Global.Inputs.View.Runtime.Actions
 {
     public interface IInputActions
     {

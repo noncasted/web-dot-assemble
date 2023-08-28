@@ -1,6 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 
-namespace Global.Services.Setup.Service.Callbacks
+namespace Global.Setup.Service.Callbacks
 {
     public interface IGlobalAsyncAwakeListener
     {

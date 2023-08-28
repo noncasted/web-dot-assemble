@@ -1,5 +1,5 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Global.Services.Setup.Service;
+using Global.Setup.Service;
 using Menu.Shop.Common;
 using Sirenix.OdinInspector;
 using UnityEngine;

@@ -1,10 +1,10 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Global.Services.LevelConfiguration.Common;
-using Global.Services.Setup.Service;
+using Global.LevelConfiguration.Common;
+using Global.Setup.Service;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Global.Services.LevelConfiguration.Runtime
+namespace Global.LevelConfiguration.Runtime
 {
     [InlineEditor]
     [CreateAssetMenu(fileName = LevelConfigurationRoutes.ServiceName,

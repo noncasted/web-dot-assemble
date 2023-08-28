@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Global.Services.Publisher.Abstract.Leaderboards;
+using Global.Publisher.Abstract.Leaderboards;
 
 namespace Menu.Leaderboards.Global
 {

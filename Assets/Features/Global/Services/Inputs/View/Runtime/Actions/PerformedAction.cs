@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine.EventSystems;
 
-namespace Global.Services.Inputs.View.Runtime.Actions
+namespace Global.Inputs.View.Runtime.Actions
 {
     public readonly struct PerformedAction
     {

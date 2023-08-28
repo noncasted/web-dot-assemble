@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 
-namespace Global.Bootstrappers
+namespace Global.Setup.Service
 {
     public interface IAsyncCallbackHandler
     {

@@ -1,8 +1,8 @@
-﻿using Global.Services.Inputs.Common;
-using Global.Services.System.Loggers.Runtime;
+﻿using Global.Inputs.Common;
+using Global.System.Loggers.Runtime;
 using UnityEngine;
 
-namespace Global.Services.Inputs.View.Logs
+namespace Global.Inputs.View.Logs
 {
     [CreateAssetMenu(fileName = InputRouter.LogsName,
         menuName = InputRouter.LogsPath)]

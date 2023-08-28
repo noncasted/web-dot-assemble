@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Global.Services.Inputs.View.Runtime
+namespace Global.Inputs.View.Runtime
 {
     public readonly struct LineResult
     {

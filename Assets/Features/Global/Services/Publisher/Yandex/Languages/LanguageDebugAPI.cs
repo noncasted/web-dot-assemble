@@ -1,4 +1,4 @@
-﻿namespace Global.Services.Publisher.Yandex.Languages
+﻿namespace Global.Publisher.Yandex.Languages
 {
     public class LanguageDebugAPI : ILanguageAPI
     {

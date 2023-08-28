@@ -1,4 +1,4 @@
-﻿namespace Global.Services.Publisher.Yandex.Leaderboard
+﻿namespace Global.Publisher.Yandex.Leaderboard
 {
     public interface ILeaderboardsAPI
     {

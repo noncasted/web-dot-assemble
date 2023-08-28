@@ -1,7 +1,7 @@
-﻿using Global.Services.Scenes.ScenesFlow.Handling.Result;
+﻿using Global.Scenes.ScenesFlow.Handling.Result;
 using UnityEngine.SceneManagement;
 
-namespace Global.Services.Scenes.ScenesFlow.Handling.Data
+namespace Global.Scenes.ScenesFlow.Handling.Data
 {
     public abstract class SceneLoadData<T> where T : SceneLoadResult
     {

@@ -1023,7 +1023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cellsRoot: {fileID: 684491743}
-  _moveRect: {fileID: 0}
+  _moveRect: {fileID: 684491743}
 --- !u!1001 &771299145
 PrefabInstance:
   m_ObjectHideFlags: 0

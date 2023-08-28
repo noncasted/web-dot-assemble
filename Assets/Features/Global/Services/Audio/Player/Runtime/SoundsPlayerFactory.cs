@@ -1,10 +1,10 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Global.Services.Audio.Player.Common;
-using Global.Services.Setup.Service;
+using Global.Audio.Player.Common;
+using Global.Setup.Service;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Global.Services.Audio.Player.Runtime
+namespace Global.Audio.Player.Runtime
 {
     [InlineEditor]
     [CreateAssetMenu(fileName = AudioRoutes.ServiceName,

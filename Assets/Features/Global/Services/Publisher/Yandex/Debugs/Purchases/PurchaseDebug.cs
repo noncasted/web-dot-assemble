@@ -1,9 +1,9 @@
-﻿using Global.Services.Publisher.Yandex.Common;
+﻿using Global.Publisher.Yandex.Common;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Global.Services.Publisher.Yandex.Debugs.Purchases
+namespace Global.Publisher.Yandex.Debugs.Purchases
 {
     [DisallowMultipleComponent]
     public class PurchaseDebug : MonoBehaviour, IPurchaseDebug

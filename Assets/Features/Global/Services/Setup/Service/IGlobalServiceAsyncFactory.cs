@@ -1,8 +1,8 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
 using Cysharp.Threading.Tasks;
-using Global.Services.Setup.Service.Scenes;
+using Global.Setup.Service.Scenes;
 
-namespace Global.Services.Setup.Service
+namespace Global.Setup.Service
 {
     public interface IGlobalServiceAsyncFactory
     {

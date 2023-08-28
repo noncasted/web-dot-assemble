@@ -1,5 +1,5 @@
-﻿using Global.Services.Setup.Service.Callbacks;
-using Global.Services.System.Updaters.Runtime.Abstract;
+﻿using Global.Setup.Service.Callbacks;
+using Global.System.Updaters.Runtime.Abstract;
 
 namespace Common.UniversalAnimators.Updaters.Runtime
 {

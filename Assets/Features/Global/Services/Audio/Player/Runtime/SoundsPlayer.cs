@@ -1,7 +1,7 @@
-﻿using Global.Services.Setup.Service.Callbacks;
+﻿using Global.Setup.Service.Callbacks;
 using UnityEngine;
 
-namespace Global.Services.Audio.Player.Runtime
+namespace Global.Audio.Player.Runtime
 {
     [DisallowMultipleComponent]
     public class SoundsPlayer : MonoBehaviour, IGlobalAwakeListener, IVolumeSwitcher

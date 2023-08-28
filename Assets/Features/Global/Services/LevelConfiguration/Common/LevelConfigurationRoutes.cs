@@ -1,6 +1,6 @@
 ﻿using Global.Common;
 
-namespace Global.Services.LevelConfiguration.Common
+namespace Global.LevelConfiguration.Common
 {
     public class LevelConfigurationRoutes
     {

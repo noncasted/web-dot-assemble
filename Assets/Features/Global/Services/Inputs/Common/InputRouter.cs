@@ -1,6 +1,6 @@
 ﻿using Global.Common;
 
-namespace Global.Services.Inputs.Common
+namespace Global.Inputs.Common
 {
     public static class InputRouter
     {

@@ -1,6 +1,6 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
 
-namespace Global.Services.Setup.Service
+namespace Global.Setup.Service
 {
     public interface IGlobalServiceFactory
     {

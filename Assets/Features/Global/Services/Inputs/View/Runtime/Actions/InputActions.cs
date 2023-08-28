@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Global.Services.System.Updaters.Runtime.Abstract;
+using Global.System.Updaters.Runtime.Abstract;
 
-namespace Global.Services.Inputs.View.Runtime.Actions
+namespace Global.Inputs.View.Runtime.Actions
 {
     public class InputActions : IInputActions, IUpdatable
     {

@@ -1,8 +1,8 @@
 ﻿using Common.Serialization.ReadOnlyDictionaries.Editor;
-using Global.Services.System.Updaters.Logs;
+using Global.System.Updaters.Logs;
 using UnityEditor;
 
-namespace Global.Services.System.Updaters.Editor
+namespace Global.System.Updaters.Editor
 {
     [ReadOnlyDictionaryPriority]
     [CustomPropertyDrawer(typeof(UpdaterLogs))]

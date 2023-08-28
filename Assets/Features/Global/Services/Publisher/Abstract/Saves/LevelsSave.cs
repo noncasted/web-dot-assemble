@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Global.Services.Publisher.Yandex.DataStorages;
+using Global.Publisher.Yandex.DataStorages;
 using UnityEngine;
 
-namespace Global.Services.Publisher.Abstract.Saves
+namespace Global.Publisher.Abstract.Saves
 {
     [Serializable]
     public class LevelsSave : IStorageEntry

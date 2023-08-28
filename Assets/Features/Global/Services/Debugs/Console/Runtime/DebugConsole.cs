@@ -1,10 +1,10 @@
-﻿using Global.Services.Inputs.View.Runtime;
-using Global.Services.Setup.Service.Callbacks;
+﻿using Global.Inputs.View.Runtime;
+using Global.Setup.Service.Callbacks;
 using IngameDebugConsole;
 using UnityEngine;
 using VContainer;
 
-namespace Global.Services.Debugs.Console.Runtime
+namespace Global.Debugs.Console.Runtime
 {
     [DisallowMultipleComponent]
     public class DebugConsole : MonoBehaviour, IGlobalAwakeListener

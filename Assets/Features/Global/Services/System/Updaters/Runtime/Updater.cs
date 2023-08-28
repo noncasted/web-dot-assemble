@@ -1,10 +1,10 @@
-﻿using Global.Services.Setup.Service.Callbacks;
-using Global.Services.System.Updaters.Logs;
-using Global.Services.System.Updaters.Runtime.Abstract;
+﻿using Global.Setup.Service.Callbacks;
+using Global.System.Updaters.Logs;
+using Global.System.Updaters.Runtime.Abstract;
 using UnityEngine;
 using VContainer;
 
-namespace Global.Services.System.Updaters.Runtime
+namespace Global.System.Updaters.Runtime
 {
     public class Updater : MonoBehaviour, IUpdater, IUpdateSpeedModifier, IUpdateSpeedSetter, IGlobalBootstrapListener
     {

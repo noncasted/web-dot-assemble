@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace Global.Services.Publisher.Yandex.Review
+namespace Global.Publisher.Yandex.Review
 {
     public class ReviewsExternAPI : IReviewsAPI
     {

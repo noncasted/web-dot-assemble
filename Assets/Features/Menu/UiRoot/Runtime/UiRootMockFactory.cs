@@ -1,7 +1,7 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
 using Common.Architecture.Local.Services.Abstract;
 using Cysharp.Threading.Tasks;
-using Global.Services.Scenes.ScenesFlow.Runtime.Abstract;
+using Global.Scenes.ScenesFlow.Runtime.Abstract;
 using Menu.Common.Navigation;
 using Menu.UiRoot.Common;
 using NaughtyAttributes;

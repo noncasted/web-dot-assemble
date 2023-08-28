@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace Global.Services.Publisher.Yandex.Languages
+namespace Global.Publisher.Yandex.Languages
 {
     public class LanguageExternAPI : ILanguageAPI
     {

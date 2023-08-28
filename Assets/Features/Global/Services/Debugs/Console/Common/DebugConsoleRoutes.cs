@@ -1,6 +1,6 @@
 ﻿using Global.Common;
 
-namespace Global.Services.Debugs.Console.Common
+namespace Global.Debugs.Console.Common
 {
     public static class DebugConsoleRoutes
     {

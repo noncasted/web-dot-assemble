@@ -1,5 +1,5 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Global.Services.Setup.Service;
+using Global.Setup.Service;
 using Menu.Achievements.Common;
 using Menu.Achievements.Definitions;
 using Sirenix.OdinInspector;
@@ -12,6 +12,7 @@ namespace Menu.Achievements.Global
         menuName = AchievementsRoutes.ServicePath)]
     public class AchievementsServiceFactory : ScriptableObject, IGlobalServiceFactory
     {
+        [SerializeField] private AchievementsDebug _debug;
         [SerializeField] private AchievementsRegistry _registry;
         
         public void Create(
@@ -20,6 +21,8 @@ namespace Menu.Achievements.Global
             IGlobalCallbacks callbacks)
         {
             var factory = new AchievementFactory();
+            
+            builder.Inject(_debug);
             
             builder.Register<Achievements>()
                 .WithParameter<IAchievementsConfigsRegistry>(_registry)

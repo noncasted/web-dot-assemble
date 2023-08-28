@@ -66,7 +66,7 @@ namespace Common.Architecture.DiContainer.Runtime
             return registration;
         }
 
-        public void Inject<T>(T component) where T : MonoBehaviour
+        public void Inject<T>(T component) where T : Object
         {
             var injection = new Injection(component);
 

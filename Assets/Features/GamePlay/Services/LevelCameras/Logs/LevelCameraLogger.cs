@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using ILogger = Global.Services.System.Loggers.Runtime.ILogger;
+using ILogger = Global.System.Loggers.Runtime.ILogger;
 
 namespace GamePlay.Services.LevelCameras.Logs
 {

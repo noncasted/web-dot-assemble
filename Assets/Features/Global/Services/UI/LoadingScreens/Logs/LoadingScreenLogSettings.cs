@@ -1,9 +1,9 @@
-﻿using Global.Services.System.Loggers.Runtime;
-using Global.Services.UI.LoadingScreens.Common;
+﻿using Global.System.Loggers.Runtime;
+using Global.UI.LoadingScreens.Common;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Global.Services.UI.LoadingScreens.Logs
+namespace Global.UI.LoadingScreens.Logs
 {
     [InlineEditor(InlineEditorObjectFieldModes.Boxed)]
     [CreateAssetMenu(fileName = LoadingScreenRouter.LogsName,

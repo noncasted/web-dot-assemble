@@ -1,11 +1,11 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Global.Services.Setup.Service;
-using Global.Services.UI.UiStateMachines.Common;
-using Global.Services.UI.UiStateMachines.Logs;
+using Global.Setup.Service;
+using Global.UI.UiStateMachines.Common;
+using Global.UI.UiStateMachines.Logs;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Global.Services.UI.UiStateMachines.Runtime
+namespace Global.UI.UiStateMachines.Runtime
 {
     [InlineEditor]
     [CreateAssetMenu(fileName = UiStateMachineRouter.ServiceName,

@@ -1,10 +1,10 @@
 ﻿using Common.Architecture.Local.ComposedSceneConfig;
 using Cysharp.Threading.Tasks;
-using Global.Services.Scenes.CurrentSceneHandlers.Logs;
-using Global.Services.Scenes.ScenesFlow.Runtime.Abstract;
-using Global.Services.System.ResourcesCleaners.Runtime;
+using Global.Scenes.CurrentSceneHandlers.Logs;
+using Global.Scenes.ScenesFlow.Runtime.Abstract;
+using Global.System.ResourcesCleaners.Runtime;
 
-namespace Global.Services.Scenes.CurrentSceneHandlers.Runtime
+namespace Global.Scenes.CurrentSceneHandlers.Runtime
 {
     public class CurrentSceneHandler : ICurrentSceneHandler
     {

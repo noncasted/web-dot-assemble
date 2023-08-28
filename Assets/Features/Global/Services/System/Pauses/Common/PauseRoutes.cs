@@ -1,6 +1,6 @@
 ﻿using Global.Common;
 
-namespace Global.Services.System.Pauses.Common
+namespace Global.System.Pauses.Common
 {
     public static class PauseRoutes
     {

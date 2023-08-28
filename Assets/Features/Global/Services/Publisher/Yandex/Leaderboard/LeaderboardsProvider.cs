@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Global.Services.Publisher.Abstract.Leaderboards;
-using Global.Services.Publisher.Yandex.Common;
+using Global.Publisher.Abstract.Leaderboards;
+using Global.Publisher.Yandex.Common;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace Global.Services.Publisher.Yandex.Leaderboard
+namespace Global.Publisher.Yandex.Leaderboard
 {
     public class LeaderboardsProvider : ILeaderboardsProvider
     {

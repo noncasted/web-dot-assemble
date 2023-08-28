@@ -1,4 +1,4 @@
-﻿namespace Global.Services.Publisher.Abstract.Authentication
+﻿namespace Global.Publisher.Abstract.Authentication
 {
     public interface IAuthentication
     {

@@ -1,7 +1,7 @@
 ﻿using Common.Architecture.Local.ComposedSceneConfig;
 using Cysharp.Threading.Tasks;
 
-namespace Global.Services.Scenes.CurrentSceneHandlers.Runtime
+namespace Global.Scenes.CurrentSceneHandlers.Runtime
 {
     public interface ICurrentSceneHandler
     {

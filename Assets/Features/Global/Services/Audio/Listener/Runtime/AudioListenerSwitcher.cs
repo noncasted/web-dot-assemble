@@ -1,7 +1,7 @@
-﻿using Global.Services.Setup.Service.Callbacks;
+﻿using Global.Setup.Service.Callbacks;
 using UnityEngine;
 
-namespace Global.Services.Audio.Listener.Runtime
+namespace Global.Audio.Listener.Runtime
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(AudioListenerSwitcher))]

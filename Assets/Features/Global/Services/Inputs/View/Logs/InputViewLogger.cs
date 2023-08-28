@@ -1,8 +1,8 @@
-﻿using Global.Services.Inputs.Constranits.Definition;
+﻿using Global.Inputs.Constranits.Definition;
 using UnityEngine;
-using ILogger = Global.Services.System.Loggers.Runtime.ILogger;
+using ILogger = Global.System.Loggers.Runtime.ILogger;
 
-namespace Global.Services.Inputs.View.Logs
+namespace Global.Inputs.View.Logs
 {
     public class InputViewLogger
     {

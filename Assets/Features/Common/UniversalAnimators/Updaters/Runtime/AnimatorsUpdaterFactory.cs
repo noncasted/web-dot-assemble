@@ -1,6 +1,6 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
 using Common.UniversalAnimators.Updaters.Common;
-using Global.Services.Setup.Service;
+using Global.Setup.Service;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

@@ -1,4 +1,4 @@
-﻿namespace Global.Services.Publisher.Yandex.Debugs.Reviews
+﻿namespace Global.Publisher.Yandex.Debugs.Reviews
 {
     public interface IReviewsDebug
     {

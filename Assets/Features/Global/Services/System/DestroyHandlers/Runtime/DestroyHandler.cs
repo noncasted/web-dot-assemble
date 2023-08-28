@@ -1,8 +1,8 @@
-﻿using Global.Services.Setup.Service;
+﻿using Global.Setup.Service;
 using UnityEngine;
 using VContainer;
 
-namespace Global.Services.System.DestroyHandlers.Runtime
+namespace Global.System.DestroyHandlers.Runtime
 {
     [DisallowMultipleComponent]
     public class DestroyHandler : MonoBehaviour

@@ -1,12 +1,12 @@
 ﻿using Common.Architecture.Local.ComposedSceneConfig;
 using Cysharp.Threading.Tasks;
 using GamePlay.Config.Runtime;
-using Global.Services.Cameras.CurrentCameras.Runtime;
-using Global.Services.Cameras.GlobalCameras.Runtime;
-using Global.Services.Scenes.CurrentSceneHandlers.Runtime;
-using Global.Services.Scenes.ScenesFlow.Runtime.Abstract;
-using Global.Services.Setup.Scope;
-using Global.Services.UI.LoadingScreens.Runtime;
+using Global.Cameras.CurrentCameras.Runtime;
+using Global.Cameras.GlobalCameras.Runtime;
+using Global.Scenes.CurrentSceneHandlers.Runtime;
+using Global.Scenes.ScenesFlow.Runtime.Abstract;
+using Global.Setup.Scope;
+using Global.UI.LoadingScreens.Runtime;
 
 namespace Global.GameLoops.Runtime
 {

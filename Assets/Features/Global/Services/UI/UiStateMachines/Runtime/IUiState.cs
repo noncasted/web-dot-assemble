@@ -1,4 +1,4 @@
-﻿namespace Global.Services.UI.UiStateMachines.Runtime
+﻿namespace Global.UI.UiStateMachines.Runtime
 {
     public interface IUiState
     {

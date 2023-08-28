@@ -1,4 +1,4 @@
-﻿namespace Global.Services.Publisher.Yandex.Advertisement
+﻿namespace Global.Publisher.Yandex.Advertisement
 {
     public interface IAdsAPI
     {

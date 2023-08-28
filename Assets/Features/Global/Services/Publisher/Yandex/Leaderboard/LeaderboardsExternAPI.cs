@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace Global.Services.Publisher.Yandex.Leaderboard
+namespace Global.Publisher.Yandex.Leaderboard
 {
     public class LeaderboardsExternAPI : ILeaderboardsAPI
     {

@@ -1,9 +1,9 @@
-﻿using Global.Services.Publisher.Yandex.Debugs.Ads;
-using Global.Services.Publisher.Yandex.Debugs.Purchases;
-using Global.Services.Publisher.Yandex.Debugs.Reviews;
+﻿using Global.Publisher.Yandex.Debugs.Ads;
+using Global.Publisher.Yandex.Debugs.Purchases;
+using Global.Publisher.Yandex.Debugs.Reviews;
 using UnityEngine;
 
-namespace Global.Services.Publisher.Yandex.Debugs
+namespace Global.Publisher.Yandex.Debugs
 {
     [DisallowMultipleComponent]
     public class YandexDebugCanvas : MonoBehaviour

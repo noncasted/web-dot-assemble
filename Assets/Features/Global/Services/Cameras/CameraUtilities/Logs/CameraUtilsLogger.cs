@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using ILogger = Global.Services.System.Loggers.Runtime.ILogger;
+using ILogger = Global.System.Loggers.Runtime.ILogger;
 
-namespace Global.Services.Cameras.CameraUtilities.Logs
+namespace Global.Cameras.CameraUtilities.Logs
 {
     public class CameraUtilsLogger
     {

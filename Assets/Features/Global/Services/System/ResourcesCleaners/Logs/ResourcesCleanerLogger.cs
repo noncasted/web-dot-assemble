@@ -1,6 +1,6 @@
-﻿using Global.Services.System.Loggers.Runtime;
+﻿using Global.System.Loggers.Runtime;
 
-namespace Global.Services.System.ResourcesCleaners.Logs
+namespace Global.System.ResourcesCleaners.Logs
 {
     public class ResourcesCleanerLogger
     {

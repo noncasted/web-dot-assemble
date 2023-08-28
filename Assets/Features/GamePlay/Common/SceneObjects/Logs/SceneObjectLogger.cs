@@ -1,4 +1,4 @@
-﻿using Global.Services.System.Loggers.Runtime;
+﻿using Global.System.Loggers.Runtime;
 
 namespace GamePlay.Common.SceneObjects.Logs
 {

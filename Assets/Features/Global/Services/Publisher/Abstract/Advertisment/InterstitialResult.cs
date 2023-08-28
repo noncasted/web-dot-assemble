@@ -1,4 +1,4 @@
-﻿namespace Global.Services.Publisher.Abstract.Advertisment
+﻿namespace Global.Publisher.Abstract.Advertisment
 {
     public enum InterstitialResult
     {

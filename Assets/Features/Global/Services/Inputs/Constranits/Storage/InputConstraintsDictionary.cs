@@ -1,8 +1,8 @@
 ﻿using System;
 using Common.Serialization.ReadOnlyDictionaries.Runtime;
-using Global.Services.Inputs.Constranits.Definition;
+using Global.Inputs.Constranits.Definition;
 
-namespace Global.Services.Inputs.Constranits.Storage
+namespace Global.Inputs.Constranits.Storage
 {
     [Serializable]
     public class InputConstraintsDictionary : ReadOnlyDictionary<InputConstraints, bool>

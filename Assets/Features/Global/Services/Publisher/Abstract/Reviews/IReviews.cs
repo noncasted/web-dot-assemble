@@ -1,6 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 
-namespace Global.Services.Publisher.Abstract.Reviews
+namespace Global.Publisher.Abstract.Reviews
 {
     public interface IReviews
     {

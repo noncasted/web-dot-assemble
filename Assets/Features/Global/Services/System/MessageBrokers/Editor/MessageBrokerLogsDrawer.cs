@@ -1,8 +1,8 @@
 ﻿using Common.Serialization.ReadOnlyDictionaries.Editor;
-using Global.Services.System.MessageBrokers.Logs;
+using Global.System.MessageBrokers.Logs;
 using UnityEditor;
 
-namespace Global.Services.System.MessageBrokers.Editor
+namespace Global.System.MessageBrokers.Editor
 {
     [ReadOnlyDictionaryPriority]
     [CustomPropertyDrawer(typeof(MessageBrokerLogs))]

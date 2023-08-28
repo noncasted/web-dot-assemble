@@ -1,8 +1,8 @@
-﻿using Global.Services.UI.LoadingScreens.Logs;
+﻿using Global.UI.LoadingScreens.Logs;
 using UnityEngine;
 using VContainer;
 
-namespace Global.Services.UI.LoadingScreens.Runtime
+namespace Global.UI.LoadingScreens.Runtime
 {
     [DisallowMultipleComponent]
     public class LoadingScreen : MonoBehaviour, ILoadingScreen

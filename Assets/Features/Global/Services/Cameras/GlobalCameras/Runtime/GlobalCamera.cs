@@ -1,9 +1,9 @@
-﻿using Global.Services.Cameras.GlobalCameras.Logs;
-using Global.Services.Setup.Service.Callbacks;
+﻿using Global.Cameras.GlobalCameras.Logs;
+using Global.Setup.Service.Callbacks;
 using UnityEngine;
 using VContainer;
 
-namespace Global.Services.Cameras.GlobalCameras.Runtime
+namespace Global.Cameras.GlobalCameras.Runtime
 {
     [DisallowMultipleComponent]
     public class GlobalCamera : MonoBehaviour, IGlobalCamera, IGlobalAwakeListener

@@ -3,7 +3,7 @@ using System.Threading;
 using Common.Architecture.Local.Services.Abstract.Callbacks;
 using Cysharp.Threading.Tasks;
 using GamePlay.Level.Services.Score.Runtime;
-using Global.Services.System.MessageBrokers.Runtime;
+using Global.System.MessageBrokers.Runtime;
 
 namespace GamePlay.UI.Runtime.Score
 {

@@ -8,5 +8,6 @@ namespace Menu.Achievements.Global
         IReadOnlyList<IAchievement> GetAll();
         IReadOnlyList<IAchievement> GetProgressed();
         void FetchAll();
+        IAchievement Get(AchievementType type);
     }
 }

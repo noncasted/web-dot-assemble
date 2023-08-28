@@ -1,6 +1,6 @@
-﻿using Global.Services.Publisher.Yandex.Debugs.Purchases;
+﻿using Global.Publisher.Yandex.Debugs.Purchases;
 
-namespace Global.Services.Publisher.Yandex.Purchases
+namespace Global.Publisher.Yandex.Purchases
 {
     public class PurchasesDebugAPI : IPurchasesAPI
     {

@@ -1,9 +1,9 @@
 ﻿using Cysharp.Threading.Tasks;
-using Global.Services.Publisher.Abstract.Reviews;
-using Global.Services.Publisher.Yandex.Common;
-using Global.Services.System.Pauses.Runtime;
+using Global.Publisher.Abstract.Reviews;
+using Global.Publisher.Yandex.Common;
+using Global.System.Pauses.Runtime;
 
-namespace Global.Services.Publisher.Yandex.Review
+namespace Global.Publisher.Yandex.Review
 {
     public class Reviews : IReviews
     {

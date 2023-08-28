@@ -1,10 +1,10 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
 using Cysharp.Threading.Tasks;
-using Global.Services.Setup.Service;
-using Global.Services.Setup.Service.Scenes;
+using Global.Setup.Service;
+using Global.Setup.Service.Scenes;
 using UnityEngine;
 
-namespace Global.Services.Publisher.Abstract.Bootstrap
+namespace Global.Publisher.Abstract.Bootstrap
 {
     public abstract class PublisherSdkAsset : ScriptableObject, IGlobalServiceAsyncFactory
     {

@@ -1,10 +1,10 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Global.Services.Setup.Service;
-using Global.Services.System.Loggers.Common;
+using Global.Setup.Service;
+using Global.System.Loggers.Common;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Global.Services.System.Loggers.Runtime
+namespace Global.System.Loggers.Runtime
 {
     [InlineEditor]
     [CreateAssetMenu(fileName = LoggerRoutes.ServiceName,

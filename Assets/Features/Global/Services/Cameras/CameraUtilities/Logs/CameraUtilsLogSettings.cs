@@ -1,9 +1,9 @@
-﻿using Global.Services.Cameras.CameraUtilities.Common;
-using Global.Services.System.Loggers.Runtime;
+﻿using Global.Cameras.CameraUtilities.Common;
+using Global.System.Loggers.Runtime;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Global.Services.Cameras.CameraUtilities.Logs
+namespace Global.Cameras.CameraUtilities.Logs
 {
     [InlineEditor(InlineEditorObjectFieldModes.Boxed)]
     [CreateAssetMenu(fileName = CameraUtilsRoutes.LogsName,

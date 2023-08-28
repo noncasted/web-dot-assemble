@@ -1,10 +1,10 @@
 ﻿using Common.Architecture.Mocks;
 using Cysharp.Threading.Tasks;
 using GamePlay.Config.Runtime;
-using Global.Services.LevelConfiguration.Avatars;
-using Global.Services.LevelConfiguration.Definition;
-using Global.Services.LevelConfiguration.Runtime;
-using Global.Services.Scenes.ScenesFlow.Runtime.Abstract;
+using Global.LevelConfiguration.Avatars;
+using Global.LevelConfiguration.Definition;
+using Global.LevelConfiguration.Runtime;
+using Global.Scenes.ScenesFlow.Runtime.Abstract;
 using UnityEngine;
 using VContainer;
 

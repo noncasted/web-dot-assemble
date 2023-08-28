@@ -1,4 +1,4 @@
-﻿using Global.Services.System.MessageBrokers.Runtime;
+﻿using Global.System.MessageBrokers.Runtime;
 
 namespace GamePlay.Level.Services.Score.Runtime
 {

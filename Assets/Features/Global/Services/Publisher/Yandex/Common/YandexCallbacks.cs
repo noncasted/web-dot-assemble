@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Global.Services.Publisher.Yandex.Common
+namespace Global.Publisher.Yandex.Common
 {
     public class YandexCallbacks : MonoBehaviour
     {

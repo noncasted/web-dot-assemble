@@ -1,6 +1,6 @@
-﻿using Global.Services.Publisher.Abstract.DataStorages;
+﻿using Global.Publisher.Abstract.DataStorages;
 
-namespace Global.Services.Publisher.Abstract.Saves
+namespace Global.Publisher.Abstract.Saves
 {
     public static class SavesExtensions
     {

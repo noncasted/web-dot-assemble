@@ -41,8 +41,8 @@ namespace Menu.Achievements.UI
         {
             _achievement = achievement;
             gameObject.SetActive(true);
-
             _icon.sprite = achievement.Data.Icon;
+            transform.localScale = Vector3.zero;
             
             await transform
                 .DOScale(Vector3.one, _config.ShowTime)

@@ -1,4 +1,4 @@
-﻿namespace Global.Services.System.MessageBrokers.Logs
+﻿namespace Global.System.MessageBrokers.Logs
 {
     public enum MessageBrokerLogType
     {

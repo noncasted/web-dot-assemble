@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Global.Services.Inputs.View.Runtime.Listeners
+namespace Global.Inputs.View.Runtime.Listeners
 {
     public class InputListenersHandler : IInputListenersHandler
     {

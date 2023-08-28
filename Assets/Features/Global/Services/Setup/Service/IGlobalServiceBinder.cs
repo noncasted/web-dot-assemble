@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Global.Services.Setup.Service
+namespace Global.Setup.Service
 {
     public interface IGlobalServiceBinder
     {

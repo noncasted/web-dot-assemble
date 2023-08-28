@@ -1,6 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 
-namespace Global.Services.Publisher.Abstract.Purchases
+namespace Global.Publisher.Abstract.Purchases
 {
     public interface IPurchaseProcessor
     {

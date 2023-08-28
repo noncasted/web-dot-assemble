@@ -1,9 +1,9 @@
 ﻿using Cysharp.Threading.Tasks;
 using Global.GameLoops.Runtime;
-using Global.Services.Setup.Abstract;
-using Global.Services.Setup.Scope;
-using Global.Services.Setup.Service;
-using Global.Services.Setup.Service.Callbacks;
+using Global.Setup.Abstract;
+using Global.Setup.Scope;
+using Global.Setup.Service;
+using Global.Setup.Service.Callbacks;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.SceneManagement;

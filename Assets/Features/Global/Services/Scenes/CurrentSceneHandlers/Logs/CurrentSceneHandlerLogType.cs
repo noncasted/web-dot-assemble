@@ -1,4 +1,4 @@
-﻿namespace Global.Services.Scenes.CurrentSceneHandlers.Logs
+﻿namespace Global.Scenes.CurrentSceneHandlers.Logs
 {
     public enum CurrentSceneHandlerLogType
     {

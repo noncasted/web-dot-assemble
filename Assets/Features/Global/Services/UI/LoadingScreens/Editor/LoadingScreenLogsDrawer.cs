@@ -1,8 +1,8 @@
 ﻿using Common.Serialization.ReadOnlyDictionaries.Editor;
-using Global.Services.UI.LoadingScreens.Logs;
+using Global.UI.LoadingScreens.Logs;
 using UnityEditor;
 
-namespace Global.Services.UI.LoadingScreens.Editor
+namespace Global.UI.LoadingScreens.Editor
 {
     [ReadOnlyDictionaryPriority]
     [CustomPropertyDrawer(typeof(LoadingScreenLogs))]

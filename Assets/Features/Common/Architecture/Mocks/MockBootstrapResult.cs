@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Common.Architecture.Local.ComposedSceneConfig;
-using Global.Services.Scenes.CurrentSceneHandlers.Runtime;
-using Global.Services.Scenes.ScenesFlow.Handling.Result;
+using Global.Scenes.CurrentSceneHandlers.Runtime;
+using Global.Scenes.ScenesFlow.Handling.Result;
 using UnityEngine.SceneManagement;
 using VContainer;
 using VContainer.Unity;

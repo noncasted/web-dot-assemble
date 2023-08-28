@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Common.Architecture.DiContainer.Abstract;
 using Cysharp.Threading.Tasks;
-using Global.Services.Setup.Service;
+using Global.Setup.Service;
 
 namespace Global.Bootstrappers
 {

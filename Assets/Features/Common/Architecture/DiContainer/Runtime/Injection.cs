@@ -6,12 +6,12 @@ namespace Common.Architecture.DiContainer.Runtime
 {
     public class Injection : IInjectionBuilder
     {
-        public Injection(MonoBehaviour target)
+        public Injection(Object target)
         {
             _target = target;
         }
 
-        private readonly MonoBehaviour _target;
+        private readonly Object _target;
 
         public void Inject(IObjectResolver resolver)
         {

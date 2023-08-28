@@ -1,33 +1,33 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
 using Cysharp.Threading.Tasks;
-using Global.Services.Publisher.Abstract.Advertisment;
-using Global.Services.Publisher.Abstract.Bootstrap;
-using Global.Services.Publisher.Abstract.DataStorages;
-using Global.Services.Publisher.Abstract.Languages;
-using Global.Services.Publisher.Abstract.Leaderboards;
-using Global.Services.Publisher.Abstract.Purchases;
-using Global.Services.Publisher.Abstract.Reviews;
-using Global.Services.Publisher.Abstract.Saves;
-using Global.Services.Publisher.Yandex.Advertisement;
-using Global.Services.Publisher.Yandex.Common;
-using Global.Services.Publisher.Yandex.DataStorages;
-using Global.Services.Publisher.Yandex.Debugs;
-using Global.Services.Publisher.Yandex.Debugs.Ads;
-using Global.Services.Publisher.Yandex.Debugs.Purchases;
-using Global.Services.Publisher.Yandex.Debugs.Reviews;
-using Global.Services.Publisher.Yandex.Languages;
-using Global.Services.Publisher.Yandex.Leaderboard;
-using Global.Services.Publisher.Yandex.Purchases;
-using Global.Services.Publisher.Yandex.Review;
-using Global.Services.Setup.Service;
-using Global.Services.Setup.Service.Scenes;
+using Global.Publisher.Abstract.Advertisment;
+using Global.Publisher.Abstract.Bootstrap;
+using Global.Publisher.Abstract.DataStorages;
+using Global.Publisher.Abstract.Languages;
+using Global.Publisher.Abstract.Leaderboards;
+using Global.Publisher.Abstract.Purchases;
+using Global.Publisher.Abstract.Reviews;
+using Global.Publisher.Abstract.Saves;
+using Global.Publisher.Yandex.Advertisement;
+using Global.Publisher.Yandex.Common;
+using Global.Publisher.Yandex.DataStorages;
+using Global.Publisher.Yandex.Debugs;
+using Global.Publisher.Yandex.Debugs.Ads;
+using Global.Publisher.Yandex.Debugs.Purchases;
+using Global.Publisher.Yandex.Debugs.Reviews;
+using Global.Publisher.Yandex.Languages;
+using Global.Publisher.Yandex.Leaderboard;
+using Global.Publisher.Yandex.Purchases;
+using Global.Publisher.Yandex.Review;
+using Global.Setup.Service;
+using Global.Setup.Service.Scenes;
 using Menu.Achievements.Global;
 using Menu.Collections.Global;
 using NaughtyAttributes;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Global.Services.Publisher.Yandex.Bootstrap
+namespace Global.Publisher.Yandex.Bootstrap
 {
     [InlineEditor]
     [CreateAssetMenu(fileName = YandexRoutes.ServiceName, menuName = YandexRoutes.ServicePath)]
@@ -67,8 +67,8 @@ namespace Global.Services.Publisher.Yandex.Bootstrap
                 .WithParameter(saves)
                 .AsCallbackListener();
 
-            builder.Register<LanguageProvider>()
-                .As<ILanguageProvider>();
+            builder.Register<SystemLanguageProvider>()
+                .As<ISystemLanguageProvider>();
 
             builder.Register<LeaderboardsProvider>()
                 .As<ILeaderboardsProvider>();

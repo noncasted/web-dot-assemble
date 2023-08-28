@@ -1,6 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 
-namespace Global.Services.Publisher.Abstract.Advertisment
+namespace Global.Publisher.Abstract.Advertisment
 {
     public interface IAds
     {

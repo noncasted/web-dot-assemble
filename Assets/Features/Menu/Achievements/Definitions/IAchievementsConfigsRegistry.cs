@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Menu.Achievements.Definitions;
 
-namespace Menu.Achievements.Global
+namespace Menu.Achievements.Definitions
 {
     public interface IAchievementsConfigsRegistry
     {

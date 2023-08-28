@@ -1,9 +1,9 @@
-﻿using Global.Services.System.ApplicationProxies.Common;
-using Global.Services.System.Loggers.Runtime;
+﻿using Global.System.ApplicationProxies.Common;
+using Global.System.Loggers.Runtime;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Global.Services.System.ApplicationProxies.Logs
+namespace Global.System.ApplicationProxies.Logs
 {
     [InlineEditor(InlineEditorObjectFieldModes.Boxed)]
     [CreateAssetMenu(fileName = ApplicationProxyRoutes.LogsName,

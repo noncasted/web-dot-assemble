@@ -18,5 +18,8 @@ namespace Menu.Achievements.Common
         
         public const string EntryViewConfigName = "EntryViewConfig";
         public const string EntryViewConfigPath = MenuAssetsPaths.Root + "Achievements/EntryViewConfig";
+        
+        public const string DebugName = "AchievementsDebug";
+        public const string DebugPath = MenuAssetsPaths.Root + "Achievements/Debug";
     }
 }

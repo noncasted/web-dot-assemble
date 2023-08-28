@@ -1,9 +1,9 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Global.Services.Setup.Service;
-using Global.Services.System.DestroyHandlers.Common;
+using Global.Setup.Service;
+using Global.System.DestroyHandlers.Common;
 using UnityEngine;
 
-namespace Global.Services.System.DestroyHandlers.Runtime
+namespace Global.System.DestroyHandlers.Runtime
 {
     [CreateAssetMenu(fileName = DestroyHandlerRoutes.ServiceName,
         menuName = DestroyHandlerRoutes.ServicePath)]

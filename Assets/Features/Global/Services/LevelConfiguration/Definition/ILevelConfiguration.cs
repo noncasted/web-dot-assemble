@@ -1,4 +1,4 @@
-﻿namespace Global.Services.LevelConfiguration.Definition
+﻿namespace Global.LevelConfiguration.Definition
 {
     public interface ILevelConfiguration
     {

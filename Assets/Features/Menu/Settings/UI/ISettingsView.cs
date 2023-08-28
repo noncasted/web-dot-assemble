@@ -1,4 +1,5 @@
-﻿using Menu.Common.Navigation;
+﻿using System;
+using Menu.Common.Navigation;
 using UnityEngine;
 
 namespace Menu.Settings.UI
@@ -7,5 +8,11 @@ namespace Menu.Settings.UI
     {
         ITabNavigation Navigation { get; }
         RectTransform Transform { get; }
+        
+        float MusicValue { get; }
+        float SoundValue { get; }
+
+        event Action LanguageClicked;
+        event Action SocialClicked;
     }
 }

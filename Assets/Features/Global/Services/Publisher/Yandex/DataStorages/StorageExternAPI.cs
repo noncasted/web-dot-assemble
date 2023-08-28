@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using UnityEngine;
 
-namespace Global.Services.Publisher.Yandex.DataStorages
+namespace Global.Publisher.Yandex.DataStorages
 {
     public class StorageExternAPI : IStorageAPI
     {

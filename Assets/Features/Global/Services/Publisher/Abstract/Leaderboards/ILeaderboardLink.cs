@@ -1,4 +1,4 @@
-﻿namespace Global.Services.Publisher.Abstract.Leaderboards
+﻿namespace Global.Publisher.Abstract.Leaderboards
 {
     public interface ILeaderboardLink
     {

@@ -1,8 +1,8 @@
 ﻿using Common.Serialization.ReadOnlyDictionaries.Editor;
-using Global.Services.Cameras.GlobalCameras.Logs;
+using Global.Cameras.GlobalCameras.Logs;
 using UnityEditor;
 
-namespace Global.Services.Cameras.GlobalCameras.Editor
+namespace Global.Cameras.GlobalCameras.Editor
 {
     [ReadOnlyDictionaryPriority]
     [CustomPropertyDrawer(typeof(GlobalCameraLogs))]

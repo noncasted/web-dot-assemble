@@ -2,8 +2,8 @@
 using Common.Architecture.Local.Services.Abstract;
 using Common.Architecture.Local.Services.Abstract.EventLoops;
 using Cysharp.Threading.Tasks;
-using Global.Services.Scenes.ScenesFlow.Handling.Data;
-using Global.Services.Scenes.ScenesFlow.Runtime.Abstract;
+using Global.Scenes.ScenesFlow.Handling.Data;
+using Global.Scenes.ScenesFlow.Runtime.Abstract;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;

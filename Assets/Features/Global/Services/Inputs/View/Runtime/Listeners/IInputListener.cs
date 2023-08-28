@@ -1,4 +1,4 @@
-﻿namespace Global.Services.Inputs.View.Runtime.Listeners
+﻿namespace Global.Inputs.View.Runtime.Listeners
 {
     public interface IInputListener
     {

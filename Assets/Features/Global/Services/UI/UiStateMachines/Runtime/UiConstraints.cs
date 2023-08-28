@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Global.Services.Inputs.Constranits.Definition;
-using Global.Services.Inputs.Constranits.Storage;
-using Global.Services.UI.UiStateMachines.Common;
+using Global.Inputs.Constranits.Definition;
+using Global.Inputs.Constranits.Storage;
+using Global.UI.UiStateMachines.Common;
 using UnityEngine;
 
-namespace Global.Services.UI.UiStateMachines.Runtime
+namespace Global.UI.UiStateMachines.Runtime
 {
     [CreateAssetMenu(fileName = UiStateMachineRouter.ConstraintsPrefix,
         menuName = UiStateMachineRouter.ConstraintsPath)]

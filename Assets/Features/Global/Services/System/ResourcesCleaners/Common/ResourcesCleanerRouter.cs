@@ -1,6 +1,6 @@
 ﻿using Global.Common;
 
-namespace Global.Services.System.ResourcesCleaners.Common
+namespace Global.System.ResourcesCleaners.Common
 {
     public class ResourcesCleanerRouter
     {

@@ -1,6 +1,6 @@
-﻿using Global.Services.LevelConfiguration.Avatars;
+﻿using Global.LevelConfiguration.Avatars;
 
-namespace Global.Services.LevelConfiguration.Definition
+namespace Global.LevelConfiguration.Definition
 {
     public interface ILevelSetupConfiguration
     {

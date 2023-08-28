@@ -1,6 +1,6 @@
 ﻿using Global.Common;
 
-namespace Global.Services.Cameras.CurrentCameras.Common
+namespace Global.Cameras.CurrentCameras.Common
 {
     public static class CurrentCameraRoutes
     {

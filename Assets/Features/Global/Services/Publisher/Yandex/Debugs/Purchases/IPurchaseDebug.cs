@@ -1,4 +1,4 @@
-﻿namespace Global.Services.Publisher.Yandex.Debugs.Purchases
+﻿namespace Global.Publisher.Yandex.Debugs.Purchases
 {
     public interface IPurchaseDebug
     {

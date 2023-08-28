@@ -1,13 +1,12 @@
 ﻿using System;
-using Global.Services.Inputs.View.Logs;
-using Global.Services.Inputs.View.Runtime.Actions;
-using Global.Services.Inputs.View.Runtime.Listeners;
-using Global.Services.Setup.Service.Callbacks;
-using Global.Services.System.Updaters.Runtime.Abstract;
-using UnityEngine;
+using Global.Inputs.View.Logs;
+using Global.Inputs.View.Runtime.Actions;
+using Global.Inputs.View.Runtime.Listeners;
+using Global.Setup.Service.Callbacks;
+using Global.System.Updaters.Runtime.Abstract;
 using UnityEngine.InputSystem;
 
-namespace Global.Services.Inputs.View.Runtime
+namespace Global.Inputs.View.Runtime
 {
     public class InputView :
         IInputView,

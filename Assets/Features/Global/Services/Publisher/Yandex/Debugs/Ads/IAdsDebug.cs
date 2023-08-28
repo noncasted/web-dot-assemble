@@ -1,4 +1,4 @@
-﻿namespace Global.Services.Publisher.Yandex.Debugs.Ads
+﻿namespace Global.Publisher.Yandex.Debugs.Ads
 {
     public interface IAdsDebug
     {

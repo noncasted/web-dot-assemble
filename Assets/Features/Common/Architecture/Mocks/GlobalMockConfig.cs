@@ -1,6 +1,6 @@
 ﻿using Global.GameLoops.Runtime;
-using Global.Services.Setup.Abstract;
-using Global.Services.Setup.Scope;
+using Global.Setup.Abstract;
+using Global.Setup.Scope;
 using NaughtyAttributes;
 using UnityEngine;
 

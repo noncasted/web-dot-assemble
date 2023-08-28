@@ -1,6 +1,6 @@
 ﻿using Global.Common;
 
-namespace Global.Services.Publisher.Yandex.Common
+namespace Global.Publisher.Yandex.Common
 {
     public static class YandexRoutes
     {

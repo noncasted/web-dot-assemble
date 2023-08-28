@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b549832a1aecbb24aa206b6ac93b6c1b, type: 3}
   m_Name: Achievement_32
   m_EditorClassIdentifier: 
-  _type: 0
-  _text: ABOBA
+  _type: 32
+  _name: Achievement name
+  _description: Achievement description
   _icon: {fileID: -6688393912360154875, guid: aa04790c899a71e4b9d4ffae56661b97, type: 3}
   _targetProgress: 100

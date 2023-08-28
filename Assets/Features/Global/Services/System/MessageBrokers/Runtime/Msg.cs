@@ -2,7 +2,7 @@
 using Cysharp.Threading.Tasks;
 using UniRx;
 
-namespace Global.Services.System.MessageBrokers.Runtime
+namespace Global.System.MessageBrokers.Runtime
 {
     public static class Msg
     {

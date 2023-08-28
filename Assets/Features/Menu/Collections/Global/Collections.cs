@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Global.Services.LevelConfiguration.Avatars;
-using Global.Services.Publisher.Abstract.DataStorages;
-using Global.Services.Setup.Service.Callbacks;
+using Global.LevelConfiguration.Avatars;
+using Global.Publisher.Abstract.DataStorages;
+using Global.Setup.Service.Callbacks;
 
 namespace Menu.Collections.Global
 {       

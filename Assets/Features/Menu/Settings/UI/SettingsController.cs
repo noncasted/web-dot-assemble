@@ -16,10 +16,23 @@ namespace Menu.Settings.UI
         
         public void Activate()
         {
+            _view.Navigation.Enable();
             
+            _view.LanguageClicked += OnLanguageClicked;
+            _view.SocialClicked += OnSocialClicked;
         }
 
         public void Deactivate()
+        {
+            _view.Navigation.Disable();
+        }
+
+        private void OnLanguageClicked()
+        {
+            
+        }
+
+        private void OnSocialClicked()
         {
             
         }

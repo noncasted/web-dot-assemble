@@ -1,4 +1,4 @@
-﻿namespace Global.Services.Publisher.Abstract.Saves
+﻿namespace Global.Publisher.Abstract.Saves
 {
     public static class SavesPaths
     {

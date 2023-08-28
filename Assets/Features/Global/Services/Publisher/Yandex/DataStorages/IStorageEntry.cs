@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Global.Services.Publisher.Yandex.DataStorages
+namespace Global.Publisher.Yandex.DataStorages
 {
     public interface IStorageEntry
     {

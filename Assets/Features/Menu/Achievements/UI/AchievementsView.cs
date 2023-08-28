@@ -11,21 +11,23 @@ namespace Menu.Achievements.UI
     [DisallowMultipleComponent]
     public class AchievementsView : MonoBehaviour, IAchievementsView
     {
+        [SerializeField] private AchievementDataWindow _dataWindow;
         [SerializeField] private AchievementPagePointView _pagePointPrefab;
         [SerializeField] private Transform _pagePointsRoot;
-        
+
         [SerializeField] private AchievementEntryView[] _entries;
-        
+
         [SerializeField] private Button _leftPageButton;
         [SerializeField] private Button _rightPageButton;
-        
+
         private ITabNavigation _navigation;
         private RectTransform _transform;
 
         private bool _isOpened;
         private int _page;
 
-        private CancellationTokenSource _cancellation;
+        private CancellationTokenSource _pagesCancellation;
+        private CancellationTokenSource _dataWindowCancellation;
 
         private AchievementsPage _currentPage;
         private IReadOnlyList<AchievementsPage> _pages;
@@ -39,21 +41,21 @@ namespace Menu.Achievements.UI
             _navigation = GetComponent<ITabNavigation>();
             _transform = GetComponent<RectTransform>();
         }
-        
+
         public void Enable()
         {
             _leftPageButton.onClick.AddListener(OnLeftPageClicked);
             _rightPageButton.onClick.AddListener(OnRightPageClicked);
 
-            Cancel();
+            CancelPage();
 
             foreach (var entry in _entries)
                 entry.Selected += OnAchievementSelected;
-            
+
             foreach (var entry in _entries)
                 entry.Deselected += OnAchievementDeselected;
         }
-        
+
         public void Disable()
         {
             _leftPageButton.onClick.RemoveListener(OnLeftPageClicked);
@@ -61,69 +63,71 @@ namespace Menu.Achievements.UI
 
             _isOpened = false;
             _currentPage = null;
-            
-            Cancel();
-            
+
+            CancelPage();
+
             foreach (var entry in _entries)
                 entry.Selected -= OnAchievementSelected;
-            
+
             foreach (var entry in _entries)
                 entry.Deselected -= OnAchievementDeselected;
         }
-        
+
         public void Construct(IReadOnlyList<IAchievement> achievements)
-        {   
+        {
             var pages = new List<AchievementsPage>();
             _totalPagesCount = Mathf.CeilToInt(achievements.Count / (float)_entries.Length);
-            
+
             for (var i = 0; i < _totalPagesCount; i++)
             {
                 var pagePoint = Instantiate(_pagePointPrefab, _pagePointsRoot);
 
                 var start = i * _entries.Length;
-                var pagesAchievements = new List<IAchievement>();  
+                var pagesAchievements = new List<IAchievement>();
                 var counter = 0;
-                
+
                 while (counter < _entries.Length && start + counter < achievements.Count)
                 {
                     var index = start + counter;
-                    pagesAchievements.Add(achievements[index]);     
-                    
+                    pagesAchievements.Add(achievements[index]);
+
                     counter++;
                 }
 
                 var page = new AchievementsPage(pagesAchievements, _entries, pagePoint);
                 pages.Add(page);
             }
-            
+
             _pages = pages;
-        }   
+        }
 
         public async UniTask Open()
         {
             foreach (var page in _pages)
                 page.DeactivatePage();
-            
+
             _page = 0;
-            Cancel();
-            _cancellation = new CancellationTokenSource();
-            await ShowPage(_page, _cancellation.Token);
+            CancelPage();
+            _pagesCancellation = new CancellationTokenSource();
+            await ShowPage(_page, _pagesCancellation.Token);
         }
 
         private void OnLeftPageClicked()
         {
             _page--;
-            Cancel();
-            _cancellation = new CancellationTokenSource();
-            ShowPage(_page, _cancellation.Token).Forget();
+            CancelPage();
+            CancelDataWindow();
+            _pagesCancellation = new CancellationTokenSource();
+            ShowPage(_page, _pagesCancellation.Token).Forget();
         }
-        
+
         private void OnRightPageClicked()
         {
             _page++;
-            Cancel();
-            _cancellation = new CancellationTokenSource();
-            ShowPage(_page, _cancellation.Token).Forget();
+            CancelPage();
+            CancelDataWindow();
+            _pagesCancellation = new CancellationTokenSource();
+            ShowPage(_page, _pagesCancellation.Token).Forget();
         }
 
         private async UniTask ShowPage(int page, CancellationToken cancellation)
@@ -132,7 +136,7 @@ namespace Menu.Achievements.UI
                 _leftPageButton.gameObject.SetActive(false);
             else
                 _leftPageButton.gameObject.SetActive(true);
-            
+
             if (page >= _totalPagesCount - 1)
                 _rightPageButton.gameObject.SetActive(false);
             else
@@ -140,33 +144,46 @@ namespace Menu.Achievements.UI
 
             var previousPage = _currentPage;
             _currentPage = _pages[page];
-            
-            previousPage.DeactivatePage();
+
             _currentPage.ActivatePage();
-            
+
             if (previousPage != null && _isOpened == true)
-                 await previousPage.Hide(cancellation);
+            {
+                previousPage.DeactivatePage();
+                await previousPage.Hide(cancellation);
+            }
 
             _isOpened = true;
-            
+
             await _currentPage.Show(cancellation);
         }
 
-        private void Cancel()
+        private void CancelPage()
         {
-            _cancellation?.Cancel();
-            _cancellation?.Dispose();
-            _cancellation = null;
+            _pagesCancellation?.Cancel();
+            _pagesCancellation?.Dispose();
+            _pagesCancellation = null;
         }
         
+        private void CancelDataWindow()
+        {
+            _dataWindowCancellation?.Cancel();
+            _dataWindowCancellation?.Dispose();
+            _dataWindowCancellation = null;
+        }
+
         private void OnAchievementSelected(IAchievement achievement)
         {
-            
+            CancelDataWindow();
+            _dataWindowCancellation = new CancellationTokenSource();
+            _dataWindow.Show(achievement, _dataWindowCancellation.Token).Forget();
         }
-        
+
         private void OnAchievementDeselected()
         {
-            
+            CancelDataWindow();
+            _dataWindowCancellation = new CancellationTokenSource();
+            _dataWindow.Hide(_dataWindowCancellation.Token).Forget();
         }
     }
 }

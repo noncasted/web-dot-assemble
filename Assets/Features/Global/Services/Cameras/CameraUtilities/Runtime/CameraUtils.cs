@@ -1,8 +1,8 @@
-﻿using Global.Services.Cameras.CameraUtilities.Logs;
-using Global.Services.Cameras.CurrentCameras.Runtime;
+﻿using Global.Cameras.CameraUtilities.Logs;
+using Global.Cameras.CurrentCameras.Runtime;
 using UnityEngine;
 
-namespace Global.Services.Cameras.CameraUtilities.Runtime
+namespace Global.Cameras.CameraUtilities.Runtime
 {
     public class CameraUtils : ICameraUtils
     {

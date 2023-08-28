@@ -1,11 +1,11 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Global.Services.Setup.Service;
-using Global.Services.UI.EventSystems.Common;
+using Global.Setup.Service;
+using Global.UI.EventSystems.Common;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Global.Services.UI.EventSystems.Runtime
+namespace Global.UI.EventSystems.Runtime
 {
     [InlineEditor]
     [CreateAssetMenu(fileName = EventSystemRoutes.ServiceName, menuName = EventSystemRoutes.ServicePath)]

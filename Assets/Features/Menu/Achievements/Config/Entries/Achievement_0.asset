@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Achievement_0
   m_EditorClassIdentifier: 
   _type: 0
-  _text: ABOBA
+  _name: Achievement name
+  _description: Achievement description
   _icon: {fileID: -6688393912360154875, guid: aa04790c899a71e4b9d4ffae56661b97, type: 3}
   _targetProgress: 100

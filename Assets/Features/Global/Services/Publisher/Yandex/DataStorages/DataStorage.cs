@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Global.Services.Publisher.Abstract.DataStorages;
-using Global.Services.Publisher.Yandex.Common;
-using Global.Services.Setup.Service.Callbacks;
+using Global.Publisher.Abstract.DataStorages;
+using Global.Publisher.Yandex.Common;
+using Global.Setup.Service.Callbacks;
 using Newtonsoft.Json;
 
-namespace Global.Services.Publisher.Yandex.DataStorages
+namespace Global.Publisher.Yandex.DataStorages
 {
     public class DataStorage : IDataStorage, IGlobalAsyncAwakeListener
     {

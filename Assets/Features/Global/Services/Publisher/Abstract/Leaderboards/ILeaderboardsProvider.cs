@@ -2,7 +2,7 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 
-namespace Global.Services.Publisher.Abstract.Leaderboards
+namespace Global.Publisher.Abstract.Leaderboards
 {
     public interface ILeaderboardsProvider
     {

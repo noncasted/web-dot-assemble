@@ -1,10 +1,10 @@
 ﻿using Cysharp.Threading.Tasks;
-using Global.Services.Publisher.Yandex.Common;
+using Global.Publisher.Yandex.Common;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Global.Services.Publisher.Yandex.Debugs.Ads
+namespace Global.Publisher.Yandex.Debugs.Ads
 {
     [DisallowMultipleComponent]
     public class AdsDebug : MonoBehaviour, IAdsDebug

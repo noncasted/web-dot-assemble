@@ -1,7 +1,7 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
 using GamePlay.Config.Runtime;
 using Global.GameLoops.Common;
-using Global.Services.Setup.Service;
+using Global.Setup.Service;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

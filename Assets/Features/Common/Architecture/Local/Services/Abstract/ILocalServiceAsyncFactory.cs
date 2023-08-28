@@ -1,6 +1,6 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
 using Cysharp.Threading.Tasks;
-using Global.Services.Scenes.ScenesFlow.Runtime.Abstract;
+using Global.Scenes.ScenesFlow.Runtime.Abstract;
 
 namespace Common.Architecture.Local.Services.Abstract
 {

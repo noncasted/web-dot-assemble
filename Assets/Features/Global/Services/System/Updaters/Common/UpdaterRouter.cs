@@ -1,6 +1,6 @@
 ﻿using Global.Common;
 
-namespace Global.Services.System.Updaters.Common
+namespace Global.System.Updaters.Common
 {
     public static class UpdaterRouter
     {

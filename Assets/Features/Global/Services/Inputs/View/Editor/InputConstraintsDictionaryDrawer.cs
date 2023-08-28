@@ -1,8 +1,8 @@
 ﻿using Common.Serialization.ReadOnlyDictionaries.Editor;
-using Global.Services.Inputs.Constranits.Storage;
+using Global.Inputs.Constranits.Storage;
 using UnityEditor;
 
-namespace Global.Services.Inputs.View.Editor
+namespace Global.Inputs.View.Editor
 {
     [CustomPropertyDrawer(typeof(InputConstraintsDictionary))]
     public class InputConstraintsDictionaryDrawer : ReadOnlyDictionaryPropertyDrawer

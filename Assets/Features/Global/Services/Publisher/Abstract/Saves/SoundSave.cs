@@ -1,7 +1,7 @@
 ﻿using System;
-using Global.Services.Publisher.Yandex.DataStorages;
+using Global.Publisher.Yandex.DataStorages;
 
-namespace Global.Services.Publisher.Abstract.Saves
+namespace Global.Publisher.Abstract.Saves
 {
     [Serializable]
     public class SoundSave : IStorageEntry

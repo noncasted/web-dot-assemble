@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dotParent: {fileID: 1755413204361164777}
-  _validColor: {r: 0.7449145, g: 0.9339623, b: 0.24230155, a: 1}
+  _validColor: {r: 0.52175635, g: 0.5566038, b: 0.42882994, a: 1}
   _invalidColor: {r: 0.8490566, g: 0.2683339, b: 0.2683339, a: 1}
   _plate: {fileID: 7833522871818905385}
   _position: {x: 0, y: 0}
@@ -244,7 +244,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

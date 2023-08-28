@@ -1,7 +1,7 @@
-﻿using Global.Services.Cameras.CameraUtilities.Runtime;
+﻿using Global.Cameras.CameraUtilities.Runtime;
 using UnityEngine;
 
-namespace Global.Services.Inputs.View.Runtime.Conversion
+namespace Global.Inputs.View.Runtime.Conversion
 {
     public class InputConversion : IInputConversion
     {

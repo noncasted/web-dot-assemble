@@ -1,6 +1,6 @@
 ﻿using Global.Common;
 
-namespace Global.Services.Audio.Listener.Common
+namespace Global.Audio.Listener.Common
 {
     public class ListenerRoutes
     {

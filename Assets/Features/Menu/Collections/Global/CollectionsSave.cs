@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Global.Services.Publisher.Yandex.DataStorages;
+using Global.Publisher.Yandex.DataStorages;
 using Newtonsoft.Json;
 
 namespace Menu.Collections.Global
