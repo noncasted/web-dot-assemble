@@ -5,7 +5,7 @@ namespace Menu.Achievements.Definitions
     public interface IAchievementProgress
     {
         int Target { get; }
-        int Progress { get; }
+        int Value { get; }
         int PreviousFetch { get; }
         bool IsCompleted { get; }
 

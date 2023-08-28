@@ -6,9 +6,8 @@ namespace Menu.Achievements.UI
 {
     public interface IAchievementEntryView
     {
-        void Construct(IAchievement achievement);
-        
-        UniTask Show(CancellationToken cancellation);
+        UniTask Show(IAchievement achievement, CancellationToken cancellation);
         UniTask Hide(CancellationToken cancellation);
+        void Disable();
     }
 }

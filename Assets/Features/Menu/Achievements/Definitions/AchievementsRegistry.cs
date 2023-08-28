@@ -13,5 +13,11 @@ namespace Menu.Achievements.Definitions
         {
             return Objects;
         }
+
+        protected override void OnRegistryValidation(IReadOnlyList<AchievementConfig> objects)
+        {
+            for (var i = 0; i < objects.Count; i++)
+                objects[i].SetType((AchievementType)i);
+        }
     }
 }

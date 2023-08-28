@@ -3,6 +3,7 @@ using Global.GameLoops.Runtime;
 using Global.Services.Setup.Abstract;
 using Global.Services.Setup.Scope;
 using Global.Services.Setup.Service;
+using Global.Services.Setup.Service.Callbacks;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -40,12 +41,17 @@ namespace Global.Bootstrappers
 
         private async UniTaskVoid Bootstrap(Scene servicesScene)
         {
-            Debug.Log("Starting game bootstrap");
-
             var binder = new GlobalServiceBinder(servicesScene);
             var sceneLoader = new GlobalSceneLoader();
             var callbacks = new GlobalCallbacks();
             var dependencyRegister = new ContainerBuilder();
+            
+            callbacks.AddInitCallback<IGlobalAwakeListener>(listener => listener.OnAwake(), 0);
+            callbacks.AddInitAsyncCallback<IGlobalAsyncAwakeListener>(listener => listener.OnAwakeAsync(), 1);
+            callbacks.AddInitCallback<IGlobalBootstrapListener>(listener => listener.OnBootstrapped(), 2);
+            callbacks.AddInitAsyncCallback<IGlobalAsyncBootstrapListener>(listener => listener.OnBootstrapAsync(), 3);
+            
+            callbacks.AddDestroyCallback<IGlobalDestroyListener>(listener => listener.OnDestroy(), 0);
 
             var factories = _services.GetFactories();
             var asyncFactories = _services.GetAsyncFactories();

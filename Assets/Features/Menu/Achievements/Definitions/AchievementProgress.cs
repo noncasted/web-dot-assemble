@@ -18,15 +18,14 @@ namespace Menu.Achievements.Definitions
         private int _progress;
 
         public int Target => _target;
-        public int Progress => _progress;
+        public int Value => _progress;
         public int PreviousFetch => _progress;
-        public bool IsCompleted => Progress == Target;
+        public bool IsCompleted => Value == Target;
         
         public event Action<IAchievementProgress> Updated;
         
         public void Update(int progress)
         {
-            var previous = _progress;
             _progress = progress;
             
             if (_progress > _target)

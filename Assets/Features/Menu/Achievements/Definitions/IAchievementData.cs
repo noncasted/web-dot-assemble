@@ -5,7 +5,8 @@ namespace Menu.Achievements.Definitions
     public interface IAchievementData
     {
         Sprite Icon { get; }
-        string Text { get; }
+        string Name { get; }
+        string Description { get; }
         AchievementType Type { get; }
     }
 }

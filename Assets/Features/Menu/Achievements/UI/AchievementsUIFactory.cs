@@ -22,7 +22,8 @@ namespace Menu.Achievements.UI
         {
             builder.Register<AchievementsController>()
                 .As<IAchievementsController>()
-                .AsTab<AchievementsController>(_tabDefinition);
+                .AsTab<AchievementsController>(_tabDefinition)
+                .AsCallbackListener();
         }
     }
 }

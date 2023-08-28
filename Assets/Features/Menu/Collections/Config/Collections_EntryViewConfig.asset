@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Collections_EntryViewConfig
   m_EditorClassIdentifier: 
   _showTime: 0.3
-  _hideTime: 0.3
+  _hideTime: 0.5

@@ -12,5 +12,17 @@ namespace Global.Services.LevelConfiguration.Avatars
     public class AvatarsRegistry : ScriptableRegistry<AvatarDefinition>, IAvatarsRegistry
     {
         public IReadOnlyList<IAvatarDefinition> Avatars => Objects;
+
+        protected override void OnRegistryValidation(IReadOnlyList<AvatarDefinition> objects)
+        {
+            var counter = 0;
+            
+            foreach (var avatar in objects)
+            {
+                avatar.SetId(counter);
+                
+                counter++;
+            }
+        }
     }
 }

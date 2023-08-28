@@ -14,5 +14,10 @@ namespace Global.Services.LevelConfiguration.Avatars
 
         public int Id => _id;   
         public Sprite Sprite => _sprite;
+        
+        public void SetId(int id)
+        {
+            _id = id;
+        }
     }
 }

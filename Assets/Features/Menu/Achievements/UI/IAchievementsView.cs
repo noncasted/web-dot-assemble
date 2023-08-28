@@ -12,7 +12,10 @@ namespace Menu.Achievements.UI
         ITabNavigation Navigation { get; }
         RectTransform Transform { get; }
 
+        void Enable();
+        void Disable();
+
         void Construct(IReadOnlyList<IAchievement> achievement);
-        UniTask Open(CancellationToken cancellation);
+        UniTask Open();
     }
 }

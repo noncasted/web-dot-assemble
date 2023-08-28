@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using Global.Bootstrappers;
 using Global.Services.Setup.Service;
+using Global.Services.Setup.Service.Callbacks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using VContainer;
@@ -29,6 +30,13 @@ namespace Common.Architecture.Mocks
             var sceneLoader = new GlobalSceneLoader();
             var callbacks = new GlobalCallbacks();
             var dependencyRegister = new ContainerBuilder();
+            
+            callbacks.AddInitCallback<IGlobalAwakeListener>(listener => listener.OnAwake(), 0);
+            callbacks.AddInitAsyncCallback<IGlobalAsyncAwakeListener>(listener => listener.OnAwakeAsync(), 1);
+            callbacks.AddInitCallback<IGlobalBootstrapListener>(listener => listener.OnBootstrapped(), 2);
+            callbacks.AddInitAsyncCallback<IGlobalAsyncBootstrapListener>(listener => listener.OnBootstrapAsync(), 3);
+            
+            callbacks.AddDestroyCallback<IGlobalDestroyListener>(listener => listener.OnDestroy(), 0);
             
             var scope = Object.Instantiate(_config.Scope);
             scope.IsRoot = true;

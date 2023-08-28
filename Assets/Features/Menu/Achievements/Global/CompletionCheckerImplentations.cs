@@ -10,15 +10,15 @@ namespace Menu.Achievements.Global
         {
             _progress = progress;
         }
-        
+
         private readonly IAchievementProgress _progress;
 
         private IDisposable _listener;
-        
+
         public event Action Completed;
 
         public IAchievementProgress Progress => _progress;
-        
+
         public void Enable()
         {
             _listener = Msg.Listen<T>(OnMessageReceived);
@@ -33,7 +33,7 @@ namespace Menu.Achievements.Global
         {
             if (Check(payload) == false)
                 return;
-            
+
             Completed?.Invoke();
         }
 
@@ -42,17 +42,21 @@ namespace Menu.Achievements.Global
 
     public readonly struct TestPayload
     {
-        
     }
 
-    public class Achievement_Tier_1 : AchievementCompletionChecker<TestPayload>
+    public class AchievementTypeHandlerProgress<T> : AchievementCompletionChecker<T>
     {
-        public Achievement_Tier_1(IAchievementProgress progress) : base(progress)
+        public AchievementTypeHandlerProgress(IAchievementProgress progress) : base(progress)
         {
         }
-        
-        protected override bool Check(TestPayload payload)
+
+        protected override bool Check(T payload)
         {
+            Progress.Update(Progress.Value + 1);
+
+            if (Progress.Value >= Progress.Target)
+                return true;
+
             return false;
         }
     }

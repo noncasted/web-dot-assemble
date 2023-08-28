@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2d297a2f7839ca43812137616239824, type: 3}
   m_Name: Avatar_5
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 21300000, guid: 005888ede18a58e4db8d069cfa3007cb, type: 3}
+  _sprite: {fileID: 7563218155825476410, guid: 566d99e277fb57b459f21d1d6ea9c222, type: 3}
+  _id: 0

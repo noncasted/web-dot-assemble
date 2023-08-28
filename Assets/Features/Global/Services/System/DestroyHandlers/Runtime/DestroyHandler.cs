@@ -14,11 +14,11 @@ namespace Global.Services.System.DestroyHandlers.Runtime
         }
         
         private IDestroyCallbacksProvider _callbacksProvider;
-
+        
         private void OnDestroy()
         {
             foreach (var callback in _callbacksProvider.DestroyListeners)
-                callback?.OnDestroy();
+                callback.InvokeAsync().GetAwaiter().GetResult();
         }
     }
 }

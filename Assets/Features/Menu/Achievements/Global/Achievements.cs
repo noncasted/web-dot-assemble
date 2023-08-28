@@ -7,7 +7,7 @@ using Menu.Achievements.Definitions;
 namespace Menu.Achievements.Global
 {
     public class Achievements : IAchievements, IGlobalBootstrapListener
-    {
+    {   
         public Achievements(IDataStorage storage, IAchievementFactory factory, IAchievementsConfigsRegistry configsRegistry)
         {
             _storage = storage;
@@ -18,9 +18,9 @@ namespace Menu.Achievements.Global
         private readonly IDataStorage _storage;
         private readonly IAchievementFactory _factory;
         private readonly IAchievementsConfigsRegistry _configsRegistry;
-
+        
         private readonly Dictionary<AchievementType, IAchievement> _achievements = new();
-
+        
         public void OnBootstrapped()
         {
             var saves = _storage.GetEntry<AchievementsSave>(AchievementsSave.Key);
@@ -46,7 +46,7 @@ namespace Menu.Achievements.Global
             {
                 var progress = value.Progress;
                 
-                if (progress.Progress <= progress.PreviousFetch)
+                if (progress.Value <= progress.PreviousFetch)
                     continue;
 
                 progressed.Add(value);

@@ -49,6 +49,7 @@ namespace Menu.Collections.UI
             _nextPageButton.onClick.RemoveListener(OnRightPageClicked);
 
             _isOpened = false;
+            Cancel();
         }
         
         public void Construct(IReadOnlyList<AvatarHandle> achievement)

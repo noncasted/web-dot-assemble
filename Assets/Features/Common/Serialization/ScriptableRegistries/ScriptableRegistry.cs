@@ -31,6 +31,10 @@ namespace Common.Serialization.ScriptableRegistries
 
                 definitions.Add(asset);
             }
+            
+            OnRegistryValidation(definitions);
+            
+            AssetDatabase.SaveAssets();
 
             Undo.RecordObject(this, "Assign objects");
 
@@ -38,6 +42,11 @@ namespace Common.Serialization.ScriptableRegistries
 
             Undo.RecordObject(this, "Assign objects");
 #endif
+        }
+
+        protected virtual void OnRegistryValidation(IReadOnlyList<T> objects)
+        {
+            
         }
     }
 }

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d702bf4bd0ba0a14c86e02e12513e8a3, type: 3}
   m_Name: AchievementEntryViewConfig
   m_EditorClassIdentifier: 
-  _showTime: 1
-  _hideTime: 1
+  _showTime: 0.15
+  _hideTime: 0.15
