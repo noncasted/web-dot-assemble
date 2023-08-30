@@ -10,5 +10,5 @@ AssetOrigin:
   productId: 163041
   packageName: Modern Procedural UI Kit
   packageVersion: 1.1.0
-  assetPath: Assets/MPUIKit/Runtime/MPUIKit.asmdef
+  assetPath: Assets/Plugins/MPUIKit/Runtime/MPUIKit.asmdef
   uploadId: 566494

@@ -7,6 +7,7 @@ using Global.Cameras.GlobalCameras.Runtime;
 using Global.Debugs.Console.Runtime;
 using Global.Inputs.View.Runtime;
 using Global.LevelConfiguration.Runtime;
+using Global.Localizations.Runtime;
 using Global.Publisher.Abstract.Bootstrap;
 using Global.Scenes.CurrentSceneHandlers.Runtime;
 using Global.Scenes.ScenesFlow.Runtime;
@@ -31,7 +32,6 @@ using Menu.Settings.Global;
 using Menu.Shop.Global;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using LocalizationAsset = Global.Localizations.Runtime.LocalizationAsset;
 
 namespace Global.Setup.Implementation
 {
@@ -66,7 +66,7 @@ namespace Global.Setup.Implementation
         [FoldoutGroup("System")] [SerializeField] private DestroyHandlerFactory _destroyHandler;
 
         [FoldoutGroup("UI")] [SerializeField] private LoadingScreenAsset _loadingScreen;
-        [FoldoutGroup("UI")] [SerializeField] private LocalizationAsset _localization;
+        [FoldoutGroup("UI")] [SerializeField] private LocalizationFactory _localization;
         [FoldoutGroup("UI")] [SerializeField] private OverlayAsset _overlay;
         [FoldoutGroup("UI")] [SerializeField] private UiStateMachineAsset _uiStateMachine;
         [FoldoutGroup("UI")] [SerializeField] private EventSystemFactory _eventSystem;

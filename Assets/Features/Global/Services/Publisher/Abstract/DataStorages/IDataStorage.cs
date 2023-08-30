@@ -1,7 +1,10 @@
-﻿namespace Global.Publisher.Abstract.DataStorages
+﻿using Cysharp.Threading.Tasks;
+
+namespace Global.Publisher.Abstract.DataStorages
 {
     public interface IDataStorage
     {
-        T GetEntry<T>(string key) where T : class;
+        UniTask<T> GetEntry<T>(string key) where T : class;
+        UniTask Save(IStorageEntry payload, string key);
     }
 }

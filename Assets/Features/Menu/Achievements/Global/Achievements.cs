@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Global.Publisher.Abstract.DataStorages;
 using Global.Setup.Service.Callbacks;
 using Menu.Achievements.Definitions;
 
 namespace Menu.Achievements.Global
 {
-    public class Achievements : IAchievements, IGlobalBootstrapListener
+    public class Achievements : IAchievements, IGlobalAsyncBootstrapListener
     {
         public Achievements(
             IDataStorage storage,
@@ -24,9 +25,9 @@ namespace Menu.Achievements.Global
 
         private readonly Dictionary<AchievementType, IAchievement> _achievements = new();
 
-        public void OnBootstrapped()
+        public async UniTask OnBootstrapAsync()
         {
-            var saves = _storage.GetEntry<AchievementsSave>(AchievementsSave.Key);
+            var saves = await _storage.GetEntry<AchievementsSave>(AchievementsSave.Key);
             var configs = _configsRegistry.GetConfigs();
 
             foreach (var config in configs)

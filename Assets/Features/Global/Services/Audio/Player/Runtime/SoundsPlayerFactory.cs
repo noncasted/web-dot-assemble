@@ -23,15 +23,11 @@ namespace Global.Audio.Player.Runtime
             player.name = "SoundsPlayer";
 
             var trigger = player.GetComponent<SoundsTrigger>();
-            var switcher = player.GetComponent<SoundsVolumeSwitcher>();
 
             builder.RegisterInstance(_state);
 
             builder.RegisterComponent(player)
-                .As<IVolumeSwitcher>()
-                .AsCallbackListener();
-
-            builder.RegisterComponent(switcher)
+                .As<IVolumeSetter>()
                 .AsCallbackListener();
 
             callbacks.Listen(trigger);

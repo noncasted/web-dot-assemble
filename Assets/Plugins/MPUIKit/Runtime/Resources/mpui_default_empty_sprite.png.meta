@@ -95,5 +95,5 @@ AssetOrigin:
   productId: 163041
   packageName: Modern Procedural UI Kit
   packageVersion: 1.1.0
-  assetPath: Assets/MPUIKit/Runtime/Resources/mpui_default_empty_sprite.png
+  assetPath: Assets/Plugins/MPUIKit/Runtime/Resources/mpui_default_empty_sprite.png
   uploadId: 566494

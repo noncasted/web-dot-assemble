@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Global.Publisher.Abstract.DataStorages;
 using Global.Publisher.Yandex.DataStorages;
 using UnityEngine;
 
@@ -8,10 +9,12 @@ namespace Global.Publisher.Abstract.Saves
     [Serializable]
     public class LevelsSave : IStorageEntry
     {
+        public const string Key = "levels";
+        
         private Dictionary<int, bool> _unlocked = new();
         private Dictionary<int, bool> _assembled = new();
 
-        public string SaveKey => SavesPaths.Levels;
+        public string SaveKey => Key;
         public event Action Changed;
 
         public void CreateDefault()

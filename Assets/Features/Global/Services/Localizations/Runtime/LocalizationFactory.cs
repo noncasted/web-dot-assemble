@@ -8,7 +8,7 @@ namespace Global.Localizations.Runtime
 {
     [InlineEditor]
     [CreateAssetMenu(fileName = LocalizationRoutes.ServiceName, menuName = LocalizationRoutes.ServicePath)]
-    public class LocalizationAsset : ScriptableObject, IGlobalServiceFactory
+    public class LocalizationFactory : ScriptableObject, IGlobalServiceFactory
     {
         [SerializeField] [Indent] private LocalizationStorage _storage;
 
@@ -20,6 +20,9 @@ namespace Global.Localizations.Runtime
             builder.Register<Localization>()
                 .WithParameter<ILocalizationStorage>(_storage)
                 .AsCallbackListener();
+
+            builder.Register<LanguageConverter>()
+                .As<ILanguageConverter>();
         }
     }
 }

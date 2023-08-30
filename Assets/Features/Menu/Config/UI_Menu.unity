@@ -10465,6 +10465,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daaf416f90501a345b68320fa48691e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _musicSlider: {fileID: 1673909580}
+  _soundSlider: {fileID: 332985176}
+  _languageText: {fileID: 0}
+  _languageButton: {fileID: 338255279}
+  _socialButton: {fileID: 450153942}
 --- !u!224 &1461141383
 RectTransform:
   m_ObjectHideFlags: 0

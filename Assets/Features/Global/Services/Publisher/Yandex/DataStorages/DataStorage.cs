@@ -52,11 +52,28 @@ namespace Global.Publisher.Yandex.DataStorages
             _callbacks.UserDataReceived -= OnReceived;
         }
 
-        public T GetEntry<T>(string key) where T : class
+        public async UniTask<T> GetEntry<T>(string key) where T : class
         {
             var entry = _entries[key];
 
             return entry as T;
+        }
+
+        public async UniTask Save(IStorageEntry payload, string saveKey)
+        {
+            var save = new Dictionary<string, string>();
+
+            foreach (var (key, entry) in _entries)
+            {
+                var rawEntry = entry.Serialize();
+                save[key] = rawEntry;
+            }
+
+            save[saveKey] = payload.Serialize();
+
+            var json = JsonConvert.SerializeObject(save);
+
+            _api.Set_Internal(json);
         }
 
         private void OnEntryChanged()

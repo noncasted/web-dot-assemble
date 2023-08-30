@@ -1,6 +1,7 @@
 ﻿using System;
-using Global.Publisher.Abstract.Languages;
+using Global.Localizations.Runtime;
 using Menu.Common.Navigation;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
@@ -11,21 +12,22 @@ namespace Menu.Settings.UI
     public class SettingsView : MonoBehaviour, ISettingsView
     {
         [Inject]
-        private void Construct(ISystemLanguageProvider systemLanguageProvider)
+        private void Construct(ILocalization localization)
         {
-            _systemLanguageProvider = systemLanguageProvider;
+            _localization = localization;
         }
         
         [SerializeField] private Slider _musicSlider;
         [SerializeField] private Slider _soundSlider;
-        
+
+        [SerializeField] private TMP_Text _languageText;
         [SerializeField] private Button _languageButton;
         [SerializeField] private Button _socialButton;
         
         private ITabNavigation _navigation;
         private RectTransform _transform;
         
-        private ISystemLanguageProvider _systemLanguageProvider;
+        private ILocalization _localization;
 
         public ITabNavigation Navigation => _navigation;
         public RectTransform Transform => _transform;
@@ -35,6 +37,11 @@ namespace Menu.Settings.UI
 
         public event Action LanguageClicked;
         public event Action SocialClicked;
+        
+        public void SetLanguage(string language)
+        {
+            _languageText.text = language;
+        }
 
         private void Awake()
         {
@@ -56,7 +63,7 @@ namespace Menu.Settings.UI
 
         private void OnLanguageClicked()
         {
-            LanguageClicked?.Invoke();    
+            LanguageClicked?.Invoke();
         }
 
         private void OnSocialClicked()

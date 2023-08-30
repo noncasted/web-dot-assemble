@@ -7,16 +7,16 @@ namespace Global.System.Pauses.Runtime
     {
         public PauseSwitcher(
             IUpdateSpeedSetter updateSpeedSetter,
-            IVolumeSwitcher volumeSwitcher,
+            IVolumeSetter volumeSetter,
             SoundState state)
         {
             _updateSpeedSetter = updateSpeedSetter;
-            _volumeSwitcher = volumeSwitcher;
+            _volumeSetter = volumeSetter;
             _state = state;
         }
 
         private readonly IUpdateSpeedSetter _updateSpeedSetter;
-        private readonly IVolumeSwitcher _volumeSwitcher;
+        private readonly IVolumeSetter _volumeSetter;
         private readonly SoundState _state;
 
         public void Pause()
@@ -24,7 +24,7 @@ namespace Global.System.Pauses.Runtime
             _updateSpeedSetter.Pause();
 
             if (_state.IsMuted == false)
-                _volumeSwitcher.Mute();
+                _volumeSetter.Mute();
         }
 
         public void Continue()
@@ -32,7 +32,7 @@ namespace Global.System.Pauses.Runtime
             _updateSpeedSetter.Continue();
 
             if (_state.IsMuted == false)
-                _volumeSwitcher.Unmute();
+                _volumeSetter.Unmute();
         }
     }
 }

@@ -12,5 +12,5 @@ AssetOrigin:
   productId: 163041
   packageName: Modern Procedural UI Kit
   packageVersion: 1.1.0
-  assetPath: Assets/MPUIKit/Runtime/Resources/Shaders/2D_SDF.cginc
+  assetPath: Assets/Plugins/MPUIKit/Runtime/Resources/Shaders/2D_SDF.cginc
   uploadId: 566494

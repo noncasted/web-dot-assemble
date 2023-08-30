@@ -1,35 +1,73 @@
-﻿using Global.Setup.Service.Callbacks;
+﻿using Cysharp.Threading.Tasks;
+using Global.Publisher.Abstract.DataStorages;
+using Global.Publisher.Abstract.Saves;
+using Global.Setup.Service.Callbacks;
 using UnityEngine;
+using VContainer;
+using NotImplementedException = System.NotImplementedException;
 
 namespace Global.Audio.Player.Runtime
 {
     [DisallowMultipleComponent]
-    public class SoundsPlayer : MonoBehaviour, IGlobalAwakeListener, IVolumeSwitcher
+    public class SoundsPlayer : MonoBehaviour, IGlobalAsyncBootstrapListener, IVolumeSetter
     {
-        [SerializeField] private AudioSource _musicSource;
+        [Inject]
+        private void Construct(IDataStorage dataStorage)
+        {
+            _dataStorage = dataStorage;
+        }
 
+        [SerializeField] private AudioSource _musicSource;
         [SerializeField] private AudioSource[] _soundSources;
+
+        private IDataStorage _dataStorage;
 
         private float _musicVolume;
         private float _soundVolume;
 
-        public void OnAwake()
+        public async UniTask OnBootstrapAsync()
         {
-            _musicVolume = _musicSource.volume;
-            _soundVolume = _soundSources[0].volume;
+            var save = await _dataStorage.GetEntry<SoundSave>(SoundSave.Key);
+
+            _musicVolume = save.Value.MusicVolume;
+
+            foreach (var source in _soundSources)
+                source.volume = save.Value.SoundVolume;
         }
 
         public void Mute()
         {
-            SetVolume(0f, 0f);
+            ApplyVolume(0f, 0f);
         }
 
         public void Unmute()
         {
-            SetVolume(_musicVolume, _soundVolume);
+            ApplyVolume(_musicVolume, _soundVolume);
         }
 
-        private void SetVolume(float music, float sound)
+        public void SaveVolume()
+        {
+            var save = new SoundSave()
+            {
+                Value = new SoundSavePayload()
+                {
+                    MusicVolume = _musicVolume,
+                    SoundVolume = _soundVolume
+                }
+            };
+
+            _dataStorage.Save(save, SoundSave.Key);
+        }
+
+        public void SetVolume(float music, float sound)
+        {
+            _musicVolume = music;
+            _soundVolume = sound;
+
+            ApplyVolume(_musicVolume, _soundVolume);
+        }
+
+        private void ApplyVolume(float music, float sound)
         {
             _musicSource.volume = music;
 

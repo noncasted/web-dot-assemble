@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Global.Publisher.Abstract.DataStorages;
 using Global.Publisher.Yandex.DataStorages;
 using Newtonsoft.Json;
 

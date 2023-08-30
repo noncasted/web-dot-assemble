@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Global.LevelConfiguration.Avatars;
 using Global.Publisher.Abstract.DataStorages;
 using Global.Setup.Service.Callbacks;
 
 namespace Menu.Collections.Global
 {       
-    public class Collections : ICollections, IGlobalBootstrapListener
+    public class Collections : ICollections, IGlobalAsyncBootstrapListener
     {
         public Collections(IAvatarsRegistry registry, IDataStorage storage)
         {
@@ -32,9 +33,9 @@ namespace Menu.Collections.Global
         
         public IReadOnlyList<AvatarHandle> All => _all.Values.ToArray();
         
-        public void OnBootstrapped()
+        public async UniTask OnBootstrapAsync()
         {
-            _save = _storage.GetEntry<CollectionsSave>(CollectionsSave.Key);
+            _save = await _storage.GetEntry<CollectionsSave>(CollectionsSave.Key);
 
             foreach (var (id, isUnlocked) in _save.Avatars)
             {

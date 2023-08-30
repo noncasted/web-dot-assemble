@@ -14,5 +14,7 @@ namespace Menu.Settings.UI
 
         event Action LanguageClicked;
         event Action SocialClicked;
+
+        void SetLanguage(string language);
     }
 }

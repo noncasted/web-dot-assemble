@@ -1,5 +1,6 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
 using Cysharp.Threading.Tasks;
+using Global.Localizations.Runtime;
 using Global.Publisher.Abstract.Advertisment;
 using Global.Publisher.Abstract.Bootstrap;
 using Global.Publisher.Abstract.DataStorages;
@@ -31,7 +32,7 @@ namespace Global.Publisher.Yandex.Bootstrap
 {
     [InlineEditor]
     [CreateAssetMenu(fileName = YandexRoutes.ServiceName, menuName = YandexRoutes.ServicePath)]
-    public class YandexAsset : PublisherSdkAsset
+    public class YandexFactory : PublisherSdkAsset
     {
         [SerializeField] [Scene] private string _debugScene;
         [SerializeField] private YandexCallbacks _callbacksPrefab;
@@ -144,7 +145,8 @@ namespace Global.Publisher.Yandex.Bootstrap
                 new LevelsSave(),
                 new SoundSave(),
                 new AchievementsSave(),
-                new CollectionsSave()
+                new CollectionsSave(),
+                new LanguageSave()
             };
         }
     }
