@@ -23,7 +23,6 @@ namespace Global.Publisher.Yandex.DataStorages
 
         public void Set_Internal(string data)
         {
-            Debug.Log($"Set data: {data}");
         }
     }
 }

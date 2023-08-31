@@ -40,7 +40,7 @@ namespace Menu.Settings.UI
         
         public void SetLanguage(string language)
         {
-            _languageText.text = language;
+            _languageText.text = language; 
         }
 
         private void Awake()

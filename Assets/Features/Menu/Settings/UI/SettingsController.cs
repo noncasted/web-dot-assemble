@@ -43,10 +43,15 @@ namespace Menu.Settings.UI
 
         private void OnLanguageClicked()
         {
+            var nextLanguage = _localization.GetNext(_localization.Language);
+            var languageString = _languageConverter.ToString(nextLanguage);
+            _localization.Set(nextLanguage);
+            _view.SetLanguage(languageString);
         }
 
         private void OnSocialClicked()
         {
+            
         }
     }
 }

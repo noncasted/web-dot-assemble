@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6b6405cae9943b7846e7d694ea21737, type: 3}
   m_Name: GlobalConfig_Localization
   m_EditorClassIdentifier: 
-  _datas:
+  _objects:
   - {fileID: 11400000, guid: c7f53f34437e94947b816bae9f878129, type: 2}
   - {fileID: 11400000, guid: 7fa62413acced314f870bac29e14b25e, type: 2}
+  - {fileID: 11400000, guid: 95922124bed31c943ac5c343fbc722ef, type: 2}
+  - {fileID: 11400000, guid: c11ff6932bde1db4ab3e1e6fc186bcf0, type: 2}
+  - {fileID: 11400000, guid: 6e323c8b0577e114e8bcc848e4385970, type: 2}
   - {fileID: 11400000, guid: a1b256e86a03e0a43ab9c055d3f040bf, type: 2}
   - {fileID: 11400000, guid: be4bc2f30a51a7645a2c4fd4f59f826d, type: 2}
   - {fileID: 11400000, guid: 8144c5c656ba14a4b88bcc6ad58af919, type: 2}
-  - {fileID: 11400000, guid: 603794cbd6e0ee44caa65e431bb6fc7e, type: 2}
   - {fileID: 11400000, guid: bbfc9052b82316e44895f29460037159, type: 2}
+  - {fileID: 11400000, guid: 603794cbd6e0ee44caa65e431bb6fc7e, type: 2}
+  - {fileID: 11400000, guid: bb398c4948921c840bfbeb12ebe77fdc, type: 2}

@@ -29,13 +29,14 @@ namespace Global.Localizations.Runtime
 
         public async UniTask OnAwakeAsync()
         {
-            var datas = _storage.GetDatas();
             var saves = await _dataStorage.GetEntry<LanguageSave>(LanguageSave.Key);
 
             if (saves.Value.IsOverriden == true)
                 _language = saves.Value.Language;
             else
                 _language = _systemLanguageProvider.GetLanguage();
+            
+            var datas = _storage.GetDatas();
 
             foreach (var data in datas)
                 data.SelectLanguage(_language);
@@ -57,6 +58,11 @@ namespace Global.Localizations.Runtime
             };
 
             _dataStorage.Save(save, LanguageSave.Key);
+            
+            var datas = _storage.GetDatas();
+
+            foreach (var data in datas)
+                data.SelectLanguage(_language);
         }
 
         public Language GetNext(Language language)

@@ -19,6 +19,7 @@ namespace Global.Localizations.Runtime
         {
             builder.Register<Localization>()
                 .WithParameter<ILocalizationStorage>(_storage)
+                .As<ILocalization>()
                 .AsCallbackListener();
 
             builder.Register<LanguageConverter>()
