@@ -2,7 +2,7 @@
 using Global.Publisher.Abstract.DataStorages;
 using Newtonsoft.Json;
 
-namespace Global.Publisher.Abstract.Saves
+namespace Global.Audio.Player.Runtime
 {
     [Serializable]
     public class SoundSave : IStorageEntry

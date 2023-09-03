@@ -135,6 +135,12 @@ namespace Cysharp.Threading.Tasks
             return Delay(time);
         }
         
+        public static UniTask Delay(float delay, CancellationToken cancellation)
+        {
+            var time = Mathf.CeilToInt(delay * 1000);
+            return Delay(time, false, PlayerLoopTiming.Update,  cancellation);
+        }
+        
         public static UniTask Delay(TimeSpan delayTimeSpan, bool ignoreTimeScale = false, PlayerLoopTiming delayTiming = PlayerLoopTiming.Update, CancellationToken cancellationToken = default(CancellationToken))
         {
             var delayType = ignoreTimeScale ? DelayType.UnscaledDeltaTime : DelayType.DeltaTime;

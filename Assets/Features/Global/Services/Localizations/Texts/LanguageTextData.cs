@@ -34,7 +34,7 @@ namespace Global.Localizations.Texts
             _localizeCallback?.Invoke(GetText());
         }
 
-        private string GetText()
+        public string GetText()
         {
             return _selected switch
             {

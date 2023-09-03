@@ -34,6 +34,7 @@ namespace Global.Publisher.Yandex.Leaderboard
         {
             var completion = new UniTaskCompletionSource<LeaderboardResponse>();
             cancellation.Register(() => completion.TrySetCanceled());
+            _callbacks.LeaderboardsReceived += OnReceived;
 
             _api.GetLeaderboard_Internal(link.GetLeaderboardName(), quantityTop, quantityAround);
 
@@ -50,8 +51,6 @@ namespace Global.Publisher.Yandex.Leaderboard
                 
                 completion.TrySetResult(response);
             }
-
-            _callbacks.LeaderboardsReceived += OnReceived;
 
             var response = await completion.Task;
             

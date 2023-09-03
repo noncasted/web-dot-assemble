@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba51dc16c2db28b44b3836167f1d6b98, type: 3}
-  m_Name: MenuService_Leaderboards_Ui
+  m_Script: {fileID: 11500000, guid: 9b3e63aa713d1c14ba0bef3c52e2d55f, type: 3}
+  m_Name: MenuConfig_Leaderboards
   m_EditorClassIdentifier: 
-  _tabDefinition: {fileID: 11400000, guid: 5f627b76a9b818d40b449f409a4a3566, type: 2}
-  _entriesConfig: {fileID: 11400000, guid: 948a9704f6c93e34ebe7ba04e73b6e39, type: 2}
+  _quantityTop: 3
+  _quantityAround: 3

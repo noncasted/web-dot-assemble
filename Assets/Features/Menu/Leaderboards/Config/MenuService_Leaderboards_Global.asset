@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cbf96bcccd2bb4489f45f1db178426d, type: 3}
   m_Name: MenuService_Leaderboards_Global
   m_EditorClassIdentifier: 
+  _config: {fileID: 11400000, guid: 654b2c8a78951f040bec482ba23f94ef, type: 2}

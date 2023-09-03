@@ -1,5 +1,6 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
 using Cysharp.Threading.Tasks;
+using Global.Audio.Player.Runtime;
 using Global.Localizations.Runtime;
 using Global.Publisher.Abstract.Advertisment;
 using Global.Publisher.Abstract.Bootstrap;

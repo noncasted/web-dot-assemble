@@ -1,6 +1,7 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
 using Common.Architecture.Local.Services.Abstract;
 using Menu.Leaderboards.Common;
+using Menu.Leaderboards.Global;
 using Menu.StateMachine.Definitions;
 using Menu.StateMachine.Extensions;
 using Sirenix.OdinInspector;
@@ -14,7 +15,8 @@ namespace Menu.Leaderboards.UI
     public class LeaderboardsUIFactory : ScriptableObject, ILocalServiceFactory
     {
         [SerializeField] private TabDefinition _tabDefinition;
-
+        [SerializeField] private LeaderboardsTableEntriesConfig _entriesConfig;
+        
         public void Create(
             IDependencyRegister builder,
             ILocalServiceBinder serviceBinder,
@@ -22,6 +24,7 @@ namespace Menu.Leaderboards.UI
         {
             builder.Register<LeaderboardsController>()
                 .As<ILeaderboardsController>()
+                .WithParameter(_entriesConfig)
                 .AsTab<LeaderboardsController>(_tabDefinition);
         }
     }
