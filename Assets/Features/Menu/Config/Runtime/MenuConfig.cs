@@ -1,6 +1,7 @@
 ﻿using Common.Architecture.Local.ComposedSceneConfig;
 using Common.Architecture.Local.Services.Abstract;
 using Menu.Achievements.UI;
+using Menu.Calendar.UI;
 using Menu.Collections.UI;
 using Menu.Common;
 using Menu.Common.Paths;
@@ -28,6 +29,7 @@ namespace Menu.Config.Runtime
         [FoldoutGroup("UI")] [SerializeField] private QuestsUIFactory _quests;
         [FoldoutGroup("UI")] [SerializeField] private SettingsUIFactory _settings;
         [FoldoutGroup("UI")] [SerializeField] private ShopUIFactory _shop;
+        [FoldoutGroup("UI")] [SerializeField] private CalendarUIFactory _calendar;
         
         [FoldoutGroup("System")] [SerializeField] private BaseUiRootFactory _uiRoot;
         [FoldoutGroup("System")] [SerializeField] private StateMachineFactory _stateMachine;
@@ -46,6 +48,7 @@ namespace Menu.Config.Runtime
                 _quests,
                 _settings,
                 _shop,
+                _calendar,
                 
                 _stateMachine,
                 _loop

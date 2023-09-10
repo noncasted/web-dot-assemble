@@ -7,9 +7,17 @@ namespace Global.Publisher.Yandex.Purchases
         [DllImport("__Internal")]
         private static extern void Purchase(string id);
 
-        public void Purchase_Internal(string id)
+        [DllImport("__Internal")]
+        private static extern void GetProducts();
+        
+        public void TryPurchase_Internal(string id)
         {
             Purchase(id);
+        }
+
+        public void GetProducts_Internal()
+        {
+            GetProducts();
         }
     }
 }

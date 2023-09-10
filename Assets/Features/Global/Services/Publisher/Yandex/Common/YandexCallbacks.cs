@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Global.Publisher.Yandex.Common
@@ -11,6 +13,8 @@ namespace Global.Publisher.Yandex.Common
         public event Action<string> InterstitialFailed;
         public event Action RewardedAdClosed;
         public event Action<string> RewardedAdError;
+        public event Action<IReadOnlyList<InternalProduct>> ProductsReceived;
+        public event Action<IReadOnlyList<InternalPurchase>> PurchasesReceived;
         public event Action<string> PurchaseSuccess;
         public event Action<string> PurchaseFailed;
         public event Action Reviewed;
@@ -55,6 +59,20 @@ namespace Global.Publisher.Yandex.Common
             PurchaseFailed?.Invoke(error);
         }
 
+        public void OnProductsReceived(string rawProduct)
+        {
+            var products = JsonConvert.DeserializeObject<InternalProduct[]>(rawProduct);
+            
+            ProductsReceived?.Invoke(products);
+        }
+        
+        public void OnPurchasesReceived(string rawPurchases)
+        {
+            var purchases = JsonConvert.DeserializeObject<InternalPurchase[]>(rawPurchases);
+            
+            PurchasesReceived?.Invoke(purchases);
+        }
+        
         public void OnReview()
         {
             Reviewed?.Invoke();

@@ -49,12 +49,12 @@ namespace Global.Publisher.Yandex.Debugs.Purchases
         {
             Close();
 
-            _callbacks.OnPurchaseFailed("Closed");
+            _callbacks.OnPurchaseSuccess("Closed");
         }
 
         private void OnCloseClicked()
         {
-            _callbacks.OnPurchaseSuccess(_current);
+            _callbacks.OnPurchaseFailed(_current);
         }
 
         private void Close()

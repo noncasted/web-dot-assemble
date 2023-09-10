@@ -25,6 +25,7 @@ using Global.UI.LoadingScreens.Runtime;
 using Global.UI.Overlays.Runtime;
 using Global.UI.UiStateMachines.Runtime;
 using Menu.Achievements.Global;
+using Menu.Calendar.Global;
 using Menu.Collections.Global;
 using Menu.Leaderboards.Global;
 using Menu.Quests.Global;
@@ -77,6 +78,7 @@ namespace Global.Setup.Implementation
         [FoldoutGroup("Menu")] [SerializeField] private QuestsServiceFactory _questsService;
         [FoldoutGroup("Menu")] [SerializeField] private SettingsFactory _settings;
         [FoldoutGroup("Menu")] [SerializeField] private ShopFactory _shop;
+        [FoldoutGroup("Menu")] [SerializeField] private CalendarFactory _calendar;
         
         public override IGlobalServiceFactory[] GetFactories()
         {
@@ -109,7 +111,8 @@ namespace Global.Setup.Implementation
                 _leaderboards,
                 _questsService,
                 _settings,
-                _shop
+                _shop,
+                _calendar
             };
         }
 

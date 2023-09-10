@@ -2,6 +2,7 @@
 {
     public interface IPurchasesAPI
     {
-        void Purchase_Internal(string id);
+        void TryPurchase_Internal(string id);
+        void GetProducts_Internal();
     }
 }

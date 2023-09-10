@@ -1,4 +1,5 @@
 ﻿using Menu.Achievements.UI;
+using Menu.Calendar.UI;
 using Menu.Collections.UI;
 using Menu.Leaderboards.UI;
 using Menu.Main.UI;
@@ -23,6 +24,7 @@ namespace Menu.UiRoot.Runtime
         [SerializeField] private QuestsView _quests;
         [SerializeField] private SettingsView _settings;
         [SerializeField] private ShopView _shopView;
+        [SerializeField] private CalendarView _calendar;
         [SerializeField] private TabTransitionsRegistry _tabTransitionPoints;
 
         public Transform Root => _root;
@@ -34,6 +36,7 @@ namespace Menu.UiRoot.Runtime
         public IQuestsView Quests => _quests;
         public ISettingsView Settings => _settings;
         public IShopView ShopView => _shopView;
+        public ICalendarView Calendar => _calendar;
         public ITransitionPointsRegistry TabTransitionPoints => _tabTransitionPoints;
     }
 }

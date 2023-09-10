@@ -123,7 +123,7 @@ namespace Common.Serialization.NestedScriptableObjects.Editor
 
         protected void CreateAsset(T newObject)
         {
-            newObject.name = "_" + newObject.GetType().Name;
+            newObject.name = $"{Parent.name}_{newObject.GetType().Name}";
             AssetDatabase.Refresh();
             AssetDatabase.AddObjectToAsset(newObject, Parent);
             AssetDatabase.SaveAssets();

@@ -4,10 +4,10 @@ namespace Global.Publisher.Common
 {
     public static class PublisherRoutes
     {
-        private const string _paths = GlobalAssetsPaths.Root + "Publisher/";
-        private const string _servicePrefix = GlobalAssetsPrefixes.Service + "Audio/";
-
-        public const string ServiceName = _servicePrefix + "Publisher";
-        public const string ServicePath = _paths + "Service";
+        public const string ProductName = "ShopProduct";
+        public const string ProductPath = GlobalAssetsPaths.Root + "Publisher/Products";
+        
+        public const string ProductsRegistryName = "ShopProductsRegistry";
+        public const string ProductsRegistryPath = GlobalAssetsPaths.Root + "Publisher/ProductsRegistry";
     }
 }

@@ -140,7 +140,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Menu_Settings_SocialButton_0: -3165396873156238181
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

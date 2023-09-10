@@ -42,3 +42,4 @@ MonoBehaviour:
   _questsService: {fileID: 11400000, guid: 9c103526f746d534c92000af94c80399, type: 2}
   _settings: {fileID: 11400000, guid: f619e9043e5db8e4485bd99397fc6c79, type: 2}
   _shop: {fileID: 11400000, guid: 506be411ce3bdb6459588eeb27d18303, type: 2}
+  _calendar: {fileID: 11400000, guid: a36ac17533fd6324fa41e14b08e408bd, type: 2}

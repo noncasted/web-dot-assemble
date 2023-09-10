@@ -1,5 +1,4 @@
-﻿using Menu.Common;
-using Menu.Common.Paths;
+﻿using Menu.Common.Paths;
 
 namespace Menu.Shop.Common
 {
@@ -10,5 +9,8 @@ namespace Menu.Shop.Common
 
         public const string ControllerName = MenuAssetsPrefixes.Service + "Shop_Ui";
         public const string ControllerPath = MenuAssetsPaths.Root + "Shop/Ui";
+        
+        public const string ShopConfigName = "ShopConfig";
+        public const string ShopConfigPath = MenuAssetsPaths.Root + "Shop/ShopConfig";
     }
 }

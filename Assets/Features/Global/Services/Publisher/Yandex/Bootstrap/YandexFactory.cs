@@ -9,7 +9,6 @@ using Global.Publisher.Abstract.Languages;
 using Global.Publisher.Abstract.Leaderboards;
 using Global.Publisher.Abstract.Purchases;
 using Global.Publisher.Abstract.Reviews;
-using Global.Publisher.Abstract.Saves;
 using Global.Publisher.Yandex.Advertisement;
 using Global.Publisher.Yandex.Common;
 using Global.Publisher.Yandex.DataStorages;
@@ -24,6 +23,7 @@ using Global.Publisher.Yandex.Review;
 using Global.Setup.Service;
 using Global.Setup.Service.Scenes;
 using Menu.Achievements.Global;
+using Menu.Calendar.Global;
 using Menu.Collections.Global;
 using NaughtyAttributes;
 using Sirenix.OdinInspector;
@@ -37,6 +37,7 @@ namespace Global.Publisher.Yandex.Bootstrap
     {
         [SerializeField] [Scene] private string _debugScene;
         [SerializeField] private YandexCallbacks _callbacksPrefab;
+        [SerializeField] private ShopProductsRegistry _productsRegistry;
 
         public override async UniTask Create(
             IDependencyRegister builder,
@@ -78,8 +79,9 @@ namespace Global.Publisher.Yandex.Bootstrap
             builder.Register<Reviews>()
                 .As<IReviews>();
 
-            builder.Register<PurchaseProcessor>()
-                .As<IPurchaseProcessor>();
+            builder.Register<Payments>()
+                .WithParameter(_productsRegistry)
+                .As<IPayments>();
         }
 
         private async UniTask RegisterEditorApis(
@@ -111,6 +113,7 @@ namespace Global.Publisher.Yandex.Bootstrap
 
             builder.Register<PurchasesDebugAPI>()
                 .As<IPurchasesAPI>()
+                .WithParameter(_productsRegistry)
                 .WithParameter<IPurchaseDebug>(canvas.Purchase);
 
             builder.Register<ReviewsDebugAPI>()
@@ -143,11 +146,12 @@ namespace Global.Publisher.Yandex.Bootstrap
         {
             return new IStorageEntry[]
             {
-                new LevelsSave(),
                 new SoundSave(),
                 new AchievementsSave(),
                 new CollectionsSave(),
-                new LanguageSave()
+                new LanguageSave(),
+                new PurchasesSave(),
+                new CalendarSave()
             };
         }
     }

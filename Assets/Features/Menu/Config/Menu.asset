@@ -22,6 +22,7 @@ MonoBehaviour:
   _quests: {fileID: 11400000, guid: e9ad364e2cd5b9a4696e576eb36e7110, type: 2}
   _settings: {fileID: 11400000, guid: fee95e69b39f22e48a3503ee68df5a0c, type: 2}
   _shop: {fileID: 11400000, guid: 2fa8d89c27558394c90f64004f51ea6f, type: 2}
+  _calendar: {fileID: 11400000, guid: 057def4d4c9d7a24fb1941d3f761672e, type: 2}
   _uiRoot: {fileID: 11400000, guid: 4b39bbf4c8fc22a4cab2aa05717f4be7, type: 2}
   _stateMachine: {fileID: 11400000, guid: 01f99b4157fa56b459476968d9b2e243, type: 2}
   _loop: {fileID: 11400000, guid: 20362fed774451b45b81ffdb6bbee266, type: 2}

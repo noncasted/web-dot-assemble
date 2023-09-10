@@ -90,6 +90,8 @@ namespace Menu.Leaderboards.UI
                 showTasks[i] = _allActive[i].Show(currentUsers[i], cancellation);
                 await UniTask.Delay(_showDelay, cancellation);
             }
+
+            await UniTask.WhenAll(showTasks);
         }
 
         public async UniTask Hide(CancellationToken cancellation)

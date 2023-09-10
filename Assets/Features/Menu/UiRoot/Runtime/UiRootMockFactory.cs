@@ -33,6 +33,7 @@ namespace Menu.UiRoot.Runtime
             builder.RegisterInstance(linker.Quests);
             builder.RegisterInstance(linker.Settings);
             builder.RegisterInstance(linker.ShopView);
+            builder.RegisterInstance(linker.Calendar);
             builder.RegisterInstance(linker.TabTransitionPoints);
 
             var navigations = FindObjectsByType<TabNavigation>(FindObjectsSortMode.None);

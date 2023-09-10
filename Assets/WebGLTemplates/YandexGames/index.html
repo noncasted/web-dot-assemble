@@ -87,16 +87,11 @@
 
     function initPayments() {
         ysdk.getPayments({signed: true})
-            .then(_payments => {
-                // Покупки доступны.
-                _payments = _payments;
+            .then(payments => {
+                _payments = payments;
             })
             .catch(error => {
                 console.log(error);
-
-                // Покупки недоступны. Включите монетизацию в консоли разработчика.
-                // Убедитесь, что на вкладке Покупки консоли разработчика присутствует таблица
-                // хотя бы с одним внутриигровым товаром и надписью «Покупки разрешены».
             })
     }
 
@@ -217,9 +212,27 @@
     function Purchase(purchaseId) {
         _payments.purchase({id: purchaseId}).then(purchase => {
             SendDataCallback("OnPurchaseSuccess", purchaseId)
-        }).catch(err => {
-            SendDataCallback("OnPurchaseFailed", err)
+        }).catch(e => {
+            SendDataCallback("OnPurchaseFailed", e)
         })
+    }
+    
+    function GetProducts() {
+        _payments.getCatalog().then(products => {
+            let productsJson = JSON.stringify(products);
+            SendDataCallback("OnProductsReceived", productsJson)
+        }).catch(e => {
+            console.log('Error while receiving catalog ', e);
+        });
+    }
+
+    function GetPurchases() {
+        _payments.getPurchases().then(purchases => {
+            let purchasesJson = JSON.stringify(purchases);
+            SendDataCallback("OnPurchasesReceived", purchasesJson)
+        }).catch(e => {
+            console.log('Error while receiving purchases ', e);
+        });
     }
 
 </script>

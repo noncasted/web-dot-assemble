@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6e9d30826f768646bc08dfd8a16c852, type: 3}
   m_Name: MenuService_Shop_Global
   m_EditorClassIdentifier: 
+  _productsRegistry: {fileID: 11400000, guid: 56bcd117c27210e499a7197aad651465, type: 2}
+  _config: {fileID: 11400000, guid: d261d4c068ff44f42b2fe8850cb107df, type: 2}
