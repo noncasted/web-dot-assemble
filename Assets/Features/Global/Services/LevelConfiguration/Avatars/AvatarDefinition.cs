@@ -1,4 +1,5 @@
 ﻿using Global.LevelConfiguration.Common;
+using Global.Publisher.Abstract.Purchases;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -10,14 +11,9 @@ namespace Global.LevelConfiguration.Avatars
     public class AvatarDefinition : ScriptableObject, IAvatarDefinition
     {
         [SerializeField] private Sprite _sprite;
-        [SerializeField] private int _id;
+        [SerializeField] private ProductLink _product;
 
-        public int Id => _id;   
         public Sprite Sprite => _sprite;
-        
-        public void SetId(int id)
-        {
-            _id = id;
-        }
+        public IProductLink Product => _product;
     }
 }

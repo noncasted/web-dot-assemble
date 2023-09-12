@@ -1,12 +1,11 @@
-﻿using UnityEngine;
+﻿using Global.Publisher.Abstract.Purchases;
+using UnityEngine;
 
 namespace Global.LevelConfiguration.Avatars
 {
     public interface IAvatarDefinition
     {
-        int Id { get; }
         Sprite Sprite { get; }
-
-        void SetId(int id);
+        IProductLink Product { get; }
     }
 }

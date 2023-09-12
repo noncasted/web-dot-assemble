@@ -8,7 +8,6 @@ using GamePlay.Level.Services.Score.Runtime;
 using GamePlay.Loop.Logs;
 using GamePlay.UI.Runtime.Score;
 using Global.LevelConfiguration.Runtime;
-using UnityEngine;
 
 namespace GamePlay.Loop.Runtime
 {

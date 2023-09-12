@@ -6,7 +6,7 @@ namespace Menu.Shop.Global
 {
     public interface IShop
     {
-        UniTask<PurchaseResult> TryPurchase(IProductLink link);
+        UniTask<PurchaseResult> TryPurchase(IProductLink product);
         UniTask<IReadOnlyList<IProductLink>> GetCurrentProducts();
     }
 }

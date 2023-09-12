@@ -3,7 +3,9 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using Global.LevelConfiguration.Avatars;
 using Global.Publisher.Abstract.DataStorages;
+using Global.Publisher.Abstract.Purchases;
 using Global.Setup.Service.Callbacks;
+using Global.System.MessageBrokers.Runtime;
 
 namespace Menu.Collections.Global
 {       
@@ -13,21 +15,27 @@ namespace Menu.Collections.Global
         {
             _storage = storage;
 
+            _products = new Dictionary<string, IProductLink>();
             _all = new Dictionary<IAvatarDefinition, AvatarHandle>();
+            _allFromProducts = new Dictionary<IProductLink, IAvatarDefinition>();
             
             foreach (var avatar in registry.Avatars)
                 _all[avatar] = new AvatarHandle(avatar, false);
 
-            _allFromId = new Dictionary<int, IAvatarDefinition>();
+            foreach (var avatar in registry.Avatars)
+                _allFromProducts[avatar.Product] = avatar;
 
             foreach (var avatar in registry.Avatars)
-                _allFromId[avatar.Id] = avatar;
+            {
+                _products.Add(avatar.Product.Id, avatar.Product);
+            }
         }
         
         private readonly IDataStorage _storage;
 
+        private readonly Dictionary<string, IProductLink> _products;
         private readonly Dictionary<IAvatarDefinition, AvatarHandle> _all;
-        private readonly Dictionary<int, IAvatarDefinition> _allFromId;
+        private readonly Dictionary<IProductLink, IAvatarDefinition> _allFromProducts;
     
         private CollectionsSave _save;
         
@@ -39,16 +47,22 @@ namespace Menu.Collections.Global
 
             foreach (var (id, isUnlocked) in _save.Avatars)
             {
-                var avatar = _allFromId[id];
+                var product = _products[id];
+                var avatar = _allFromProducts[product];
                 var handle = new AvatarHandle(avatar, isUnlocked);
                 _all[avatar] = handle;
             }
+
+            Msg.Listen<PurchaseEvent>(OnUnlocked);
         }
         
-        public void Unlock(IAvatarDefinition definition)
+        private void OnUnlocked(PurchaseEvent purchase)
         {
-            _all[definition] = new AvatarHandle(definition, true);
-            _save.OnUnlocked(definition.Id);
+            if (_allFromProducts.TryGetValue(purchase.ProductLink, out var avatar) == false)
+                return;
+            
+            _all[avatar] = new AvatarHandle(avatar, true);
+            _save.OnUnlocked(avatar.Product.Id);
         }
     }
 }

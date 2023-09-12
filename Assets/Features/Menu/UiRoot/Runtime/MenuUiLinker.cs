@@ -8,7 +8,6 @@ using Menu.Settings.UI;
 using Menu.Shop.UI;
 using Menu.StateMachine.Runtime;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Menu.UiRoot.Runtime
 {

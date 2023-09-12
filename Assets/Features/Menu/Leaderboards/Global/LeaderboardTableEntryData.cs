@@ -1,5 +1,4 @@
-﻿using Common.Serialization.NestedScriptableObjects.Attributes;
-using Global.Localizations.Texts;
+﻿using Global.Localizations.Texts;
 using Global.Publisher.Abstract.Leaderboards;
 using Sirenix.OdinInspector;
 using UnityEngine;

@@ -4,7 +4,6 @@ using Cysharp.Threading.Tasks;
 using Global.Scenes.ScenesFlow.Runtime.Abstract;
 using Menu.Common.Navigation;
 using Menu.UiRoot.Common;
-using NaughtyAttributes;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

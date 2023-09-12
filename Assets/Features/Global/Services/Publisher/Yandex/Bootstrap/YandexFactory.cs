@@ -38,6 +38,7 @@ namespace Global.Publisher.Yandex.Bootstrap
         [SerializeField] [Scene] private string _debugScene;
         [SerializeField] private YandexCallbacks _callbacksPrefab;
         [SerializeField] private ShopProductsRegistry _productsRegistry;
+        [SerializeField] private ProductLink _adsDisableProduct;
 
         public override async UniTask Create(
             IDependencyRegister builder,
@@ -61,6 +62,7 @@ namespace Global.Publisher.Yandex.Bootstrap
         private void RegisterModules(IDependencyRegister builder)
         {
             builder.Register<Ads>()
+                .WithParameter<IProductLink>(_adsDisableProduct)
                 .As<IAds>();
 
             var saves = GetSaves();

@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using Global.Publisher.Abstract.DataStorages;
 using Global.Publisher.Abstract.Purchases;
 using Global.Setup.Service.Callbacks;
+using Global.System.MessageBrokers.Runtime;
 
 namespace Menu.Shop.Global
 {
@@ -21,6 +22,7 @@ namespace Menu.Shop.Global
         private readonly IPayments _payments;
         private readonly IDataStorage _storage;
         private readonly IShopConfig _config;
+        
         private readonly ShopProductsRegistry _productsRegistry;
 
         public async UniTask OnAwakeAsync()
@@ -28,20 +30,27 @@ namespace Menu.Shop.Global
             await _payments.ValidateProducts();
         }
 
-        public async UniTask<PurchaseResult> TryPurchase(IProductLink link)
+        public async UniTask<PurchaseResult> TryPurchase(IProductLink product)
         {
-            var result = await _payments.TryPurchase(link);
+            var result = await _payments.TryPurchase(product);
 
             switch (result)
             {
                 case PurchaseResult.Success:
+                {
                     var purchasesSave = await _storage.GetEntry<PurchasesSave>(PurchasesSave.Key);
-                    purchasesSave.OnPurchase(link.Id);
+                    purchasesSave.OnPurchase(product.Id);
+                    Msg.Publish(new PurchaseEvent(product));
                     return PurchaseResult.Success;
+                }
                 case PurchaseResult.Fail:
+                {
                     return PurchaseResult.Fail;
+                }
                 default:
+                {
                     throw new ArgumentOutOfRangeException();
+                }
             }
         }
 
@@ -54,7 +63,7 @@ namespace Menu.Shop.Global
 
             if (purchasesSave.Purchases.Contains(_config.DisableAds.Id) == false)
                 products.Add(_config.DisableAds);
-            
+
             for (var i = 0; i < count; i++)
             {
                 var index = (day + i) % count;

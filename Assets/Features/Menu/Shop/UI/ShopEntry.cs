@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Common.UI.Extended.Buttons;
 using Cysharp.Threading.Tasks;
 using Global.Publisher.Abstract.Purchases;
-using Menu.Shop.Global;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

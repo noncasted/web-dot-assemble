@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Global.Publisher.Abstract.DataStorages;
-using Global.Publisher.Yandex.DataStorages;
 using Newtonsoft.Json;
 
 namespace Menu.Collections.Global
@@ -10,20 +9,20 @@ namespace Menu.Collections.Global
     {
         public const string Key = "collections";
         
-        private Dictionary<int, bool> _avatars;
+        private Dictionary<string, bool> _avatars;
         
         public event Action Changed;
         
         public string SaveKey => Key;
 
-        public IReadOnlyDictionary<int, bool> Avatars => _avatars;
+        public IReadOnlyDictionary<string, bool> Avatars => _avatars;
 
         public void CreateDefault()
         {
-            _avatars = new Dictionary<int, bool>();
+            _avatars = new Dictionary<string, bool>();
         }
 
-        public void OnUnlocked(int id)
+        public void OnUnlocked(string id)
         {
             _avatars[id] = true;
         }
@@ -35,7 +34,7 @@ namespace Menu.Collections.Global
 
         public void Deserialize(string raw)
         {
-            _avatars = JsonConvert.DeserializeObject<Dictionary<int, bool>>(raw);
+            _avatars = JsonConvert.DeserializeObject<Dictionary<string, bool>>(raw);
         }
     }
 }

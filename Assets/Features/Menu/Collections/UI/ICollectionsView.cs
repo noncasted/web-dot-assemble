@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Menu.Collections.Global;
 using Menu.Common.Navigation;
 using UnityEngine;

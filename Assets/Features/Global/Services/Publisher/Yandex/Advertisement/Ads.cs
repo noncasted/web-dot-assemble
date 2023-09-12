@@ -1,24 +1,46 @@
 ﻿using Cysharp.Threading.Tasks;
 using Global.Publisher.Abstract.Advertisment;
+using Global.Publisher.Abstract.DataStorages;
+using Global.Publisher.Abstract.Purchases;
 using Global.Publisher.Yandex.Common;
+using Global.Setup.Service.Callbacks;
+using Global.System.MessageBrokers.Runtime;
 using Global.System.Pauses.Runtime;
 
 namespace Global.Publisher.Yandex.Advertisement
 {
-    public class Ads : IAds
+    public class Ads : IAds, IGlobalAsyncBootstrapListener
     {
-        private Ads(YandexCallbacks callbacks, IPause pause, IAdsAPI api)
+        private Ads(
+            YandexCallbacks callbacks,
+            IDataStorage dataStorage,
+            IPause pause,
+            IAdsAPI api,
+            IProductLink adsProduct)
         {
             _callbacks = callbacks;
+            _dataStorage = dataStorage;
             _pause = pause;
             _api = api;
+            _adsProduct = adsProduct;
         }
 
         private readonly IAdsAPI _api;
+        private readonly IProductLink _adsProduct;
+        private readonly IDataStorage _dataStorage;
         private readonly YandexCallbacks _callbacks;
 
         private readonly IPause _pause;
+        
+        private AdsSave _save;
 
+        public async UniTask OnBootstrapAsync()
+        {
+            _save = await _dataStorage.GetEntry<AdsSave>(AdsSave.Key);
+            
+            Msg.Listen<PurchaseEvent>(OnProductUnlocked);
+        }
+        
         public void ShowInterstitial()
         {
             ProcessInterstitial().Forget();
@@ -38,12 +60,23 @@ namespace Global.Publisher.Yandex.Advertisement
 
         private async UniTaskVoid ProcessInterstitial()
         {
+            if (_save.IsDisabled == true)
+                return;
+            
             _pause.Pause();
 
             var handler = new InterstitialHandler(_callbacks, _api);
             await handler.Show();
 
             _pause.Continue();
+        }
+        
+        private void OnProductUnlocked(PurchaseEvent purchase)
+        {
+            if (purchase.ProductLink != _adsProduct)
+                return;
+            
+            _save.OnDisabled();
         }
     }
 }

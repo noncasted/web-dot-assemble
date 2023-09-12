@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using Unity.Plastic.Newtonsoft.Json.Serialization;
+using UnityEngine;
 using UnityEngine.UI;
-using Action = Unity.Plastic.Newtonsoft.Json.Serialization.Action;
 
 namespace Menu.Leaderboards.UI
 {
