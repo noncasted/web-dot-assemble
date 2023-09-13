@@ -1,5 +1,5 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Common.Architecture.Local.Services.Abstract;
+using Common.Architecture.Local.Abstract;
 using GamePlay.Level.Dots.Definitions;
 using GamePlay.Level.Dots.Runtime.LifeFlow;
 using GamePlay.Level.Fields.Lifetime;

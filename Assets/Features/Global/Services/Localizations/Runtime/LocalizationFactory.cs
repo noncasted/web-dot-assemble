@@ -12,10 +12,7 @@ namespace Global.Localizations.Runtime
     {
         [SerializeField] [Indent] private LocalizationStorage _storage;
 
-        public void Create(
-            IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder,
-            IGlobalCallbacks callbacks)
+        public void Create(IDependencyRegister builder, IGlobalUtils utils)
         {
             builder.Register<Localization>()
                 .WithParameter<ILocalizationStorage>(_storage)

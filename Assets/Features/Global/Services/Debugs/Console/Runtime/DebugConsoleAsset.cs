@@ -13,10 +13,7 @@ namespace Global.Debugs.Console.Runtime
     {
         [SerializeField] [Indent] private DebugConsole _prefab;
 
-        public void Create(
-            IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder,
-            IGlobalCallbacks callbacks)
+        public void Create(IDependencyRegister builder, IGlobalUtils utils)
         {
             var debugConsole = Instantiate(_prefab);
             debugConsole.name = "DebugConsole";
@@ -24,7 +21,7 @@ namespace Global.Debugs.Console.Runtime
             builder.RegisterComponent(debugConsole)
                 .AsCallbackListener();
 
-            serviceBinder.AddToModules(debugConsole);
+            utils.Binder.AddToModules(debugConsole);
         }
     }
 }

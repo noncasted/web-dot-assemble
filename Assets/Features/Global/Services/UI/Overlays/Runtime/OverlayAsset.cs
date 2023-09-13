@@ -16,11 +16,7 @@ namespace Global.UI.Overlays.Runtime
     {
         [SerializeField] [Scene] private string _scene;
 
-        public async UniTask Create(
-            IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder,
-            IGlobalSceneLoader sceneLoader,
-            IGlobalCallbacks callbacks)
+        public async UniTask Create(IDependencyRegister builder, IGlobalSceneLoader sceneLoader, IGlobalUtils utils)
         {
             var data = new InternalScene<OverlayBootstrapper>(_scene);
             var result = await sceneLoader.LoadAsync(data);
@@ -28,7 +24,7 @@ namespace Global.UI.Overlays.Runtime
             var bootstrapper = result.Searched;
 
             foreach (var listener in bootstrapper.EventListeners)
-                callbacks.Listen(listener);
+                utils.Callbacks.Listen(listener);
         }
     }
 }

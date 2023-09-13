@@ -1,4 +1,4 @@
-﻿using Common.Architecture.Local.Services.Abstract.Callbacks;
+﻿using Common.Architecture.Local.Abstract.Callbacks;
 using Cysharp.Threading.Tasks;
 using Menu.StateMachine.Definitions;
 using Menu.StateMachine.Runtime;

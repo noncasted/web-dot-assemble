@@ -20,7 +20,6 @@ namespace Common.Serialization.NestedScriptableObjects.Editor
 
         private Object Parent => GetParent();
 
-        
         private Object GetParent()
         {
             var parent = Property;

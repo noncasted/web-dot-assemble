@@ -15,10 +15,7 @@ namespace Menu.Achievements.Global
         [SerializeField] private AchievementsDebug _debug;
         [SerializeField] private AchievementsRegistry _registry;
         
-        public void Create(
-            IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder,
-            IGlobalCallbacks callbacks)
+        public void Create(IDependencyRegister builder, IGlobalUtils utils)
         {
             var factory = new AchievementFactory();
             

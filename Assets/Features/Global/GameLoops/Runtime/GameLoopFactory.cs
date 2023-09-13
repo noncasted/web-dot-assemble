@@ -14,12 +14,8 @@ namespace Global.GameLoops.Runtime
     {
         [SerializeField] private LevelConfig _level;
 
-        public void Create(
-            IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder,
-            IGlobalCallbacks callbacks)
+        public void Create(IDependencyRegister builder, IGlobalUtils utils)
         {
-            //
             builder.Register<GameLoop>()
                 .WithParameter(_level)
                 .As<IGameLoop>()

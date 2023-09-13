@@ -1,4 +1,4 @@
-﻿using Common.Architecture.Local.Services.Abstract.Callbacks;
+﻿using Common.Architecture.Local.Abstract.Callbacks;
 using Menu.Collections.Global;
 using Menu.StateMachine.Definitions;
 using UnityEngine;

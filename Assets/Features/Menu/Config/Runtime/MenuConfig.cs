@@ -1,5 +1,5 @@
-﻿using Common.Architecture.Local.ComposedSceneConfig;
-using Common.Architecture.Local.Services.Abstract;
+﻿using Common.Architecture.Local.Abstract;
+using Common.Architecture.Local.ComposedSceneConfig;
 using Menu.Achievements.UI;
 using Menu.Calendar.UI;
 using Menu.Collections.UI;

@@ -14,10 +14,7 @@ namespace Menu.Collections.Global
     {
         [SerializeField] private AvatarsRegistry _registry;
         
-        public void Create(
-            IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder,
-            IGlobalCallbacks callbacks)
+        public void Create(IDependencyRegister builder, IGlobalUtils utils)
         {
             builder.Register<Collections>()
                 .WithParameter<IAvatarsRegistry>(_registry)

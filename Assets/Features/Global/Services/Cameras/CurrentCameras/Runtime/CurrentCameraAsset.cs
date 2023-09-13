@@ -13,12 +13,8 @@ namespace Global.Cameras.CurrentCameras.Runtime
     public class CurrentCameraAsset : ScriptableObject, IGlobalServiceFactory
     {
         [SerializeField] [Indent] private CurrentCameraLogSettings _logSettings;
-        [SerializeField] [Indent] private CurrentCamera _prefab;
 
-        public void Create(
-            IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder,
-            IGlobalCallbacks callbacks)
+        public void Create(IDependencyRegister builder, IGlobalUtils utils)
         {
             builder.Register<CurrentCameraLogger>()
                 .WithParameter(_logSettings);

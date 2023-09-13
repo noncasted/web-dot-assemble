@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Common.Architecture.Local.Services.Abstract;
-using Common.Architecture.Local.Services.Abstract.EventLoops;
+using Common.Architecture.Local.Abstract;
+using Common.Architecture.Local.Abstract.EventLoops;
 using Cysharp.Threading.Tasks;
 using Global.Scenes.ScenesFlow.Handling.Data;
 using Global.Scenes.ScenesFlow.Runtime.Abstract;

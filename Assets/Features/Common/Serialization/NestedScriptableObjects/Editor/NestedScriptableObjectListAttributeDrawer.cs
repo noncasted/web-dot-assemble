@@ -100,7 +100,7 @@ namespace Common.Serialization.NestedScriptableObjects.Editor
             if (objectName.Contains("EmptyEntry") == true)
                 return;
 
-            objectToCreate.name = $"{objectName}_{parentName}";
+            objectToCreate.name = $"{parentName}_{objectName}";
 
             AssetDatabase.AddObjectToAsset(objectToCreate, Parent);
             AssetDatabase.SaveAssets();

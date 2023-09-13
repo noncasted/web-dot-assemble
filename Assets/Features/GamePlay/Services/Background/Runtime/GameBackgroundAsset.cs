@@ -1,5 +1,6 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Common.Architecture.Local.Services.Abstract;
+using Common.Architecture.Local.Abstract;
+using Common.Serialization.NestedScriptableObjects.Attributes;
 using Cysharp.Threading.Tasks;
 using GamePlay.Services.Background.Common;
 using Global.Scenes.ScenesFlow.Handling.Data;
@@ -15,7 +16,7 @@ namespace GamePlay.Services.Background.Runtime
         menuName = BackgroundRoutes.ServicePath)]
     public class GameBackgroundAsset : ScriptableObject, ILocalServiceAsyncFactory
     {
-        [SerializeField] [Scene] private string _scene;
+        [SerializeField] [NestedScriptableObjectField] private SceneData _scene;
 
         public async UniTask Create(
             IDependencyRegister builder,

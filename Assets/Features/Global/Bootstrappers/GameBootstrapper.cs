@@ -18,7 +18,7 @@ namespace Global.Bootstrappers
     {
         [SerializeField] private GlobalScope _scope;
         [SerializeField] [Scene] private string _servicesScene;
-
+        [SerializeField] private Options.Runtime.Options _options;
         [SerializeField] private GameLoopFactory _gameLoop;
         [SerializeField] private GlobalServicesConfig _services;
 
@@ -57,18 +57,21 @@ namespace Global.Bootstrappers
             var asyncFactories = _services.GetAsyncFactories();
 
             dependencyRegister.RegisterInstance<IDestroyCallbacksProvider>(callbacks);
-
+            _options.Setup();
+            
+            var utils = new GlobalUtils(binder, callbacks, _options);
+            
             foreach (var factory in factories)
-                factory.Create(dependencyRegister, binder, callbacks);
+                factory.Create(dependencyRegister, utils);
 
             var asyncFactoriesTasks = new UniTask[asyncFactories.Length];
 
             for (var i = 0; i < asyncFactories.Length; i++)
-                asyncFactoriesTasks[i] = asyncFactories[i].Create(dependencyRegister, binder, sceneLoader, callbacks);
+                asyncFactoriesTasks[i] = asyncFactories[i].Create(dependencyRegister, sceneLoader, utils);
 
             await UniTask.WhenAll(asyncFactoriesTasks);
 
-            _gameLoop.Create(dependencyRegister, binder, callbacks);
+            _gameLoop.Create(dependencyRegister, utils);
 
             var scope = Instantiate(_scope);
             scope.IsRoot = true;

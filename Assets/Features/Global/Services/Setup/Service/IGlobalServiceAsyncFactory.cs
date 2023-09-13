@@ -8,8 +8,7 @@ namespace Global.Setup.Service
     {
         public UniTask Create(
             IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder,
             IGlobalSceneLoader sceneLoader,
-            IGlobalCallbacks callbacks);
+            IGlobalUtils utils);
     }
 }

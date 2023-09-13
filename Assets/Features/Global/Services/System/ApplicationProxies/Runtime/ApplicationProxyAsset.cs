@@ -14,10 +14,7 @@ namespace Global.System.ApplicationProxies.Runtime
     {
         [SerializeField] [Indent] private ApplicationProxyLogSettings _logSettings;
 
-        public void Create(
-            IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder,
-            IGlobalCallbacks callbacks)
+        public void Create(IDependencyRegister builder, IGlobalUtils utils)
         {
             builder.Register<ApplicationProxyLogger>()
                 .WithParameter(_logSettings);

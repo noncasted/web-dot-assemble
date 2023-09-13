@@ -11,10 +11,7 @@ namespace Menu.Settings.Global
         menuName = SettingsRoutes.ServicePath)]
     public class SettingsFactory : ScriptableObject, IGlobalServiceFactory
     {
-        public void Create(
-            IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder,
-            IGlobalCallbacks callbacks)
+        public void Create(IDependencyRegister builder, IGlobalUtils utils)
         {
             builder.Register<Settings>()
                 .As<ISettings>();

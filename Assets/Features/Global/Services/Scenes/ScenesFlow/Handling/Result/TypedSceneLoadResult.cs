@@ -1,10 +1,16 @@
-﻿using UnityEngine.SceneManagement;
+﻿using UnityEngine.ResourceManagement.ResourceProviders;
+using UnityEngine.SceneManagement;
 
 namespace Global.Scenes.ScenesFlow.Handling.Result
 {
     public class TypedSceneLoadResult<T> : SceneLoadResult
     {
         public TypedSceneLoadResult(Scene scene, T searched) : base(scene)
+        {
+            Searched = searched;
+        }
+        
+        public TypedSceneLoadResult(SceneInstance scene, T searched) : base(scene)
         {
             Searched = searched;
         }

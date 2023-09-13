@@ -15,10 +15,7 @@ namespace Menu.Shop.Global
         [SerializeField] private ShopProductsRegistry _productsRegistry;
         [SerializeField] private ShopConfig _config;
         
-        public void Create(
-            IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder,
-            IGlobalCallbacks callbacks)
+        public void Create(IDependencyRegister builder, IGlobalUtils utils)
         {
             builder.Register<Shop>()
                 .WithParameter<IShopConfig>(_config)

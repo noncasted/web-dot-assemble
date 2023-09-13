@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Common.Serialization.NestedScriptableObjects.Attributes;
+using Global.Scenes.ScenesFlow.Handling.Data;
+using UnityEngine;
 
 namespace Common.Architecture.Local.ComposedSceneConfig
 {
@@ -6,8 +8,8 @@ namespace Common.Architecture.Local.ComposedSceneConfig
         menuName = "Local/Config/ComposedScene")]
     public class ComposedScenesConfig : ScriptableObject
     {
-        [SerializeField] private string _servicesScene;
+        [SerializeField] [NestedScriptableObjectField] private SceneData _servicesScene;
 
-        public string ServicesScene => _servicesScene;
+        public ISceneAsset ServicesScene => _servicesScene;
     }
 }

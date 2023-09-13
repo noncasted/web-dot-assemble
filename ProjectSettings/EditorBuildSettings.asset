@@ -35,5 +35,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Features/GamePlay/UI/Config/UI_Level.unity
     guid: c555a78c5f9ddc84ca2f914bbd30084f
-  m_configObjects: {}
+  - enabled: 1
+    path: Assets/Features/Menu/Config/UI_Menu.unity
+    guid: ca993af3aede95b4d974ab5310aedab4
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: e0d16b84aadd0ac468cad9ffa958f37c, type: 2}
   m_UseUCBPForAssetBundles: 0

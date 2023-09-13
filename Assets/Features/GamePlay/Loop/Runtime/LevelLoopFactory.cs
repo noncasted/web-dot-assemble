@@ -1,5 +1,5 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Common.Architecture.Local.Services.Abstract;
+using Common.Architecture.Local.Abstract;
 using GamePlay.Loop.Common;
 using GamePlay.Loop.Logs;
 using Sirenix.OdinInspector;

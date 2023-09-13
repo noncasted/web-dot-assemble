@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Common.Architecture.Local.Services.Abstract.Callbacks;
-using Common.Architecture.Local.Services.Abstract.EventLoops;
+using Common.Architecture.Local.Abstract.Callbacks;
+using Common.Architecture.Local.Abstract.EventLoops;
 using Cysharp.Threading.Tasks;
 
 namespace Common.Architecture.Local.ComposedSceneConfig

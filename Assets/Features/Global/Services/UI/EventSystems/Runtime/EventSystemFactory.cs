@@ -13,15 +13,12 @@ namespace Global.UI.EventSystems.Runtime
     {
         [SerializeField] private EventSystem _prefab;
         
-        public void Create(
-            IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder,
-            IGlobalCallbacks callbacks)
+        public void Create(IDependencyRegister builder, IGlobalUtils utils)
         {
             var eventSystem = Instantiate(_prefab);
             eventSystem.name = "EventSystem";
 
-            serviceBinder.AddToModules(eventSystem);
+            utils.Binder.AddToModules(eventSystem);
         }
     }
 }

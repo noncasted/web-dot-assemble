@@ -10,10 +10,7 @@ namespace Common.UniversalAnimators.Updaters.Runtime
     [CreateAssetMenu(fileName = AnimatorsUpdaterRoutes.ServiceName, menuName = AnimatorsUpdaterRoutes.ServicePath)]
     public class AnimatorsUpdaterFactory : ScriptableObject, IGlobalServiceFactory
     {
-        public void Create(
-            IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder, 
-            IGlobalCallbacks callbacks)
+        public void Create(IDependencyRegister builder, IGlobalUtils utils)
         {
             builder.Register<AnimatorsUpdater>()
                 .As<IAnimatorsUpdater>()

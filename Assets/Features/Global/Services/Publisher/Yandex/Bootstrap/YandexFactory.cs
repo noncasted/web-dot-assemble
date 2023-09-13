@@ -40,11 +40,7 @@ namespace Global.Publisher.Yandex.Bootstrap
         [SerializeField] private ShopProductsRegistry _productsRegistry;
         [SerializeField] private ProductLink _adsDisableProduct;
 
-        public override async UniTask Create(
-            IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder,
-            IGlobalSceneLoader sceneLoader,
-            IGlobalCallbacks callbacks)
+        public override async UniTask Create(IDependencyRegister builder, IGlobalSceneLoader sceneLoader, IGlobalUtils utils)
         {
             var yandexCallbacks = Instantiate(_callbacksPrefab, Vector3.zero, Quaternion.identity);
             yandexCallbacks.name = "YandexCallbacks";

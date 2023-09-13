@@ -11,17 +11,14 @@ namespace Global.System.DestroyHandlers.Runtime
     {
         [SerializeField] private DestroyHandler _prefab;
         
-        public void Create(
-            IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder,
-            IGlobalCallbacks callbacks)
+        public void Create(IDependencyRegister builder, IGlobalUtils utils)
         {
             var destroyHandler = Instantiate(_prefab);
 
             builder.RegisterComponent(destroyHandler)
                 .AsCallbackListener();
             
-            serviceBinder.AddToModules(destroyHandler);
+            utils.Binder.AddToModules(destroyHandler);
         }
     }
 }

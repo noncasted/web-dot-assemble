@@ -1,5 +1,5 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Common.Architecture.Local.Services.Abstract;
+using Common.Architecture.Local.Abstract;
 using GamePlay.Services.LevelCameras.Common;
 using GamePlay.Services.LevelCameras.Logs;
 using Sirenix.OdinInspector;

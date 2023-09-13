@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ShopProduct_Character_3
   m_EditorClassIdentifier: 
   _paymentMethod: 1
-  _id: character_2
+  _id: character_3
   _shopIcon: {fileID: 562877117222254415, guid: 9e5eecdfc0c5db04eb80024c1dcc0305, type: 3}
   _price: 10
   _description: {fileID: 0}

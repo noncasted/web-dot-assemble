@@ -11,10 +11,7 @@ namespace Global.LevelConfiguration.Runtime
         menuName = LevelConfigurationRoutes.ServicePath)]
     public class LevelConfigurationFactory : ScriptableObject, IGlobalServiceFactory
     {
-        public void Create(
-            IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder,
-            IGlobalCallbacks callbacks)
+        public void Create(IDependencyRegister builder, IGlobalUtils utils)
         {
             builder.Register<LevelConfigurationProvider>()
                 .As<ILevelConfigurationProvider>();

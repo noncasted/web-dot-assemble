@@ -20,7 +20,7 @@ namespace Global.Inputs.View.Runtime
     {
         [SerializeField] [Indent] private InputViewLogSettings _logSettings;
 
-        public void Create(IDependencyRegister builder, IGlobalServiceBinder serviceBinder, IGlobalCallbacks callbacks)
+        public void Create(IDependencyRegister builder, IGlobalUtils utils)
         {
             var controls = new Controls();
             var gamePlay = controls.GamePlay;

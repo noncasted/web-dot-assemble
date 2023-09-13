@@ -1,5 +1,5 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Common.Architecture.Local.Services.Abstract;
+using Common.Architecture.Local.Abstract;
 using Cysharp.Threading.Tasks;
 using Global.Scenes.ScenesFlow.Runtime.Abstract;
 using Menu.Common.Navigation;

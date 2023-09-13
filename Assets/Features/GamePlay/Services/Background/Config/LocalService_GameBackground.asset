@@ -12,4 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a98367e2c43b41fd97f0c5f6c68c67a3, type: 3}
   m_Name: LocalService_GameBackground
   m_EditorClassIdentifier: 
-  _scene: UI_Background
+  _scene: {fileID: 8327497941231597215}
+--- !u!114 &8327497941231597215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420b4814d8868c443ae796e180394d9b, type: 3}
+  m_Name: LocalService_GameBackground_SceneAsset
+  m_EditorClassIdentifier: 
+  _name:
+    m_SceneAsset: {fileID: 102900000, guid: 1de6794e2d26a6747a493264e3dd21b9, type: 3}
+    m_SceneName: UI_Background
+  _reference:
+    m_AssetGUID: 1de6794e2d26a6747a493264e3dd21b9
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0

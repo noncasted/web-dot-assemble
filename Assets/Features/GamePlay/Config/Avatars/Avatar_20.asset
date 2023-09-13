@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Avatar_20
   m_EditorClassIdentifier: 
   _sprite: {fileID: 562877117222254415, guid: 9e5eecdfc0c5db04eb80024c1dcc0305, type: 3}
-  _id: 0
+  _product: {fileID: 11400000, guid: a6f6affb1b7c1324a9b3e09084db958b, type: 2}

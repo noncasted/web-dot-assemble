@@ -1,4 +1,4 @@
-﻿using Common.Architecture.Local.Services.Abstract.Callbacks;
+﻿using Common.Architecture.Local.Abstract.Callbacks;
 using GamePlay.Services.LevelCameras.Logs;
 using Global.Cameras.CurrentCameras.Runtime;
 using Global.Inputs.View.Runtime.Projection;

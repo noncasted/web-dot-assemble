@@ -14,10 +14,7 @@ namespace Global.Cameras.CameraUtilities.Runtime
     {
         [SerializeField] [Indent] private CameraUtilsLogSettings _logSettings;
 
-        public void Create(
-            IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder,
-            IGlobalCallbacks callbacks)
+        public void Create(IDependencyRegister builder, IGlobalUtils utils)
         {
             builder.Register<CameraUtilsLogger>()
                 .WithParameter(_logSettings);

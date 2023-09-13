@@ -14,10 +14,7 @@ namespace Global.Scenes.CurrentSceneHandlers.Runtime
     {
         [SerializeField] [Indent] private CurrentSceneHandlerLogSettings _logSettings;
 
-        public void Create(
-            IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder,
-            IGlobalCallbacks callbacks)
+        public void Create(IDependencyRegister builder, IGlobalUtils utils)
         {
             builder.Register<CurrentSceneHandlerLogger>()
                 .WithParameter(_logSettings);

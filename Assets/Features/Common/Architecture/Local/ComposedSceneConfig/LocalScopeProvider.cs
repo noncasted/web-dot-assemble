@@ -1,4 +1,4 @@
-﻿using Common.Architecture.Local.Services.Abstract;
+﻿using Common.Architecture.Local.Abstract;
 using VContainer.Unity;
 
 namespace Common.Architecture.Local.ComposedSceneConfig

@@ -1,4 +1,5 @@
-﻿using UnityEngine.SceneManagement;
+﻿using UnityEngine.ResourceManagement.ResourceProviders;
+using UnityEngine.SceneManagement;
 
 namespace Global.Scenes.ScenesFlow.Handling.Result
 {
@@ -8,7 +9,14 @@ namespace Global.Scenes.ScenesFlow.Handling.Result
         {
             Scene = scene;
         }
+        
+        public SceneLoadResult(SceneInstance sceneInstance)
+        {
+            Scene = sceneInstance.Scene;
+            SceneInstance = sceneInstance;
+        }
 
         public readonly Scene Scene;
+        public readonly SceneInstance SceneInstance;
     }
 }

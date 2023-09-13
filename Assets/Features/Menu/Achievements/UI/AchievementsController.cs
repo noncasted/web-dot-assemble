@@ -1,5 +1,5 @@
 ﻿using System.Threading;
-using Common.Architecture.Local.Services.Abstract.Callbacks;
+using Common.Architecture.Local.Abstract.Callbacks;
 using Menu.Achievements.Global;
 using Menu.StateMachine.Definitions;
 using UnityEngine;

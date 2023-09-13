@@ -1,5 +1,5 @@
-﻿using Common.Architecture.Local.ComposedSceneConfig;
-using Common.Architecture.Local.Services.Abstract;
+﻿using Common.Architecture.Local.Abstract;
+using Common.Architecture.Local.ComposedSceneConfig;
 using GamePlay.Common.Paths;
 using GamePlay.Level.Dots.Factory;
 using GamePlay.Level.Scene.Runtime;
@@ -41,7 +41,7 @@ namespace GamePlay.Config.Runtime
         [FoldoutGroup("System")] [SerializeField]
         private LevelLoopFactory _levelLoop;
         [FoldoutGroup("System")] [SerializeField]
-        private VfxPoolAsset _vfxPool;
+        private VfxPoolFactory _vfxPool;
 
         [FoldoutGroup("Level")] [SerializeField]
         private LevelCameraAsset _levelCamera;

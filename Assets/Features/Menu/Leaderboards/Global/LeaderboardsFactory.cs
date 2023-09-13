@@ -13,10 +13,7 @@ namespace Menu.Leaderboards.Global
     {
         [SerializeField] private LeaderboardsConfig _config;
         
-        public void Create(
-            IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder,
-            IGlobalCallbacks callbacks)
+        public void Create(IDependencyRegister builder, IGlobalUtils utils)
         {
             builder.Register<Leaderboards>()
                 .WithParameter<ILeaderboardsConfig>(_config)

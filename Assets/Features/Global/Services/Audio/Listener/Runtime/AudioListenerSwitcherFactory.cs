@@ -12,14 +12,11 @@ namespace Global.Audio.Listener.Runtime
     {
         [SerializeField] private AudioListenerSwitcher _prefab;
         
-        public void Create(
-            IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder,
-            IGlobalCallbacks callbacks)
+        public void Create(IDependencyRegister builder, IGlobalUtils utils)
         {
             var switcher = Instantiate(_prefab);
             switcher.name = "AudioListener";
-            serviceBinder.AddToModules(switcher);
+            utils.Binder.AddToModules(switcher);
 
             builder.RegisterComponent(switcher)
                 .As<IAudioListenerSwitcher>();

@@ -40,21 +40,23 @@ namespace Common.Architecture.Mocks
             
             var scope = Object.Instantiate(_config.Scope);
             scope.IsRoot = true;
-            
-            _config.GameLoop.Create(dependencyRegister, binder, callbacks);
+            _config.Options.Setup();
+            var utils = new GlobalUtils(binder, callbacks, _config.Options);
+
+            _config.GameLoop.Create(dependencyRegister, utils);
 
             var factories = _config.Services.GetFactories();
             var asyncFactories = _config.Services.GetAsyncFactories();
 
             dependencyRegister.RegisterInstance<IDestroyCallbacksProvider>(callbacks);
-            
+
             foreach (var factory in factories)
-                factory.Create(dependencyRegister, binder, callbacks);
+                factory.Create(dependencyRegister, utils);
 
             var asyncFactoriesTasks = new UniTask[asyncFactories.Length];
 
             for (var i = 0; i < asyncFactories.Length; i++)
-                asyncFactoriesTasks[i] = asyncFactories[i].Create(dependencyRegister, binder, sceneLoader, callbacks);
+                asyncFactoriesTasks[i] = asyncFactories[i].Create(dependencyRegister, sceneLoader, utils);
 
             await UniTask.WhenAll(asyncFactoriesTasks);
 

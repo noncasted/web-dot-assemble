@@ -15,10 +15,7 @@ namespace Global.Cameras.GlobalCameras.Runtime
         [SerializeField] [Indent] private GlobalCameraLogSettings _logSettings;
         [SerializeField] [Indent] private GlobalCamera _prefab;
 
-        public void Create(
-            IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder,
-            IGlobalCallbacks callbacks)
+        public void Create(IDependencyRegister builder, IGlobalUtils utils)
         {
             var globalCamera = Instantiate(_prefab);
             globalCamera.name = "Camera_Global";
@@ -31,7 +28,7 @@ namespace Global.Cameras.GlobalCameras.Runtime
                 .As<IGlobalCamera>()
                 .AsCallbackListener();
 
-            serviceBinder.AddToModules(globalCamera);
+            utils.Binder.AddToModules(globalCamera);
         }
     }
 }

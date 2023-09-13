@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading;
-using Common.Architecture.Local.Services.Abstract.Callbacks;
+using Common.Architecture.Local.Abstract.Callbacks;
 using Cysharp.Threading.Tasks;
 using GamePlay.Level.Services.Score.Runtime;
 using Global.System.MessageBrokers.Runtime;

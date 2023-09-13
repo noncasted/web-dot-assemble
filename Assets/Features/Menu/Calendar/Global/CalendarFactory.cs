@@ -13,10 +13,7 @@ namespace Menu.Calendar.Global
     {
         [SerializeField] private CalendarConfig _config;
         
-        public void Create(
-            IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder,
-            IGlobalCallbacks callbacks)
+        public void Create(IDependencyRegister builder, IGlobalUtils utils)
         {
             builder.Register<Calendar>()
                 .WithParameter<ICalendarConfig>(_config)

@@ -1,4 +1,4 @@
-﻿using Common.Architecture.Local.Services.Abstract.Callbacks;
+﻿using Common.Architecture.Local.Abstract.Callbacks;
 using Global.System.Updaters.Runtime.Abstract;
 using UnityEngine;
 using VContainer;

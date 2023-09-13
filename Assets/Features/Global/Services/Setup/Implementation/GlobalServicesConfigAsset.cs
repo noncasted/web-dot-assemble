@@ -55,21 +55,21 @@ namespace Global.Setup.Implementation
         [FoldoutGroup("Publisher")] [SerializeField] private PublisherSdkAsset _publisherSdk;
 
         [FoldoutGroup("Scenes")] [SerializeField] private CurrentSceneHandlerAsset _currentSceneHandler;
-        [FoldoutGroup("Scenes")] [SerializeField] private ScenesFlowAsset _scenesFlow;
+        [FoldoutGroup("Scenes")] [SerializeField] private ScenesFlowFactory _scenesFlow;
 
         [FoldoutGroup("System")] [SerializeField] private ApplicationProxyAsset _applicationProxy;
-        [FoldoutGroup("System")] [SerializeField] private LoggerAsset _logger;
-        [FoldoutGroup("System")] [SerializeField] private MessageBrokerAsset _messageBroker;
-        [FoldoutGroup("System")] [SerializeField] private PauseAsset _pause;
-        [FoldoutGroup("System")] [SerializeField] private ResourcesCleanerAsset _resourcesCleaner;
-        [FoldoutGroup("System")] [SerializeField] private UpdaterAsset _updater;
+        [FoldoutGroup("System")] [SerializeField] private LoggerFactory _logger;
+        [FoldoutGroup("System")] [SerializeField] private MessageBrokerFactory _messageBroker;
+        [FoldoutGroup("System")] [SerializeField] private PauseFactory _pause;
+        [FoldoutGroup("System")] [SerializeField] private ResourcesCleanerFactory _resourcesCleaner;
+        [FoldoutGroup("System")] [SerializeField] private UpdaterFactory _updater;
         [FoldoutGroup("System")] [SerializeField] private AnimatorsUpdaterFactory _animatorsUpdater;
         [FoldoutGroup("System")] [SerializeField] private DestroyHandlerFactory _destroyHandler;
 
         [FoldoutGroup("UI")] [SerializeField] private LoadingScreenAsset _loadingScreen;
         [FoldoutGroup("UI")] [SerializeField] private LocalizationFactory _localization;
         [FoldoutGroup("UI")] [SerializeField] private OverlayAsset _overlay;
-        [FoldoutGroup("UI")] [SerializeField] private UiStateMachineAsset _uiStateMachine;
+        [FoldoutGroup("UI")] [SerializeField] private UiStateMachineFactory _uiStateMachine;
         [FoldoutGroup("UI")] [SerializeField] private EventSystemFactory _eventSystem;
 
         [FoldoutGroup("Menu")] [SerializeField] private AchievementsServiceFactory _achievements;

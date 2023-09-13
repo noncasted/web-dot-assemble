@@ -1,5 +1,5 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Common.Architecture.Local.Services.Abstract;
+using Common.Architecture.Local.Abstract;
 using Menu.Shop.Common;
 using Menu.StateMachine.Definitions;
 using Menu.StateMachine.Extensions;

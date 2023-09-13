@@ -14,10 +14,7 @@ namespace Global.Audio.Player.Runtime
         [SerializeField] private SoundState _state;
         [SerializeField] private SoundsPlayer _prefab;
 
-        public void Create(
-            IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder,
-            IGlobalCallbacks callbacks)
+        public void Create(IDependencyRegister builder, IGlobalUtils utils)
         {
             var player = Instantiate(_prefab);
             player.name = "SoundsPlayer";
@@ -30,8 +27,8 @@ namespace Global.Audio.Player.Runtime
                 .As<IVolumeSetter>()
                 .AsCallbackListener();
 
-            callbacks.Listen(trigger);
-            serviceBinder.AddToModules(player);
+            utils.Callbacks.Listen(trigger);
+            utils.Binder.AddToModules(player);
         }
     }
 }

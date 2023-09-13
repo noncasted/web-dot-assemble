@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Common.Architecture.Local.Services.Abstract.Callbacks;
+using Common.Architecture.Local.Abstract.Callbacks;
 using Global.Scenes.ScenesFlow.Handling.Result;
 using VContainer.Unity;
 

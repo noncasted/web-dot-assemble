@@ -1,17 +1,19 @@
 ﻿using Global.Scenes.ScenesFlow.Handling.Result;
+using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 
 namespace Global.Scenes.ScenesFlow.Handling.Data
 {
     public abstract class SceneLoadData<T> where T : SceneLoadResult
     {
-        public SceneLoadData(string name)
+        public SceneLoadData(ISceneAsset asset)
         {
-            Name = name;
+            Asset = asset;
         }
 
-        public readonly string Name;
+        public readonly ISceneAsset Asset;
 
         public abstract T CreateLoadResult(Scene scene);
+        public abstract T CreateLoadResult(SceneInstance sceneInstance);
     }
 }

@@ -8,10 +8,6 @@ namespace Global.Publisher.Abstract.Bootstrap
 {
     public abstract class PublisherSdkAsset : ScriptableObject, IGlobalServiceAsyncFactory
     {
-        public abstract UniTask Create(
-            IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder,
-            IGlobalSceneLoader sceneLoader,
-            IGlobalCallbacks callbacks);
+        public abstract UniTask Create(IDependencyRegister builder, IGlobalSceneLoader sceneLoader, IGlobalUtils utils);
     }
 }

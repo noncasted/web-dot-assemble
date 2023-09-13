@@ -1,5 +1,6 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Common.Architecture.Local.Services.Abstract;
+using Common.Architecture.Local.Abstract;
+using Common.Serialization.NestedScriptableObjects.Attributes;
 using Cysharp.Threading.Tasks;
 using Global.Scenes.ScenesFlow.Handling.Data;
 using Global.Scenes.ScenesFlow.Runtime.Abstract;
@@ -16,7 +17,7 @@ namespace Menu.UiRoot.Runtime
         menuName = UiRootRoutes.ServicePath)]
     public class UiRootFactory : BaseUiRootFactory
     {
-        [SerializeField] [Scene] private string _scene;
+        [SerializeField] [NestedScriptableObjectField] private SceneData _scene;
         
         public override async UniTask Create(
             IDependencyRegister builder,

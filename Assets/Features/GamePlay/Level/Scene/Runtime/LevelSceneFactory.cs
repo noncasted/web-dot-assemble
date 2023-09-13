@@ -1,5 +1,6 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Common.Architecture.Local.Services.Abstract;
+using Common.Architecture.Local.Abstract;
+using Common.Serialization.NestedScriptableObjects.Attributes;
 using Cysharp.Threading.Tasks;
 using GamePlay.Common.SceneBootstrappers.Runtime;
 using GamePlay.Level.Scene.Common;
@@ -17,7 +18,7 @@ namespace GamePlay.Level.Scene.Runtime
         menuName = LevelSceneRoutes.ServicePath)]
     public class LevelSceneFactory : BaseLevelSceneFactory
     {
-        [SerializeField] [Indent] [Scene] private string _scene;
+        [SerializeField] [NestedScriptableObjectField] private SceneData _scene;
 
         public override async UniTask Create(
             IDependencyRegister builder,

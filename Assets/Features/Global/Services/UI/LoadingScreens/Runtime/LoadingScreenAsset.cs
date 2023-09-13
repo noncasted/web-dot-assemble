@@ -18,11 +18,7 @@ namespace Global.UI.LoadingScreens.Runtime
         [SerializeField] [Indent] private LoadingScreenLogSettings _logSettings;
         [SerializeField] [Indent] [Scene] private string _scene;
 
-        public async UniTask Create(
-            IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder,
-            IGlobalSceneLoader sceneLoader,
-            IGlobalCallbacks callbacks)
+        public async UniTask Create(IDependencyRegister builder, IGlobalSceneLoader sceneLoader, IGlobalUtils utils)
         {
             var result = await sceneLoader.LoadAsync(new InternalScene<LoadingScreen>(_scene));
 
@@ -34,7 +30,7 @@ namespace Global.UI.LoadingScreens.Runtime
             builder.RegisterComponent(loadingScreen)
                 .As<ILoadingScreen>();
 
-            serviceBinder.AddToModules(loadingScreen);
+            utils.Binder.AddToModules(loadingScreen);
         }
     }
 }

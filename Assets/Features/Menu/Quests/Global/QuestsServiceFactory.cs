@@ -11,10 +11,7 @@ namespace Menu.Quests.Global
         menuName = QuestsRoutes.ServicePath)]
     public class QuestsServiceFactory : ScriptableObject, IGlobalServiceFactory
     {
-        public void Create(
-            IDependencyRegister builder,
-            IGlobalServiceBinder serviceBinder,
-            IGlobalCallbacks callbacks)
+        public void Create(IDependencyRegister builder, IGlobalUtils utils)
         {
             builder.Register<Quests>()
                 .As<IQuests>();

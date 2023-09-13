@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Common.Architecture.DiContainer.Abstract;
-using Common.Architecture.Local.Services.Abstract;
-using Common.Architecture.Local.Services.Abstract.Callbacks;
-using Common.Architecture.Local.Services.Abstract.EventLoops;
+using Common.Architecture.Local.Abstract;
+using Common.Architecture.Local.Abstract.Callbacks;
+using Common.Architecture.Local.Abstract.EventLoops;
 using Cysharp.Threading.Tasks;
 using VContainer.Unity;
 
