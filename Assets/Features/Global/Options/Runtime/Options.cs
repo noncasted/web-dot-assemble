@@ -10,7 +10,6 @@ namespace Global.Options.Runtime
         [SerializeField] private List<EnvironmentType> _optionsPriority;
         [SerializeField] private OptionsRegistriesDictionary _registries;
 
-
         public void Setup()
         {
             foreach (var (_, registry) in _registries)
