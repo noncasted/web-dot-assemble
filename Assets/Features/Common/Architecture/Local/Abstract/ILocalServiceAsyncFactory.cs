@@ -6,10 +6,6 @@ namespace Common.Architecture.Local.Abstract
 {
     public interface ILocalServiceAsyncFactory
     {
-        public UniTask Create(
-            IDependencyRegister builder,
-            ILocalServiceBinder serviceBinder,
-            ISceneLoader sceneLoader,
-            IEventLoopsRegistry callbacks);
+        public UniTask Create(IDependencyRegister builder,ISceneLoader sceneLoader, ILocalUtils utils);
     }
 }

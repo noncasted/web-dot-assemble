@@ -1,11 +1,15 @@
-﻿using UnityEditor;
+﻿
+using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Global.Scenes.ScenesFlow.Handling.Data
 {
-#endif
 
-    [System.Serializable]
+    [Serializable]
     public class SceneField
     {
         [SerializeField]

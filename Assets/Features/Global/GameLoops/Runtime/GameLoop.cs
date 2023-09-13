@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using GamePlay.Config.Runtime;
 using Global.Cameras.CurrentCameras.Runtime;
 using Global.Cameras.GlobalCameras.Runtime;
+using Global.Options.Runtime;
 using Global.Scenes.CurrentSceneHandlers.Runtime;
 using Global.Scenes.ScenesFlow.Runtime.Abstract;
 using Global.Setup.Scope;
@@ -19,6 +20,7 @@ namespace Global.GameLoops.Runtime
             IGlobalCamera globalCamera,
             ICurrentSceneHandler currentSceneHandler,
             ICurrentCamera currentCamera,
+            IOptions options,
             LevelConfig level)
         {
             _level = level;
@@ -28,9 +30,11 @@ namespace Global.GameLoops.Runtime
             _globalCamera = globalCamera;
             _currentSceneHandler = currentSceneHandler;
             _currentCamera = currentCamera;
+            _options = options;
         }
 
         private readonly ICurrentCamera _currentCamera;
+        private readonly IOptions _options;
         private readonly ICurrentSceneHandler _currentSceneHandler;
         private readonly IGlobalCamera _globalCamera;
 
@@ -57,7 +61,7 @@ namespace Global.GameLoops.Runtime
             _loadingScreen.Show();
 
             var unload = _currentSceneHandler.Unload();
-            var result = await asset.Load(_scope, _loader);
+            var result = await asset.Load(_scope, _loader, _options);
 
             await unload;
             await _currentSceneHandler.FinalizeUnloading();

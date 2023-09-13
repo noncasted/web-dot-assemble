@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using Global.GameLoops.Runtime;
+using Global.Options.Runtime;
 using Global.Setup.Abstract;
 using Global.Setup.Scope;
 using Global.Setup.Service;
@@ -68,6 +69,8 @@ namespace Global.Bootstrappers
 
             for (var i = 0; i < asyncFactories.Length; i++)
                 asyncFactoriesTasks[i] = asyncFactories[i].Create(dependencyRegister, sceneLoader, utils);
+
+            dependencyRegister.RegisterInstance<IOptions>(_options);
 
             await UniTask.WhenAll(asyncFactoriesTasks);
 

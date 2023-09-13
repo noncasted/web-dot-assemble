@@ -4,6 +4,7 @@ using GamePlay.Config.Runtime;
 using Global.LevelConfiguration.Avatars;
 using Global.LevelConfiguration.Definition;
 using Global.LevelConfiguration.Runtime;
+using Global.Options.Runtime;
 using Global.Scenes.ScenesFlow.Runtime.Abstract;
 using UnityEngine;
 using VContainer;
@@ -37,8 +38,10 @@ namespace GamePlay.Common.GlobalBootstrapMocks
             var setupConfiguration = new LevelSetupConfiguration(_playerAvatar, _enemyAvatar, _levelConfiguration);
             configurationProvider.SetConfiguration(setupConfiguration);
             
-            var level
-                = await _level.Load(result.Parent, result.Resolver.Resolve<ISceneLoader>());
+            var sceneLoader = result.Resolver.Resolve<ISceneLoader>();
+            var options = result.Resolver.Resolve<IOptions>();
+            
+            var level= await _level.Load(result.Parent, sceneLoader, options);
 
             result.RegisterLoadedScene(level);
         }

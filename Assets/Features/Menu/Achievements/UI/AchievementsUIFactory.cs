@@ -15,10 +15,7 @@ namespace Menu.Achievements.UI
     {
         [SerializeField] private TabDefinition _tabDefinition;
         
-        public void Create(
-            IDependencyRegister builder,
-            ILocalServiceBinder serviceBinder,
-            IEventLoopsRegistry loopsRegistry)
+        public void Create(IDependencyRegister builder, ILocalUtils utils)
         {
             builder.Register<AchievementsController>()
                 .As<IAchievementsController>()

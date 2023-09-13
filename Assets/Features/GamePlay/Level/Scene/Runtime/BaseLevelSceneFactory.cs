@@ -8,6 +8,6 @@ namespace GamePlay.Level.Scene.Runtime
 {
     public abstract class BaseLevelSceneFactory : ScriptableObject, ILocalServiceAsyncFactory
     {
-        public abstract UniTask Create(IDependencyRegister builder, ILocalServiceBinder serviceBinder, ISceneLoader sceneLoader, IEventLoopsRegistry callbacks);
+        public abstract UniTask Create(IDependencyRegister builder,ISceneLoader sceneLoader, ILocalUtils utils);
     }
 }

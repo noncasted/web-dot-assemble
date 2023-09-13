@@ -6,7 +6,6 @@ using GamePlay.UI.Common;
 using GamePlay.UI.Runtime.Score;
 using Global.Scenes.ScenesFlow.Handling.Data;
 using Global.Scenes.ScenesFlow.Runtime.Abstract;
-using NaughtyAttributes;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -19,11 +18,7 @@ namespace GamePlay.UI.Runtime
     {
         [SerializeField] [NestedScriptableObjectField] private SceneData _scene;
         
-        public async UniTask Create(
-            IDependencyRegister builder,
-            ILocalServiceBinder serviceBinder,
-            ISceneLoader sceneLoader,
-            IEventLoopsRegistry callbacks)
+        public async UniTask Create(IDependencyRegister builder,ISceneLoader sceneLoader, ILocalUtils utils)
         {
             var sceneLoadData = new TypedSceneLoadData<LevelUiLinker>(_scene);
             var sceneData = await sceneLoader.Load(sceneLoadData);

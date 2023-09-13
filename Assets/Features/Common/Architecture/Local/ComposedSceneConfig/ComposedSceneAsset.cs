@@ -2,6 +2,7 @@
 using Common.Architecture.Local.Abstract;
 using Common.Architecture.Local.Abstract.EventLoops;
 using Cysharp.Threading.Tasks;
+using Global.Options.Runtime;
 using Global.Scenes.ScenesFlow.Handling.Data;
 using Global.Scenes.ScenesFlow.Runtime.Abstract;
 using UnityEngine;
@@ -16,7 +17,7 @@ namespace Common.Architecture.Local.ComposedSceneConfig
         [SerializeField] private ComposedScenesConfig _config;
         [SerializeReference] private IEventLoop[] _loops;
 
-        public async UniTask<ComposedSceneLoadResult> Load(LifetimeScope parent, ISceneLoader loader)
+        public async UniTask<ComposedSceneLoadResult> Load(LifetimeScope parent, ISceneLoader loader, IOptions options)
         {
             var factories = GetFactories();
             var asyncFactories = GetAsyncFactories();
@@ -27,20 +28,22 @@ namespace Common.Architecture.Local.ComposedSceneConfig
             var loadServicesScene = await sceneLoader.Load(new EmptySceneLoadData(_config.ServicesScene));
             var servicesScene = loadServicesScene.Scene;
             var transformer = new LocalServiceTransformer(servicesScene);
-
+            
             var serviceBinder = new LocalServiceBinder(transformer);
             
             var eventLoopsRegistry = new EventLoopsRegistry(_loops);
             eventLoopsRegistry.Clear();
+
+            var localUtils = new LocalUtils(serviceBinder, eventLoopsRegistry, options);
             
             var builder = new ContainerBuilder();
 
             foreach (var factory in factories)
-                factory.Create(builder, serviceBinder, eventLoopsRegistry);
+                factory.Create(builder, localUtils);
 
             foreach (var service in asyncFactories)
             {
-                var task = service.Create(builder, serviceBinder, sceneLoader, eventLoopsRegistry);
+                var task = service.Create(builder, sceneLoader, localUtils);
                 asyncFactoriesTasks.Add(task);
             }
 

@@ -14,7 +14,7 @@ namespace GamePlay.Services.UI.Root.Runtime
     {
         [SerializeField] private UiConstraints _constraints;
 
-        public void Create(IDependencyRegister builder, ILocalServiceBinder serviceBinder, IEventLoopsRegistry loopsRegistry)
+        public void Create(IDependencyRegister builder, ILocalUtils utils)
         {
             builder.Register<LevelUiRoot>()
                 .WithParameter(_constraints)

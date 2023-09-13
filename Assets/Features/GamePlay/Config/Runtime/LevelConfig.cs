@@ -44,7 +44,7 @@ namespace GamePlay.Config.Runtime
         private VfxPoolFactory _vfxPool;
 
         [FoldoutGroup("Level")] [SerializeField]
-        private LevelCameraAsset _levelCamera;
+        private LevelCameraFactory _levelCamera;
 
         [SerializeField] private LevelScope _scopePrefab;
 

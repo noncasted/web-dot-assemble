@@ -52,14 +52,14 @@ namespace Global.Publisher.Yandex.DataStorages
             _callbacks.UserDataReceived -= OnReceived;
         }
 
-        public async UniTask<T> GetEntry<T>(string key) where T : class
+        public UniTask<T> GetEntry<T>(string key) where T : class
         {
             var entry = _entries[key];
 
-            return entry as T;
+            return UniTask.FromResult(entry as T);
         }
 
-        public async UniTask Save(IStorageEntry payload, string saveKey)
+        public UniTask Save(IStorageEntry payload, string saveKey)
         {
             var save = new Dictionary<string, string>();
 
@@ -74,6 +74,8 @@ namespace Global.Publisher.Yandex.DataStorages
             var json = JsonConvert.SerializeObject(save);
 
             _api.Set_Internal(json);
+
+            return UniTask.CompletedTask;
         }
 
         private void OnEntryChanged()

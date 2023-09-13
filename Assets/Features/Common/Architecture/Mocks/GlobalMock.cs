@@ -40,7 +40,9 @@ namespace Common.Architecture.Mocks
             
             var scope = Object.Instantiate(_config.Scope);
             scope.IsRoot = true;
+            
             _config.Options.Setup();
+            
             var utils = new GlobalUtils(binder, callbacks, _config.Options);
 
             _config.GameLoop.Create(dependencyRegister, utils);
@@ -49,7 +51,8 @@ namespace Common.Architecture.Mocks
             var asyncFactories = _config.Services.GetAsyncFactories();
 
             dependencyRegister.RegisterInstance<IDestroyCallbacksProvider>(callbacks);
-
+            dependencyRegister.RegisterInstance(_config.Options);
+            
             foreach (var factory in factories)
                 factory.Create(dependencyRegister, utils);
 

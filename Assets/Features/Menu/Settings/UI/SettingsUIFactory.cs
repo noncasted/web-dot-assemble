@@ -15,10 +15,7 @@ namespace Menu.Settings.UI
     {
         [SerializeField] private TabDefinition _tabDefinition;
 
-        public void Create(
-            IDependencyRegister builder,
-            ILocalServiceBinder serviceBinder,
-            IEventLoopsRegistry loopsRegistry)
+        public void Create(IDependencyRegister builder, ILocalUtils utils)
         {
             builder.Register<SettingsController>()
                 .As<ISettingsController>()

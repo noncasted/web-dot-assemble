@@ -10,16 +10,13 @@ namespace GamePlay.Services.LevelCameras.Runtime
     [InlineEditor]
     [CreateAssetMenu(fileName = LevelCameraRoutes.ServiceName,
         menuName = LevelCameraRoutes.ServicePath)]
-    public class LevelCameraAsset : ScriptableObject, ILocalServiceFactory
+    public class LevelCameraFactory : ScriptableObject, ILocalServiceFactory
     {
         [SerializeField] [Indent] private LevelCameraConfigAsset _config;
         [SerializeField] [Indent] private LevelCameraLogSettings _logSettings;
         [SerializeField] [Indent] private LevelCamera _prefab;
 
-        public void Create(
-            IDependencyRegister builder,
-            ILocalServiceBinder serviceBinder,
-            IEventLoopsRegistry loopsRegistry)
+        public void Create(IDependencyRegister builder, ILocalUtils utils)
         {
             var levelCamera = Instantiate(_prefab);
             levelCamera.name = "LevelCamera";
@@ -36,7 +33,7 @@ namespace GamePlay.Services.LevelCameras.Runtime
                 .As<ILevelCamera>()
                 .AsCallbackListener();
 
-            serviceBinder.AddToModules(levelCamera);
+            utils.ServiceBinder.AddToModules(levelCamera);
         }
     }
 }

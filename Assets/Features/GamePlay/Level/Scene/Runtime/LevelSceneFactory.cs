@@ -6,7 +6,6 @@ using GamePlay.Common.SceneBootstrappers.Runtime;
 using GamePlay.Level.Scene.Common;
 using Global.Scenes.ScenesFlow.Handling.Data;
 using Global.Scenes.ScenesFlow.Runtime.Abstract;
-using NaughtyAttributes;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -20,11 +19,7 @@ namespace GamePlay.Level.Scene.Runtime
     {
         [SerializeField] [NestedScriptableObjectField] private SceneData _scene;
 
-        public override async UniTask Create(
-            IDependencyRegister builder,
-            ILocalServiceBinder serviceBinder,
-            ISceneLoader sceneLoader,
-            IEventLoopsRegistry callbacks)
+        public override async UniTask Create(IDependencyRegister builder,ISceneLoader sceneLoader, ILocalUtils utils)
         {
             var data = new TypedSceneLoadData<SceneBootstrapper>(_scene);
             var result = await sceneLoader.Load(data);
@@ -33,7 +28,7 @@ namespace GamePlay.Level.Scene.Runtime
 
             var bootstrapper = result.Searched;
 
-            bootstrapper.Build(builder, callbacks);
+            bootstrapper.Build(builder, utils.LoopsRegistry);
         }
     }
 }

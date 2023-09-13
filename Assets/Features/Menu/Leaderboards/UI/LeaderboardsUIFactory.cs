@@ -17,10 +17,7 @@ namespace Menu.Leaderboards.UI
         [SerializeField] private TabDefinition _tabDefinition;
         [SerializeField] private LeaderboardsTableEntriesConfig _entriesConfig;
         
-        public void Create(
-            IDependencyRegister builder,
-            ILocalServiceBinder serviceBinder,
-            IEventLoopsRegistry loopsRegistry)
+        public void Create(IDependencyRegister builder, ILocalUtils utils)
         {
             builder.Register<LeaderboardsController>()
                 .As<ILeaderboardsController>()

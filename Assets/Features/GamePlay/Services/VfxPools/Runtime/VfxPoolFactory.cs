@@ -18,11 +18,7 @@ namespace GamePlay.Services.VfxPools.Runtime
     {
         [SerializeField] [NestedScriptableObjectField] private SceneData _scene;
 
-        public async UniTask Create(
-            IDependencyRegister builder,
-            ILocalServiceBinder serviceBinder,
-            ISceneLoader sceneLoader,
-            IEventLoopsRegistry callbacks)
+        public async UniTask Create(IDependencyRegister builder,ISceneLoader sceneLoader, ILocalUtils utils)
         {
             var sceneData = new TypedSceneLoadData<ObjectsPoolsHandler>(_scene);
             var loadResult = await sceneLoader.Load(sceneData);

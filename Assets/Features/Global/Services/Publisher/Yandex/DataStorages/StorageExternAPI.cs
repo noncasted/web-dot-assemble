@@ -13,13 +13,11 @@ namespace Global.Publisher.Yandex.DataStorages
 
         public void Get_Internal()
         {
-            return;
             GetUserData();
         }
 
         public void Set_Internal(string data)
         {
-            return;
             Debug.Log($"Save internal: {data}");
             SaveUserData(data);
         }

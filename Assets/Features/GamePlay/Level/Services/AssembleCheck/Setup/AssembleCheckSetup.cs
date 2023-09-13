@@ -12,10 +12,7 @@ namespace GamePlay.Level.Services.AssembleCheck.Setup
         menuName = AssembleCheckRoutes.FactoryPath)]
     public class AssembleCheckSetup : ScriptableObject, ILocalServiceFactory
     {
-        public void Create(
-            IDependencyRegister builder,
-            ILocalServiceBinder serviceBinder,
-            IEventLoopsRegistry loopsRegistry)
+        public void Create(IDependencyRegister builder, ILocalUtils utils)
         {
             builder.Register<AssembleCheckFactory>()
                 .As<IAssembleCheckFactory>();

@@ -6,7 +6,6 @@ using Global.Scenes.ScenesFlow.Handling.Data;
 using Global.Scenes.ScenesFlow.Runtime.Abstract;
 using Menu.Common.Navigation;
 using Menu.UiRoot.Common;
-using NaughtyAttributes;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -19,11 +18,7 @@ namespace Menu.UiRoot.Runtime
     {
         [SerializeField] [NestedScriptableObjectField] private SceneData _scene;
         
-        public override async UniTask Create(
-            IDependencyRegister builder,
-            ILocalServiceBinder serviceBinder,
-            ISceneLoader sceneLoader,
-            IEventLoopsRegistry callbacks)
+        public override async UniTask Create(IDependencyRegister builder,ISceneLoader sceneLoader, ILocalUtils utils)
         {
             var loadData = new TypedSceneLoadData<MenuUiLinker>(_scene);
             var sceneData = await sceneLoader.Load(loadData);

@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEditor;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
+using Object = UnityEngine.Object;
 
 namespace Global.Scenes.ScenesFlow.Handling.Data
 {
-    [System.Serializable]
+    [Serializable]
     public class SceneAssetReference : AssetReference
     {
         public SceneAssetReference(string guid) : base(guid)
@@ -15,7 +18,7 @@ namespace Global.Scenes.ScenesFlow.Handling.Data
 #if UNITY_EDITOR
             var type = obj.GetType();
             Debug.Log(obj.name);
-            return typeof(UnityEditor.SceneAsset).IsAssignableFrom(type);
+            return typeof(SceneAsset).IsAssignableFrom(type);
 #else
             return false;
 #endif
@@ -24,17 +27,17 @@ namespace Global.Scenes.ScenesFlow.Handling.Data
         public override bool ValidateAsset(string path)
         {
 #if UNITY_EDITOR
-            var type = UnityEditor.AssetDatabase.GetMainAssetTypeAtPath(path);
+            var type = AssetDatabase.GetMainAssetTypeAtPath(path);
             Debug.Log(path);
 
-            return typeof(UnityEditor.SceneAsset).IsAssignableFrom(type);
+            return typeof(SceneAsset).IsAssignableFrom(type);
 #else
             return false;
 #endif
         }
 
 #if UNITY_EDITOR
-        public new UnityEditor.SceneAsset _editorAsset => (UnityEditor.SceneAsset)base.editorAsset;
+        public new SceneAsset _editorAsset => (SceneAsset)base.editorAsset;
 #endif
     }
 }

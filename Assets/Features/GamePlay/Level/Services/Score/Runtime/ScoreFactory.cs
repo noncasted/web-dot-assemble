@@ -11,10 +11,7 @@ namespace GamePlay.Level.Services.Score.Runtime
         menuName = ScoreRoutes.ServicePath)]
     public class ScoreFactory : ScriptableObject, ILocalServiceFactory
     {
-        public void Create(
-            IDependencyRegister builder,
-            ILocalServiceBinder serviceBinder,
-            IEventLoopsRegistry loopsRegistry)
+        public void Create(IDependencyRegister builder, ILocalUtils utils)
         {
             builder.Register<Score>()
                 .As<IScore>();

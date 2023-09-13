@@ -14,11 +14,11 @@ namespace GamePlay.Level.Scene.Runtime
         menuName = LevelSceneRoutes.MockPath)]
     public class MockLevelSceneFactory : BaseLevelSceneFactory
     {
-        public override async UniTask Create(IDependencyRegister builder, ILocalServiceBinder serviceBinder, ISceneLoader sceneLoader, IEventLoopsRegistry callbacks)
+        public override async UniTask Create(IDependencyRegister builder,ISceneLoader sceneLoader, ILocalUtils utils)
         {
             var bootstrapper = FindFirstObjectByType<SceneBootstrapper>();
 
-            bootstrapper.Build(builder, callbacks);
+            bootstrapper.Build(builder, utils.LoopsRegistry);
         }
     }
 }

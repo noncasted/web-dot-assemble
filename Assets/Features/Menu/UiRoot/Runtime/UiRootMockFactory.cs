@@ -14,11 +14,7 @@ namespace Menu.UiRoot.Runtime
         menuName = UiRootRoutes.MockPath)]
     public class UiRootMockFactory : BaseUiRootFactory
     {
-        public override async UniTask Create(
-            IDependencyRegister builder,
-            ILocalServiceBinder serviceBinder,
-            ISceneLoader sceneLoader,
-            IEventLoopsRegistry callbacks)
+        public override async UniTask Create(IDependencyRegister builder,ISceneLoader sceneLoader, ILocalUtils utils)
         {
             var linker = FindFirstObjectByType<MenuUiLinker>();
             

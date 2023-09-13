@@ -1,5 +1,6 @@
 ﻿using Common.Architecture.Mocks;
 using Cysharp.Threading.Tasks;
+using Global.Options.Runtime;
 using Global.Scenes.ScenesFlow.Runtime.Abstract;
 using Menu.Config.Runtime;
 using UnityEngine;
@@ -26,7 +27,9 @@ namespace Menu.Config.Mock
 
         private async UniTask BootstrapLocal(MockBootstrapResult result)
         {
-            var menu= await _menu.Load(result.Parent, result.Resolver.Resolve<ISceneLoader>());
+            var sceneLoader = result.Resolver.Resolve<ISceneLoader>();
+            var options = result.Resolver.Resolve<IOptions>();
+            var menu= await _menu.Load(result.Parent, sceneLoader, options);
 
             result.RegisterLoadedScene(menu);
         }
