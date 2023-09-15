@@ -43,7 +43,7 @@ namespace GamePlay.Common.GlobalBootstrapMocks
             
             var level= await _level.Load(result.Parent, sceneLoader, options);
 
-            result.RegisterLoadedScene(level);
+            await result.RegisterLoadedScene(level);
         }
     }
 }

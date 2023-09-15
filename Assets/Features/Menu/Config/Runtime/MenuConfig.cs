@@ -62,7 +62,7 @@ namespace Menu.Config.Runtime
             };
         }
 
-        protected override LifetimeScope AssignScope()
+        protected override LifetimeScope GetScopePrefab()
         {
             return _scopePrefab;
         }

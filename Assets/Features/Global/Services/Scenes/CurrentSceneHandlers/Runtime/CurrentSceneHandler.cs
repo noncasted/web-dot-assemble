@@ -9,19 +9,19 @@ namespace Global.Scenes.CurrentSceneHandlers.Runtime
     public class CurrentSceneHandler : ICurrentSceneHandler
     {
         public CurrentSceneHandler(
-            ISceneUnloader unloader,
+            ISceneUnloader sceneUnload,
             IResourcesCleaner resourcesCleaner,
             CurrentSceneHandlerLogger logger)
         {
             _logger = logger;
-            _unloader = unloader;
+            _sceneUnload = sceneUnload;
             _resourcesCleaner = resourcesCleaner;
         }
 
         private readonly CurrentSceneHandlerLogger _logger;
 
         private readonly IResourcesCleaner _resourcesCleaner;
-        private readonly ISceneUnloader _unloader;
+        private readonly ISceneUnloader _sceneUnload;
 
         private ComposedSceneLoadResult _current;
 
@@ -42,9 +42,9 @@ namespace Global.Scenes.CurrentSceneHandlers.Runtime
 
             _logger.OnUnload(_current.Scenes.Count);
 
-            _current.OnUnload();
+            await _current.OnUnload();
 
-            await _unloader.Unload(_current.Scenes);
+            await _sceneUnload.Unload(_current.Scenes);
         }
 
         public async UniTask FinalizeUnloading()

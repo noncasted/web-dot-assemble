@@ -29,5 +29,29 @@ namespace Global.Bootstrappers
 
             return scene.CreateLoadResult(targetScene);
         }
+        
+        public async UniTask<Scene> LoadAsync(string scene)
+        {
+            var targetScene = new Scene();
+
+            SceneManager.sceneLoaded += OnSceneLoaded;
+
+            void OnSceneLoaded(Scene loadedScene, LoadSceneMode mode)
+            {
+                if (loadedScene.name != scene)
+                    return;
+
+                targetScene = loadedScene;
+                SceneManager.sceneLoaded -= OnSceneLoaded;
+            }
+
+            var handle = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
+            var task = handle.ToUniTask();
+            await task;
+
+            await UniTask.WaitUntil(() => targetScene.name == scene);
+
+            return targetScene;
+        }
     }
 }

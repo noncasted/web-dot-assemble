@@ -17,7 +17,7 @@ namespace GamePlay.Common.SceneBootstrappers.Runtime
         [SerializeField] private SceneComponentRegister[] _registers;
         [SerializeField] private SceneComponentBuilder[] _builders;
         
-        public void Build(IDependencyRegister builder, IEventLoopsRegistry callbacks)
+        public void Build(IDependencyRegister builder, ILocalCallbacks callbacks)
         {
             foreach (var register in _registers)
                 register.Register(builder);

@@ -19,9 +19,6 @@ namespace Global.Scenes.ScenesFlow.Runtime
         public void Create(IDependencyRegister builder, IGlobalUtils utils)
         {
             var options = utils.Options.GetOptions<AssetsOptions>();
-
-            builder.Register<ScenesFlowLogger>()
-                .WithParameter(_logSettings);
             
             if (options.UseAddressables == true)
             {
@@ -33,12 +30,15 @@ namespace Global.Scenes.ScenesFlow.Runtime
             }
             else
             {
-                builder.Register<DefaultScenesLoader>()
+                builder.Register<DefaultSceneLoader>()
                     .As<ISceneLoader>();
 
-                builder.Register<DefaultScenesUnloader>()
+                builder.Register<DefaultSceneUnloader>()
                     .As<ISceneUnloader>();
             }
+            
+            builder.Register<ScenesFlowLogger>()
+                .WithParameter(_logSettings);
         }
     }
 }

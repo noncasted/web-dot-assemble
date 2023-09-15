@@ -31,7 +31,7 @@ namespace Menu.Config.Mock
             var options = result.Resolver.Resolve<IOptions>();
             var menu= await _menu.Load(result.Parent, sceneLoader, options);
 
-            result.RegisterLoadedScene(menu);
+            await result.RegisterLoadedScene(menu);
         }
     }
 }

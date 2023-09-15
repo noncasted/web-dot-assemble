@@ -7,9 +7,9 @@ using UnityEngine.SceneManagement;
 
 namespace Global.Scenes.ScenesFlow.Runtime
 {
-    public class DefaultScenesLoader : ISceneLoader
+    public class DefaultSceneLoader : ISceneLoader
     {
-        public DefaultScenesLoader(ScenesFlowLogger logger)
+        public DefaultSceneLoader(ScenesFlowLogger logger)
         {
             _logger = logger;
         }

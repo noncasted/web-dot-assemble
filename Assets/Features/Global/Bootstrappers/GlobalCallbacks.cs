@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Common.Architecture.DiContainer.Abstract;
 using Cysharp.Threading.Tasks;
 using Global.Setup.Service;
 
 namespace Global.Bootstrappers
 {
-    public class GlobalCallbacks : IGlobalCallbacks, ICallbackRegister, IDestroyCallbacksProvider
+    public class GlobalCallbacks : IGlobalCallbacks, IDestroyCallbacksProvider
     {
         private readonly List<IAsyncCallbackHandler> _initCallbacks = new();
         private readonly List<IAsyncCallbackHandler> _destroyCallbacks = new();
@@ -41,6 +40,9 @@ namespace Global.Bootstrappers
         public void Listen(object service)
         {
             foreach (var callbackHandler in _initCallbacks)
+                callbackHandler.Listen(service);
+            
+            foreach (var callbackHandler in _destroyCallbacks)
                 callbackHandler.Listen(service);
         }
 

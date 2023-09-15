@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Common.Architecture.Local.Abstract.Callbacks;
+using Cysharp.Threading.Tasks;
 using Global.Scenes.ScenesFlow.Handling.Result;
 using VContainer.Unity;
 
@@ -9,14 +9,14 @@ namespace Common.Architecture.Local.ComposedSceneConfig
     {
         public ComposedSceneLoadResult(
             IReadOnlyList<SceneLoadResult> scenes,
-            IReadOnlyList<ILocalDisableListener> disableListeners,
-            IReadOnlyList<ILocalLoadListener> loadListeners,
+            CallbacksHandler disableCallbacks,
+            CallbacksHandler loadCallbacks,
             LifetimeScope scope)
         {
             Scenes = scenes;
-            _disableListeners = disableListeners;
-            _loadListeners = loadListeners;
-            Scope = scope;
+            _disableCallbacks = disableCallbacks;
+            _loadCallbacks = loadCallbacks;
+            _scope = scope;
         }
         
         public ComposedSceneLoadResult(
@@ -24,29 +24,27 @@ namespace Common.Architecture.Local.ComposedSceneConfig
             ComposedSceneLoadResult copy)
         {
             Scenes = scenes;
-            _disableListeners = copy._disableListeners;
-            _loadListeners = copy._loadListeners;
-            Scope = copy.Scope;
+            _disableCallbacks = copy._disableCallbacks;
+            _loadCallbacks = copy._loadCallbacks;
+            _scope = copy._scope;
         }
 
-        private readonly IReadOnlyList<ILocalDisableListener> _disableListeners;
-        private readonly IReadOnlyList<ILocalLoadListener> _loadListeners;
+        private readonly CallbacksHandler _disableCallbacks;
+        private readonly CallbacksHandler _loadCallbacks;
+        private readonly LifetimeScope _scope;
 
         public readonly IReadOnlyList<SceneLoadResult> Scenes;
-        public LifetimeScope Scope { get; }
 
-        public void OnLoaded()
+        public async UniTask OnLoaded()
         {
-            foreach (var listener in _loadListeners)
-                listener.OnLoaded();
+            await _loadCallbacks.Run();
         }
 
-        public void OnUnload()
+        public async UniTask OnUnload()
         {
-            Scope.Dispose();
+            _scope.Dispose();
 
-            foreach (var switchCallback in _disableListeners)
-                switchCallback?.OnDisabled();
+            await _disableCallbacks.Run();
         }
     }
 }

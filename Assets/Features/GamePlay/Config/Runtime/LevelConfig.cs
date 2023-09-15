@@ -76,7 +76,7 @@ namespace GamePlay.Config.Runtime
             return services;
         }
 
-        protected override LifetimeScope AssignScope()
+        protected override LifetimeScope GetScopePrefab()
         {
             return _scopePrefab;
         }

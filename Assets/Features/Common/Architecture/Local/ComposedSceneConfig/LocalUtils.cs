@@ -5,19 +5,19 @@ namespace Common.Architecture.Local.ComposedSceneConfig
 {   
     public class LocalUtils : ILocalUtils
     {
-        public LocalUtils(ILocalServiceBinder serviceBinder, IEventLoopsRegistry eventLoopsRegistry, IOptions options)
+        public LocalUtils(ILocalServiceBinder serviceBinder, ILocalCallbacks localCallbacks, IOptions options)
         {
             _serviceBinder = serviceBinder;
-            _eventLoopsRegistry = eventLoopsRegistry;
+            _localCallbacks = localCallbacks;
             _options = options;
         }
      
         private readonly ILocalServiceBinder _serviceBinder;
-        private readonly IEventLoopsRegistry _eventLoopsRegistry;
+        private readonly ILocalCallbacks _localCallbacks;
         private readonly IOptions _options;
 
         public ILocalServiceBinder ServiceBinder => _serviceBinder;
-        public IEventLoopsRegistry LoopsRegistry => _eventLoopsRegistry;
+        public ILocalCallbacks LoopsRegistry => _localCallbacks;
         public IOptions Options => _options;
     }
 }

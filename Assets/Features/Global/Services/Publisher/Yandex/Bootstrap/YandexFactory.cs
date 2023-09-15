@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using Global.Audio.Player.Runtime;
 using Global.Localizations.Runtime;
+using Global.Options.Implementations;
 using Global.Publisher.Abstract.Advertisment;
 using Global.Publisher.Abstract.Bootstrap;
 using Global.Publisher.Abstract.DataStorages;
@@ -49,7 +50,9 @@ namespace Global.Publisher.Yandex.Bootstrap
 
             RegisterModules(builder);
 
-            if (Application.isEditor == true)
+            var options = utils.Options.GetOptions<PlatformOptions>();
+            
+            if (options.IsEditor == true)
                 await RegisterEditorApis(builder, sceneLoader, yandexCallbacks);
             else
                 RegisterBuildApis(builder);
