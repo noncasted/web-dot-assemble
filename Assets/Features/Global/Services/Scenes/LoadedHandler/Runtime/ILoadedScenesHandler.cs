@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Global.Scenes.LoadedHandler.Runtime
 {
-    public interface ILoadedScensHandler
+    public interface ILoadedScenesHandler
     {
         public void OnLoaded(ComposedSceneLoadResult loaded);
 

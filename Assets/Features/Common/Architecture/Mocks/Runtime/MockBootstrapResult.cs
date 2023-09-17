@@ -28,7 +28,7 @@ namespace Common.Architecture.Mocks.Runtime
 
             var newResult = new ComposedSceneLoadResult(scenes, loadResult);
             
-            var sceneHandler = Resolver.Resolve<ILoadedScensHandler>();
+            var sceneHandler = Resolver.Resolve<ILoadedScenesHandler>();
             sceneHandler.OnLoaded(newResult);
 
             await loadResult.OnLoaded();

@@ -19,7 +19,7 @@ namespace Global.GameLoops.Runtime
             ISceneLoader loader,
             ILoadingScreen loadingScreen,
             IGlobalCamera globalCamera,
-            ILoadedScensHandler loadedScensHandler,
+            ILoadedScenesHandler loadedScenesHandler,
             ICurrentCamera currentCamera,
             IOptions options,
             LevelConfig level,
@@ -31,14 +31,14 @@ namespace Global.GameLoops.Runtime
             _loader = loader;
             _loadingScreen = loadingScreen;
             _globalCamera = globalCamera;
-            _loadedScensHandler = loadedScensHandler;
+            _loadedScenesHandler = loadedScenesHandler;
             _currentCamera = currentCamera;
             _options = options;
         }
 
         private readonly ICurrentCamera _currentCamera;
         private readonly IOptions _options;
-        private readonly ILoadedScensHandler _loadedScensHandler;
+        private readonly ILoadedScenesHandler _loadedScenesHandler;
         private readonly IGlobalCamera _globalCamera;
 
         private readonly ISceneLoader _loader;
@@ -65,13 +65,13 @@ namespace Global.GameLoops.Runtime
 
             _loadingScreen.Show();
 
-            var unload = _loadedScensHandler.Unload();
+            var unload = _loadedScenesHandler.Unload();
             var result = await asset.Load(_scope, _loader, _options);
 
             await unload;
-            await _loadedScensHandler.FinalizeUnloading();
+            await _loadedScenesHandler.FinalizeUnloading();
 
-            _loadedScensHandler.OnLoaded(result);
+            _loadedScenesHandler.OnLoaded(result);
             _globalCamera.Disable();
             _loadingScreen.Hide();
 

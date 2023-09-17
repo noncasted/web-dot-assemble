@@ -20,7 +20,7 @@ namespace Global.Scenes.LoadedHandler.Runtime
                 .WithParameter(_logSettings);
 
             builder.Register<LoadedScenesHandler>()
-                .As<ILoadedScensHandler>();
+                .As<ILoadedScenesHandler>();
         }
     }
 }

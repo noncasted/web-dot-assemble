@@ -6,7 +6,7 @@ using Global.System.ResourcesCleaners.Runtime;
 
 namespace Global.Scenes.LoadedHandler.Runtime
 {
-    public class LoadedScenesHandler : ILoadedScensHandler
+    public class LoadedScenesHandler : ILoadedScenesHandler
     {
         public LoadedScenesHandler(
             ISceneUnloader sceneUnload,

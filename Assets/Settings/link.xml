@@ -99,10 +99,6 @@
     <assembly fullname="Global.CurrentCamera.Editor" preserve="all" />
     <assembly fullname="Global.CurrentCamera.Logs" preserve="all" />
     <assembly fullname="Global.CurrentCamera.Runtime" preserve="all" />
-    <assembly fullname="Global.CurrentSceneHandlers.Common" preserve="all" />
-    <assembly fullname="Global.CurrentSceneHandlers.Editor" preserve="all" />
-    <assembly fullname="Global.CurrentSceneHandlers.Logs" preserve="all" />
-    <assembly fullname="Global.CurrentSceneHandlers.Runtime" preserve="all" />
     <assembly fullname="Global.DebugConsole.Common" preserve="all" />
     <assembly fullname="Global.DebugConsole.Runtime" preserve="all" />
     <assembly fullname="Global.DestroyHandler.Common" preserve="all" />
@@ -142,8 +138,7 @@
     <assembly fullname="Global.MessageBroker.Logs" preserve="all" />
     <assembly fullname="Global.MessageBroker.Runtime" preserve="all" />
     <assembly fullname="Global.Objects.Abstract" preserve="all" />
-    <assembly fullname="Global.Objects.Addressables.Instantiator" preserve="all" />
-    <assembly fullname="Global.Objects.Addressables.Loader" preserve="all" />
+    <assembly fullname="Global.Objects.Addressables" preserve="all" />
     <assembly fullname="Global.Objects.Common" preserve="all" />
     <assembly fullname="Global.Objects.Factory" preserve="all" />
     <assembly fullname="Global.Objects.Native" preserve="all" />
@@ -177,11 +172,19 @@
     <assembly fullname="Global.ResourcesCleaner.Editor" preserve="all" />
     <assembly fullname="Global.ResourcesCleaner.Logs" preserve="all" />
     <assembly fullname="Global.ResourcesCleaner.Runtime" preserve="all" />
-    <assembly fullname="Global.ScenesFlow.Common" preserve="all" />
-    <assembly fullname="Global.ScenesFlow.Editor" preserve="all" />
-    <assembly fullname="Global.ScenesFlow.Handling" preserve="all" />
-    <assembly fullname="Global.ScenesFlow.Logs" preserve="all" />
-    <assembly fullname="Global.ScenesFlow.Runtime" preserve="all" />
+    <assembly fullname="Global.Scene.Operations.Handling" preserve="all" />
+    <assembly fullname="Global.Scenes.LoadedHandler.Common" preserve="all" />
+    <assembly fullname="Global.Scenes.LoadedHandler.Editor" preserve="all" />
+    <assembly fullname="Global.Scenes.LoadedHandler.Logs" preserve="all" />
+    <assembly fullname="Global.Scenes.LoadedHandler.Runtime" preserve="all" />
+    <assembly fullname="Global.Scenes.Operations.Abstract" preserve="all" />
+    <assembly fullname="Global.Scenes.Operations.Addressables" preserve="all" />
+    <assembly fullname="Global.Scenes.Operations.Common" preserve="all" />
+    <assembly fullname="Global.Scenes.Operations.Editor" preserve="all" />
+    <assembly fullname="Global.Scenes.Operations.Extensions" preserve="all" />
+    <assembly fullname="Global.Scenes.Operations.Logs" preserve="all" />
+    <assembly fullname="Global.Scenes.Operations.Native" preserve="all" />
+    <assembly fullname="Global.Scenes.Operations.Root" preserve="all" />
     <assembly fullname="Global.Services.CameraUtilities.Editor" preserve="all" />
     <assembly fullname="Global.Services.CameraUtilities.Runtime" preserve="all" />
     <assembly fullname="Global.Setup.Abstract" preserve="all" />
