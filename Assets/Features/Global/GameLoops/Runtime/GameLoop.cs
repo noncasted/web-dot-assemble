@@ -4,8 +4,8 @@ using GamePlay.Config.Runtime;
 using Global.Cameras.CurrentCameras.Runtime;
 using Global.Cameras.GlobalCameras.Runtime;
 using Global.Options.Runtime;
-using Global.Scenes.CurrentSceneHandlers.Runtime;
-using Global.Scenes.ScenesFlow.Runtime.Abstract;
+using Global.Scenes.LoadedHandler.Runtime;
+using Global.Scenes.Operations.Abstract;
 using Global.Setup.Scope;
 using Global.UI.LoadingScreens.Runtime;
 using Menu.Config.Runtime;
@@ -19,7 +19,7 @@ namespace Global.GameLoops.Runtime
             ISceneLoader loader,
             ILoadingScreen loadingScreen,
             IGlobalCamera globalCamera,
-            ICurrentSceneHandler currentSceneHandler,
+            ILoadedScensHandler loadedScensHandler,
             ICurrentCamera currentCamera,
             IOptions options,
             LevelConfig level,
@@ -31,14 +31,14 @@ namespace Global.GameLoops.Runtime
             _loader = loader;
             _loadingScreen = loadingScreen;
             _globalCamera = globalCamera;
-            _currentSceneHandler = currentSceneHandler;
+            _loadedScensHandler = loadedScensHandler;
             _currentCamera = currentCamera;
             _options = options;
         }
 
         private readonly ICurrentCamera _currentCamera;
         private readonly IOptions _options;
-        private readonly ICurrentSceneHandler _currentSceneHandler;
+        private readonly ILoadedScensHandler _loadedScensHandler;
         private readonly IGlobalCamera _globalCamera;
 
         private readonly ISceneLoader _loader;
@@ -65,17 +65,17 @@ namespace Global.GameLoops.Runtime
 
             _loadingScreen.Show();
 
-            var unload = _currentSceneHandler.Unload();
+            var unload = _loadedScensHandler.Unload();
             var result = await asset.Load(_scope, _loader, _options);
 
             await unload;
-            await _currentSceneHandler.FinalizeUnloading();
+            await _loadedScensHandler.FinalizeUnloading();
 
-            _currentSceneHandler.OnLoaded(result);
+            _loadedScensHandler.OnLoaded(result);
             _globalCamera.Disable();
             _loadingScreen.Hide();
 
-            result.OnLoaded();
+            await result.OnLoaded();
         }
     }
 }

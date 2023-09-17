@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace Menu.StateMachine.Definitions
 {
@@ -6,7 +8,7 @@ namespace Menu.StateMachine.Definitions
     {
         RectTransform Transform { get; }
 
-        void Activate();
+        UniTask Activate(CancellationToken cancellation);
         void Deactivate();
     }
 }

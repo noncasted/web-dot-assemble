@@ -2,8 +2,8 @@
 using Common.Architecture.Local.Abstract;
 using Common.Serialization.NestedScriptableObjects.Attributes;
 using Cysharp.Threading.Tasks;
-using Global.Scenes.ScenesFlow.Handling.Data;
-using Global.Scenes.ScenesFlow.Runtime.Abstract;
+using Global.Scenes.Operations.Abstract;
+using Global.Scenes.Operations.Data;
 using Menu.Common.Navigation;
 using Menu.UiRoot.Common;
 using Sirenix.OdinInspector;
@@ -20,8 +20,7 @@ namespace Menu.UiRoot.Runtime
         
         public override async UniTask Create(IDependencyRegister builder,ISceneLoader sceneLoader, ILocalUtils utils)
         {
-            var loadData = new TypedSceneLoadData<MenuUiLinker>(_scene);
-            var sceneData = await sceneLoader.Load(loadData);
+            var sceneData = await sceneLoader.LoadTyped<MenuUiLinker>(_scene);
             var linker = sceneData.Searched;
 
             for (var i = 0; i < linker.Root.childCount; i++)

@@ -22,6 +22,41 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cc74b2dbaf6f6fb478f35525e38026b0
+    m_Address: Assets/Features/Common/Architecture/Local/Common/LocalServices.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 15b689a9fe7f25d498c61197e8b66959
+    m_Address: Assets/Features/GamePlay/Level/Scene/Level_0.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c555a78c5f9ddc84ca2f914bbd30084f
+    m_Address: Assets/Features/GamePlay/UI/Config/UI_Level.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1de6794e2d26a6747a493264e3dd21b9
+    m_Address: Assets/Features/GamePlay/Services/Background/Config/UI_Background.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b7b72bee03fb185418428cf2553e9ef7
+    m_Address: Assets/Features/GamePlay/Services/VfxPools/Config/Pool_Vfx.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ca993af3aede95b4d974ab5310aedab4
+    m_Address: Assets/Features/Menu/Config/UI_Menu.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5cc8549eafaba19468d8e48f9d1d7aa6
+    m_Address: Assets/Features/Menu/Config/Menu.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 7efde391b33e89f4192cf7a15f95578e, type: 2}
   m_SchemaSet:

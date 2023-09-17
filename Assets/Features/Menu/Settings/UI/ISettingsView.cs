@@ -15,6 +15,7 @@ namespace Menu.Settings.UI
         event Action LanguageClicked;
         event Action SocialClicked;
 
+        void SetSlidersValue(float music, float sounds);
         void SetLanguage(string language);
     }
 }

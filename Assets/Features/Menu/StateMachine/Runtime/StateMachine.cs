@@ -1,4 +1,5 @@
-﻿using Common.Architecture.Local.Abstract.Callbacks;
+﻿using System.Threading;
+using Common.Architecture.Local.Abstract.Callbacks;
 using Cysharp.Threading.Tasks;
 using Menu.StateMachine.Definitions;
 using Menu.StateMachine.Registry;
@@ -45,7 +46,8 @@ namespace Menu.StateMachine.Runtime
 
             await _transitionHandler.Transit(target, transitionPoints.From, transitionPoints.Center);
             _current = target;
-            target.Activate();
+            var cancellation = new CancellationTokenSource(); 
+            target.Activate(cancellation.Token);
         }
     }
 }

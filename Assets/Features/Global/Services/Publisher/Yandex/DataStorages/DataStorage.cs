@@ -4,6 +4,7 @@ using Global.Publisher.Abstract.DataStorages;
 using Global.Publisher.Yandex.Common;
 using Global.Setup.Service.Callbacks;
 using Newtonsoft.Json;
+using UnityEngine;
 
 namespace Global.Publisher.Yandex.DataStorages
 {
@@ -70,6 +71,7 @@ namespace Global.Publisher.Yandex.DataStorages
             }
 
             save[saveKey] = payload.Serialize();
+            _entries[saveKey] = payload;
 
             var json = JsonConvert.SerializeObject(save);
 

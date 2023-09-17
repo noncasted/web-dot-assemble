@@ -1,4 +1,6 @@
-﻿using Common.Architecture.Local.Abstract.Callbacks;
+﻿using System.Threading;
+using Common.Architecture.Local.Abstract.Callbacks;
+using Cysharp.Threading.Tasks;
 using Menu.Collections.Global;
 using Menu.StateMachine.Definitions;
 using UnityEngine;
@@ -23,7 +25,7 @@ namespace Menu.Collections.UI
             _view.Construct(_collection.All);
         }
         
-        public void Activate()
+        public async UniTask Activate(CancellationToken cancellation)
         {
             _view.Navigation.Enable();
             _view.Enable();

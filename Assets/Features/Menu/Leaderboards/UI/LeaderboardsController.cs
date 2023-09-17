@@ -28,7 +28,7 @@ namespace Menu.Leaderboards.UI
 
         public RectTransform Transform => _view.Transform;
         
-        public void Activate()
+        public async UniTask Activate(CancellationToken cancellation)
         {
             _view.Navigation.Enable();
             _view.HideInstant();

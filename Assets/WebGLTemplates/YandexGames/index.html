@@ -3,35 +3,31 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | ManRun</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>{{{ PRODUCT_NAME }}}</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
 
     <!-- Yandex Games SDK -->
     <script src="https://yandex.ru/games/sdk/v2"></script>
-
-    <!-- Yandex.RTB -->
-    <script>window.yaContextCb = window.yaContextCb || []</script>
-    <script src="https://yandex.ru/ads/system/context.js" async></script>
-
 </head>
 <body>
 
 <div id="unity-container" style="position: absolute; width: 100%; height: 100%; left: 0;  top: 0;">
     <canvas id="unity-canvas" style="position: absolute; width: 100%; height: 100%"></canvas>
 
-    <div style="position:absolute; width: 100%; height: 10%; bottom: 0;">
-        <!-- Yandex.RTB R-A-1774866-27 -->
-        <div id="yandex_rtb_R-A-1774866-27"></div>
-        <script>
-            window.yaContextCb.push(() => {
-                Ya.Context.AdvManager.render({
-                    renderTo: 'yandex_rtb_R-A-1774866-27',
-                    blockId: 'R-A-1774866-27'
-                })
-            })
-        </script>
-    </div>
+<!--    <div style="position:absolute; width: 100%; height: 10%; bottom: 0;">-->
+<!--        &lt;!&ndash; Yandex.RTB R-A-1774866-27 &ndash;&gt;-->
+<!--        <div id="yandex_rtb_R-A-1774866-27"></div>-->
+<!--        <script>-->
+<!--            window.yaContextCb.push(() => {-->
+<!--                Ya.Context.AdvManager.render({-->
+<!--                    renderTo: 'yandex_rtb_R-A-1774866-27',-->
+<!--                    blockId: 'R-A-1774866-27'-->
+<!--                })-->
+<!--            })-->
+<!--        </script>-->
+<!--    </div>-->
 
     <div id="unity-loading-bar">
         <div id="unity-logo"></div>
@@ -55,12 +51,12 @@
     let loaderUrl = buildUrl + "/Build.loader.js";
 
     let config = {
-        dataUrl: buildUrl + "/Build.data.unityweb",
-        frameworkUrl: buildUrl + "/Build.framework.js.unityweb",
-        codeUrl: buildUrl + "/Build.wasm.unityweb",
+        dataUrl: buildUrl + "/Build.data",
+        frameworkUrl: buildUrl + "/Build.framework.js",
+        codeUrl: buildUrl + "/Build.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Bitach",
-        productName: "ImageAssemble",
+        productName: "DotAssemble",
         productVersion: "0.1.0"
     };
 
@@ -100,7 +96,11 @@
     let script = document.createElement("script");
     script.src = loaderUrl;
 
-    console.log('load game');
+    console.log('load game v0.0.2');
+    console.log('load game v0.0.2');
+    console.log('load game v0.0.2');
+    console.log('load game v0.0.2');
+    console.log('load game v0.0.2');
 
     script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
@@ -114,13 +114,12 @@
             //    unityInstance.SetFullscreen(1);
             //};
         }).catch((message) => {
-            alert(message);
+            console.log("failed to load game: ", message)
         });
     };
 
     document.body.appendChild(script);
-
-
+    
     let _leaderboards;
     let _payments = null;
     let _player;
@@ -186,8 +185,8 @@
     function initPlayer() {
         return ysdk
             .getPlayer()
-            .then(_player => {
-                _player = _player;
+            .then(player => {
+                _player = player;
 
                 return _player;
             });

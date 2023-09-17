@@ -6,7 +6,7 @@ using Global.LevelConfiguration.Avatars;
 using Global.LevelConfiguration.Definition;
 using Global.LevelConfiguration.Runtime;
 using Global.Options.Runtime;
-using Global.Scenes.ScenesFlow.Runtime.Abstract;
+using Global.Scenes.Operations.Abstract;
 using UnityEngine;
 using VContainer;
 

@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Global.Scenes.ScenesFlow.Handling.Data;
-using Global.Scenes.ScenesFlow.Handling.Result;
-using Global.Scenes.ScenesFlow.Runtime.Abstract;
+using Global.Scenes.Operations.Abstract;
+using Global.Scenes.Operations.Data;
 
 namespace Common.Architecture.Local.ComposedSceneConfig
 {
@@ -13,14 +12,23 @@ namespace Common.Architecture.Local.ComposedSceneConfig
             _sceneLoader = sceneLoader;
         }
 
-        private readonly List<SceneLoadResult> _results = new();
+        private readonly List<ISceneLoadResult> _results = new();
         private readonly ISceneLoader _sceneLoader;
 
-        public IReadOnlyList<SceneLoadResult> Results => _results;
+        public IReadOnlyList<ISceneLoadResult> Results => _results;
 
-        public async UniTask<T> Load<T>(SceneLoadData<T> scene) where T : SceneLoadResult
+        public async UniTask<ISceneLoadResult> Load(ISceneAsset sceneAsset)
         {
-            var result = await _sceneLoader.Load(scene);
+            var result = await _sceneLoader.Load(sceneAsset);
+
+            _results.Add(result);
+
+            return result;
+        }
+
+        public async UniTask<ISceneLoadTypedResult<T>> LoadTyped<T>(ISceneAsset sceneAsset)
+        {
+            var result = await _sceneLoader.LoadTyped<T>(sceneAsset);
 
             _results.Add(result);
 

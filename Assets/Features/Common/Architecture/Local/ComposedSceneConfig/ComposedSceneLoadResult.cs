@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Global.Scenes.ScenesFlow.Handling.Result;
+using Global.Scenes.Operations.Abstract;
 using VContainer.Unity;
 
 namespace Common.Architecture.Local.ComposedSceneConfig
@@ -8,7 +8,7 @@ namespace Common.Architecture.Local.ComposedSceneConfig
     public class ComposedSceneLoadResult
     {
         public ComposedSceneLoadResult(
-            IReadOnlyList<SceneLoadResult> scenes,
+            IReadOnlyList<ISceneLoadResult> scenes,
             CallbacksHandler disableCallbacks,
             CallbacksHandler loadCallbacks,
             LifetimeScope scope)
@@ -20,7 +20,7 @@ namespace Common.Architecture.Local.ComposedSceneConfig
         }
         
         public ComposedSceneLoadResult(
-            IReadOnlyList<SceneLoadResult> scenes,
+            IReadOnlyList<ISceneLoadResult> scenes,
             ComposedSceneLoadResult copy)
         {
             Scenes = scenes;
@@ -33,7 +33,7 @@ namespace Common.Architecture.Local.ComposedSceneConfig
         private readonly CallbacksHandler _loadCallbacks;
         private readonly LifetimeScope _scope;
 
-        public readonly IReadOnlyList<SceneLoadResult> Scenes;
+        public readonly IReadOnlyList<ISceneLoadResult> Scenes;
 
         public async UniTask OnLoaded()
         {

@@ -4,8 +4,8 @@ using Common.Serialization.NestedScriptableObjects.Attributes;
 using Cysharp.Threading.Tasks;
 using GamePlay.UI.Common;
 using GamePlay.UI.Runtime.Score;
-using Global.Scenes.ScenesFlow.Handling.Data;
-using Global.Scenes.ScenesFlow.Runtime.Abstract;
+using Global.Scenes.Operations.Abstract;
+using Global.Scenes.Operations.Data;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -20,8 +20,7 @@ namespace GamePlay.UI.Runtime
         
         public async UniTask Create(IDependencyRegister builder,ISceneLoader sceneLoader, ILocalUtils utils)
         {
-            var sceneLoadData = new TypedSceneLoadData<LevelUiLinker>(_scene);
-            var sceneData = await sceneLoader.Load(sceneLoadData);
+            var sceneData = await sceneLoader.LoadTyped<LevelUiLinker>(_scene);
             var linker = sceneData.Searched;
             
             builder.Register<ScoreController>()

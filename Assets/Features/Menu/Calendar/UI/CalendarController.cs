@@ -23,13 +23,13 @@ namespace Menu.Calendar.UI
 
         public RectTransform Transform => _view.Transform;
 
-        public void Activate()
+        public async UniTask Activate(CancellationToken cancellation)
         {
             _view.Navigation.Enable();
 
             Cancel();
             _cancellation = new CancellationTokenSource();
-            
+
             _view.HideInstant();
             Show().Forget();
         }

@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using Common.Architecture.Local.Abstract.Callbacks;
+using Cysharp.Threading.Tasks;
 using Menu.Achievements.Global;
 using Menu.StateMachine.Definitions;
 using UnityEngine;
@@ -26,7 +27,7 @@ namespace Menu.Achievements.UI
             _view.Construct(_achievements.GetAll());   
         }
         
-        public void Activate()
+        public async UniTask Activate(CancellationToken cancellation)
         {
             _view.Navigation.Enable();
             _view.Enable();

@@ -27,10 +27,7 @@ namespace Global.Audio.Player.Runtime
         {
             var save = await _dataStorage.GetEntry<SoundSave>(SoundSave.Key);
 
-            _musicVolume = save.Value.MusicVolume;
-
-            foreach (var source in _soundSources)
-                source.volume = save.Value.SoundVolume;
+            SetVolume(save.Value.MusicVolume, save.Value.SoundVolume);
         }
 
         public void Mute()

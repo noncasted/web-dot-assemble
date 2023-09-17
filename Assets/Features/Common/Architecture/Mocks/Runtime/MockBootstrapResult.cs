@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using Common.Architecture.Local.ComposedSceneConfig;
 using Cysharp.Threading.Tasks;
-using Global.Scenes.CurrentSceneHandlers.Runtime;
-using Global.Scenes.ScenesFlow.Handling.Result;
+using Global.Scenes.LoadedHandler.Runtime;
+using Global.Scenes.Operations.Abstract;
+using Global.Scenes.Operations.Native;
 using UnityEngine.SceneManagement;
 using VContainer;
 using VContainer.Unity;
@@ -22,12 +23,12 @@ namespace Common.Architecture.Mocks.Runtime
 
         public async UniTask RegisterLoadedScene(ComposedSceneLoadResult loadResult)
         {
-            var scenes = new List<SceneLoadResult>(loadResult.Scenes);
-            scenes.Add(new EmptySceneLoadResult(SceneManager.GetActiveScene()));
+            var scenes = new List<ISceneLoadResult>(loadResult.Scenes);
+            scenes.Add(new NativeSceneLoadResult(SceneManager.GetActiveScene()));
 
             var newResult = new ComposedSceneLoadResult(scenes, loadResult);
             
-            var sceneHandler = Resolver.Resolve<ICurrentSceneHandler>();
+            var sceneHandler = Resolver.Resolve<ILoadedScensHandler>();
             sceneHandler.OnLoaded(newResult);
 
             await loadResult.OnLoaded();

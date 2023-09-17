@@ -1,4 +1,6 @@
-﻿using Menu.StateMachine.Definitions;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
+using Menu.StateMachine.Definitions;
 using UnityEngine;
 
 namespace Menu.Quests.UI
@@ -14,7 +16,7 @@ namespace Menu.Quests.UI
 
         public RectTransform Transform => _view.Transform;
         
-        public void Activate()
+        public async UniTask Activate(CancellationToken cancellation)
         {
             _view.Navigation.Enable();
         }

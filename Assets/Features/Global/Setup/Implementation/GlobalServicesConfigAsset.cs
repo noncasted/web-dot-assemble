@@ -9,8 +9,8 @@ using Global.Inputs.View.Runtime;
 using Global.LevelConfiguration.Runtime;
 using Global.Localizations.Runtime;
 using Global.Publisher.Abstract.Bootstrap;
-using Global.Scenes.CurrentSceneHandlers.Runtime;
-using Global.Scenes.ScenesFlow.Runtime;
+using Global.Scenes.LoadedHandler.Runtime;
+using Global.Scenes.Operations.Root;
 using Global.Setup.Abstract;
 using Global.Setup.Service;
 using Global.System.ApplicationProxies.Runtime;
@@ -34,6 +34,7 @@ using Menu.Settings.Global;
 using Menu.Shop.Global;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Global.Setup.Implementation
 {
@@ -55,7 +56,7 @@ namespace Global.Setup.Implementation
 
         [FoldoutGroup("Publisher")] [SerializeField] private PublisherSdkAsset _publisherSdk;
 
-        [FoldoutGroup("Scenes")] [SerializeField] private CurrentSceneHandlerAsset _currentSceneHandler;
+        [FormerlySerializedAs("_currentSceneHandler")] [FoldoutGroup("Scenes")] [SerializeField] private LoadedScenesHandlerFactory _loadedScenesHandler;
         [FoldoutGroup("Scenes")] [SerializeField] private ScenesFlowFactory _scenesFlow;
 
         [FoldoutGroup("System")] [SerializeField] private ApplicationProxyAsset _applicationProxy;
@@ -90,7 +91,7 @@ namespace Global.Setup.Implementation
                 _applicationProxy,
                 _cameraUtils,
                 _currentCamera,
-                _currentSceneHandler,
+                _loadedScenesHandler,
                 _globalCamera,
                 _inputView,
                 _logger,

@@ -3,8 +3,8 @@ using Common.Architecture.Local.Abstract;
 using Common.Serialization.NestedScriptableObjects.Attributes;
 using Cysharp.Threading.Tasks;
 using GamePlay.Services.Background.Common;
-using Global.Scenes.ScenesFlow.Handling.Data;
-using Global.Scenes.ScenesFlow.Runtime.Abstract;
+using Global.Scenes.Operations.Abstract;
+using Global.Scenes.Operations.Data;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -19,8 +19,7 @@ namespace GamePlay.Services.Background.Runtime
 
         public async UniTask Create(IDependencyRegister builder,ISceneLoader sceneLoader, ILocalUtils utils)
         {
-            var sceneData = new TypedSceneLoadData<GameBackground>(_scene);
-            var result = await sceneLoader.Load(sceneData);
+            var result = await sceneLoader.LoadTyped<GameBackground>(_scene);
 
             var background = result.Searched;
 

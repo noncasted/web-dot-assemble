@@ -4,8 +4,8 @@ using Common.Serialization.NestedScriptableObjects.Attributes;
 using Cysharp.Threading.Tasks;
 using GamePlay.Common.SceneBootstrappers.Runtime;
 using GamePlay.Level.Scene.Common;
-using Global.Scenes.ScenesFlow.Handling.Data;
-using Global.Scenes.ScenesFlow.Runtime.Abstract;
+using Global.Scenes.Operations.Abstract;
+using Global.Scenes.Operations.Data;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -21,8 +21,7 @@ namespace GamePlay.Level.Scene.Runtime
 
         public override async UniTask Create(IDependencyRegister builder,ISceneLoader sceneLoader, ILocalUtils utils)
         {
-            var data = new TypedSceneLoadData<SceneBootstrapper>(_scene);
-            var result = await sceneLoader.Load(data);
+            var result = await sceneLoader.LoadTyped<SceneBootstrapper>(_scene);
 
             SceneManager.SetActiveScene(result.Scene);
 

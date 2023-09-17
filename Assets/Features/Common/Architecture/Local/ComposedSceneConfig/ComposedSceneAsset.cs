@@ -3,8 +3,7 @@ using Common.Architecture.Local.Abstract;
 using Common.Architecture.Local.Abstract.Callbacks;
 using Cysharp.Threading.Tasks;
 using Global.Options.Runtime;
-using Global.Scenes.ScenesFlow.Handling.Data;
-using Global.Scenes.ScenesFlow.Runtime.Abstract;
+using Global.Scenes.Operations.Abstract;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -47,7 +46,7 @@ namespace Common.Architecture.Local.ComposedSceneConfig
 
         private async UniTask<LocalServiceBinder> CreateServiceBinder(ComposedSceneLoader sceneLoader)
         {
-            var loadServicesScene = await sceneLoader.Load(new EmptySceneLoadData(_config.ServicesScene));
+            var loadServicesScene = await sceneLoader.Load(_config.ServicesScene);
             var servicesScene = loadServicesScene.Scene;
             var transformer = new LocalServiceTransformer(servicesScene);
             var serviceBinder = new LocalServiceBinder(transformer);

@@ -37,7 +37,13 @@ namespace Menu.Settings.UI
 
         public event Action LanguageClicked;
         public event Action SocialClicked;
-        
+
+        public void SetSlidersValue(float music, float sounds)
+        {
+            _musicSlider.value = music;
+            _soundSlider.value = sounds;
+        }
+
         public void SetLanguage(string language)
         {
             _languageText.text = language; 
