@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isEnabled: 0
   _logs:
-    _keys: 0000000001000000
-    _values: 0101
+    _keys: 000000000100000002000000
+    _values: 010100
   _logParameters:
     _isMessageColored: 0
     _color: {r: 0, g: 0, b: 0, a: 0}

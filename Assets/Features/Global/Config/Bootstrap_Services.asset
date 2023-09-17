@@ -21,8 +21,8 @@ MonoBehaviour:
   _debugConsole: {fileID: 11400000, guid: e3ab40223d3185148955ce7add75ce44, type: 2}
   _inputView: {fileID: 11400000, guid: 59f0f3c41ac20364ba23a15c6eeeb5d1, type: 2}
   _publisherSdk: {fileID: 11400000, guid: e6f74e9a77cf96644a9adec1fb4ed1cf, type: 2}
-  _currentSceneHandler: {fileID: 11400000, guid: 5d5d34fb2bc5e654ab9562f3bb1cd75f, type: 2}
-  _scenesFlow: {fileID: 11400000, guid: 9f52888bfd30d7644bef8fc11ad8f643, type: 2}
+  _loadedScenesHandler: {fileID: 11400000, guid: 5d5d34fb2bc5e654ab9562f3bb1cd75f, type: 2}
+  _scenesFlow: {fileID: 11400000, guid: 011208f2278d3c44dbd42a7dd275b240, type: 2}
   _applicationProxy: {fileID: 11400000, guid: f8225ff56a4a96a4e80b0602b4cd3656, type: 2}
   _logger: {fileID: 11400000, guid: cfc2485e153d069429f1271ebe52ee1b, type: 2}
   _messageBroker: {fileID: 11400000, guid: 07dfa12cb179a93488ef8a94dd145d98, type: 2}

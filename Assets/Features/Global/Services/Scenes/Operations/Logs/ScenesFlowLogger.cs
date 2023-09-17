@@ -31,7 +31,7 @@ namespace Global.Scenes.Operations.Logs
         }
         
         public void OnSceneUnloadFailed(Scene scene, string exception)
-        {   
+        {
             if (_settings.IsAvailable(ScenesFlowLogType.UnloadFailed) == false)
                 return;
 
