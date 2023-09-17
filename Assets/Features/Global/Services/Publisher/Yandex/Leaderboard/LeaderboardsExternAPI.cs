@@ -8,7 +8,7 @@ namespace Global.Publisher.Yandex.Leaderboard
         private static extern void SetLeaderboard(string target, int score);
 
         [DllImport("__Internal")]
-        private static extern void GetLeaderboard(string target, int quantityTop, int quantityAround);
+        private static extern void GetLeaderboardEntries(string target, int quantityTop, int quantityAround);
 
         public void SetLeaderboard_Internal(string target, int score)
         {
@@ -17,7 +17,7 @@ namespace Global.Publisher.Yandex.Leaderboard
 
         public void GetLeaderboard_Internal(string target, int quantityTop, int quantityAround)
         {
-            GetLeaderboard(target, quantityTop, quantityAround);
+            GetLeaderboardEntries(target, quantityTop, quantityAround);
         }
     }
 }

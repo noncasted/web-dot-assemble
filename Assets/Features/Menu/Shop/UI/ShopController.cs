@@ -23,13 +23,16 @@ namespace Menu.Shop.UI
         
         public void Activate()
         {
-            _cancellation = new CancellationTokenSource();
+            _view.Navigation.Enable();
             
+            _cancellation = new CancellationTokenSource();
             Show(_cancellation.Token).Forget();
         }
 
         public void Deactivate()
         {
+            _view.Navigation.Disable();
+
             _cancellation?.Cancel();
             _cancellation?.Dispose();
             _cancellation = null;

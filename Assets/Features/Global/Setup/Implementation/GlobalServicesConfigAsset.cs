@@ -17,6 +17,7 @@ using Global.System.ApplicationProxies.Runtime;
 using Global.System.DestroyHandlers.Runtime;
 using Global.System.Loggers.Runtime;
 using Global.System.MessageBrokers.Runtime;
+using Global.System.Objects.Factory;
 using Global.System.Pauses.Runtime;
 using Global.System.ResourcesCleaners.Runtime;
 using Global.System.Updaters.Runtime;
@@ -65,7 +66,8 @@ namespace Global.Setup.Implementation
         [FoldoutGroup("System")] [SerializeField] private UpdaterFactory _updater;
         [FoldoutGroup("System")] [SerializeField] private AnimatorsUpdaterFactory _animatorsUpdater;
         [FoldoutGroup("System")] [SerializeField] private DestroyHandlerFactory _destroyHandler;
-
+        [FoldoutGroup("System")] [SerializeField] private ObjectsFactory _objects;
+        
         [FoldoutGroup("UI")] [SerializeField] private LoadingScreenAsset _loadingScreen;
         [FoldoutGroup("UI")] [SerializeField] private LocalizationFactory _localization;
         [FoldoutGroup("UI")] [SerializeField] private OverlayAsset _overlay;
@@ -105,6 +107,7 @@ namespace Global.Setup.Implementation
                 _localization,
                 _pause,
                 _destroyHandler,
+                _objects,
                 
                 _achievements,
                 _collections,

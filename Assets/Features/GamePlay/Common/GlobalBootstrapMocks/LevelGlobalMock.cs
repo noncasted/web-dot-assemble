@@ -1,4 +1,5 @@
 ﻿using Common.Architecture.Mocks;
+using Common.Architecture.Mocks.Runtime;
 using Cysharp.Threading.Tasks;
 using GamePlay.Config.Runtime;
 using Global.LevelConfiguration.Avatars;
@@ -12,7 +13,7 @@ using VContainer;
 namespace GamePlay.Common.GlobalBootstrapMocks
 {
     [DisallowMultipleComponent]
-    public class LevelGlobalMock : MonoBehaviour
+    public class LevelGlobalMock : MockBase
     {
         [SerializeField] private LevelConfig _level;
         [SerializeField] private GlobalMock _mock;
@@ -21,12 +22,7 @@ namespace GamePlay.Common.GlobalBootstrapMocks
         [SerializeField] private AvatarDefinition _enemyAvatar;
         [SerializeField] private LevelConfiguration _levelConfiguration;
         
-        private void Awake()
-        {
-            Process().Forget();
-        }
-
-        private async UniTask Process()
+        public override async UniTaskVoid Process()
         {
             var result = await _mock.BootstrapGlobal();
             await BootstrapLocal(result);

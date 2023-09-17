@@ -44,200 +44,6 @@
 </div>
 
 <script>
-    let _leaderboards;
-    let _payments = null;
-    let _player;
-
-    YaGames.init().then(
-        ysdk => {
-            console.log('Begin initialization');
-            window.ysdk = ysdk;
-            auth();
-            initLib();
-            initPayments();
-            console.log('Yandex SDK initialized');
-        });
-
-    function auth() {
-        initPlayer()
-            .then(player => {
-                if (player.getMode() === 'lite') {
-                    // Игрок не авторизован.
-                    ysdk.auth.openAuthDialog().then(() => {
-                        // Игрок успешно авторизован
-                        initPlayer().catch(error => {
-                            console.log(error);
-                            // Ошибка при инициализации объекта Player.
-                        });
-                    }).catch(() => {
-                        // Игрок не авторизован.
-                    });
-                }
-            })
-            .catch(error => {
-                console.log(error);
-                // Ошибка при инициализации объекта Player.
-            });
-    }
-
-    function initLib() {
-        ysdk.getLeaderboards()
-            .then(leaderboards => _leaderboards = leaderboards);
-    }
-
-    function initPayments() {
-        ysdk.getPayments({signed: true})
-            .then(payments => {
-                _payments = payments;
-            })
-            .catch(error => {
-                console.log(error);
-            })
-    }
-
-    function SendCallback(target) {
-        console.log("send callback to " + target);
-
-        myGameInstance.SendMessage("YandexCallbacks", target);
-    }
-
-    function SendDataCallback(target, data) {
-        console.log("send data callback to " + target);
-        myGameInstance.SendMessage("YandexCallbacks", target, data);
-    }
-
-    function initPlayer() {
-        return ysdk
-            .getPlayer()
-            .then(_player => {
-                _player = _player;
-
-                return _player;
-            });
-    }
-
-    function Review() {
-        ysdk.feedback.canReview()
-            .then(({value, reason}) => {
-                if (value) {
-                    ysdk.feedback.requestReview()
-                        .then(({feedbackSent}) => {
-                            console.log(feedbackSent);
-                            SendCallback("OnReview");
-                        })
-                } else {
-                    console.log(reason)
-                    SendCallback("OnReview");
-                }
-            }).catch(error => {
-            SendCallback("OnReview");
-        })
-    }
-
-    function SaveUserData(data) {
-        let dateString = UTF8ToString(data);
-        let parsedData = JSON.parse(dateString);
-        _player.setData(parsedData);
-    }
-
-    function GetUserData() {
-        _player.getData().then(data => {
-            const rawData = JSON.stringify(data);
-            console.log("On data received");
-            console.log(rawData);
-            SendDataCallback("OnUserDataReceived", rawData);
-        });
-    }
-
-    function SetLeaderboard(target, value) {
-        _leaderboards.setLeaderboardScore(target, value);
-    }
-
-    function GetLeaderboardEntries(target, quantityTop, quantityAround) {
-        _leaderboards.getLeaderboardEntries(target, {
-            quantityTop: quantityTop,
-            includeUser: true,
-            quantityAround: quantityAround
-        })
-            .then(res => {
-                console.log(res);
-                const rawData = JSON.stringify(res);
-                SendDataCallback("OnLeaderboardsReceived", rawData)
-            });
-    }
-
-    function GetLang() {
-        const lang = ysdk.environment.i18n.lang;
-        const bufferSize = lengthBytesUTF8(lang) + 1;
-        const buffer = _malloc(bufferSize);
-        stringToUTF8(lang, buffer, bufferSize);
-        return buffer;
-    }
-
-    function ShowFullscreenAd() {
-        ysdk.adv.showFullscreenAdv({
-            callbacks: {
-                onClose: function (wasShown) {
-                    SendCallback("OnInterstitialShown");
-                },
-                onError: function (error) {
-                    SendDataCallback("OnInterstitialShown", error);
-                }
-            }
-        })
-    }
-
-    function ShowRewardedAd() {
-        ysdk.adv.showRewardedVideo({
-            callbacks: {
-                onOpen: () => {
-                    console.log('Video ad open.');
-                },
-                onRewarded: () => {
-                    console.log('Rewarded!');
-                    SendCallback("OnRewarded");
-                },
-                onClose: () => {
-                    console.log('Video ad closed.');
-                    SendCallback("OnRewardedClose");
-                },
-                onError: (e) => {
-                    console.log('Error while open video ad:', e);
-                    SendDataCallback("OnRewardedError", e);
-                }
-            }
-        })
-    }
-
-    function Purchase(purchaseId) {
-        _payments.purchase({id: purchaseId}).then(purchase => {
-            SendDataCallback("OnPurchaseSuccess", purchaseId)
-        }).catch(e => {
-            SendDataCallback("OnPurchaseFailed", e)
-        })
-    }
-    
-    function GetProducts() {
-        _payments.getCatalog().then(products => {
-            let productsJson = JSON.stringify(products);
-            SendDataCallback("OnProductsReceived", productsJson)
-        }).catch(e => {
-            console.log('Error while receiving catalog ', e);
-        });
-    }
-
-    function GetPurchases() {
-        _payments.getPurchases().then(purchases => {
-            let purchasesJson = JSON.stringify(purchases);
-            SendDataCallback("OnPurchasesReceived", purchasesJson)
-        }).catch(e => {
-            console.log('Error while receiving purchases ', e);
-        });
-    }
-
-</script>
-
-<script>
     let container = document.querySelector("#unity-container");
     let canvas = document.querySelector("#unity-canvas");
     let loadingBar = document.querySelector("#unity-loading-bar");
@@ -313,6 +119,79 @@
     };
 
     document.body.appendChild(script);
+
+
+    let _leaderboards;
+    let _payments = null;
+    let _player;
+
+    YaGames.init().then(
+        ysdk => {
+            console.log('Begin initialization');
+            window.ysdk = ysdk;
+            auth();
+            initLib();
+            initPayments();
+            console.log('Yandex SDK initialized');
+        });
+
+    function auth() {
+        initPlayer()
+            .then(player => {
+                if (player.getMode() === 'lite') {
+                    // Игрок не авторизован.
+                    ysdk.auth.openAuthDialog().then(() => {
+                        // Игрок успешно авторизован
+                        initPlayer().catch(error => {
+                            console.log(error);
+                            // Ошибка при инициализации объекта Player.
+                        });
+                    }).catch(() => {
+                        // Игрок не авторизован.
+                    });
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                // Ошибка при инициализации объекта Player.
+            });
+    }
+
+    function initLib() {
+        ysdk.getLeaderboards()
+            .then(leaderboards => _leaderboards = leaderboards);
+    }
+
+    function initPayments() {
+        ysdk.getPayments({signed: true})
+            .then(payments => {
+                _payments = payments;
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+
+    function SendCallback(target) {
+        console.log("send callback to " + target);
+
+        myGameInstance.SendMessage("YandexCallbacks", target);
+    }
+
+    function SendDataCallback(target, data) {
+        console.log("send data callback to " + target);
+        myGameInstance.SendMessage("YandexCallbacks", target, data);
+    }
+
+    function initPlayer() {
+        return ysdk
+            .getPlayer()
+            .then(_player => {
+                _player = _player;
+
+                return _player;
+            });
+    }
 </script>
 </body>
 </html>

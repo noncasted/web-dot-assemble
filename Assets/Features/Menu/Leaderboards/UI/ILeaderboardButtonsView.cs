@@ -1,4 +1,4 @@
-﻿using Unity.Plastic.Newtonsoft.Json.Serialization;
+﻿using System;
 
 namespace Menu.Leaderboards.UI
 {

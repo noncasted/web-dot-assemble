@@ -8,6 +8,7 @@ using Global.Scenes.CurrentSceneHandlers.Runtime;
 using Global.Scenes.ScenesFlow.Runtime.Abstract;
 using Global.Setup.Scope;
 using Global.UI.LoadingScreens.Runtime;
+using Menu.Config.Runtime;
 
 namespace Global.GameLoops.Runtime
 {
@@ -21,9 +22,11 @@ namespace Global.GameLoops.Runtime
             ICurrentSceneHandler currentSceneHandler,
             ICurrentCamera currentCamera,
             IOptions options,
-            LevelConfig level)
+            LevelConfig level,
+            MenuConfig menu)
         {
             _level = level;
+            _menu = menu;
             _scope = scope;
             _loader = loader;
             _loadingScreen = loadingScreen;
@@ -44,6 +47,7 @@ namespace Global.GameLoops.Runtime
         private readonly GlobalScope _scope;
 
         private readonly LevelConfig _level;
+        private readonly MenuConfig _menu;
 
         public void OnBootstrapped()
         {
@@ -51,6 +55,7 @@ namespace Global.GameLoops.Runtime
 
         public void Start()
         {
+            LoadScene(_menu).Forget();
         }
 
         private async UniTaskVoid LoadScene(ComposedSceneAsset asset)

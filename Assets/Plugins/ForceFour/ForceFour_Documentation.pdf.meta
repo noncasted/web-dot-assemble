@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 3bbf3334996e6ed4785221c536ef962c
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 220333
+  packageName: ForceFour - Expand Images to Multiple of 4
+  packageVersion: 1.0
+  assetPath: Assets/ForceFour/ForceFour_Documentation.pdf
+  uploadId: 565292

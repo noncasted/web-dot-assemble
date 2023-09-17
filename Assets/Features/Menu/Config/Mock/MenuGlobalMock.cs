@@ -1,4 +1,5 @@
 ﻿using Common.Architecture.Mocks;
+using Common.Architecture.Mocks.Runtime;
 using Cysharp.Threading.Tasks;
 using Global.Options.Runtime;
 using Global.Scenes.ScenesFlow.Runtime.Abstract;
@@ -9,17 +10,12 @@ using VContainer;
 namespace Menu.Config.Mock
 {
     [DisallowMultipleComponent]
-    public class MenuGlobalMock : MonoBehaviour
+    public class MenuGlobalMock : MockBase
     {
         [SerializeField] private MenuConfig _menu;
         [SerializeField] private GlobalMock _mock;
         
-        private void Awake()
-        {
-            Process().Forget();
-        }
-
-        private async UniTask Process()
+        public override async UniTaskVoid Process()
         {
             var result = await _mock.BootstrapGlobal();
             await BootstrapLocal(result);

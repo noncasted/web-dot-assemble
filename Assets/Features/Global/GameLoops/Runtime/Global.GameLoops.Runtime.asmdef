@@ -2,7 +2,6 @@
     "name": "Global.GameLoops.Runtime",
     "rootNamespace": "",
     "references": [
-        "GUID:516d42c44cb68864abf46961c3c1bdbd",
         "GUID:fb9b00a9a42c4c1459774b1ef88fcd74",
         "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
         "GUID:cdfd058b393524bddbb7e850e0d53c8e",
@@ -24,9 +23,8 @@
         "GUID:560b04d1a97f54a4e82edc0cbbb69285",
         "GUID:9b51a48d04164033bd0ea196e24c1113",
         "GUID:f8b57fbc7e5a45b5b38b7b3972a3e68d",
-        "GUID:3c0dc3615a8d40b584ed0cb2e73e2260",
-        "GUID:e2445e0d27f0410ba14433db0fc7cb6d",
-        "GUID:2ef144f1edca7a1438d7ed500325c442"
+        "GUID:2ef144f1edca7a1438d7ed500325c442",
+        "GUID:c4f970143afa5f2418c5190e2d9aeefb"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

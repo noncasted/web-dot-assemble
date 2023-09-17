@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using GamePlay.Level.Dots.Common;
 using UnityEngine;
-#if UNITY_EDITOR
 using Sirenix.OdinInspector;
+#if UNITY_EDITOR
 using UnityEditor;
 #endif
 

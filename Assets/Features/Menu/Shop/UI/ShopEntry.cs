@@ -43,7 +43,17 @@ namespace Menu.Shop.UI
             _current = productLink;
             _image.sprite = productLink.ShopIcon;
 
-            var description = productLink.Description != null ? productLink.Description.GetText() : string.Empty;
+            string description;
+
+            Debug.Log(productLink.Id);
+            
+            if (productLink.Description == null)
+                description = string.Empty;
+            else
+            {
+                Debug.Log(productLink.Description.name);
+                description = productLink.Description.GetText();
+            }
 
             _descriptionText.text = description;
 
