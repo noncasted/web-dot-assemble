@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27f1286c4a7455e4ca66db4e4856426b, type: 3}
   m_Name: GlobalService_Objects_TestObjectAsset
   m_EditorClassIdentifier: 
-  _object: {fileID: -6195403734517499079, guid: 00a42b33a21519a4b90eb4bb3ebf0fb3, type: 3}
+  _object: {fileID: 6336504564788748447, guid: 00a42b33a21519a4b90eb4bb3ebf0fb3, type: 3}
   _reference:
-    m_AssetGUID: 
+    m_AssetGUID: 00a42b33a21519a4b90eb4bb3ebf0fb3
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

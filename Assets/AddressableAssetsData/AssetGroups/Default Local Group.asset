@@ -17,11 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 5a39316ffa5b38c4bbddff5466650fff
   m_SerializeEntries:
-  - m_GUID: 00a42b33a21519a4b90eb4bb3ebf0fb3
-    m_Address: Assets/Features/Global/Services/System/Objects/Config/New Prefab.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cc74b2dbaf6f6fb478f35525e38026b0
     m_Address: Assets/Features/Common/Architecture/Local/Common/LocalServices.unity
     m_ReadOnly: 0
@@ -54,6 +49,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5cc8549eafaba19468d8e48f9d1d7aa6
     m_Address: Assets/Features/Menu/Config/Menu.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 00a42b33a21519a4b90eb4bb3ebf0fb3
+    m_Address: Assets/Features/Global/Services/System/Objects/Config/asdasdasdasd.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
