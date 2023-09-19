@@ -7,16 +7,24 @@ namespace Common.UI.Extended.Buttons
     public class ExtendedButton : MonoBehaviour
     {
         [SerializeField] private ExtendedTriggerReceiver _triggerReceiver;
-        [SerializeReference] private IStateHandler[] _stateHandlers;
+        [SerializeReference] private IButtonState[] _stateHandlers;
 
+        private readonly ButtonEvents _events = new();
+        private readonly ButtonStateHandler _stateHandler = new();
+        
         public event Action Clicked;
         
         private void OnEnable()
         {
+            var utils = new ButtonUtils(_triggerReceiver, _stateHandler);
+            
             foreach (var handler in _stateHandlers)
-                handler.Construct(_triggerReceiver);
+                handler.Construct(utils);
 
             _triggerReceiver.PointerUp += OnPointerUp;
+            _triggerReceiver.PointerDown += _events.InvokePointerDown;
+            _triggerReceiver.PointerEnter += _events.InvokePointerEnter;
+            _triggerReceiver.PointerExit += _events.InvokePointerExit;
         }
 
         private void OnDisable()
@@ -25,10 +33,19 @@ namespace Common.UI.Extended.Buttons
                 handler.Dispose();
             
             _triggerReceiver.PointerUp -= OnPointerUp;
+            _triggerReceiver.PointerDown -= _events.InvokePointerDown;
+            _triggerReceiver.PointerEnter -= _events.InvokePointerEnter;
+            _triggerReceiver.PointerExit -= _events.InvokePointerExit;
+        }
+
+        private void Update()
+        {
+            _events.InvokeUpdate();
         }
 
         private void OnPointerUp()
         {
+            _events.InvokePointerUp();
             Clicked?.Invoke();
         }
     }
