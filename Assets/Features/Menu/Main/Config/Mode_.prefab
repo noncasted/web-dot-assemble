@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1328205203198072818}
   - component: {fileID: 571667982781771435}
   - component: {fileID: 5177502962717130713}
+  - component: {fileID: 584793427835960962}
   m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
@@ -65,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -8780143283478986762, guid: b533ab21dcf67cb479c6b3639dfb4108, type: 3}
+  m_Sprite: {fileID: 3430852352722716620, guid: 39e574d9e1e55d043a5a51020a2eff3a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -75,6 +76,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &584793427835960962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187774318515758704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be85a806309ab004da0d0bf2e945f3a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1262400772197621723
 GameObject:
   m_ObjectHideFlags: 0
@@ -84,6 +97,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3096573042919173530}
+  - component: {fileID: 6522628948654345748}
   m_Layer: 5
   m_Name: Mode_
   m_TagString: Untagged
@@ -111,3 +125,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6522628948654345748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1262400772197621723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbb91f8a7de0513458629623bd881ab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerReceiver: {fileID: 584793427835960962}
+  _stateHandlers:
+  - rid: 7006731837237100547
+  references:
+    version: 2
+    RefIds:
+    - rid: 7006731837237100547
+      type: {class: ImageSwitchButtonState, ns: Common.UI.Extended.Buttons, asm: Common.Extended.Buttons}
+      data:
+        _image: {fileID: 5177502962717130713}
+        _entered: {fileID: 0}
+        _pressed: {fileID: 0}
+        _exited: {fileID: 0}

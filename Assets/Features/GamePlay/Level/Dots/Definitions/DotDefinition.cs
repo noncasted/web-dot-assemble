@@ -8,9 +8,21 @@ namespace GamePlay.Level.Dots.Definitions
     public class DotDefinition : ScriptableObject, IDotDefinition
     {
         [SerializeField] private GameObject _prefab;
-        [SerializeField] private Color _color;
+        
+        [SerializeField] private Sprite _largeActive;
+        [SerializeField] private Sprite _largeInactive;
+        [SerializeField] private Sprite _small;
 
-        public Color Color => _color;
+        public Sprite Image => _largeActive;
+        public Sprite ActiveIcon => _small;
+        public Sprite InactiveIcon => _largeInactive;
         public GameObject Prefab => _prefab;
+ 
+        public void SetImages(Sprite largeActive, Sprite largeInactive, Sprite small)
+        {
+            _largeActive = largeActive;
+            _largeInactive = largeInactive;
+            _small = small;
+        }
     }
 }

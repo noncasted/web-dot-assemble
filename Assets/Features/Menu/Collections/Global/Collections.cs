@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using Global.LevelConfiguration.Avatars;
+using Global.LevelConfigurations.Avatars;
 using Global.Publisher.Abstract.DataStorages;
 using Global.Publisher.Abstract.Purchases;
 using Global.Setup.Service.Callbacks;

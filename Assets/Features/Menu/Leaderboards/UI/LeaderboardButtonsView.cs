@@ -1,27 +1,27 @@
 ﻿using System;
+using Common.UI.Extended.Buttons;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Menu.Leaderboards.UI
 {
     public class LeaderboardButtonsView : MonoBehaviour, ILeaderboardButtonsView
     {
-        [SerializeField] private Button _previousButton;
-        [SerializeField] private Button _nextButton;
+        [SerializeField] private ExtendedButton _previousButton;
+        [SerializeField] private ExtendedButton _nextButton;
         
         public event Action NextClicked;
         public event Action PreviousClicked;
 
         private void OnEnable()
         {
-            _previousButton.onClick.AddListener(OnPreviousClicked);
-            _nextButton.onClick.AddListener(OnNextClicked);
+            _previousButton.Clicked += OnPreviousClicked;
+            _nextButton.Clicked += OnNextClicked;
         }
 
         private void OnDisable()
         {
-            _previousButton.onClick.RemoveListener(OnPreviousClicked);
-            _nextButton.onClick.RemoveListener(OnNextClicked);
+            _previousButton.Clicked -= OnPreviousClicked;
+            _nextButton.Clicked -= OnNextClicked;
         }
 
         private void OnPreviousClicked()

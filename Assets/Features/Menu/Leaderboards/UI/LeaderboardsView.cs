@@ -15,7 +15,6 @@ namespace Menu.Leaderboards.UI
         [SerializeField] [Min(0f)] private float _showDelay = 0.05f;
 
         [SerializeField] private RectTransform _root;
-        [SerializeField] private RectTransform _separator;
         [SerializeField] private LeaderboardEntry _entryPrefab;
         [SerializeField] private List<LeaderboardEntry> _all;
         [SerializeField] private TMP_Text _tableTitle;
@@ -67,9 +66,6 @@ namespace Menu.Leaderboards.UI
 
             currentUsers.AddRange(top);
             currentUsers.AddRange(around);
-
-            _separator.transform.SetSiblingIndex(_separator.transform.childCount);
-            _separator.transform.SetSiblingIndex(top.Count);
 
             for (var i = 0; i < currentUsers.Count; i++)
                 currentEntries.Add(_all[i]);

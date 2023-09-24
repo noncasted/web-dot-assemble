@@ -53,8 +53,9 @@ namespace Common.Serialization.NestedScriptableObjects.Editor
 
         protected override void DrawPropertyLayout(GUIContent label)
         {
-            if (assetPaths.Count() == 0)
+            if (assetPaths.Length == 0)
                 assetPaths = GetAllScriptsOfType();
+            
             if (ValueEntry.SmartValue == null && !Application.isPlaying)
             {
                 //Display value dropdown
@@ -66,7 +67,7 @@ namespace Common.Serialization.NestedScriptableObjects.Editor
                 {
                     var newObject = (T)ScriptableObject.CreateInstance(AssetDatabase
                         .LoadAssetAtPath<MonoScript>(assetPaths[valueIndex - 1]).GetClass());
-                    CreateAsset(newObject);
+                    CreateAsset(newObject, ValueEntry.Property.Name);
                     ValueEntry.SmartValue = newObject;
                 }
             }
@@ -120,9 +121,11 @@ namespace Common.Serialization.NestedScriptableObjects.Editor
             return names.ToArray();
         }
 
-        protected void CreateAsset(T newObject)
+        protected void CreateAsset(T newObject, string fieldName)
         {
-            newObject.name = $"{Parent.name}_{newObject.GetType().Name}";
+            fieldName = fieldName.Replace("_", "");
+            fieldName = char.ToUpper(fieldName[0]) + fieldName.Substring(1);
+            newObject.name = $"{Parent.name}_{newObject.GetType().Name}_{fieldName}";
             AssetDatabase.Refresh();
             AssetDatabase.AddObjectToAsset(newObject, Parent);
             AssetDatabase.SaveAssets();

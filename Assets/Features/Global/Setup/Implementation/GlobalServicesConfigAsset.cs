@@ -6,7 +6,7 @@ using Global.Cameras.CurrentCameras.Runtime;
 using Global.Cameras.GlobalCameras.Runtime;
 using Global.Debugs.Console.Runtime;
 using Global.Inputs.View.Runtime;
-using Global.LevelConfiguration.Runtime;
+using Global.LevelConfigurations.Runtime;
 using Global.Localizations.Runtime;
 using Global.Publisher.Abstract.Bootstrap;
 using Global.Scenes.LoadedHandler.Runtime;
@@ -34,11 +34,11 @@ using Menu.Settings.Global;
 using Menu.Shop.Global;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Global.Setup.Implementation
 {
-    [InlineEditor] [CreateAssetMenu(fileName = "GlobalConfig", menuName = "Global/Config")]
+    [InlineEditor]
+    [CreateAssetMenu(fileName = "GlobalConfig", menuName = "Global/Config")]
     public class GlobalServicesConfigAsset : GlobalServicesConfig
     {
         [FoldoutGroup("Level")] [SerializeField] private LevelConfigurationFactory _levelConfiguration;
@@ -46,20 +46,20 @@ namespace Global.Setup.Implementation
         [FoldoutGroup("Audio")] [SerializeField] private SoundsPlayerFactory _soundsPlayer;
         [FoldoutGroup("Audio")] [SerializeField] private AudioListenerSwitcherFactory _audioSwitcher;
 
-        [FoldoutGroup("Camera")] [SerializeField] private CameraUtilsAsset _cameraUtils;
-        [FoldoutGroup("Camera")] [SerializeField] private CurrentCameraAsset _currentCamera;
-        [FoldoutGroup("Camera")] [SerializeField] private GlobalCameraAsset _globalCamera;
+        [FoldoutGroup("Camera")] [SerializeField] private CameraUtilsFactory _cameraUtils;
+        [FoldoutGroup("Camera")] [SerializeField] private CurrentCameraFactory _currentCamera;
+        [FoldoutGroup("Camera")] [SerializeField] private GlobalCameraFactory _globalCamera;
 
-        [FoldoutGroup("Debugs")] [SerializeField] private DebugConsoleAsset _debugConsole;
+        [FoldoutGroup("Debugs")] [SerializeField] private DebugConsoleFactory _debugConsole;
 
         [FoldoutGroup("Input")] [SerializeField] private InputViewFactory _inputView;
 
-        [FoldoutGroup("Publisher")] [SerializeField] private PublisherSdkAsset _publisherSdk;
+        [FoldoutGroup("Publisher")] [SerializeField] private PublisherSdkFactory _publisherSdk;
 
-        [FormerlySerializedAs("_currentSceneHandler")] [FoldoutGroup("Scenes")] [SerializeField] private LoadedScenesHandlerFactory _loadedScenesHandler;
+        [FoldoutGroup("Scenes")] [SerializeField] private LoadedScenesHandlerFactory _loadedScenesHandler;
         [FoldoutGroup("Scenes")] [SerializeField] private ScenesFlowFactory _scenesFlow;
 
-        [FoldoutGroup("System")] [SerializeField] private ApplicationProxyAsset _applicationProxy;
+        [FoldoutGroup("System")] [SerializeField] private ApplicationProxyFactory _applicationProxy;
         [FoldoutGroup("System")] [SerializeField] private LoggerFactory _logger;
         [FoldoutGroup("System")] [SerializeField] private MessageBrokerFactory _messageBroker;
         [FoldoutGroup("System")] [SerializeField] private PauseFactory _pause;
@@ -68,8 +68,8 @@ namespace Global.Setup.Implementation
         [FoldoutGroup("System")] [SerializeField] private AnimatorsUpdaterFactory _animatorsUpdater;
         [FoldoutGroup("System")] [SerializeField] private DestroyHandlerFactory _destroyHandler;
         [FoldoutGroup("System")] [SerializeField] private ObjectsFactory _objects;
-        
-        [FoldoutGroup("UI")] [SerializeField] private LoadingScreenAsset _loadingScreen;
+
+        [FoldoutGroup("UI")] [SerializeField] private LoadingScreenFactory _loadingScreen;
         [FoldoutGroup("UI")] [SerializeField] private LocalizationFactory _localization;
         [FoldoutGroup("UI")] [SerializeField] private OverlayAsset _overlay;
         [FoldoutGroup("UI")] [SerializeField] private UiStateMachineFactory _uiStateMachine;
@@ -82,7 +82,7 @@ namespace Global.Setup.Implementation
         [FoldoutGroup("Menu")] [SerializeField] private SettingsFactory _settings;
         [FoldoutGroup("Menu")] [SerializeField] private ShopFactory _shop;
         [FoldoutGroup("Menu")] [SerializeField] private CalendarFactory _calendar;
-        
+
         public override IGlobalServiceFactory[] GetFactories()
         {
             return new IGlobalServiceFactory[]
@@ -109,7 +109,7 @@ namespace Global.Setup.Implementation
                 _pause,
                 _destroyHandler,
                 _objects,
-                
+
                 _achievements,
                 _collections,
                 _leaderboards,

@@ -34,7 +34,7 @@ namespace Global.Publisher.Yandex.Bootstrap
 {
     [InlineEditor]
     [CreateAssetMenu(fileName = YandexRoutes.ServiceName, menuName = YandexRoutes.ServicePath)]
-    public class YandexFactory : PublisherSdkAsset
+    public class YandexFactory : PublisherSdkFactory
     {
         [SerializeField] [Scene] private string _debugScene;
         [SerializeField] private YandexCallbacks _callbacksPrefab;

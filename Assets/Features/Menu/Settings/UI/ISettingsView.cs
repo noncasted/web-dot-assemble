@@ -1,4 +1,5 @@
 ﻿using System;
+using Global.Localizations.Definition;
 using Menu.Common.Navigation;
 using UnityEngine;
 
@@ -12,10 +13,10 @@ namespace Menu.Settings.UI
         float MusicValue { get; }
         float SoundValue { get; }
 
-        event Action LanguageClicked;
+        event Action<Language> LanguageChanged;
         event Action SocialClicked;
 
         void SetSlidersValue(float music, float sounds);
-        void SetLanguage(string language);
+        void SetLanguage(Language language);
     }
 }

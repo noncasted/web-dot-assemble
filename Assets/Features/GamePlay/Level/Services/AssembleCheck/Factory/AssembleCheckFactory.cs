@@ -21,7 +21,7 @@ namespace GamePlay.Level.Services.AssembleCheck.Factory
         {
             return gameMode switch
             {
-                GameMode.Lines => new LineAssembleChecker(_field, _dotDestroyer),
+                GameMode.Forward => new LineAssembleChecker(_field, _dotDestroyer),
                 GameMode.Diagonal => new DiagonalAssembleChecker(_field, _dotDestroyer),
                 GameMode.Quads => new QuadAssembleChecker(_field, _dotDestroyer),
                 _ => throw new ArgumentOutOfRangeException(nameof(gameMode), gameMode, null)

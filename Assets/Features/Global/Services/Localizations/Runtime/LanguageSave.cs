@@ -10,7 +10,7 @@ namespace Global.Localizations.Runtime
         public LanguageSavesPayload Value = new()
         {
             IsOverriden = false,
-            Language = Language.Eng
+            Language = Language.Ru
         };
         
         public const string Key = "language";
@@ -24,7 +24,7 @@ namespace Global.Localizations.Runtime
             Value = new LanguageSavesPayload()
             {
                 IsOverriden = false,
-                Language = Language.Eng
+                Language = Language.Ru
             };
         }
 

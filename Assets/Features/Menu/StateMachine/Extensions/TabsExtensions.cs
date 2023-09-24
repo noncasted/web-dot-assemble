@@ -11,8 +11,6 @@ namespace Menu.StateMachine.Extensions
         {
             registration.AsSelf();
             
-            Debug.Log($"Register tab definition: {((ScriptableObject)tabDefinition).name}");
-            
             registration.Builder.Register<TabRegistrationHandler<T>>()
                 .WithParameter(tabDefinition)
                 .AsSelfResolvable();

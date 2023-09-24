@@ -1,5 +1,5 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Global.LevelConfiguration.Avatars;
+using Global.LevelConfigurations.Avatars;
 using Global.Setup.Service;
 using Menu.Collections.Common;
 using Sirenix.OdinInspector;

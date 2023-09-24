@@ -6,9 +6,12 @@ namespace Menu.Main.UI
     [DisallowMultipleComponent]
     public class MainView : MonoBehaviour, IMainView
     {
+        [SerializeField] private ModeSelection _modeSelection;
+        
         private ITabNavigation _navigation;
         private RectTransform _transform;
 
+        public IModeSelection ModeSelection => _modeSelection;
         public ITabNavigation Navigation => _navigation;
         public RectTransform Transform => _transform;   
 

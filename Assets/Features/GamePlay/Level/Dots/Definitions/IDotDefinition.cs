@@ -4,7 +4,9 @@ namespace GamePlay.Level.Dots.Definitions
 {
     public interface IDotDefinition
     {
-        Color Color { get; }
+        Sprite Image { get; }
+        Sprite ActiveIcon { get; }
+        Sprite InactiveIcon { get; }
         GameObject Prefab { get; }
     }
 }

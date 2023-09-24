@@ -10,9 +10,8 @@ namespace Menu.Collections.UI
         ITabNavigation Navigation { get; }
         RectTransform Transform { get; }
 
-        void Enable();
-        void Disable();
-        void Construct(IReadOnlyList<AvatarHandle> achievement);
+        void Construct(IReadOnlyList<AvatarHandle> avatars);
         void Open();
+        void Disable();
     }
 }

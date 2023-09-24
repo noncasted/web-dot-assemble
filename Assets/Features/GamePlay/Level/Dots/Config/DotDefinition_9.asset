@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: DotDefinition_9
   m_EditorClassIdentifier: 
   _prefab: {fileID: 5525502235769865552, guid: f77fb04aa5aa4b64e9003a22cfec28f7, type: 3}
-  _color: {r: 0.7215905, g: 1, b: 0.29019606, a: 1}
+  _largeActive: {fileID: 21300000, guid: 7d7f719b5158b82479b6e883ed0732c1, type: 3}
+  _largeInactive: {fileID: 21300000, guid: 7557ce600c0271c4aa0e2e7620611101, type: 3}
+  _small: {fileID: 21300000, guid: 5192fd7ad09f240498ac00ff9ef54be8, type: 3}

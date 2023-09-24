@@ -1,0 +1,14 @@
+﻿{
+  "name": "Global.LevelConfiguration.Runtime",
+  "references": [
+    "GUID:71926d8f7a1bc5444bc17cb1d74770a3",
+    "GUID:401398c75a71e5444a495125c9dd1a21",
+    "GUID:e07e6ccd9241474dbca4e70862df2bc2",
+    "GUID:149cac994b3a7414fb1b70ecb5830e20",
+    "GUID:71d2af7606d84abb998e3db811acf857",
+    "GUID:25f79b9f7aeb42a8af7eb332b6a4ba79",
+    "GUID:f51ebe6a0ceec4240a699833d6309b23",
+    "GUID:6743c9921dfb8df479181bbacfdda75d",
+    "GUID:75f29b67883912c4683d10d111aca113"
+  ]
+}

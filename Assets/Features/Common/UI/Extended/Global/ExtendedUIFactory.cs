@@ -4,7 +4,7 @@ using Global.Setup.Service;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Features.Common.UI.Extended.Global
+namespace Common.UI.Extended.Global
 {
     [InlineEditor]
     [CreateAssetMenu(fileName = ExtendedRoutes.ServiceName,

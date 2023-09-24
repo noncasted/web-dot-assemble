@@ -20,6 +20,7 @@ namespace Menu.Achievements.Global
         public void Update(AchievementType type, int progress)
         {
             _entries[type] = progress;
+            Changed?.Invoke();
         }
         
         public void CreateDefault()

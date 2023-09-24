@@ -9,6 +9,8 @@ namespace Common.UI.Extended.Buttons
         [SerializeField] private ExtendedTriggerReceiver _triggerReceiver;
         [SerializeReference] private IButtonState[] _stateHandlers;
 
+        private bool _isLocked;
+        
         private readonly ButtonEvents _events = new();
         private readonly ButtonStateHandler _stateHandler = new();
         
@@ -17,6 +19,9 @@ namespace Common.UI.Extended.Buttons
         private void OnEnable()
         {
             var utils = new ButtonUtils(_triggerReceiver, _stateHandler);
+
+            foreach (var handler in _stateHandlers)
+                _events.Listen(handler);
             
             foreach (var handler in _stateHandlers)
                 handler.Construct(utils);
@@ -38,13 +43,36 @@ namespace Common.UI.Extended.Buttons
             _triggerReceiver.PointerExit -= _events.InvokePointerExit;
         }
 
+        public void UnsubscribeAll()
+        {
+            Clicked = null;
+        }
+
+        public void Lock()
+        {
+            _isLocked = true;
+            _triggerReceiver.Lock();
+        }
+
+        public void Unlock()
+        {
+            _isLocked = false;
+            _triggerReceiver.Unlock();
+        }
+
         private void Update()
         {
+            if (_isLocked == true)
+                return;
+            
             _events.InvokeUpdate();
         }
 
         private void OnPointerUp()
         {
+            if (_triggerReceiver.IsInside == false)
+                return;
+            
             _events.InvokePointerUp();
             Clicked?.Invoke();
         }

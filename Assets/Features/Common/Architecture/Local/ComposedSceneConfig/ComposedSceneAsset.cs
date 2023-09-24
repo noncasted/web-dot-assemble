@@ -60,14 +60,14 @@ namespace Common.Architecture.Local.ComposedSceneConfig
                 listener => listener.OnAwake(), 0);
             callbacks.AddInitAsyncCallback<ILocalAsyncAwakeListener>(
                 listener => listener.OnAwakeAsync(), 1);
-            callbacks.AddInitCallback<ILocalBootstrappedListener>(
-                listener => listener.OnBootstrapped(), 2);
-            callbacks.AddInitAsyncCallback<ILocalAsyncBootstrappedListener>(
-                listener => listener.OnBootstrappedAsync(), 3);
-            callbacks.AddInitAsyncCallback<ILocalBuiltListener>(
-                listener => listener.OnContainerBuilt(scope, callbacks), 4);
             callbacks.AddInitCallback<ILocalSwitchListener>(
-                listener => listener.OnEnabled(), 5);
+                listener => listener.OnEnabled(), 2);
+            callbacks.AddInitCallback<ILocalBootstrappedListener>(
+                listener => listener.OnBootstrapped(), 3);
+            callbacks.AddInitAsyncCallback<ILocalAsyncBootstrappedListener>(
+                listener => listener.OnBootstrappedAsync(), 4);
+            callbacks.AddInitAsyncCallback<ILocalBuiltListener>(
+                listener => listener.OnContainerBuilt(scope, callbacks), 5);
 
             callbacks.AddLoadingCompletionCallback<ILocalLoadListener>(
                 listener => listener.OnLoaded(), 0);

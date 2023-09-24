@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using GamePlay.Level.Cells.Runtime;
 using UnityEngine;
 
@@ -9,8 +8,23 @@ namespace GamePlay.Level.Services.DotMovers.Pathfinding
     {
         public Path Search(ICell startNode, ICell endNode)
         {
+            var result = GetEndNode(startNode, endNode);
+
+            if (result.IsValid == false)
+            {
+                result = GetEndNode(startNode, result.NearestAvailable);
+                return CalculatePath(result.EndNode, false);
+            }
+
+            return CalculatePath(result.EndNode, result.IsValid);
+        }
+
+        private EndNodeResult GetEndNode(ICell startNode, ICell endNode)
+        {
             var openList = new List<ICell> { startNode };
             var closedList = new List<ICell>();
+            var nearestAvailableNode = endNode;
+            var minimalDistanceToAvailable = float.MaxValue;
 
             var currentNode = startNode;
 
@@ -19,7 +33,7 @@ namespace GamePlay.Level.Services.DotMovers.Pathfinding
                 currentNode = GetClosestNode(openList);
 
                 if (currentNode == endNode)
-                    return CalculatePath(endNode, true);
+                    return new EndNodeResult(endNode,  nearestAvailableNode, true);
 
                 openList.Remove(currentNode);
                 closedList.Add(currentNode);
@@ -34,7 +48,7 @@ namespace GamePlay.Level.Services.DotMovers.Pathfinding
                         closedList.Add(neighbourNode);
 
                         if (neighbourNode == endNode)
-                            return CalculatePath(currentNode, false);
+                            return new EndNodeResult(currentNode,  nearestAvailableNode, false);
 
                         continue;
                     }
@@ -42,6 +56,13 @@ namespace GamePlay.Level.Services.DotMovers.Pathfinding
                     neighbourNode.SetPreviousNode(currentNode);
 
                     var distance = CalculateDistanceCost(neighbourNode, endNode);
+
+                    if (distance < minimalDistanceToAvailable)
+                    {
+                        nearestAvailableNode = currentNode;
+                        minimalDistanceToAvailable = distance;
+                    }
+                    
                     neighbourNode.SetDistanceCost(distance);
 
                     if (openList.Contains(neighbourNode) == false)
@@ -49,7 +70,7 @@ namespace GamePlay.Level.Services.DotMovers.Pathfinding
                 }
             }
 
-            return CalculatePath(currentNode, false);
+            return new EndNodeResult(currentNode, nearestAvailableNode, false);
         }
 
         private Path CalculatePath(ICell endNode, bool isValid)
@@ -65,43 +86,8 @@ namespace GamePlay.Level.Services.DotMovers.Pathfinding
             }
 
             path.Reverse();
-
-            if (isValid == false)
-                return MinimizeInvalidPath(path);
             
-            return new Path(path, true);
-        }
-
-        private Path MinimizeInvalidPath(IReadOnlyList<ICell> cells)
-        {
-            var nearestCell = cells.Last();
-            var minDistance = float.MaxValue;
-
-            foreach (var cell in cells)
-            {
-                var distance = CalculateDistanceCost(nearestCell, cell);
-
-                if (distance > minDistance)
-                    continue;
-
-                nearestCell = cell;
-                minDistance = distance;
-            }
-
-            var newCells = new List<ICell>();
-
-            foreach (var cell in cells)
-            {
-                if (cell == nearestCell)
-                {
-                    newCells.Add(cell);
-                    return new Path(newCells, false);
-                }
-
-                newCells.Add(cell);
-            }
-
-            return new Path(cells, false);
+            return new Path(path, isValid);
         }
 
         private float CalculateDistanceCost(ICell a, ICell b)
@@ -121,5 +107,19 @@ namespace GamePlay.Level.Services.DotMovers.Pathfinding
 
             return lowestFCostNode;
         }
+    }
+
+    public class EndNodeResult
+    {
+        public EndNodeResult(ICell endNode, ICell nearestAvailable, bool isValid)
+        {
+            EndNode = endNode;
+            NearestAvailable = nearestAvailable;
+            IsValid = isValid;
+        }
+        
+        public readonly ICell EndNode;
+        public readonly ICell NearestAvailable;
+        public readonly bool IsValid;
     }
 }

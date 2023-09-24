@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Common.Serialization.ScriptableRegistries;
 using GamePlay.Level.Dots.Common;
 using UnityEngine;
 using Sirenix.OdinInspector;
@@ -11,11 +12,11 @@ namespace GamePlay.Level.Dots.Definitions
     [InlineEditor]
     [CreateAssetMenu(fileName = DotsRoutes.StorageName,
         menuName = DotsRoutes.StoragePath)]
-    public class DotDefinitionsStorage : ScriptableObject, IDotDefinitionsStorage
+    public class DotDefinitionsStorage : ScriptableRegistry<DotDefinition>, IDotDefinitionsStorage
     {
-        [SerializeField] private DotDefinition[] _definition;
-
-        public IReadOnlyList<IDotDefinition> Definitions => _definition;
+        [SerializeField] private Sprite[] _images;
+        
+        public IReadOnlyList<IDotDefinition> Definitions => Objects;
 
         public IDotDefinition GetRandom()
         {
@@ -23,30 +24,19 @@ namespace GamePlay.Level.Dots.Definitions
             return Definitions[random];
         }
 
-        [Button("Scan")]
-        private void Scan()
+        [Button]
+        private void AssignImages()
         {
-#if UNITY_EDITOR
-            var definitions = new List<DotDefinition>();
-            var guids = AssetDatabase.FindAssets($"t:{typeof(DotDefinition)}");
-
-            foreach (var guid in guids)
+            #if UNITY_EDITOR
+            for (var i = 0; i < Objects.Count; i++)
             {
-                var assetPath = AssetDatabase.GUIDToAssetPath(guid);
-                var asset = AssetDatabase.LoadAssetAtPath<DotDefinition>(assetPath);
-
-                if (asset == null)
-                    continue;
-
-                definitions.Add(asset);
-            }
-
-            Undo.RecordObject(this, "Assign definitions");
-
-            _definition = definitions.ToArray();
-
-            Undo.RecordObject(this, "Assign definitions");
-#endif
+                var target = Objects[i];
+                Undo.RecordObject(target, "Assign images");
+                var index = i * 3;
+                target.SetImages(_images[index + 1], _images[index], _images[index + 2]);
+                Undo.RecordObject(target, "Assign images");
+            }   
+            #endif
         }
     }
 }

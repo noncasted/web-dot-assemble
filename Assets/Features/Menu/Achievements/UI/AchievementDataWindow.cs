@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using Common.UI.Extended.ProgressBars;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Menu.Achievements.Definitions;
@@ -17,12 +18,7 @@ namespace Menu.Achievements.UI
         [SerializeField] private Image _icon;
         [SerializeField] private TMP_Text _name;
         [SerializeField] private TMP_Text _description;
-        [SerializeField] private AchievementProgressBar _progressBar;
-
-        private void Awake()
-        {
-            gameObject.SetActive(false);
-        }
+        [SerializeField] private ProgressBar _progressBar;
 
         public async UniTask Show(IAchievement achievement, CancellationToken cancellation)
         {
@@ -40,7 +36,7 @@ namespace Menu.Achievements.UI
                 .Play()
                 .ToUniTask(TweenCancelBehaviour.Kill, cancellation);
 
-            await UniTask.Delay(_barDelay);
+            await UniTask.Delay(_barDelay, cancellation);
             
             var progress = achievement.Progress.Value / (float) achievement.Progress.Target;
             await _progressBar.UpdateProgress(progress, cancellation);

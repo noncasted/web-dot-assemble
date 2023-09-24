@@ -523,16 +523,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _triggerReceiver: {fileID: 6175427366965231089}
   _stateHandlers:
-  - rid: 7006731547266252801
+  - rid: 7006731837237100544
   references:
     version: 2
     RefIds:
-    - rid: 7006731547266252801
-      type: {class: ImageSwitchStateHandler, ns: Common.UI.Extended.Buttons, asm: Common.Extended.Buttons}
+    - rid: 7006731837237100544
+      type: {class: ImageSwitchButtonState, ns: Common.UI.Extended.Buttons, asm: Common.Extended.Buttons}
       data:
         _image: {fileID: 7213860381860095462}
-        _entered: {fileID: 3810490673096261610, guid: 70b55e31f3d5a3948a18cc93a94638d2, type: 3}
-        _exited: {fileID: -8780143283478986762, guid: b533ab21dcf67cb479c6b3639dfb4108, type: 3}
+        _entered: {fileID: 0}
+        _exited: {fileID: 0}
 --- !u!1 &9184310691665928962
 GameObject:
   m_ObjectHideFlags: 0

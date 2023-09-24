@@ -2,9 +2,19 @@
 
 namespace Global.System.ApplicationProxies.Runtime
 {
-    [DisallowMultipleComponent]
-    public class ApplicationProxy : IApplicationFlow
+    public class ApplicationProxy : IApplicationFlow, IScreen
     {
+        public ScreenMode ScreenMode
+        {
+            get
+            {
+                if (Screen.height > Screen.width)
+                    return ScreenMode.Vertical;
+
+                return ScreenMode.Horizontal;
+            }
+        }
+        
         public void Quit()
         {
             Application.Quit();

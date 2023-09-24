@@ -7,29 +7,29 @@ using GamePlay.Level.Services.FieldFlow.Runtime;
 using GamePlay.Level.Services.Score.Runtime;
 using GamePlay.Loop.Logs;
 using GamePlay.UI.Runtime.Score;
-using Global.LevelConfiguration.Runtime;
+using Global.LevelConfigurations.Runtime;
 
 namespace GamePlay.Loop.Runtime
 {
-    public class LevelLoop : ILocalLoadListener, ILocalBootstrappedListener
+    public class LevelLoop : ILocalLoadListener, ILocalAsyncBootstrappedListener
     {
         public LevelLoop(
             IFieldFlow flow,
             ILevelConfigurationProvider configurationProvider,
-            IScoreController scoreController,
+            ILevelUiController levelUiController,
             IScore score,
             LevelLoopLogger logger)
         {
             _flow = flow;
             _configurationProvider = configurationProvider;
-            _scoreController = scoreController;
+            _levelUiController = levelUiController;
             _score = score;
             _logger = logger;
         }
 
         private readonly IFieldFlow _flow;
         private readonly ILevelConfigurationProvider _configurationProvider;
-        private readonly IScoreController _scoreController;
+        private readonly ILevelUiController _levelUiController;
         private readonly IScore _score;
         private readonly IFieldFactory _fieldFactory;
         private readonly IAssembleChecker _assembleChecker;
@@ -37,16 +37,18 @@ namespace GamePlay.Loop.Runtime
 
         private CancellationTokenSource _cancellation;
 
-        public void OnBootstrapped()
+        public async UniTask OnBootstrappedAsync()
         {
-            var configuration = _configurationProvider.Configuration;
-            var playerAvatar = configuration.PlayerAvatar;
-            var enemyAvatar = configuration.EnemyAvatar;
-            var avatars = new ParticipantsAvatars(playerAvatar.Sprite, enemyAvatar.Sprite);
-            _scoreController.SetAvatars(avatars);
-            _score.SetEnemyScore(configuration.LevelData.TargetScore);
+            var configuration = await _configurationProvider.GetConfiguration();
+            
+            var avatars = new ParticipantsAvatars(
+                _configurationProvider.PlayerAvatar.Sprite, 
+                configuration.Enemy.Sprite);
+            
+            _levelUiController.SetAvatars(avatars);
+            _score.SetEnemyScore(configuration.TargetScore);
         }
-        
+
         public void OnLoaded()
         {
             _logger.OnLoaded();

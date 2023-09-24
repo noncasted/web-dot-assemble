@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Cysharp.Threading.Tasks;
 using GamePlay.Level.Cells.Runtime;
 using GamePlay.Level.Dots.Runtime;
 using GamePlay.Level.Fields.Runtime;
@@ -12,15 +11,13 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
 {
     public class PathSelector : IUpdatable
     {
-        public PathSelector(IDot dot, IField field, IUpdater updater, IMouseInput mouseInput, Transform root)
+        public PathSelector(IDot dot, IField field, IUpdater updater, IMouseInput mouseInput)
         {
             _field = field;
             _updater = updater;
             _mouseInput = mouseInput;
-            _root = root;
             _start = field.FindParentCell(dot);
             _pathfinder = new Pathfinder();
-            _completion = new UniTaskCompletionSource<Path>();
 
             Path = Search();
         }
@@ -28,10 +25,8 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
         private readonly IField _field;
         private readonly IUpdater _updater;
         private readonly IMouseInput _mouseInput;
-        private readonly Transform _root;
         private readonly ICell _start;
         private readonly Pathfinder _pathfinder;
-        private readonly UniTaskCompletionSource<Path> _completion;
 
         public Path Path { get; private set; }
 

@@ -62,7 +62,7 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
 
         private async UniTask<bool> ProcessMove(IField field, IDot dot, CancellationToken cancellation)
         {
-            var moveProcessor = new PathSelector(dot, field, _updater, _mouseInput, _moveRectProvider.MoveRect);
+            var moveProcessor = new PathSelector(dot, field, _updater, _mouseInput);
 
             moveProcessor.Start();
             await _mouseInput.WaitLeftDownAsync(cancellation);

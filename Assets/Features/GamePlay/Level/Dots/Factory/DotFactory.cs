@@ -25,13 +25,16 @@ namespace GamePlay.Level.Dots.Factory
             dotObject.transform.localPosition = Vector3.zero;
 
             if (dotObject.TryGetComponent(out IDotBootstrapLinker linker) == false)
-                throw new NullReferenceException($"No implementation of IDotBootstrapLinker interface found on object: {dotObject.name}");
+            {
+                throw new NullReferenceException(
+                    $"No implementation of IDotBootstrapLinker interface found on object: {dotObject.name}");
+            }
 
             var view = linker.View;
             var pointerObserver = linker.PointerObserver;
             var lifeFlow = new DotLifeFlow(view, config);
             var dot = new Dot(view, lifeFlow, pointerObserver, definition);
-            view.Transform.GetComponentInChildren<SpriteRenderer>().color = definition.Color;
+            linker.Image.sprite = definition.Image;
 
             dot.Enable();
             cell.SetDot(dot);

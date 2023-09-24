@@ -6,11 +6,17 @@ using UnityEngine.UI;
 namespace Common.UI.Extended.Buttons
 {
     [Serializable]
-    public class ImageSwitchButtonState : IButtonState, IPointerEnterListener, IPointerExitListener
+    public class ImageSwitchButtonState : 
+        IButtonState,
+        IPointerEnterListener,
+        IPointerExitListener,
+        IPointerDownListener,
+        IPointerUpListener
     {
         [SerializeField] private Image _image;
 
         [SerializeField] private Sprite _entered;
+        [SerializeField] private Sprite _pressed;
         [SerializeField] private Sprite _exited;
         
         public void Construct(IButtonUtils utils)
@@ -30,6 +36,16 @@ namespace Common.UI.Extended.Buttons
         public void OnPointerExit()
         {
             _image.sprite = _exited;
+        }
+
+        public void OnPointerDown()
+        {
+            _image.sprite = _pressed;
+        }
+
+        public void OnPointerUp()
+        {
+            _image.sprite = _entered;
         }
     }
 }

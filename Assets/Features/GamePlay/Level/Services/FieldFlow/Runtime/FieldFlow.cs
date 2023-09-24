@@ -10,7 +10,7 @@ using GamePlay.Level.Services.AssembleCheck.Runtime;
 using GamePlay.Level.Services.DotMovers.Runtime;
 using GamePlay.Level.Services.FieldFlow.Seeder;
 using GamePlay.Level.Services.Score.Runtime;
-using GamePlay.Loop.Modes;
+using Global.LevelConfigurations.Runtime;
 
 namespace GamePlay.Level.Services.FieldFlow.Runtime
 {
@@ -22,15 +22,19 @@ namespace GamePlay.Level.Services.FieldFlow.Runtime
             IFieldSeeder seeder,
             IAssembleCheckFactory assembleCheckFactory,
             IField field,
-            IScore score)
+            IScore score,
+            ILevelConfigurationProvider configurationProvider)
         {
             _dotMover = dotMover;
             _lifetime = lifetime;
             _seeder = seeder;
-            _assembleChecker = assembleCheckFactory.Create(GameMode.Quads);
             _field = field;
             _score = score;
             _cancellationCallback = Stop;
+
+            var mode = configurationProvider.Mode;
+            var checker = assembleCheckFactory.Create(mode);
+            _assembleChecker = checker;
         }
 
         private readonly IDotMover _dotMover;

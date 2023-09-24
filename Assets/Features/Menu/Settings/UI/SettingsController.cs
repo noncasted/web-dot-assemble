@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
 using Global.Audio.Player.Runtime;
+using Global.Localizations.Definition;
 using Global.Localizations.Runtime;
 using Global.Publisher.Abstract.DataStorages;
 using Global.System.Updaters.Runtime.Abstract;
@@ -45,7 +46,9 @@ namespace Menu.Settings.UI
             _view.SetSlidersValue(save.Value.MusicVolume, save.Value.SoundVolume);
             _view.Navigation.Enable();
             
-            _view.LanguageClicked += OnLanguageClicked;
+            _view.SetLanguage(_localization.Language);
+            
+            _view.LanguageChanged += OnLanguageChanged;
             _view.SocialClicked += OnSocialClicked;
         }
 
@@ -59,12 +62,9 @@ namespace Menu.Settings.UI
             _volumeSetter.SaveVolume();
         }
 
-        private void OnLanguageClicked()
+        private void OnLanguageChanged(Language language)
         {
-            var nextLanguage = _localization.GetNext(_localization.Language);
-            var languageString = _languageConverter.ToString(nextLanguage);
-            _localization.Set(nextLanguage);
-            _view.SetLanguage(languageString);
+            _localization.Set(language);
         }
 
         private void OnSocialClicked()

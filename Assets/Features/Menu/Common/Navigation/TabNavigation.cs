@@ -1,4 +1,6 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Menu.StateMachine.Runtime;
 using UnityEngine;
 using VContainer;
@@ -21,13 +23,13 @@ namespace Menu.Common.Navigation
         public void Enable()
         {
             foreach (var (button, entry) in _navigations)
-                button.onClick.AddListener(() => OnClicked(entry));
+                button.Clicked += () => OnClicked(entry);
         }
 
         public void Disable()
         {
             foreach (var (button, _) in _navigations)
-                button.onClick.RemoveAllListeners();
+                button.UnsubscribeAll();
         }
 
         private void OnClicked(NavigationEntry entry)

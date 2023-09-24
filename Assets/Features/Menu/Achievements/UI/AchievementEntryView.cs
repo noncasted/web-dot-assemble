@@ -1,24 +1,25 @@
 ﻿using System;
 using System.Threading;
+using Common.UI.Extended.Buttons;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Menu.Achievements.Definitions;
+using Menu.Common.Pages;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Menu.Achievements.UI
 {
     [DisallowMultipleComponent]
-    public class AchievementEntryView : MonoBehaviour, IAchievementEntryView
+    public class AchievementEntryView : PageEntry<IAchievement>
     {
         [SerializeField] private Image _icon;
-        [SerializeField] private AchievementEntryViewEventsReceiver _eventsReceiver;
+        [SerializeField] private ExtendedTriggerReceiver _triggerReceiver;
         [SerializeField] private AchievementEntryViewConfig _config;
         
         private IAchievement _achievement;
 
         public event Action<IAchievement> Selected; 
-        public event Action Deselected; 
 
         private void Awake()
         {
@@ -27,17 +28,15 @@ namespace Menu.Achievements.UI
 
         private void OnEnable()
         {
-            _eventsReceiver.Down += OnDown;
-            _eventsReceiver.Up += OnUp;
+            _triggerReceiver.PointerUp += OnSelected;
         }
 
         private void OnDisable()
         {
-            _eventsReceiver.Down -= OnDown;
-            _eventsReceiver.Up -= OnUp;
+            _triggerReceiver.PointerUp -= OnSelected;
         }
 
-        public async UniTask Show(IAchievement achievement, CancellationToken cancellation)
+        public override async UniTask Show(IAchievement achievement, CancellationToken cancellation)
         {
             _achievement = achievement;
             gameObject.SetActive(true);
@@ -51,7 +50,7 @@ namespace Menu.Achievements.UI
                 .ToUniTask(TweenCancelBehaviour.Kill, cancellation);
         }
 
-        public async UniTask Hide(CancellationToken cancellation)
+        public override async UniTask Hide(CancellationToken cancellation)
         {
             _achievement = null;
             
@@ -67,17 +66,12 @@ namespace Menu.Achievements.UI
             gameObject.SetActive(false);
         }
 
-        private void OnDown()
+        private void OnSelected()
         {
             if (_achievement == null)
                 return;
             
             Selected?.Invoke(_achievement);
-        }
-        
-        private void OnUp()
-        {
-            Deselected?.Invoke();
         }
     }
 }

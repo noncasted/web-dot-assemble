@@ -19,7 +19,7 @@ namespace GamePlay.Level.Fields.Factory
         {
             var cells = scanner.Scan(_cellsRoot);
 
-            var gridData = GetMinX(cells);
+            var gridData = GetGridData(cells);
             var grid = ConstructCells(cells, gridData);
             validator.Validate(cells);
             
@@ -29,28 +29,29 @@ namespace GamePlay.Level.Fields.Factory
             return field;
         }
 
-        private GridData GetMinX(ICell[] cells)
+        private GridData GetGridData(ICell[] cells)
         {
             var minX = float.MaxValue;
             var maxX = float.MinValue;
             var minY = float.MaxValue;
             var maxY = float.MinValue;
 
-            var rowElements = new Dictionary<int, int>();
-            var columnElements = new Dictionary<int, int>();
+            var rowElements = new Dictionary<float, int>();
+            var columnElements = new Dictionary<float, int>();
             var maxRowElementsCount = 0;
             var maxColumnElementsCount = 0;
 
             foreach (var cell in cells)
             {
-                var intX = Mathf.RoundToInt(cell.Transform.position.y);
-                var intY = Mathf.RoundToInt(cell.Transform.position.y);
+                var cellPosition = cell.Transform.position;
+                var intX = Mathf.CeilToInt(cellPosition.x * 1000);
+                var intY = Mathf.CeilToInt(cellPosition.y * 1000);
 
-                rowElements.TryAdd(intX, 0);
-                columnElements.TryAdd(intY, 0);
+                rowElements.TryAdd(intY, 0);
+                columnElements.TryAdd(intX, 0);
 
-                rowElements[intX]++;
-                columnElements[intY]++;
+                rowElements[intY]++;
+                columnElements[intX]++;
             }
 
             foreach (var (_, value) in rowElements)
@@ -104,7 +105,6 @@ namespace GamePlay.Level.Fields.Factory
 
                 var x = Mathf.RoundToInt((rowPosition.x - gridData.MinX) / gridData.StepX);
                 var y = Mathf.RoundToInt((rowPosition.y - gridData.MinY) / gridData.StepY);
-
                 var position = new Vector2Int(x, y);
                 mappedCells[position] = cell;
             }

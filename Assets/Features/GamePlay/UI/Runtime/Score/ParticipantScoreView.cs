@@ -28,6 +28,11 @@ namespace GamePlay.UI.Runtime.Score
             _avatar.sprite = avatar;
         }
 
+        public void Disable()
+        {
+            gameObject.SetActive(false);
+        }
+
         public void SetScorePermanent(int score)
         {
             _score.text = score.ToString();

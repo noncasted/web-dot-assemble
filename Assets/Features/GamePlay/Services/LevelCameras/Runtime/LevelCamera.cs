@@ -1,7 +1,9 @@
-﻿using Common.Architecture.Local.Abstract.Callbacks;
+﻿using System;
+using Common.Architecture.Local.Abstract.Callbacks;
 using GamePlay.Services.LevelCameras.Logs;
 using Global.Cameras.CurrentCameras.Runtime;
 using Global.Inputs.View.Runtime.Projection;
+using Global.System.ApplicationProxies.Runtime;
 using Global.System.Updaters.Runtime.Abstract;
 using UnityEngine;
 using VContainer;
@@ -21,8 +23,10 @@ namespace GamePlay.Services.LevelCameras.Runtime
             IInputProjection inputProjection,
             ILevelCameraConfig config,
             IUpdater updater,
+            IScreen screen,
             LevelCameraLogger logger)
         {
+            _screen = screen;
             _updater = updater;
             _config = config;
             _inputProjection = inputProjection;
@@ -34,6 +38,9 @@ namespace GamePlay.Services.LevelCameras.Runtime
 
         private const float _offsetZ = -10f;
 
+        [SerializeField] [Min(0f)] private float _verticalSize = 8f; 
+        [SerializeField] [Min(0f)] private float _horizontalSize = 6.34f; 
+        
         private ICurrentCamera _currentCamera;
 
         private LevelCameraLogger _logger;
@@ -44,12 +51,26 @@ namespace GamePlay.Services.LevelCameras.Runtime
         private IInputProjection _inputProjection;
         private ILevelCameraConfig _config;
         private IUpdater _updater;
+        private IScreen _screen;
 
         public Camera Camera { get; private set; }
 
+        public void OnAwake()
+        {
+            Camera = GetComponent<Camera>();
+            _currentCamera.SetCamera(Camera);
+        }
+        
         public void OnEnabled()
         {
             _updater.Add(this);
+
+            Camera.orthographicSize = _screen.ScreenMode switch
+            {
+                ScreenMode.Horizontal => _horizontalSize,
+                ScreenMode.Vertical => _verticalSize,
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
 
         public void OnDisabled()
@@ -88,12 +109,6 @@ namespace GamePlay.Services.LevelCameras.Runtime
         public void SetSize(float size)
         {
             Camera.orthographicSize = size;
-        }
-
-        public void OnAwake()
-        {
-            Camera = GetComponent<Camera>();
-            _currentCamera.SetCamera(Camera);
         }
         
         public void OnPostFixedUpdate(float delta)

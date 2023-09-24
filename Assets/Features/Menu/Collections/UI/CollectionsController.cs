@@ -28,7 +28,6 @@ namespace Menu.Collections.UI
         public async UniTask Activate(CancellationToken cancellation)
         {
             _view.Navigation.Enable();
-            _view.Enable();
             _view.Open();
         }
 

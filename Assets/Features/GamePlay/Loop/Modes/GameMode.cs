@@ -2,8 +2,9 @@
 {
     public enum GameMode
     {
-        Lines,
+        Forward,
         Diagonal,
-        Quads
+        Quads,
+        Boss
     }
 }

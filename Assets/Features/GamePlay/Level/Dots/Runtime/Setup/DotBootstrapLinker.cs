@@ -9,7 +9,9 @@ namespace GamePlay.Level.Dots.Runtime.Setup
     {
         [SerializeField] private DotView _view;
         [SerializeField] private DotPointerObserver _pointerObserver;
+        [SerializeField] private SpriteRenderer _image;
 
+        public SpriteRenderer Image => _image;
         public IDotView View => _view;
         public IDotPointerObserver PointerObserver => _pointerObserver;
     }

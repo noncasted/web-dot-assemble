@@ -1,4 +1,4 @@
 ﻿{
   "name": "GamePlay.Level.Dots.Definitions",
-  "references":[ "GUID:03098daa2915440d801be104ae884a27" ]
+  "references":[ "GUID:03098daa2915440d801be104ae884a27", "GUID:75f29b67883912c4683d10d111aca113" ]
 }

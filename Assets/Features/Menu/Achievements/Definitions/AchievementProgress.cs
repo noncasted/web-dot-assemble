@@ -19,7 +19,7 @@ namespace Menu.Achievements.Definitions
 
         public int Target => _target;
         public int Value => _progress;
-        public int PreviousFetch => _progress;
+        public int PreviousFetch => _previousFetch;
         public bool IsCompleted => Value == Target;
         
         public event Action<IAchievementProgress> Updated;

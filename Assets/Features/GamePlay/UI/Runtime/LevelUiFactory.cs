@@ -20,12 +20,12 @@ namespace GamePlay.UI.Runtime
         
         public async UniTask Create(IDependencyRegister builder,ISceneLoader sceneLoader, ILocalUtils utils)
         {
-            var sceneData = await sceneLoader.LoadTyped<LevelUiLinker>(_scene);
-            var linker = sceneData.Searched;
+            var loadResult = await sceneLoader.LoadTyped<LevelUiView>(_scene);
+            var view = loadResult.Searched;
             
-            builder.Register<ScoreController>()
-                .WithParameter<IScoreView>(linker.Score)
-                .As<IScoreController>()
+            builder.Register<LevelUiController>()
+                .WithParameter<ILevelUiView>(view)
+                .As<ILevelUiController>()
                 .AsCallbackListener();
         }
     }
