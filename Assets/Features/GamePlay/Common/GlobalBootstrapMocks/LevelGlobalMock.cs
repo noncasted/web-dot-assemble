@@ -1,8 +1,8 @@
 ﻿using Common.Architecture.Mocks.Runtime;
 using Cysharp.Threading.Tasks;
 using GamePlay.Config.Runtime;
-using Global.Options.Runtime;
-using Global.Scenes.Operations.Abstract;
+using Internal.Services.Options.Runtime;
+using Internal.Services.Scenes.Abstract;
 using UnityEngine;
 using VContainer;
 

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Common.Serialization.ScriptableRegistries;
 using GamePlay.Level.Dots.Common;
-using UnityEngine;
 using Sirenix.OdinInspector;
+using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif

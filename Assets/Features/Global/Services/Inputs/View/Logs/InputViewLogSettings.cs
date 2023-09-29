@@ -1,5 +1,5 @@
 ﻿using Global.Inputs.Common;
-using Global.System.Loggers.Runtime;
+using Internal.Services.Loggers.Runtime;
 using UnityEngine;
 
 namespace Global.Inputs.View.Logs

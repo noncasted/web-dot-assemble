@@ -3,7 +3,7 @@ using Common.Architecture.Local.Abstract;
 using Cysharp.Threading.Tasks;
 using GamePlay.Common.SceneBootstrappers.Runtime;
 using GamePlay.Level.Scene.Common;
-using Global.Scenes.Operations.Abstract;
+using Internal.Services.Scenes.Abstract;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -14,7 +14,7 @@ namespace GamePlay.Level.Scene.Runtime
         menuName = LevelSceneRoutes.MockPath)]
     public class MockLevelSceneFactory : BaseLevelSceneFactory
     {
-        public override async UniTask Create(IDependencyRegister builder,ISceneLoader sceneLoader, ILocalUtils utils)
+        public override async UniTask Create(IServiceCollection builder,ISceneLoader sceneLoader, ILocalUtils utils)
         {
             var bootstrapper = FindFirstObjectByType<SceneBootstrapper>();
 

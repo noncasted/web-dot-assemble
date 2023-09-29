@@ -1,4 +1,4 @@
-﻿using Global.Options.Runtime;
+﻿using Internal.Services.Options.Runtime;
 
 namespace Common.Architecture.Local.Abstract
 {

@@ -3,8 +3,8 @@ using Common.Architecture.Local.Abstract;
 using Common.Serialization.NestedScriptableObjects.Attributes;
 using Cysharp.Threading.Tasks;
 using GamePlay.Services.Background.Common;
-using Global.Scenes.Operations.Abstract;
-using Global.Scenes.Operations.Data;
+using Internal.Services.Scenes.Abstract;
+using Internal.Services.Scenes.Data;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -17,7 +17,7 @@ namespace GamePlay.Services.Background.Runtime
     {
         [SerializeField] [NestedScriptableObjectField] private SceneData _scene;
 
-        public async UniTask Create(IDependencyRegister builder,ISceneLoader sceneLoader, ILocalUtils utils)
+        public async UniTask Create(IServiceCollection builder,ISceneLoader sceneLoader, ILocalUtils utils)
         {
             var result = await sceneLoader.LoadTyped<GameBackground>(_scene);
 

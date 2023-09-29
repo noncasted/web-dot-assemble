@@ -12,7 +12,7 @@ namespace Common.Architecture.ObjectsPools.Runtime
 
         private readonly Dictionary<object, IObjectsPool> _pools = new();
 
-        public void CreatePools(IDependencyRegister builder, Scene targetScene)
+        public void CreatePools(IServiceCollection builder, Scene targetScene)
         {
             foreach (var entry in _entries)
             {

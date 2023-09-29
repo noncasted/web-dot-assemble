@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
 using Cysharp.Threading.Tasks;
 using Global.Publisher.Abstract.DataStorages;
 using Global.Publisher.Abstract.Purchases;
-using Global.Setup.Service.Callbacks;
 using Global.System.MessageBrokers.Runtime;
 
 namespace Menu.Shop.Global
 {
-    public class Shop : IShop, IGlobalAsyncAwakeListener
+    public class Shop : IShop, IScopeEnableAsyncListener
     {
         public Shop(IPayments payments, IDataStorage storage, IShopConfig config, ShopProductsRegistry productsRegistry)
         {
@@ -22,10 +22,10 @@ namespace Menu.Shop.Global
         private readonly IPayments _payments;
         private readonly IDataStorage _storage;
         private readonly IShopConfig _config;
-        
+
         private readonly ShopProductsRegistry _productsRegistry;
 
-        public async UniTask OnAwakeAsync()
+        public async UniTask OnEnabledAsync()
         {
             await _payments.ValidateProducts();
         }

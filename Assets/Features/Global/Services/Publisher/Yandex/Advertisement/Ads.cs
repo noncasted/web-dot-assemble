@@ -1,15 +1,15 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
+using Cysharp.Threading.Tasks;
 using Global.Publisher.Abstract.Advertisment;
 using Global.Publisher.Abstract.DataStorages;
 using Global.Publisher.Abstract.Purchases;
 using Global.Publisher.Yandex.Common;
-using Global.Setup.Service.Callbacks;
 using Global.System.MessageBrokers.Runtime;
 using Global.System.Pauses.Runtime;
 
 namespace Global.Publisher.Yandex.Advertisement
 {
-    public class Ads : IAds, IGlobalAsyncBootstrapListener
+    public class Ads : IAds, IScopeEnableAsyncListener
     {
         private Ads(
             YandexCallbacks callbacks,
@@ -34,7 +34,7 @@ namespace Global.Publisher.Yandex.Advertisement
         
         private AdsSave _save;
 
-        public async UniTask OnBootstrapAsync()
+        public async UniTask OnEnabledAsync()
         {
             _save = await _dataStorage.GetEntry<AdsSave>(AdsSave.Key);
             

@@ -1,5 +1,7 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Global.Setup.Service;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
+using Cysharp.Threading.Tasks;
 using Global.System.MessageBrokers.Common;
 using Global.System.MessageBrokers.Logs;
 using Sirenix.OdinInspector;
@@ -11,19 +13,19 @@ namespace Global.System.MessageBrokers.Runtime
     [InlineEditor]
     [CreateAssetMenu(fileName = MessageBrokerRouter.ServiceName,
         menuName = MessageBrokerRouter.ServicePath)]
-    public class MessageBrokerFactory : ScriptableObject, IGlobalServiceFactory
+    public class MessageBrokerFactory : ScriptableObject, IServiceFactory
     {
         [SerializeField] [Indent] private MessageBrokerLogSettings _logSettings;
 
-        public void Create(IDependencyRegister builder, IGlobalUtils utils)
+        public async UniTask Create(IServiceCollection services, IScopeUtils utils)
         {
-            builder.Register<MessageBrokerLogger>()
+            services.Register<MessageBrokerLogger>()
                 .WithParameter(_logSettings);
 
             var messageBroker = new MessageBroker();
             var asyncMessageBroker = new AsyncMessageBroker();
 
-            builder.Register<MessageBrokerProxy>()
+            services.Register<MessageBrokerProxy>()
                 .WithParameter(messageBroker)
                 .WithParameter(asyncMessageBroker)
                 .AsSelfResolvable();

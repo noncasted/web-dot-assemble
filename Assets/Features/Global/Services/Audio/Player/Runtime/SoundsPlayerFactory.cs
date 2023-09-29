@@ -1,6 +1,8 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
+using Cysharp.Threading.Tasks;
 using Global.Audio.Player.Common;
-using Global.Setup.Service;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -9,26 +11,26 @@ namespace Global.Audio.Player.Runtime
     [InlineEditor]
     [CreateAssetMenu(fileName = AudioRoutes.ServiceName,
         menuName = AudioRoutes.ServicePath)]
-    public class SoundsPlayerFactory : ScriptableObject, IGlobalServiceFactory
+    public class SoundsPlayerFactory : ScriptableObject, IServiceFactory
     {
         [SerializeField] private SoundState _state;
         [SerializeField] private SoundsPlayer _prefab;
 
-        public void Create(IDependencyRegister builder, IGlobalUtils utils)
+        public async UniTask Create(IServiceCollection services, IScopeUtils utils)
         {
             var player = Instantiate(_prefab);
             player.name = "SoundsPlayer";
 
             var trigger = player.GetComponent<SoundsTrigger>();
 
-            builder.RegisterInstance(_state);
+            services.RegisterInstance(_state);
 
-            builder.RegisterComponent(player)
+            services.RegisterComponent(player)
                 .As<IVolumeSetter>()
                 .AsCallbackListener();
 
             utils.Callbacks.Listen(trigger);
-            utils.Binder.AddToModules(player);
+            utils.Binder.MoveToModules(player.gameObject);
         }
     }
 }

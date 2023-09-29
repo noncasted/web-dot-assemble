@@ -1,7 +1,9 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
+using Cysharp.Threading.Tasks;
 using Global.Cameras.CameraUtilities.Common;
 using Global.Cameras.CameraUtilities.Logs;
-using Global.Setup.Service;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -10,16 +12,16 @@ namespace Global.Cameras.CameraUtilities.Runtime
     [InlineEditor]
     [CreateAssetMenu(fileName = CameraUtilsRoutes.ServiceName,
         menuName = CameraUtilsRoutes.ServicePath)]
-    public class CameraUtilsFactory : ScriptableObject, IGlobalServiceFactory
+    public class CameraUtilsFactory : ScriptableObject, IServiceFactory
     {
         [SerializeField] [Indent] private CameraUtilsLogSettings _logSettings;
 
-        public void Create(IDependencyRegister builder, IGlobalUtils utils)
+        public async UniTask Create(IServiceCollection services, IScopeUtils utils)
         {
-            builder.Register<CameraUtilsLogger>()
+            services.Register<CameraUtilsLogger>()
                 .WithParameter(_logSettings);
 
-            builder.Register<CameraUtils>()
+            services.Register<CameraUtils>()
                 .As<ICameraUtils>()
                 .AsCallbackListener();
         }

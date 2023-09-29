@@ -16,7 +16,7 @@ namespace GamePlay.Services.LevelCameras.Runtime
         [SerializeField] [Indent] private LevelCameraLogSettings _logSettings;
         [SerializeField] [Indent] private LevelCamera _prefab;
 
-        public void Create(IDependencyRegister builder, ILocalUtils utils)
+        public void Create(IServiceCollection builder, ILocalUtils utils)
         {
             var levelCamera = Instantiate(_prefab);
             levelCamera.name = "LevelCamera";

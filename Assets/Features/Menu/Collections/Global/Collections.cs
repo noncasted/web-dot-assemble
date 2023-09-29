@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
 using Cysharp.Threading.Tasks;
 using Global.LevelConfigurations.Avatars;
 using Global.Publisher.Abstract.DataStorages;
 using Global.Publisher.Abstract.Purchases;
-using Global.Setup.Service.Callbacks;
 using Global.System.MessageBrokers.Runtime;
 
 namespace Menu.Collections.Global
 {       
-    public class Collections : ICollections, IGlobalAsyncBootstrapListener
+    public class Collections : ICollections, IScopeEnableAsyncListener
     {
         public Collections(IAvatarsRegistry registry, IDataStorage storage)
         {
@@ -41,7 +41,7 @@ namespace Menu.Collections.Global
         
         public IReadOnlyList<AvatarHandle> All => _all.Values.ToArray();
         
-        public async UniTask OnBootstrapAsync()
+        public async UniTask OnEnabledAsync()
         {
             _save = await _storage.GetEntry<CollectionsSave>(CollectionsSave.Key);
 

@@ -1,4 +1,4 @@
-﻿using Global.Setup.Service.Callbacks;
+﻿using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
 using Global.System.Updaters.Logs;
 using Global.System.Updaters.Runtime.Abstract;
 using UnityEngine;
@@ -6,7 +6,7 @@ using VContainer;
 
 namespace Global.System.Updaters.Runtime
 {
-    public class Updater : MonoBehaviour, IUpdater, IUpdateSpeedModifier, IUpdateSpeedSetter, IGlobalBootstrapListener
+    public class Updater : MonoBehaviour, IUpdater, IUpdateSpeedModifier, IUpdateSpeedSetter, IScopeAwakeListener
     {
         [Inject]
         private void Construct(UpdaterLogger logger)
@@ -85,11 +85,12 @@ namespace Global.System.Updaters.Runtime
             _logger.OnPostFixedUpdateCalled(_updatables.Count);
         }
 
-        public void OnBootstrapped()
+        public void OnAwake()
         {
             _isBootstrapped = true;
-        }
 
+        }
+        
         public void Add(IPreUpdatable updatable)
         {
             _preUpdatables.Add(updatable);

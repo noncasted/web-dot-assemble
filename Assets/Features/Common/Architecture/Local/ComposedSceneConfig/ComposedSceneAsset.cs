@@ -2,8 +2,8 @@
 using Common.Architecture.Local.Abstract;
 using Common.Architecture.Local.Abstract.Callbacks;
 using Cysharp.Threading.Tasks;
-using Global.Options.Runtime;
-using Global.Scenes.Operations.Abstract;
+using Internal.Services.Options.Runtime;
+using Internal.Services.Scenes.Abstract;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;

@@ -1,21 +1,22 @@
 ﻿using Common.Architecture.Local.ComposedSceneConfig;
+using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
 using Cysharp.Threading.Tasks;
 using GamePlay.Config.Runtime;
 using Global.Cameras.CurrentCameras.Runtime;
 using Global.Cameras.GlobalCameras.Runtime;
-using Global.Options.Runtime;
-using Global.Scenes.LoadedHandler.Runtime;
-using Global.Scenes.Operations.Abstract;
-using Global.Setup.Scope;
+using Global.System.LoadedHandler.Runtime;
 using Global.UI.LoadingScreens.Runtime;
+using Internal.Services.Options.Runtime;
+using Internal.Services.Scenes.Abstract;
 using Menu.Config.Runtime;
+using VContainer.Unity;
 
 namespace Global.GameLoops.Runtime
 {
-    public class GameLoop : IGameLoop
+    public class GameLoop : IScopeLoadAsyncListener
     {
         public GameLoop(
-            GlobalScope scope,
+            LifetimeScope scope,
             ISceneLoader loader,
             ILoadingScreen loadingScreen,
             IGlobalCamera globalCamera,
@@ -43,17 +44,13 @@ namespace Global.GameLoops.Runtime
 
         private readonly ISceneLoader _loader;
         private readonly ILoadingScreen _loadingScreen;
-        
-        private readonly GlobalScope _scope;
+
+        private readonly LifetimeScope _scope;
 
         private readonly LevelConfig _level;
         private readonly MenuConfig _menu;
 
-        public void OnBootstrapped()
-        {
-        }
-
-        public void Start()
+        public async UniTask OnLoadedAsync()
         {
             LoadScene(_menu).Forget();
         }

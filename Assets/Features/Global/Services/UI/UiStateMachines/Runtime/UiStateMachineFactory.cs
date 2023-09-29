@@ -1,5 +1,7 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Global.Setup.Service;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
+using Cysharp.Threading.Tasks;
 using Global.UI.UiStateMachines.Common;
 using Global.UI.UiStateMachines.Logs;
 using Sirenix.OdinInspector;
@@ -10,16 +12,16 @@ namespace Global.UI.UiStateMachines.Runtime
     [InlineEditor]
     [CreateAssetMenu(fileName = UiStateMachineRouter.ServiceName,
         menuName = UiStateMachineRouter.ServicePath)]
-    public class UiStateMachineFactory : ScriptableObject, IGlobalServiceFactory
+    public class UiStateMachineFactory : ScriptableObject, IServiceFactory
     {
         [SerializeField] [Indent] private UiStateMachineLogSettings _logSettings;
 
-        public void Create(IDependencyRegister builder, IGlobalUtils utils)
+        public async UniTask Create(IServiceCollection services, IScopeUtils utils)
         {
-            builder.Register<UiStateMachineLogger>()
+            services.Register<UiStateMachineLogger>()
                 .WithParameter(_logSettings);
 
-            builder.Register<UiStateMachine>()
+            services.Register<UiStateMachine>()
                 .As<IUiStateMachine>();
         }
     }

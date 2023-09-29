@@ -13,6 +13,6 @@ namespace Common.Architecture.ObjectsPools.Runtime
 
         protected int StartupInstances => _startupInstances;
 
-        public abstract IObjectsPool Create(IDependencyRegister builder, Transform parent);
+        public abstract IObjectsPool Create(IServiceCollection builder, Transform parent);
     }
 }

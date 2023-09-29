@@ -1,14 +1,13 @@
 ﻿using System;
+using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
 using Cysharp.Threading.Tasks;
 using Global.Localizations.Definition;
 using Global.Publisher.Abstract.DataStorages;
 using Global.Publisher.Abstract.Languages;
-using Global.Setup.Service.Callbacks;
-using UnityEngine;
 
 namespace Global.Localizations.Runtime
 {
-    public class Localization : IGlobalAsyncAwakeListener, ILocalization
+    public class Localization : IScopeEnableAsyncListener, ILocalization
     {
         public Localization(
             ILocalizationStorage storage,
@@ -28,7 +27,7 @@ namespace Global.Localizations.Runtime
 
         public Language Language => _language;
 
-        public async UniTask OnAwakeAsync()
+        public async UniTask OnEnabledAsync()
         {
             var saves = await _dataStorage.GetEntry<LanguageSave>(LanguageSave.Key);
 

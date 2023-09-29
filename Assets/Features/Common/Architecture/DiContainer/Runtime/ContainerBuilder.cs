@@ -7,7 +7,7 @@ using VContainer.Unity;
 
 namespace Common.Architecture.DiContainer.Runtime
 {
-    public class ContainerBuilder : IDependencyRegister, IDependenciesBuilder
+    public class ContainerBuilder : IServiceCollection, IDependenciesBuilder
     {
         private readonly List<IInjectionBuilder> _injections = new();
         private readonly List<IRegistrationBuilder> _registrations = new();

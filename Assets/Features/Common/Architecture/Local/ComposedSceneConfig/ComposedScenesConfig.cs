@@ -1,5 +1,5 @@
 ﻿using Common.Serialization.NestedScriptableObjects.Attributes;
-using Global.Scenes.Operations.Data;
+using Internal.Services.Scenes.Data;
 using UnityEngine;
 
 namespace Common.Architecture.Local.ComposedSceneConfig

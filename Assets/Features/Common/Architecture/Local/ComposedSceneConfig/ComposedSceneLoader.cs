@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Global.Scenes.Operations.Abstract;
-using Global.Scenes.Operations.Data;
+using Internal.Services.Scenes.Abstract;
+using Internal.Services.Scenes.Data;
 
 namespace Common.Architecture.Local.ComposedSceneConfig
 {

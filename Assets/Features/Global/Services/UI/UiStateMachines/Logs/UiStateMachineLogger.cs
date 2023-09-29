@@ -1,4 +1,4 @@
-﻿using Global.System.Loggers.Runtime;
+﻿using Internal.Services.Loggers.Runtime;
 
 namespace Global.UI.UiStateMachines.Logs
 {

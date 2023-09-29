@@ -1,6 +1,8 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
+using Cysharp.Threading.Tasks;
 using Global.Debugs.Console.Common;
-using Global.Setup.Service;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -9,19 +11,19 @@ namespace Global.Debugs.Console.Runtime
     [InlineEditor]
     [CreateAssetMenu(fileName = DebugConsoleRoutes.ServiceName,
         menuName = DebugConsoleRoutes.ServicePath)]
-    public class DebugConsoleFactory : ScriptableObject, IGlobalServiceFactory
+    public class DebugConsoleFactory : ScriptableObject, IServiceFactory
     {
         [SerializeField] [Indent] private DebugConsole _prefab;
 
-        public void Create(IDependencyRegister builder, IGlobalUtils utils)
+        public async UniTask Create(IServiceCollection services, IScopeUtils utils)
         {
             var debugConsole = Instantiate(_prefab);
             debugConsole.name = "DebugConsole";
 
-            builder.RegisterComponent(debugConsole)
+            services.RegisterComponent(debugConsole)
                 .AsCallbackListener();
 
-            utils.Binder.AddToModules(debugConsole);
+            utils.Binder.MoveToModules(debugConsole);
         }
     }
 }

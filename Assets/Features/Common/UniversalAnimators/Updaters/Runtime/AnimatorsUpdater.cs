@@ -1,9 +1,9 @@
-﻿using Global.Setup.Service.Callbacks;
+﻿using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
 using Global.System.Updaters.Runtime.Abstract;
 
 namespace Common.UniversalAnimators.Updaters.Runtime
 {
-    public class AnimatorsUpdater : IUpdatable, IAnimatorsUpdater, IGlobalAwakeListener
+    public class AnimatorsUpdater : IUpdatable, IAnimatorsUpdater, IScopeAwakeListener
     {
         public AnimatorsUpdater(IUpdater updater)
         {

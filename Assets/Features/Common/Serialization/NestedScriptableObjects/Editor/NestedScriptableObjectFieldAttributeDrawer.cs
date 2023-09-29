@@ -73,6 +73,7 @@ namespace Common.Serialization.NestedScriptableObjects.Editor
             }
             else
             {
+                Debug.Log("VALUE NOT NULL");
                 //Display object field with a delete button
                 EditorGUILayout.BeginHorizontal();
                 CallNextDrawer(label);
@@ -80,6 +81,7 @@ namespace Common.Serialization.NestedScriptableObjects.Editor
                 EditorGUI.BeginChangeCheck();
                 SirenixEditorGUI.IconButton(rect, EditorIcons.X);
                 EditorGUILayout.EndHorizontal();
+                
                 if (EditorGUI.EndChangeCheck())
                 {
                     //If delete button was pressed:

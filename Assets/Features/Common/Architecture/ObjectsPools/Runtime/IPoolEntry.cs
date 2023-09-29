@@ -9,6 +9,6 @@ namespace Common.Architecture.ObjectsPools.Runtime
         public string Key { get; }
         public string Name { get; }
         
-        public IObjectsPool Create(IDependencyRegister builder, Transform parent);
+        public IObjectsPool Create(IServiceCollection builder, Transform parent);
     }
 }

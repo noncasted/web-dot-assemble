@@ -1,5 +1,5 @@
-﻿using Global.Inputs.View.Runtime;
-using Global.Setup.Service.Callbacks;
+﻿using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
+using Global.Inputs.View.Runtime;
 using IngameDebugConsole;
 using UnityEngine;
 using VContainer;
@@ -7,7 +7,7 @@ using VContainer;
 namespace Global.Debugs.Console.Runtime
 {
     [DisallowMultipleComponent]
-    public class DebugConsole : MonoBehaviour, IGlobalAwakeListener
+    public class DebugConsole : MonoBehaviour, IScopeAwakeListener
     {
         [Inject]
         private void Construct(IInputView inputView)

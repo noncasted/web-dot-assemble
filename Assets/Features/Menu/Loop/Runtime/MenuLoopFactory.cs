@@ -14,7 +14,7 @@ namespace Menu.Loop.Runtime
     {
         [SerializeField] private TabDefinition _mainDefinition;
         
-        public void Create(IDependencyRegister builder, ILocalUtils utils)
+        public void Create(IServiceCollection builder, ILocalUtils utils)
         {
             builder.Register<MenuLoop>()
                 .WithParameter<ITabDefinition>(_mainDefinition)

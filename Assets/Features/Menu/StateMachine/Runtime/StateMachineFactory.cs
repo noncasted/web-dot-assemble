@@ -14,7 +14,7 @@ namespace Menu.StateMachine.Runtime
     {
         [SerializeField] private TabsTabTransitionConfig _config;
         
-        public void Create(IDependencyRegister builder, ILocalUtils utils)
+        public void Create(IServiceCollection builder, ILocalUtils utils)
         {
             builder.Register<StateMachine>()
                 .As<IStateMachine>()

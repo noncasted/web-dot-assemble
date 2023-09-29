@@ -1,4 +1,4 @@
-﻿using Global.Setup.Service;
+﻿using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
 using UnityEngine;
 using VContainer;
 
@@ -8,17 +8,16 @@ namespace Global.System.DestroyHandlers.Runtime
     public class DestroyHandler : MonoBehaviour
     {
         [Inject]
-        private void Construct(IDestroyCallbacksProvider callbacksProvider)
+        private void Construct(IScopeCallbacks callbacks)
         {
-            _callbacksProvider = callbacksProvider;
+            _callbacks = callbacks;
         }
         
-        private IDestroyCallbacksProvider _callbacksProvider;
+        private IScopeCallbacks _callbacks;
         
         private void OnDestroy()
         {
-            foreach (var callback in _callbacksProvider.DestroyListeners)
-                callback.InvokeAsync().GetAwaiter().GetResult();
+            _callbacks.Handlers[CallbackStage.Dispose].Run().GetAwaiter().GetResult();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Global.Setup.Service.Callbacks;
+﻿using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
 using UnityEngine;
 
 namespace Global.Audio.Listener.Runtime
@@ -8,7 +8,7 @@ namespace Global.Audio.Listener.Runtime
     public class AudioListenerSwitcher : 
         MonoBehaviour,
         IAudioListenerSwitcher,
-        IGlobalAwakeListener
+        IScopeAwakeListener
     {
         private AudioListener _listener;
         

@@ -1,8 +1,8 @@
 ﻿using System;
+using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
 using Global.Inputs.View.Logs;
 using Global.Inputs.View.Runtime.Actions;
 using Global.Inputs.View.Runtime.Listeners;
-using Global.Setup.Service.Callbacks;
 using Global.System.Updaters.Runtime.Abstract;
 using UnityEngine.InputSystem;
 
@@ -11,7 +11,7 @@ namespace Global.Inputs.View.Runtime
     public class InputView :
         IInputView,
         IInputViewRebindCallbacks,
-        IGlobalAwakeListener
+        IScopeAwakeListener
     {
         public InputView(
             IInputListenersHandler inputListenersHandler,

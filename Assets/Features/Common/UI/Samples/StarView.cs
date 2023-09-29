@@ -1,7 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Splines;
-using Random = UnityEngine.Random;
 
 namespace Common.UI.Samples
 {

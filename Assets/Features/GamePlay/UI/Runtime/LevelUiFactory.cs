@@ -4,8 +4,8 @@ using Common.Serialization.NestedScriptableObjects.Attributes;
 using Cysharp.Threading.Tasks;
 using GamePlay.UI.Common;
 using GamePlay.UI.Runtime.Score;
-using Global.Scenes.Operations.Abstract;
-using Global.Scenes.Operations.Data;
+using Internal.Services.Scenes.Abstract;
+using Internal.Services.Scenes.Data;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -18,7 +18,7 @@ namespace GamePlay.UI.Runtime
     {
         [SerializeField] [NestedScriptableObjectField] private SceneData _scene;
         
-        public async UniTask Create(IDependencyRegister builder,ISceneLoader sceneLoader, ILocalUtils utils)
+        public async UniTask Create(IServiceCollection builder,ISceneLoader sceneLoader, ILocalUtils utils)
         {
             var loadResult = await sceneLoader.LoadTyped<LevelUiView>(_scene);
             var view = loadResult.Searched;

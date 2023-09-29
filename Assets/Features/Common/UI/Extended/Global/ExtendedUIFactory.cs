@@ -1,6 +1,8 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
 using Common.UI.Extended.Common;
-using Global.Setup.Service;
+using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -9,12 +11,11 @@ namespace Common.UI.Extended.Global
     [InlineEditor]
     [CreateAssetMenu(fileName = ExtendedRoutes.ServiceName,
         menuName = ExtendedRoutes.ServicePath)]
-    public class ExtendedFactory : ScriptableObject, IGlobalServiceFactory
+    public class ExtendedFactory : ScriptableObject, IServiceFactory
     {   
-        public void Create(
-            IDependencyRegister builder,
-            IGlobalUtils utils)
+        public async UniTask Create(IServiceCollection services, IScopeUtils utils)
         {
+            
         }
     }
 }

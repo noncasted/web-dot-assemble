@@ -8,6 +8,9 @@ namespace Global.GameLoops.Common
 
         public const string ServicePath = _paths + "Service";
         public const string ServiceName = GlobalAssetsPrefixes.Service + "GameLoop";
+        
+        public const string MockPath = _paths + "Mock";
+        public const string MockName = GlobalAssetsPrefixes.Service + "GameLoop_Mock";
 
         public const string LogsPath = _paths + "Logger";
         public const string LogsName = GlobalAssetsPrefixes.Logs + "GameLoop";

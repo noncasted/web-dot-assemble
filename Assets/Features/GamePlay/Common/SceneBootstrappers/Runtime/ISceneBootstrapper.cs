@@ -5,6 +5,6 @@ namespace GamePlay.Common.SceneBootstrappers.Runtime
 {
     public interface ISceneBootstrapper
     {
-        void Build(IDependencyRegister builder, ILocalCallbacks callbacks);
+        void Build(IServiceCollection builder, ILocalCallbacks callbacks);
     }
 }

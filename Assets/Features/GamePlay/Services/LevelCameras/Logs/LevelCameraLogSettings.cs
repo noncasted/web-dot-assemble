@@ -1,5 +1,5 @@
 ﻿using GamePlay.Services.LevelCameras.Common;
-using Global.System.Loggers.Runtime;
+using Internal.Services.Loggers.Runtime;
 using UnityEngine;
 
 namespace GamePlay.Services.LevelCameras.Logs

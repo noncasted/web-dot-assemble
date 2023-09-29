@@ -1,13 +1,13 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
 using Cysharp.Threading.Tasks;
-using Global.Setup.Service;
-using Global.Setup.Service.Scenes;
 using UnityEngine;
 
 namespace Global.Publisher.Abstract.Bootstrap
 {
-    public abstract class PublisherSdkFactory : ScriptableObject, IGlobalServiceAsyncFactory
+    public abstract class PublisherSdkFactory : ScriptableObject, IServiceFactory
     {
-        public abstract UniTask Create(IDependencyRegister builder, IGlobalSceneLoader sceneLoader, IGlobalUtils utils);
+        public abstract UniTask Create(IServiceCollection builder, IScopeUtils utils);
     }
 }

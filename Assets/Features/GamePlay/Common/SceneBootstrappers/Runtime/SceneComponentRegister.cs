@@ -5,6 +5,6 @@ namespace GamePlay.Common.SceneBootstrappers.Runtime
 {
     public abstract class SceneComponentRegister : MonoBehaviour
     {
-        public abstract void Register(IDependencyRegister builder);
+        public abstract void Register(IServiceCollection builder);
     }
 }

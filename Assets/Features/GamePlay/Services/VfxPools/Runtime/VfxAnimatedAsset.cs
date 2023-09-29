@@ -17,7 +17,7 @@ namespace GamePlay.Services.VfxPools.Runtime
         public override string Key => _prefab.name;
         public override string Name => _prefab.name;
 
-        public override IObjectsPool Create(IDependencyRegister builder, Transform parent)
+        public override IObjectsPool Create(IServiceCollection builder, Transform parent)
         {
             var factory = new VfxObjectFactory<VfxAnimatedObject>(_prefab, parent);
             var provider = new ObjectProvider<VfxAnimatedObject>(factory, StartupInstances, parent);

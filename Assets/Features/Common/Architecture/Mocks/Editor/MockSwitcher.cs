@@ -1,6 +1,6 @@
 ﻿using Common.Architecture.Mocks.Runtime;
 using UnityEditor;
-using Object = UnityEngine.Object;
+using UnityEngine;
 
 namespace Common.Architecture.Mocks.Editor
 {

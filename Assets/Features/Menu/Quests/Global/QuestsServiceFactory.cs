@@ -1,5 +1,7 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Global.Setup.Service;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
+using Cysharp.Threading.Tasks;
 using Menu.Quests.Common;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -9,11 +11,11 @@ namespace Menu.Quests.Global
     [InlineEditor]
     [CreateAssetMenu(fileName = QuestsRoutes.ServiceName,
         menuName = QuestsRoutes.ServicePath)]
-    public class QuestsServiceFactory : ScriptableObject, IGlobalServiceFactory
+    public class QuestsServiceFactory : ScriptableObject, IServiceFactory
     {
-        public void Create(IDependencyRegister builder, IGlobalUtils utils)
+        public async UniTask Create(IServiceCollection services, IScopeUtils utils)
         {
-            builder.Register<Quests>()
+            services.Register<Quests>()
                 .As<IQuests>();
         }
     }

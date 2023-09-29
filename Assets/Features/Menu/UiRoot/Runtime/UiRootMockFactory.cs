@@ -1,7 +1,7 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
 using Common.Architecture.Local.Abstract;
 using Cysharp.Threading.Tasks;
-using Global.Scenes.Operations.Abstract;
+using Internal.Services.Scenes.Abstract;
 using Menu.Common.Navigation;
 using Menu.UiRoot.Common;
 using Sirenix.OdinInspector;
@@ -14,7 +14,7 @@ namespace Menu.UiRoot.Runtime
         menuName = UiRootRoutes.MockPath)]
     public class UiRootMockFactory : BaseUiRootFactory
     {
-        public override async UniTask Create(IDependencyRegister builder,ISceneLoader sceneLoader, ILocalUtils utils)
+        public override async UniTask Create(IServiceCollection builder,ISceneLoader sceneLoader, ILocalUtils utils)
         {
             var linker = FindFirstObjectByType<MenuUiLinker>();
             

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Common.Architecture.Local.ComposedSceneConfig;
 using Cysharp.Threading.Tasks;
-using Global.Scenes.LoadedHandler.Runtime;
-using Global.Scenes.Operations.Abstract;
-using Global.Scenes.Operations.Native;
+using Global.System.LoadedHandler.Runtime;
+using Internal.Services.Scenes.Abstract;
+using Internal.Services.Scenes.Native;
 using UnityEngine.SceneManagement;
 using VContainer;
 using VContainer.Unity;

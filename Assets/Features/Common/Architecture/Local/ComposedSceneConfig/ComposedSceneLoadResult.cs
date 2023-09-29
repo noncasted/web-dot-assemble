@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Global.Scenes.Operations.Abstract;
+using Internal.Services.Scenes.Abstract;
 using VContainer.Unity;
 
 namespace Common.Architecture.Local.ComposedSceneConfig

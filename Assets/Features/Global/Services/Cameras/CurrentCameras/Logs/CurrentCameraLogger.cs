@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using ILogger = Global.System.Loggers.Runtime.ILogger;
+using ILogger = Internal.Services.Loggers.Runtime.ILogger;
 
 namespace Global.Cameras.CurrentCameras.Logs
 {

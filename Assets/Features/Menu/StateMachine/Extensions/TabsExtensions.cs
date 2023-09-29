@@ -1,7 +1,6 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
 using Menu.StateMachine.Definitions;
 using Menu.StateMachine.Registry;
-using UnityEngine;
 
 namespace Menu.StateMachine.Extensions
 {

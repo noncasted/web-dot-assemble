@@ -2,8 +2,8 @@
 using Common.Architecture.Local.Abstract;
 using Common.Serialization.NestedScriptableObjects.Attributes;
 using Cysharp.Threading.Tasks;
-using Global.Scenes.Operations.Abstract;
-using Global.Scenes.Operations.Data;
+using Internal.Services.Scenes.Abstract;
+using Internal.Services.Scenes.Data;
 using Menu.Common.Navigation;
 using Menu.UiRoot.Common;
 using Sirenix.OdinInspector;
@@ -18,7 +18,7 @@ namespace Menu.UiRoot.Runtime
     {
         [SerializeField] [NestedScriptableObjectField] private SceneData _scene;
         
-        public override async UniTask Create(IDependencyRegister builder,ISceneLoader sceneLoader, ILocalUtils utils)
+        public override async UniTask Create(IServiceCollection builder,ISceneLoader sceneLoader, ILocalUtils utils)
         {
             var sceneData = await sceneLoader.LoadTyped<MenuUiLinker>(_scene);
             var linker = sceneData.Searched;

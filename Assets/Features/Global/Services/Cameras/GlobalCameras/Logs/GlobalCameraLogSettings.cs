@@ -1,5 +1,5 @@
 ﻿using Global.Cameras.GlobalCameras.Common;
-using Global.System.Loggers.Runtime;
+using Internal.Services.Loggers.Runtime;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

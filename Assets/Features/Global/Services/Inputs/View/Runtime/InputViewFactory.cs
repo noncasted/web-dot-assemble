@@ -1,4 +1,7 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
+using Cysharp.Threading.Tasks;
 using Global.Inputs.Common;
 using Global.Inputs.Constranits.Storage;
 using Global.Inputs.View.Logs;
@@ -7,7 +10,6 @@ using Global.Inputs.View.Runtime.Conversion;
 using Global.Inputs.View.Runtime.Listeners;
 using Global.Inputs.View.Runtime.Mouses;
 using Global.Inputs.View.Runtime.Projection;
-using Global.Setup.Service;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -16,43 +18,43 @@ namespace Global.Inputs.View.Runtime
     [InlineEditor]
     [CreateAssetMenu(fileName = InputRouter.ServiceName,
         menuName = InputRouter.ServicePath)]
-    public class InputViewFactory : ScriptableObject, IGlobalServiceFactory
+    public class InputViewFactory : ScriptableObject, IServiceFactory
     {
         [SerializeField] [Indent] private InputViewLogSettings _logSettings;
 
-        public void Create(IDependencyRegister builder, IGlobalUtils utils)
+        public async UniTask Create(IServiceCollection services, IScopeUtils utils)
         {
             var controls = new Controls();
             var gamePlay = controls.GamePlay;
 
-            builder.Register<MouseInput>()
+            services.Register<MouseInput>()
                 .WithParameter(gamePlay)
                 .As<IMouseInput>()
                 .AsSelfResolvable();
 
-            builder.Register<InputViewLogger>()
+            services.Register<InputViewLogger>()
                 .WithParameter(_logSettings);
 
-            builder.Register<InputConversion>()
+            services.Register<InputConversion>()
                 .As<IInputConversion>();
 
-            builder.Register<InputProjection>()
+            services.Register<InputProjection>()
                 .As<IInputProjection>();
 
-            builder.Register<InputView>()
+            services.Register<InputView>()
                 .WithParameter(controls)
                 .AsImplementedInterfaces()
                 .AsCallbackListener();
 
-            builder.Register<InputActions>()
+            services.Register<InputActions>()
                 .As<IInputActions>()
                 .AsSelf()
                 .AsSelfResolvable();
 
-            builder.Register<InputListenersHandler>()
+            services.Register<InputListenersHandler>()
                 .As<IInputListenersHandler>();
 
-            builder.Register<InputConstraintsStorage>()
+            services.Register<InputConstraintsStorage>()
                 .As<IInputConstraintsStorage>();
         }
     }

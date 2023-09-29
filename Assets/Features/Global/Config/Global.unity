@@ -161,14 +161,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 931884587}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdaa324bfa6c498699c54f4f22ef5865, type: 3}
+  m_Script: {fileID: 11500000, guid: b3a9f0284c9993a47b07ea4099b124e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scope: {fileID: 4425232438733536047, guid: 6dff990b64ff40b4980ef90789bf70a4, type: 3}
-  _servicesScene: Global_Services
-  _options: {fileID: 11400000, guid: e96d7f26a80a5654dafb5b916c082c0c, type: 2}
-  _gameLoop: {fileID: 11400000, guid: 24bc63408099b334f8050f4463f479ab, type: 2}
-  _services: {fileID: 11400000, guid: 9f1bf9a9ecd36f24798ae8c6321b5fc2, type: 2}
+  _internal: {fileID: 11400000, guid: 406935e01522cc441bd92868777d3e67, type: 2}
+  _global: {fileID: 11400000, guid: 5131e41dce4ff4242990f976167df257, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

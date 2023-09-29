@@ -12,7 +12,7 @@ namespace GamePlay.Level.Scene.Runtime
         [SerializeField] private Transform _cellsRoot;
         [SerializeField] private Transform _moveRect;
 
-        public override void Register(IDependencyRegister builder)
+        public override void Register(IServiceCollection builder)
         {
             var fieldFactory = new FieldFactory(_cellsRoot);
             var scanner = new FieldScanner();

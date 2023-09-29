@@ -1,5 +1,5 @@
 ﻿using Common.Architecture.Local.Abstract;
-using Global.Options.Runtime;
+using Internal.Services.Options.Runtime;
 
 namespace Common.Architecture.Local.ComposedSceneConfig
 {   

@@ -13,7 +13,7 @@ namespace GamePlay.Level.Services.DotMovers.Runtime
     {
         [SerializeField] private DotMoverConfig _config;
         
-        public void Create(IDependencyRegister builder, ILocalUtils utils)
+        public void Create(IServiceCollection builder, ILocalUtils utils)
         {
             builder.Register<DotMover>()
                 .WithParameter<IDotMoverConfig>(_config)

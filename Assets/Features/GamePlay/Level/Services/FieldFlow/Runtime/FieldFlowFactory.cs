@@ -18,7 +18,7 @@ namespace GamePlay.Level.Services.FieldFlow.Runtime
         [SerializeField] private DotDefinitionsStorage _storage;
         [SerializeField] [Min(0)] private int _dotLifeCycleAmount = 3;
 
-        public void Create(IDependencyRegister builder, ILocalUtils utils)
+        public void Create(IServiceCollection builder, ILocalUtils utils)
         {
             var lifeFlowConfig = new DotLifeFlowConfig(_dotLifeCycleAmount);
 

@@ -1,5 +1,7 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Global.Setup.Service;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
+using Cysharp.Threading.Tasks;
 using Global.System.Updaters.Common;
 using Global.System.Updaters.Logs;
 using Global.System.Updaters.Runtime.Abstract;
@@ -11,27 +13,27 @@ namespace Global.System.Updaters.Runtime
     [InlineEditor]
     [CreateAssetMenu(fileName = UpdaterRouter.ServiceName,
         menuName = UpdaterRouter.ServicePath)]
-    public class UpdaterFactory : ScriptableObject, IGlobalServiceFactory
+    public class UpdaterFactory : ScriptableObject, IServiceFactory
     {
         [SerializeField] [Indent] private UpdaterLogSettings _logSettings;
         [SerializeField] [Indent] private Updater _prefab;
 
-        public void Create(IDependencyRegister builder, IGlobalUtils utils)
+        public async UniTask Create(IServiceCollection services, IScopeUtils utils)
         {
             var updater = Instantiate(_prefab);
             updater.name = "Updater";
 
-            builder.Register<UpdaterLogger>()
+            services.Register<UpdaterLogger>()
                 .WithParameter(_logSettings);
 
-            builder.RegisterComponent(updater)
+            services.RegisterComponent(updater)
                 .As<IUpdater>()
                 .As<IUpdateSpeedModifier>()
                 .As<IUpdateSpeedSetter>()
                 .AsSelfResolvable()
                 .AsCallbackListener();
 
-            utils.Binder.AddToModules(updater);
+            utils.Binder.MoveToModules(updater);
         }
     }
 }

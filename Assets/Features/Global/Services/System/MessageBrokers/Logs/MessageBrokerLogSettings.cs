@@ -1,5 +1,5 @@
-﻿using Global.System.Loggers.Runtime;
-using Global.System.MessageBrokers.Common;
+﻿using Global.System.MessageBrokers.Common;
+using Internal.Services.Loggers.Runtime;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

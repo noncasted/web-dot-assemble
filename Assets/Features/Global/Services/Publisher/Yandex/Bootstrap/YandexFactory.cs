@@ -1,8 +1,8 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
 using Cysharp.Threading.Tasks;
 using Global.Audio.Player.Runtime;
 using Global.Localizations.Runtime;
-using Global.Options.Implementations;
 using Global.Publisher.Abstract.Advertisment;
 using Global.Publisher.Abstract.Bootstrap;
 using Global.Publisher.Abstract.DataStorages;
@@ -21,12 +21,12 @@ using Global.Publisher.Yandex.Languages;
 using Global.Publisher.Yandex.Leaderboard;
 using Global.Publisher.Yandex.Purchases;
 using Global.Publisher.Yandex.Review;
-using Global.Setup.Service;
-using Global.Setup.Service.Scenes;
+using Internal.Services.Options.Implementations;
+using Internal.Services.Scenes.Abstract;
+using Internal.Services.Scenes.Data;
 using Menu.Achievements.Global;
 using Menu.Calendar.Global;
 using Menu.Collections.Global;
-using NaughtyAttributes;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -36,12 +36,12 @@ namespace Global.Publisher.Yandex.Bootstrap
     [CreateAssetMenu(fileName = YandexRoutes.ServiceName, menuName = YandexRoutes.ServicePath)]
     public class YandexFactory : PublisherSdkFactory
     {
-        [SerializeField] [Scene] private string _debugScene;
+        [SerializeField] private SceneData _debugScene;
         [SerializeField] private YandexCallbacks _callbacksPrefab;
         [SerializeField] private ShopProductsRegistry _productsRegistry;
         [SerializeField] private ProductLink _adsDisableProduct;
 
-        public override async UniTask Create(IDependencyRegister builder, IGlobalSceneLoader sceneLoader, IGlobalUtils utils)
+        public override async UniTask Create(IServiceCollection builder, IScopeUtils utils)
         {
             var yandexCallbacks = Instantiate(_callbacksPrefab, Vector3.zero, Quaternion.identity);
             yandexCallbacks.name = "YandexCallbacks";
@@ -53,12 +53,12 @@ namespace Global.Publisher.Yandex.Bootstrap
             var options = utils.Options.GetOptions<PlatformOptions>();
             
             if (options.IsEditor == true)
-                await RegisterEditorApis(builder, sceneLoader, yandexCallbacks);
+                await RegisterEditorApis(builder, utils.SceneLoader, yandexCallbacks);
             else
                 RegisterBuildApis(builder);
         }
 
-        private void RegisterModules(IDependencyRegister builder)
+        private void RegisterModules(IServiceCollection builder)
         {
             builder.Register<Ads>()
                 .WithParameter<IProductLink>(_adsDisableProduct)
@@ -86,12 +86,11 @@ namespace Global.Publisher.Yandex.Bootstrap
         }
 
         private async UniTask RegisterEditorApis(
-            IDependencyRegister builder,
-            IGlobalSceneLoader sceneLoader,
+            IServiceCollection builder,
+            ISceneLoader sceneLoader,
             YandexCallbacks callbacks)
         {
-            var sceneData = new InternalScene<YandexDebugCanvas>(_debugScene);
-            var loadResult = await sceneLoader.LoadAsync(sceneData);
+            var loadResult = await sceneLoader.LoadTyped<YandexDebugCanvas>(_debugScene);
 
             var canvas = loadResult.Searched;
 
@@ -122,7 +121,7 @@ namespace Global.Publisher.Yandex.Bootstrap
                 .WithParameter<IReviewsDebug>(canvas.Reviews);
         }
 
-        private void RegisterBuildApis(IDependencyRegister builder)
+        private void RegisterBuildApis(IServiceCollection builder)
         {
             builder.Register<AdsExternAPI>()
                 .As<IAdsAPI>();

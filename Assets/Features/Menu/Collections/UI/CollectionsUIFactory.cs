@@ -15,7 +15,7 @@ namespace Menu.Collections.UI
     {
         [SerializeField] private TabDefinition _tabDefinition;
         
-        public void Create(IDependencyRegister builder, ILocalUtils utils)
+        public void Create(IServiceCollection builder, ILocalUtils utils)
         {
             builder.Register<CollectionsController>()
                 .As<ICollectionsController>()

@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.AddressableAssets;
-using Object = UnityEngine.Object;
 
 namespace Global.System.Objects.Abstract
 {

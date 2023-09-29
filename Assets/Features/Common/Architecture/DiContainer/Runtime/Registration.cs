@@ -6,7 +6,7 @@ namespace Common.Architecture.DiContainer.Runtime
 {
     public class Registration : IRegistration, IRegistrationBuilder
     {
-        public Registration(RegistrationBuilder registration, Type type, IDependencyRegister builder)
+        public Registration(RegistrationBuilder registration, Type type, IServiceCollection builder)
         {
             _registration = registration;
             _builder = builder;
@@ -14,13 +14,13 @@ namespace Common.Architecture.DiContainer.Runtime
         }
 
         private readonly RegistrationBuilder _registration;
-        private readonly IDependencyRegister _builder;
+        private readonly IServiceCollection _builder;
 
         private bool _isListeningCallbacks;
         private bool _isSelfResolvable;
 
         public Type Type { get; }
-        public IDependencyRegister Builder => _builder;
+        public IServiceCollection Builder => _builder;
 
         public IRegistration AsCallbackListener()
         {

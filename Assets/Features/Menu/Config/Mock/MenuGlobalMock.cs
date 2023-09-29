@@ -1,8 +1,7 @@
-﻿using Common.Architecture.Mocks;
-using Common.Architecture.Mocks.Runtime;
+﻿using Common.Architecture.Mocks.Runtime;
 using Cysharp.Threading.Tasks;
-using Global.Options.Runtime;
-using Global.Scenes.Operations.Abstract;
+using Internal.Services.Options.Runtime;
+using Internal.Services.Scenes.Abstract;
 using Menu.Config.Runtime;
 using UnityEngine;
 using VContainer;

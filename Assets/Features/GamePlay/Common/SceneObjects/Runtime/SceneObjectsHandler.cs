@@ -18,7 +18,7 @@ namespace GamePlay.Common.SceneObjects.Runtime
 
         private SceneObjectLogger _logger;
 
-        public override void Register(IDependencyRegister builder)
+        public override void Register(IServiceCollection builder)
         {
             builder.RegisterComponent(this)
                 .As<ISceneObjectsHandler>();

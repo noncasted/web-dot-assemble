@@ -4,6 +4,6 @@ namespace Common.Architecture.Local.Abstract
 {
     public interface ILocalServiceFactory
     {
-        public void Create(IDependencyRegister builder, ILocalUtils utils);
+        public void Create(IServiceCollection builder, ILocalUtils utils);
     }
 }

@@ -1,7 +1,9 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
+using Cysharp.Threading.Tasks;
 using Global.Cameras.GlobalCameras.Common;
 using Global.Cameras.GlobalCameras.Logs;
-using Global.Setup.Service;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -10,25 +12,26 @@ namespace Global.Cameras.GlobalCameras.Runtime
     [InlineEditor]
     [CreateAssetMenu(fileName = GlobalCameraRoutes.ServiceName,
         menuName = GlobalCameraRoutes.ServicePath)]
-    public class GlobalCameraFactory : ScriptableObject, IGlobalServiceFactory
+    public class GlobalCameraFactory : ScriptableObject, IServiceFactory
     {
         [SerializeField] [Indent] private GlobalCameraLogSettings _logSettings;
         [SerializeField] [Indent] private GlobalCamera _prefab;
 
-        public void Create(IDependencyRegister builder, IGlobalUtils utils)
+
+        public async UniTask Create(IServiceCollection services, IScopeUtils utils)
         {
             var globalCamera = Instantiate(_prefab);
             globalCamera.name = "Camera_Global";
             globalCamera.gameObject.SetActive(false);
 
-            builder.Register<GlobalCameraLogger>()
+            services.Register<GlobalCameraLogger>()
                 .WithParameter(_logSettings);
 
-            builder.RegisterComponent(globalCamera)
+            services.RegisterComponent(globalCamera)
                 .As<IGlobalCamera>()
                 .AsCallbackListener();
 
-            utils.Binder.AddToModules(globalCamera);
+            utils.Binder.MoveToModules(globalCamera);
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Global.Setup.Service;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
+using Cysharp.Threading.Tasks;
 using Menu.Achievements.Common;
 using Menu.Achievements.Definitions;
 using Sirenix.OdinInspector;
@@ -10,18 +12,18 @@ namespace Menu.Achievements.Global
     [InlineEditor]
     [CreateAssetMenu(fileName = AchievementsRoutes.ServiceName,
         menuName = AchievementsRoutes.ServicePath)]
-    public class AchievementsServiceFactory : ScriptableObject, IGlobalServiceFactory
+    public class AchievementsServiceFactory : ScriptableObject, IServiceFactory
     {
         [SerializeField] private AchievementsDebug _debug;
         [SerializeField] private AchievementsRegistry _registry;
         
-        public void Create(IDependencyRegister builder, IGlobalUtils utils)
+        public async UniTask Create(IServiceCollection services, IScopeUtils utils)
         {
             var factory = new AchievementFactory();
             
-            builder.Inject(_debug);
+            services.Inject(_debug);
             
-            builder.Register<Achievements>()
+            services.Register<Achievements>()
                 .WithParameter<IAchievementsConfigsRegistry>(_registry)
                 .WithParameter<IAchievementFactory>(factory)
                 .As<IAchievements>()

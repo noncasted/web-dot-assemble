@@ -1,13 +1,13 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
+using Cysharp.Threading.Tasks;
 using Global.Publisher.Abstract.DataStorages;
-using Global.Setup.Service.Callbacks;
 using UnityEngine;
 using VContainer;
 
 namespace Global.Audio.Player.Runtime
 {
     [DisallowMultipleComponent]
-    public class SoundsPlayer : MonoBehaviour, IGlobalAsyncBootstrapListener, IVolumeSetter
+    public class SoundsPlayer : MonoBehaviour, IScopeEnableAsyncListener, IVolumeSetter
     {
         [Inject]
         private void Construct(IDataStorage dataStorage)
@@ -23,7 +23,7 @@ namespace Global.Audio.Player.Runtime
         private float _musicVolume;
         private float _soundVolume;
 
-        public async UniTask OnBootstrapAsync()
+        public async UniTask OnEnabledAsync()
         {
             var save = await _dataStorage.GetEntry<SoundSave>(SoundSave.Key);
 

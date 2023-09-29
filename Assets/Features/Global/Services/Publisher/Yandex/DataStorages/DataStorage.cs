@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
+using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
 using Cysharp.Threading.Tasks;
 using Global.Publisher.Abstract.DataStorages;
 using Global.Publisher.Yandex.Common;
-using Global.Setup.Service.Callbacks;
 using Newtonsoft.Json;
-using UnityEngine;
 
 namespace Global.Publisher.Yandex.DataStorages
 {
-    public class DataStorage : IDataStorage, IGlobalAsyncAwakeListener
+    public class DataStorage : IDataStorage, IScopeAwakeAsyncListener
     {
         public DataStorage(YandexCallbacks callbacks, IStorageAPI api, IStorageEntry[] entries)
         {

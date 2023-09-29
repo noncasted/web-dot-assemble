@@ -1,13 +1,13 @@
 ﻿using System;
+using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
 using Common.UI.UiTools.ButtonEventTriggers;
-using Global.Setup.Service.Callbacks;
 using Global.System.MessageBrokers.Runtime;
 using UnityEngine;
 
 namespace Global.Audio.Player.Runtime
 {
     [DisallowMultipleComponent]
-    public class SoundsTrigger : MonoBehaviour, IGlobalAwakeListener
+    public class SoundsTrigger : MonoBehaviour, IScopeAwakeListener
     {
         [SerializeField] private AudioClip _buttonTouched;
         [SerializeField] private AudioClip _buttonClicked;

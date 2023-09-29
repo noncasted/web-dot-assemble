@@ -1,10 +1,10 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
 using Cysharp.Threading.Tasks;
-using Global.Setup.Service;
-using Global.Setup.Service.Scenes;
 using Global.UI.LoadingScreens.Common;
 using Global.UI.LoadingScreens.Logs;
-using NaughtyAttributes;
+using Internal.Services.Scenes.Data;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -13,24 +13,24 @@ namespace Global.UI.LoadingScreens.Runtime
     [InlineEditor]
     [CreateAssetMenu(fileName = LoadingScreenRouter.ServiceName,
         menuName = LoadingScreenRouter.ServicePath)]
-    public class LoadingScreenFactory : ScriptableObject, IGlobalServiceAsyncFactory
+    public class LoadingScreenFactory : ScriptableObject, IServiceFactory
     {
         [SerializeField] [Indent] private LoadingScreenLogSettings _logSettings;
-        [SerializeField] [Indent] [Scene] private string _scene;
+        [SerializeField] [Indent] private SceneData _scene;
 
-        public async UniTask Create(IDependencyRegister builder, IGlobalSceneLoader sceneLoader, IGlobalUtils utils)
+        public async UniTask Create(IServiceCollection services, IScopeUtils utils)
         {
-            var result = await sceneLoader.LoadAsync(new InternalScene<LoadingScreen>(_scene));
+            var result = await utils.SceneLoader.LoadTyped<LoadingScreen>(_scene);
 
             var loadingScreen = result.Searched;
 
-            builder.Register<LoadingScreenLogger>()
+            services.Register<LoadingScreenLogger>()
                 .WithParameter(_logSettings);
 
-            builder.RegisterComponent(loadingScreen)
+            services.RegisterComponent(loadingScreen)
                 .As<ILoadingScreen>();
 
-            utils.Binder.AddToModules(loadingScreen);
+            utils.Binder.MoveToModules(loadingScreen);
         }
     }
 }

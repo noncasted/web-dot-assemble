@@ -1,5 +1,7 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Global.Setup.Service;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
+using Cysharp.Threading.Tasks;
 using Global.System.ResourcesCleaners.Common;
 using Global.System.ResourcesCleaners.Logs;
 using Sirenix.OdinInspector;
@@ -10,15 +12,15 @@ namespace Global.System.ResourcesCleaners.Runtime
     [InlineEditor]
     [CreateAssetMenu(fileName = ResourcesCleanerRouter.ServiceName,
         menuName = ResourcesCleanerRouter.ServicePath)]
-    public class ResourcesCleanerFactory : ScriptableObject, IGlobalServiceFactory
+    public class ResourcesCleanerFactory : ScriptableObject, IServiceFactory
     {
         [SerializeField] [Indent] private ResourcesCleanerLogSettings _logSettings;
 
-        public void Create(IDependencyRegister builder, IGlobalUtils utils)
+        public async UniTask Create(IServiceCollection services, IScopeUtils utils)
         {
-            builder.Register<ResourcesCleanerLogger>().WithParameter(_logSettings);
+            services.Register<ResourcesCleanerLogger>().WithParameter(_logSettings);
 
-            builder.Register<ResourcesCleaner>()
+            services.Register<ResourcesCleaner>()
                 .As<IResourcesCleaner>();
         }
     }

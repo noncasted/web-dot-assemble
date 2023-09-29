@@ -12,7 +12,7 @@ namespace GamePlay.Level.Dots.Factory
         menuName = DotsRoutes.FactoryPath)]
     public class DotFactoryServiceFactory : ScriptableObject, ILocalServiceFactory
     {
-        public void Create(IDependencyRegister builder, ILocalUtils utils)
+        public void Create(IServiceCollection builder, ILocalUtils utils)
         {
             builder.Register<DotFactory>()
                 .As<IDotFactory>();

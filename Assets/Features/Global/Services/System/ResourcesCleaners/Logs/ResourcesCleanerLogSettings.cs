@@ -1,5 +1,5 @@
-﻿using Global.System.Loggers.Runtime;
-using Global.System.ResourcesCleaners.Common;
+﻿using Global.System.ResourcesCleaners.Common;
+using Internal.Services.Loggers.Runtime;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

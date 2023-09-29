@@ -14,7 +14,7 @@ namespace GamePlay.Loop.Runtime
     {
         [SerializeField] [Indent] private LevelLoopLogSettings _logSettings;
 
-        public void Create(IDependencyRegister builder, ILocalUtils utils)
+        public void Create(IServiceCollection builder, ILocalUtils utils)
         {
             builder.Register<LevelLoopLogger>()
                 .WithParameter(_logSettings);
