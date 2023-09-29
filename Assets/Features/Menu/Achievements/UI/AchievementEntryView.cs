@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading;
-using Common.UI.Extended.Buttons;
+using Common.UI.Buttons;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Menu.Achievements.Definitions;

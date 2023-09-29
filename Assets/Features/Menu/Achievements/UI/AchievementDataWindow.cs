@@ -1,5 +1,5 @@
 ﻿using System.Threading;
-using Common.UI.Extended.ProgressBars;
+using Common.UI.ProgressBars;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Menu.Achievements.Definitions;

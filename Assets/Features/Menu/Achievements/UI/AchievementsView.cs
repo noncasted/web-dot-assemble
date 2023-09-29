@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
-using Common.UI.Extended.Buttons;
+using Common.UI.Buttons;
 using Cysharp.Threading.Tasks;
 using Menu.Achievements.Definitions;
 using Menu.Common.Navigation;

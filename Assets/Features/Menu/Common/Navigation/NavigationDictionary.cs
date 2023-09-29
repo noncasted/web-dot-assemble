@@ -1,6 +1,6 @@
 ﻿using System;
 using Common.Serialization.SerializableDictionaries;
-using Common.UI.Extended.Buttons;
+using Common.UI.Buttons;
 
 namespace Menu.Common.Navigation
 {

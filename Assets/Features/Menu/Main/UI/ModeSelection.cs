@@ -1,5 +1,5 @@
 ﻿using System;
-using Common.UI.Extended.Buttons;
+using Common.UI.Buttons;
 using GamePlay.Loop.Modes;
 using UnityEngine;
 using UnityEngine.UI;

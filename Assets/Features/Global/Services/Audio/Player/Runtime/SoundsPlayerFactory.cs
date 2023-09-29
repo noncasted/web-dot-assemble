@@ -21,15 +21,12 @@ namespace Global.Audio.Player.Runtime
             var player = Instantiate(_prefab);
             player.name = "SoundsPlayer";
 
-            var trigger = player.GetComponent<SoundsTrigger>();
-
             services.RegisterInstance(_state);
 
             services.RegisterComponent(player)
                 .As<IVolumeSetter>()
                 .AsCallbackListener();
 
-            utils.Callbacks.Listen(trigger);
             utils.Binder.MoveToModules(player.gameObject);
         }
     }

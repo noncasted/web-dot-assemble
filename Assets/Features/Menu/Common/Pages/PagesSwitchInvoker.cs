@@ -1,5 +1,5 @@
 ﻿using System;
-using Common.UI.Extended.Buttons;
+using Common.UI.Buttons;
 using UnityEngine;
 
 namespace Menu.Common.Pages

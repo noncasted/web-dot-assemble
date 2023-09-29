@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
-using Common.UI.Extended.ProgressBars;
+using Common.UI.ProgressBars;
 using Cysharp.Threading.Tasks;
 using Global.System.ApplicationProxies.Runtime;
 using TMPro;
