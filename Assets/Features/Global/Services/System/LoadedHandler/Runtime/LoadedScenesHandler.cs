@@ -1,4 +1,5 @@
-﻿using Common.Architecture.Local.ComposedSceneConfig;
+﻿using Common.Architecture.ScopeLoaders.Runtime;
+using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
 using Cysharp.Threading.Tasks;
 using Global.System.LoadedHandler.Logs;
 using Global.System.ResourcesCleaners.Runtime;
@@ -23,9 +24,9 @@ namespace Global.System.LoadedHandler.Runtime
         private readonly IResourcesCleaner _resourcesCleaner;
         private readonly ISceneUnloader _sceneUnload;
 
-        private ComposedSceneLoadResult _current;
+        private IScopeLoadResult _current;
 
-        public void OnLoaded(ComposedSceneLoadResult loaded)
+        public void OnLoaded(IScopeLoadResult loaded)
         {
             _current = loaded;
 
@@ -42,7 +43,7 @@ namespace Global.System.LoadedHandler.Runtime
 
             _logger.OnUnload(_current.Scenes.Count);
 
-            await _current.OnUnload();
+            await _current.Callbacks[CallbackStage.Dispose].Run();
 
             await _sceneUnload.Unload(_current.Scenes);
         }

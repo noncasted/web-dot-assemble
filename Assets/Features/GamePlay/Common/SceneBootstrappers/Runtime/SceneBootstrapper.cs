@@ -1,6 +1,5 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Common.Architecture.Local.Abstract;
-using Common.Architecture.Local.Abstract.Callbacks;
+using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using VContainer.Unity;
@@ -12,12 +11,12 @@ namespace GamePlay.Common.SceneBootstrappers.Runtime
         MonoBehaviour, 
         ISceneBootstrapper, 
         ISceneComponentBuildersStorage,
-        ILocalBuiltListener
+        IScopeBuiltListener
     {
         [SerializeField] private SceneComponentRegister[] _registers;
         [SerializeField] private SceneComponentBuilder[] _builders;
         
-        public void Build(IServiceCollection builder, ILocalCallbacks callbacks)
+        public void Build(IServiceCollection builder, IScopeCallbacks callbacks)
         {
             foreach (var register in _registers)
                 register.Register(builder);
@@ -39,6 +38,11 @@ namespace GamePlay.Common.SceneBootstrappers.Runtime
                 tasks[i] = _builders[i].Build(parent, callbacks);
 
             await UniTask.WhenAll(tasks);
+        }
+
+        public void OnContainerBuilt(LifetimeScope scope)
+        {
+            
         }
     }
 }

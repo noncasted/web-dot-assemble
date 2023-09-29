@@ -1,13 +1,13 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Common.Architecture.Local.Abstract;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
 using Cysharp.Threading.Tasks;
-using Internal.Services.Scenes.Abstract;
 using UnityEngine;
 
 namespace GamePlay.Level.Scene.Runtime
 {
-    public abstract class BaseLevelSceneFactory : ScriptableObject, ILocalServiceAsyncFactory
+    public abstract class BaseLevelSceneFactory : ScriptableObject, IServiceFactory
     {
-        public abstract UniTask Create(IServiceCollection builder,ISceneLoader sceneLoader, ILocalUtils utils);
+        public abstract UniTask Create(IServiceCollection builder, IScopeUtils utils);
     }
 }

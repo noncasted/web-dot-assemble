@@ -1,10 +1,9 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Common.Architecture.Local.Abstract;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
 using Common.Serialization.NestedScriptableObjects.Attributes;
 using Cysharp.Threading.Tasks;
 using GamePlay.Common.SceneBootstrappers.Runtime;
 using GamePlay.Level.Scene.Common;
-using Internal.Services.Scenes.Abstract;
 using Internal.Services.Scenes.Data;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -19,15 +18,15 @@ namespace GamePlay.Level.Scene.Runtime
     {
         [SerializeField] [NestedScriptableObjectField] private SceneData _scene;
 
-        public override async UniTask Create(IServiceCollection builder,ISceneLoader sceneLoader, ILocalUtils utils)
+        public override async UniTask Create(IServiceCollection builder, IScopeUtils utils)
         {
-            var result = await sceneLoader.LoadTyped<SceneBootstrapper>(_scene);
+            var result = await utils.SceneLoader.LoadTyped<SceneBootstrapper>(_scene);
 
             SceneManager.SetActiveScene(result.Scene);
 
             var bootstrapper = result.Searched;
 
-            bootstrapper.Build(builder, utils.LoopsRegistry);
+            bootstrapper.Build(builder, utils.Callbacks);
         }
     }
 }

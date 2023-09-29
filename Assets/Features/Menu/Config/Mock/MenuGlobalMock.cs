@@ -1,4 +1,5 @@
 ﻿using Common.Architecture.Mocks.Runtime;
+using Common.Architecture.ScopeLoaders.Factory;
 using Cysharp.Threading.Tasks;
 using Internal.Services.Options.Runtime;
 using Internal.Services.Scenes.Abstract;
@@ -22,11 +23,10 @@ namespace Menu.Config.Mock
 
         private async UniTask BootstrapLocal(MockBootstrapResult result)
         {
-            var sceneLoader = result.Resolver.Resolve<ISceneLoader>();
-            var options = result.Resolver.Resolve<IOptions>();
-            var menu= await _menu.Load(result.Parent, sceneLoader, options);
-
-            await result.RegisterLoadedScene(menu);
+            var scopeLoaderFactory = result.Resolver.Resolve<IScopeLoaderFactory>();
+            var scopeLoader = scopeLoaderFactory.Create(_menu, result.Parent);
+            var scope = await scopeLoader.Load();
+            await result.RegisterLoadedScene(scope);
         }
     }
 }

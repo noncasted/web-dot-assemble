@@ -1,5 +1,7 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Common.Architecture.Local.Abstract;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
+using Cysharp.Threading.Tasks;
 using Menu.Loop.Common;
 using Menu.StateMachine.Definitions;
 using Sirenix.OdinInspector;
@@ -10,13 +12,13 @@ namespace Menu.Loop.Runtime
     [InlineEditor]
     [CreateAssetMenu(fileName = LoopRoutes.ServiceName,
         menuName = LoopRoutes.ServicePath)]
-    public class MenuLoopFactory : ScriptableObject, ILocalServiceFactory
+    public class MenuLoopFactory : ScriptableObject, IServiceFactory
     {
         [SerializeField] private TabDefinition _mainDefinition;
         
-        public void Create(IServiceCollection builder, ILocalUtils utils)
+        public async UniTask Create(IServiceCollection services, IScopeUtils utils)
         {
-            builder.Register<MenuLoop>()
+            services.Register<MenuLoop>()
                 .WithParameter<ITabDefinition>(_mainDefinition)
                 .AsCallbackListener();
         }

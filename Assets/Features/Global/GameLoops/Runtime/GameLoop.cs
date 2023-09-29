@@ -1,5 +1,6 @@
-﻿using Common.Architecture.Local.ComposedSceneConfig;
+﻿using Common.Architecture.ScopeLoaders.Factory;
 using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
 using Cysharp.Threading.Tasks;
 using GamePlay.Config.Runtime;
 using Global.Cameras.CurrentCameras.Runtime;
@@ -17,7 +18,7 @@ namespace Global.GameLoops.Runtime
     {
         public GameLoop(
             LifetimeScope scope,
-            ISceneLoader loader,
+            IScopeLoaderFactory scopeLoaderFactory,
             ILoadingScreen loadingScreen,
             IGlobalCamera globalCamera,
             ILoadedScenesHandler loadedScenesHandler,
@@ -29,7 +30,7 @@ namespace Global.GameLoops.Runtime
             _level = level;
             _menu = menu;
             _scope = scope;
-            _loader = loader;
+            _scopeLoaderFactory = scopeLoaderFactory;
             _loadingScreen = loadingScreen;
             _globalCamera = globalCamera;
             _loadedScenesHandler = loadedScenesHandler;
@@ -46,6 +47,7 @@ namespace Global.GameLoops.Runtime
         private readonly ILoadingScreen _loadingScreen;
 
         private readonly LifetimeScope _scope;
+        private readonly IScopeLoaderFactory _scopeLoaderFactory;
 
         private readonly LevelConfig _level;
         private readonly MenuConfig _menu;
@@ -55,24 +57,27 @@ namespace Global.GameLoops.Runtime
             LoadScene(_menu).Forget();
         }
 
-        private async UniTaskVoid LoadScene(ComposedSceneAsset asset)
+        private async UniTaskVoid LoadScene(IScopeConfig config)
         {
             _globalCamera.Enable();
             _currentCamera.SetCamera(_globalCamera.Camera);
 
             _loadingScreen.Show();
 
+            var scopeLoader = _scopeLoaderFactory.Create(config, _scope);
+            var scopeLoadResult = await scopeLoader.Load();
+            await scopeLoadResult.Callbacks[CallbackStage.Construct].Run();
+            
             var unload = _loadedScenesHandler.Unload();
-            var result = await asset.Load(_scope, _loader, _options);
 
             await unload;
             await _loadedScenesHandler.FinalizeUnloading();
 
-            _loadedScenesHandler.OnLoaded(result);
+            _loadedScenesHandler.OnLoaded(scopeLoadResult);
             _globalCamera.Disable();
             _loadingScreen.Hide();
-
-            await result.OnLoaded();
+            
+            await scopeLoadResult.Callbacks[CallbackStage.SetupComplete].Run();
         }
     }
 }

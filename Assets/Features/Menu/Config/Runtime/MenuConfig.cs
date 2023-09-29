@@ -1,5 +1,7 @@
-﻿using Common.Architecture.Local.Abstract;
-using Common.Architecture.Local.ComposedSceneConfig;
+﻿using System.Collections.Generic;
+using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Internal.Services.Scenes.Data;
 using Menu.Achievements.UI;
 using Menu.Calendar.UI;
 using Menu.Collections.UI;
@@ -19,7 +21,7 @@ using VContainer.Unity;
 namespace Menu.Config.Runtime
 {
     [InlineEditor] [CreateAssetMenu(fileName = "Level", menuName = MenuAssetsPaths.Root + "Scene")]
-    public class MenuConfig : ComposedSceneAsset
+    public class MenuConfig : ScriptableObject, IScopeConfig
     {
         [FoldoutGroup("UI")] [SerializeField] private AchievementsUIFactory _achievements;
         [FoldoutGroup("UI")] [SerializeField] private CollectionsUIFactory _collections;
@@ -35,10 +37,16 @@ namespace Menu.Config.Runtime
         [FoldoutGroup("System")] [SerializeField] private MenuLoopFactory _loop;
         
         [SerializeField] private MenuScope _scopePrefab;
-
-        protected override ILocalServiceFactory[] GetFactories()
+        [SerializeField] private SceneData _servicesScene;
+        
+        public LifetimeScope ScopePrefab => _scopePrefab;
+        public ISceneAsset ServicesScene => _servicesScene;
+        public IReadOnlyList<IServiceFactory> Services => GetFactories();
+        public IReadOnlyList<ICallbacksFactory> Callbacks => GetCallbacks();
+        
+        private IServiceFactory[] GetFactories()
         {
-            return new ILocalServiceFactory[]
+            return new IServiceFactory[]
             {
                 _achievements,
                 _collections,
@@ -48,23 +56,18 @@ namespace Menu.Config.Runtime
                 _settings,
                 _shop,
                 _calendar,
-                
+                _uiRoot,
                 _stateMachine,
                 _loop
             };
         }
-
-        protected override ILocalServiceAsyncFactory[] GetAsyncFactories()
+        
+        private ICallbacksFactory[] GetCallbacks()
         {
-            return new ILocalServiceAsyncFactory[]
+            return new ICallbacksFactory[]
             {
-                _uiRoot,
+                new DefaultCallbacksFactory()
             };
-        }
-
-        protected override LifetimeScope GetScopePrefab()
-        {
-            return _scopePrefab;
         }
     }
 }

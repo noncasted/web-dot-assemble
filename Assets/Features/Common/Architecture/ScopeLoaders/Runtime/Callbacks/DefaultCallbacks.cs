@@ -48,7 +48,7 @@ namespace Common.Architecture.ScopeLoaders.Runtime.Callbacks
         void OnContainerBuilt(LifetimeScope scope);
     }
     
-    public interface IScopeSwitch : IScopeEnableListener, IScopeDisableListener
+    public interface IScopeSwitchListener : IScopeEnableListener, IScopeDisableListener
     {
     }
 }

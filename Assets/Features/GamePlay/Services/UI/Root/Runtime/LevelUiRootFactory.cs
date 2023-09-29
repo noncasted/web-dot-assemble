@@ -1,5 +1,7 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Common.Architecture.Local.Abstract;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
+using Cysharp.Threading.Tasks;
 using GamePlay.Services.UI.Root.Common;
 using Global.UI.UiStateMachines.Runtime;
 using Sirenix.OdinInspector;
@@ -10,13 +12,13 @@ namespace GamePlay.Services.UI.Root.Runtime
     [InlineEditor]
     [CreateAssetMenu(fileName = LevelUiRootRoutes.ServiceName,
         menuName = LevelUiRootRoutes.ServicePath)]
-    public class LevelUiRootFactory : ScriptableObject, ILocalServiceFactory
+    public class LevelUiRootFactory : ScriptableObject, IServiceFactory
     {
         [SerializeField] private UiConstraints _constraints;
 
-        public void Create(IServiceCollection builder, ILocalUtils utils)
+        public async UniTask Create(IServiceCollection services, IScopeUtils utils)
         {
-            builder.Register<LevelUiRoot>()
+            services.Register<LevelUiRoot>()
                 .WithParameter(_constraints)
                 .As<ILevelUiRoot>();
         }

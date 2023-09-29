@@ -2,21 +2,32 @@
 using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
 using Common.Architecture.ScopeLoaders.Runtime.Utils;
 using Internal.Services.Scenes.Abstract;
+using VContainer.Unity;
 
 namespace Common.Architecture.ScopeLoaders.Runtime
 {
     public class ScopeLoadResult : IScopeLoadResult
     {
-        public ScopeLoadResult(IScopeCallbacks callbacks, ScopeSceneLoader sceneLoader)
+        public ScopeLoadResult(LifetimeScope scope, IScopeCallbacks callbacks, ScopeSceneLoader sceneLoader)
         {
-            _callbacks = callbacks;
-            _sceneLoader = sceneLoader;
+            _callbacks = callbacks.Handlers;
+            _scenes = sceneLoader.Results;
+            _scope = scope;
         }
         
-        private readonly IScopeCallbacks _callbacks;
-        private readonly ScopeSceneLoader _sceneLoader;
+        public ScopeLoadResult(LifetimeScope scope, IReadOnlyDictionary<CallbackStage, ICallbacksHandler> callbacks, IReadOnlyList<ISceneLoadResult> scenes)
+        {
+            _callbacks = callbacks;
+            _scenes = scenes;
+            _scope = scope;
+        }
+        
+        private readonly IReadOnlyDictionary<CallbackStage, ICallbacksHandler> _callbacks;
+        private readonly IReadOnlyList<ISceneLoadResult> _scenes;
+        private readonly LifetimeScope _scope;
 
-        public IReadOnlyDictionary<CallbackStage, ICallbacksHandler> Callbacks => _callbacks.Handlers;
-        public IReadOnlyList<ISceneLoadResult> Scenes => _sceneLoader.Results;
+        public IReadOnlyDictionary<CallbackStage, ICallbacksHandler> Callbacks => _callbacks;
+        public IReadOnlyList<ISceneLoadResult> Scenes => _scenes;
+        public LifetimeScope Scope => _scope;
     }
 }

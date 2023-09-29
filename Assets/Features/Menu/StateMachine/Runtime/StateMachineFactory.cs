@@ -1,5 +1,7 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Common.Architecture.Local.Abstract;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
+using Cysharp.Threading.Tasks;
 using Menu.StateMachine.Common;
 using Menu.StateMachine.Registry;
 using Sirenix.OdinInspector;
@@ -10,20 +12,20 @@ namespace Menu.StateMachine.Runtime
     [InlineEditor]
     [CreateAssetMenu(fileName = StateMachineRoutes.ServiceName,
         menuName = StateMachineRoutes.ServicePath)]
-    public class StateMachineFactory : ScriptableObject, ILocalServiceFactory
+    public class StateMachineFactory : ScriptableObject, IServiceFactory
     {
         [SerializeField] private TabsTabTransitionConfig _config;
         
-        public void Create(IServiceCollection builder, ILocalUtils utils)
+        public async UniTask Create(IServiceCollection services, IScopeUtils utils)
         {
-            builder.Register<StateMachine>()
+            services.Register<StateMachine>()
                 .As<IStateMachine>()
                 .AsCallbackListener();
 
-            builder.Register<TabsRegistry>()
+            services.Register<TabsRegistry>()
                 .As<ITabsRegistry>();
 
-            builder.Register<TabTransitionHandler>()
+            services.Register<TabTransitionHandler>()
                 .WithParameter<ITabTransitionsConfig>(_config)
                 .As<ITabTransitionHandler>();
         }

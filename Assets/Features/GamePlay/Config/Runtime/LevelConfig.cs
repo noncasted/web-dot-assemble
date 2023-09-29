@@ -1,5 +1,6 @@
-﻿using Common.Architecture.Local.Abstract;
-using Common.Architecture.Local.ComposedSceneConfig;
+﻿using System.Collections.Generic;
+using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
 using GamePlay.Common.Paths;
 using GamePlay.Level.Dots.Factory;
 using GamePlay.Level.Scene.Runtime;
@@ -12,6 +13,7 @@ using GamePlay.Services.Common.Scope;
 using GamePlay.Services.LevelCameras.Runtime;
 using GamePlay.Services.VfxPools.Runtime;
 using GamePlay.UI.Runtime;
+using Internal.Services.Scenes.Data;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using VContainer.Unity;
@@ -20,7 +22,7 @@ namespace GamePlay.Config.Runtime
 {
     [InlineEditor]
     [CreateAssetMenu(fileName = "Level", menuName = GamePlayAssetsPaths.Root + "Scene")]
-    public class LevelConfig : ComposedSceneAsset
+    public class LevelConfig : ScriptableObject, IScopeConfig
     {
         [FoldoutGroup("Level")] [SerializeField]
         private DotFactoryServiceFactory _dotFactory;
@@ -47,10 +49,16 @@ namespace GamePlay.Config.Runtime
         private LevelCameraFactory _levelCamera;
 
         [SerializeField] private LevelScope _scopePrefab;
+        [SerializeField] private SceneData _servicesScene;
 
-        protected override ILocalServiceFactory[] GetFactories()
+        public LifetimeScope ScopePrefab => _scopePrefab;
+        public ISceneAsset ServicesScene => _servicesScene;
+        public IReadOnlyList<IServiceFactory> Services => GetFactories();
+        public IReadOnlyList<ICallbacksFactory> Callbacks => GetCallbacks();
+        
+        protected IServiceFactory[] GetFactories()
         {
-            var services = new ILocalServiceFactory[]
+            var services = new IServiceFactory[]
             {
                 _levelCamera,
                 _levelLoop,
@@ -58,16 +66,7 @@ namespace GamePlay.Config.Runtime
                 _fieldFlow,
                 _dotMover,
                 _assembleCheck,
-                _score
-            };
-
-            return services;
-        }
-
-        protected override ILocalServiceAsyncFactory[] GetAsyncFactories()
-        {
-            var services = new ILocalServiceAsyncFactory[]
-            {
+                _score,
                 _vfxPool,
                 _levelScene,
                 _ui
@@ -75,10 +74,13 @@ namespace GamePlay.Config.Runtime
 
             return services;
         }
-
-        protected override LifetimeScope GetScopePrefab()
+        
+        private ICallbacksFactory[] GetCallbacks()
         {
-            return _scopePrefab;
+            return new ICallbacksFactory[]
+            {
+                new DefaultCallbacksFactory()
+            };
         }
     }
 }

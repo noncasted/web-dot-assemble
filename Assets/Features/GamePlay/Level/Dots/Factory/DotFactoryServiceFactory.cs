@@ -1,5 +1,7 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Common.Architecture.Local.Abstract;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
+using Cysharp.Threading.Tasks;
 using GamePlay.Level.Dots.Common;
 using GamePlay.Level.Dots.Destroyer;
 using Sirenix.OdinInspector;
@@ -10,14 +12,14 @@ namespace GamePlay.Level.Dots.Factory
     [InlineEditor]
     [CreateAssetMenu(fileName = DotsRoutes.FactoryName,
         menuName = DotsRoutes.FactoryPath)]
-    public class DotFactoryServiceFactory : ScriptableObject, ILocalServiceFactory
+    public class DotFactoryServiceFactory : ScriptableObject, IServiceFactory
     {
-        public void Create(IServiceCollection builder, ILocalUtils utils)
+        public async UniTask Create(IServiceCollection services, IScopeUtils utils)
         {
-            builder.Register<DotFactory>()
+            services.Register<DotFactory>()
                 .As<IDotFactory>();
 
-            builder.Register<DotDestroyer>()
+            services.Register<DotDestroyer>()
                 .As<IDotDestroyer>();
         }
     }

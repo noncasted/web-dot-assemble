@@ -1,5 +1,7 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Common.Architecture.Local.Abstract;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
+using Cysharp.Threading.Tasks;
 using GamePlay.Level.Services.AssembleCheck.Common;
 using GamePlay.Level.Services.AssembleCheck.Factory;
 using Sirenix.OdinInspector;
@@ -10,11 +12,11 @@ namespace GamePlay.Level.Services.AssembleCheck.Setup
     [InlineEditor]
     [CreateAssetMenu(fileName = AssembleCheckRoutes.FactoryName,
         menuName = AssembleCheckRoutes.FactoryPath)]
-    public class AssembleCheckSetup : ScriptableObject, ILocalServiceFactory
+    public class AssembleCheckSetup : ScriptableObject, IServiceFactory
     {
-        public void Create(IServiceCollection builder, ILocalUtils utils)
+        public async UniTask Create(IServiceCollection services, IScopeUtils utils)
         {
-            builder.Register<AssembleCheckFactory>()
+            services.Register<AssembleCheckFactory>()
                 .As<IAssembleCheckFactory>();
         }
     }

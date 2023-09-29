@@ -1,7 +1,6 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Common.Architecture.Local.Abstract;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
 using Cysharp.Threading.Tasks;
-using Internal.Services.Scenes.Abstract;
 using Menu.Common.Navigation;
 using Menu.UiRoot.Common;
 using Sirenix.OdinInspector;
@@ -14,27 +13,27 @@ namespace Menu.UiRoot.Runtime
         menuName = UiRootRoutes.MockPath)]
     public class UiRootMockFactory : BaseUiRootFactory
     {
-        public override async UniTask Create(IServiceCollection builder,ISceneLoader sceneLoader, ILocalUtils utils)
+        public override async UniTask Create(IServiceCollection services, IScopeUtils utils)
         {
             var linker = FindFirstObjectByType<MenuUiLinker>();
             
             for (var i = 0; i < linker.Root.childCount; i++)
                 linker.Root.GetChild(i).gameObject.SetActive(true);
             
-            builder.RegisterInstance(linker.Achievements);
-            builder.RegisterInstance(linker.Collections);
-            builder.RegisterInstance(linker.Leaderboards);
-            builder.RegisterInstance(linker.Main);
-            builder.RegisterInstance(linker.Quests);
-            builder.RegisterInstance(linker.Settings);
-            builder.RegisterInstance(linker.ShopView);
-            builder.RegisterInstance(linker.Calendar);
-            builder.RegisterInstance(linker.TabTransitionPoints);
+            services.RegisterInstance(linker.Achievements);
+            services.RegisterInstance(linker.Collections);
+            services.RegisterInstance(linker.Leaderboards);
+            services.RegisterInstance(linker.Main);
+            services.RegisterInstance(linker.Quests);
+            services.RegisterInstance(linker.Settings);
+            services.RegisterInstance(linker.ShopView);
+            services.RegisterInstance(linker.Calendar);
+            services.RegisterInstance(linker.TabTransitionPoints);
 
             var navigations = FindObjectsByType<TabNavigation>(FindObjectsSortMode.None);
 
             foreach (var navigation in navigations)
-                builder.Inject(navigation);
+                services.Inject(navigation);
         }
     }
 }

@@ -1,6 +1,5 @@
-﻿using Global.GameLoops.Runtime;
-using Internal.Services.Options.Runtime;
-using NaughtyAttributes;
+﻿using Global.Config.Runtime;
+using Internal.Scope;
 using UnityEngine;
 
 namespace Common.Architecture.Mocks.Runtime
@@ -8,13 +7,10 @@ namespace Common.Architecture.Mocks.Runtime
     [CreateAssetMenu(fileName = "GlobalMockConfig", menuName = "Common/GlobalMockConfig")]
     public class GlobalMockConfig : ScriptableObject
     {
-        [SerializeField] private Options _options;
-        [SerializeField] private GameLoopFactory _gameLoop;
-        
-        [SerializeField] [Scene] private string _servicesScene;
+        [SerializeField] private InternalScopeConfig _internal;
+        [SerializeField] private GlobalScopeConfig _global;
 
-        public IOptions Options => _options;
-        public GameLoopFactory GameLoop => _gameLoop;
-        public string ServicesScene => _servicesScene;
+        public InternalScopeConfig Internal => _internal;
+        public GlobalScopeConfig Global => _global;
     }
 }

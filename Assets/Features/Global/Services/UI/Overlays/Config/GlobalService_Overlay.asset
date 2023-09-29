@@ -26,10 +26,10 @@ MonoBehaviour:
   m_Name: GlobalService_Overlay_SceneData_Scene
   m_EditorClassIdentifier: 
   _name:
-    m_SceneAsset: {fileID: 0}
-    m_SceneName: 
+    m_SceneAsset: {fileID: 102900000, guid: c61ecdc24d8f2124e9abe5fdf8eb2682, type: 3}
+    m_SceneName: UI_Overlay
   _reference:
-    m_AssetGUID: 
+    m_AssetGUID: c61ecdc24d8f2124e9abe5fdf8eb2682
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

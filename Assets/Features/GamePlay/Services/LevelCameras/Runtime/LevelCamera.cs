@@ -1,5 +1,5 @@
 ﻿using System;
-using Common.Architecture.Local.Abstract.Callbacks;
+using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
 using GamePlay.Services.LevelCameras.Logs;
 using Global.Cameras.CurrentCameras.Runtime;
 using Global.Inputs.View.Runtime.Projection;
@@ -14,8 +14,8 @@ namespace GamePlay.Services.LevelCameras.Runtime
         MonoBehaviour,
         ILevelCamera,
         IPostFixedUpdatable,
-        ILocalAwakeListener,
-        ILocalSwitchListener
+        IScopeAwakeListener,
+        IScopeSwitchListener
     {
         [Inject]
         private void Construct(

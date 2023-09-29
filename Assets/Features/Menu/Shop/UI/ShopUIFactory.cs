@@ -1,5 +1,7 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Common.Architecture.Local.Abstract;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
+using Cysharp.Threading.Tasks;
 using Menu.Shop.Common;
 using Menu.StateMachine.Definitions;
 using Menu.StateMachine.Extensions;
@@ -11,13 +13,13 @@ namespace Menu.Shop.UI
     [InlineEditor]
     [CreateAssetMenu(fileName = ShopRoutes.ControllerName,
         menuName = ShopRoutes.ControllerPath)]
-    public class ShopUIFactory : ScriptableObject, ILocalServiceFactory
+    public class ShopUIFactory : ScriptableObject, IServiceFactory
     {
         [SerializeField] private TabDefinition _tabDefinition;
         
-        public void Create(IServiceCollection builder, ILocalUtils utils)
+        public async UniTask Create(IServiceCollection services, IScopeUtils utils)
         {
-            builder.Register<ShopController>()
+            services.Register<ShopController>()
                 .As<IShopController>()
                 .AsTab<ShopController>(_tabDefinition);
         }

@@ -1,5 +1,5 @@
 ﻿using System.Threading;
-using Common.Architecture.Local.Abstract.Callbacks;
+using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
 using Cysharp.Threading.Tasks;
 using Menu.Achievements.Global;
 using Menu.StateMachine.Definitions;
@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Menu.Achievements.UI
 {
-    public class AchievementsController : IAchievementsController, ITab, ILocalAwakeListener
+    public class AchievementsController : IAchievementsController, ITab, IScopeAwakeListener
     {
         public AchievementsController(IAchievementsView view, IAchievements achievements)
         {

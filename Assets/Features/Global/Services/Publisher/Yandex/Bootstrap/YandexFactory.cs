@@ -2,6 +2,7 @@
 using Common.Architecture.ScopeLoaders.Runtime.Utils;
 using Cysharp.Threading.Tasks;
 using Global.Audio.Player.Runtime;
+using Global.LevelConfigurations.Runtime;
 using Global.Localizations.Runtime;
 using Global.Publisher.Abstract.Advertisment;
 using Global.Publisher.Abstract.Bootstrap;
@@ -151,7 +152,8 @@ namespace Global.Publisher.Yandex.Bootstrap
                 new CollectionsSave(),
                 new LanguageSave(),
                 new PurchasesSave(),
-                new CalendarSave()
+                new CalendarSave(),
+                new LevelsSave()
             };
         }
     }

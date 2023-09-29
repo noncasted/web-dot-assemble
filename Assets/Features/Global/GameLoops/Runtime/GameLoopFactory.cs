@@ -23,6 +23,7 @@ namespace Global.GameLoops.Runtime
             services.Register<GameLoop>()
                 .WithParameter(_level)
                 .WithParameter(_menu)
+                .WithParameter(utils.Data.Scope)
                 .AsSelfResolvable()
                 .AsCallbackListener();
         }

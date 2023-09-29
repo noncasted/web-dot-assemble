@@ -1,5 +1,7 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Common.Architecture.Local.Abstract;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
+using Cysharp.Threading.Tasks;
 using GamePlay.Level.Dots.Definitions;
 using GamePlay.Level.Dots.Runtime.LifeFlow;
 using GamePlay.Level.Fields.Lifetime;
@@ -13,24 +15,24 @@ namespace GamePlay.Level.Services.FieldFlow.Runtime
     [InlineEditor]
     [CreateAssetMenu(fileName = FieldFlowRoutes.ServiceName,
         menuName = FieldFlowRoutes.ServicePath)]
-    public class FieldFlowFactory : ScriptableObject, ILocalServiceFactory
+    public class FieldFlowFactory : ScriptableObject, IServiceFactory
     {
         [SerializeField] private DotDefinitionsStorage _storage;
         [SerializeField] [Min(0)] private int _dotLifeCycleAmount = 3;
 
-        public void Create(IServiceCollection builder, ILocalUtils utils)
+        public async UniTask Create(IServiceCollection services, IScopeUtils utils)
         {
             var lifeFlowConfig = new DotLifeFlowConfig(_dotLifeCycleAmount);
 
-            builder.Register<FieldLifetime>()
+            services.Register<FieldLifetime>()
                 .As<IFieldLifetime>();
 
-            builder.Register<FieldSeeder>()
+            services.Register<FieldSeeder>()
                 .WithParameter<IDotDefinitionsStorage>(_storage)
                 .WithParameter<IDotLifeFlowConfig>(lifeFlowConfig)
                 .As<IFieldSeeder>();
 
-            builder.Register<FieldFlow>()
+            services.Register<FieldFlow>()
                 .As<IFieldFlow>();
         }
     }

@@ -1,11 +1,11 @@
-﻿using Common.Architecture.Local.Abstract.Callbacks;
+﻿using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
 using Cysharp.Threading.Tasks;
 using Menu.StateMachine.Definitions;
 using Menu.StateMachine.Runtime;
 
 namespace Menu.Loop.Runtime
 {
-    public class MenuLoop : ILocalLoadListener
+    public class MenuLoop : IScopeLoadListener
     {
         public MenuLoop(IStateMachine stateMachine, ITabDefinition mainDefinition)
         {

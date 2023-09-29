@@ -1,8 +1,10 @@
 ﻿using Common.Architecture.Mocks.Runtime;
+using Common.Architecture.ScopeLoaders.Factory;
 using Cysharp.Threading.Tasks;
 using GamePlay.Config.Runtime;
-using Internal.Services.Options.Runtime;
-using Internal.Services.Scenes.Abstract;
+using GamePlay.Loop.Modes;
+using Global.LevelConfigurations.Avatars;
+using Global.LevelConfigurations.Runtime;
 using UnityEngine;
 using VContainer;
 
@@ -13,7 +15,9 @@ namespace GamePlay.Common.GlobalBootstrapMocks
     {
         [SerializeField] private LevelConfig _level;
         [SerializeField] private GlobalMock _mock;
-
+        [SerializeField] private AvatarDefinition _avatar;
+        [SerializeField] private GameMode _gameMode;
+        
         public override async UniTaskVoid Process()
         {
             var result = await _mock.BootstrapGlobal();
@@ -22,12 +26,15 @@ namespace GamePlay.Common.GlobalBootstrapMocks
 
         private async UniTask BootstrapLocal(MockBootstrapResult result)
         {
-            var sceneLoader = result.Resolver.Resolve<ISceneLoader>();
-            var options = result.Resolver.Resolve<IOptions>();
-            
-            var level= await _level.Load(result.Parent, sceneLoader, options);
+            var scopeLoaderFactory = result.Resolver.Resolve<IScopeLoaderFactory>();
+            var scopeLoader = scopeLoaderFactory.Create(_level, result.Parent);
+            var scope = await scopeLoader.Load();
 
-            await result.RegisterLoadedScene(level);
+            var configurationProvider = scope.Scope.Container.Resolve<ILevelConfigurationProvider>();
+            configurationProvider.SetPlayerAvatar(_avatar);
+            configurationProvider.SetMode(_gameMode);
+            
+            await result.RegisterLoadedScene(scope);
         }
     }
 }

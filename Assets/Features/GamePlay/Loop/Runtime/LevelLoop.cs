@@ -1,5 +1,5 @@
 ﻿using System.Threading;
-using Common.Architecture.Local.Abstract.Callbacks;
+using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
 using Cysharp.Threading.Tasks;
 using GamePlay.Level.Fields.Factory;
 using GamePlay.Level.Services.AssembleCheck.Runtime;
@@ -11,7 +11,7 @@ using Global.LevelConfigurations.Runtime;
 
 namespace GamePlay.Loop.Runtime
 {
-    public class LevelLoop : ILocalLoadListener, ILocalAsyncBootstrappedListener
+    public class LevelLoop : IScopeLoadAsyncListener
     {
         public LevelLoop(
             IFieldFlow flow,
@@ -37,7 +37,7 @@ namespace GamePlay.Loop.Runtime
 
         private CancellationTokenSource _cancellation;
 
-        public async UniTask OnBootstrappedAsync()
+        public async UniTask OnLoadedAsync()
         {
             var configuration = await _configurationProvider.GetConfiguration();
             
@@ -47,10 +47,7 @@ namespace GamePlay.Loop.Runtime
             
             _levelUiController.SetAvatars(avatars);
             _score.SetEnemyScore(configuration.TargetScore);
-        }
-
-        public void OnLoaded()
-        {
+            
             _logger.OnLoaded();
             _cancellation = new CancellationTokenSource();
             Begin().Forget();

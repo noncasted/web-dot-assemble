@@ -45,7 +45,7 @@ namespace Common.Architecture.ScopeLoaders.Runtime
             await CreateServices(builder, utils);
             await BuildContainer(builder, utils);
 
-            var loadResult = new ScopeLoadResult(utils.Callbacks, sceneLoader);
+            var loadResult = new ScopeLoadResult(utils.Data.Scope, utils.Callbacks, sceneLoader);
 
             return loadResult;
         }

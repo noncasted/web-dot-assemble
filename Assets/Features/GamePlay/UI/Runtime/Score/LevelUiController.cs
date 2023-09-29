@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading;
-using Common.Architecture.Local.Abstract.Callbacks;
+using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
 using Cysharp.Threading.Tasks;
 using GamePlay.Level.Services.Score.Runtime;
 using Global.System.ApplicationProxies.Runtime;
@@ -8,7 +8,7 @@ using Global.System.MessageBrokers.Runtime;
 
 namespace GamePlay.UI.Runtime.Score
 {
-    public class LevelUiController : ILevelUiController, ILocalSwitchListener
+    public class LevelUiController : ILevelUiController, IScopeSwitchListener
     {
         public LevelUiController(ILevelUiView view, IScreen screen)
         {

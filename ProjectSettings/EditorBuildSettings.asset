@@ -11,15 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Features/GamePlay/Level/Scene/Level_0.unity
     guid: 15b689a9fe7f25d498c61197e8b66959
-  - enabled: 0
-    path: Assets/Features/Global/Config/Global_Services.unity
-    guid: fa9902c71b5f7cd4f98e1a5c19e15def
-  - enabled: 1
-    path: Assets/Features/Common/Architecture/Local/Common/LocalServices.unity
-    guid: cc74b2dbaf6f6fb478f35525e38026b0
-  - enabled: 1
-    path: Assets/Features/GamePlay/Services/Background/Config/UI_Background.unity
-    guid: 1de6794e2d26a6747a493264e3dd21b9
   - enabled: 1
     path: Assets/Features/Global/Services/UI/LoadingScreens/Config/UI_LoadingScreen.unity
     guid: 81db3772e20060e4fa843bd53ffd6f6b
@@ -38,6 +29,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Features/Menu/Config/UI_Menu.unity
     guid: ca993af3aede95b4d974ab5310aedab4
+  - enabled: 1
+    path: Assets/Features/Global/Config/Services_Global.unity
+    guid: fa9902c71b5f7cd4f98e1a5c19e15def
+  - enabled: 1
+    path: Assets/Features/Common/Services_Local.unity
+    guid: 8307dfeea42b506429fc185b4bea41ec
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: e0d16b84aadd0ac468cad9ffa958f37c, type: 2}
   m_UseUCBPForAssetBundles: 0

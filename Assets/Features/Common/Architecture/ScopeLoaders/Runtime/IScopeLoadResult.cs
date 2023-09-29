@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
 using Internal.Services.Scenes.Abstract;
+using VContainer.Unity;
 
 namespace Common.Architecture.ScopeLoaders.Runtime
 {
@@ -8,5 +9,6 @@ namespace Common.Architecture.ScopeLoaders.Runtime
     {
         IReadOnlyDictionary<CallbackStage, ICallbacksHandler> Callbacks { get; }
         IReadOnlyList<ISceneLoadResult> Scenes { get; }
+        LifetimeScope Scope { get; }
     }
 }

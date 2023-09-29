@@ -12,9 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6993896812693c64fa2fe2e5888ef5df, type: 3}
   m_Name: Menu
   m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: 5e3b3abdefd2de34aa31e647a9ce2a7d, type: 2}
-  _loops:
-  - rid: 8644169237181497344
   _achievements: {fileID: 11400000, guid: 09db6fd68a6ed2848b6ac7d50b3bbaaa, type: 2}
   _collections: {fileID: 11400000, guid: 3763cb6e5028c3042930501059dec4a6, type: 2}
   _leaderboards: {fileID: 11400000, guid: 2f79e6b33d8720642af4f8947fde6dba, type: 2}
@@ -27,9 +24,4 @@ MonoBehaviour:
   _stateMachine: {fileID: 11400000, guid: 01f99b4157fa56b459476968d9b2e243, type: 2}
   _loop: {fileID: 11400000, guid: 20362fed774451b45b81ffdb6bbee266, type: 2}
   _scopePrefab: {fileID: 5821963483655333938, guid: a272c3595f6a54142af6fb3b37691900, type: 3}
-  references:
-    version: 2
-    RefIds:
-    - rid: 8644169237181497344
-      type: {class: DefaultEventLoop, ns: Common.Architecture.Local.ComposedSceneConfig, asm: Local.ComposedSceneConfig}
-      data: 
+  _servicesScene: {fileID: 11400000, guid: ccf110f09d2b8014dbbf3bb44fbe2e1e, type: 2}

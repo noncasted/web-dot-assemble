@@ -1,5 +1,7 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Common.Architecture.Local.Abstract;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
+using Cysharp.Threading.Tasks;
 using Menu.Settings.Common;
 using Menu.StateMachine.Definitions;
 using Menu.StateMachine.Extensions;
@@ -11,13 +13,13 @@ namespace Menu.Settings.UI
     [InlineEditor]
     [CreateAssetMenu(fileName = SettingsRoutes.ControllerName,
         menuName = SettingsRoutes.ControllerPath)]
-    public class SettingsUIFactory : ScriptableObject, ILocalServiceFactory
+    public class SettingsUIFactory : ScriptableObject, IServiceFactory
     {
         [SerializeField] private TabDefinition _tabDefinition;
 
-        public void Create(IServiceCollection builder, ILocalUtils utils)
+        public async UniTask Create(IServiceCollection services, IScopeUtils utils)
         {
-            builder.Register<SettingsController>()
+            services.Register<SettingsController>()
                 .As<ISettingsController>()
                 .AsTab<SettingsController>(_tabDefinition);
         }

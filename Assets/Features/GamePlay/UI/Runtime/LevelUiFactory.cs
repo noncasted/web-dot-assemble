@@ -1,10 +1,10 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Common.Architecture.Local.Abstract;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
 using Common.Serialization.NestedScriptableObjects.Attributes;
 using Cysharp.Threading.Tasks;
 using GamePlay.UI.Common;
 using GamePlay.UI.Runtime.Score;
-using Internal.Services.Scenes.Abstract;
 using Internal.Services.Scenes.Data;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -14,16 +14,16 @@ namespace GamePlay.UI.Runtime
     [InlineEditor]
     [CreateAssetMenu(fileName = LevelUIRoutes.ServiceName,
         menuName = LevelUIRoutes.ServicePath)]
-    public class LevelUiFactory : ScriptableObject, ILocalServiceAsyncFactory
+    public class LevelUiFactory : ScriptableObject, IServiceFactory
     {
         [SerializeField] [NestedScriptableObjectField] private SceneData _scene;
         
-        public async UniTask Create(IServiceCollection builder,ISceneLoader sceneLoader, ILocalUtils utils)
+        public async UniTask Create(IServiceCollection services, IScopeUtils utils)
         {
-            var loadResult = await sceneLoader.LoadTyped<LevelUiView>(_scene);
+            var loadResult = await utils.SceneLoader.LoadTyped<LevelUiView>(_scene);
             var view = loadResult.Searched;
             
-            builder.Register<LevelUiController>()
+            services.Register<LevelUiController>()
                 .WithParameter<ILevelUiView>(view)
                 .As<ILevelUiController>()
                 .AsCallbackListener();

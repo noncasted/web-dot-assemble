@@ -1,5 +1,7 @@
 ﻿using Common.Architecture.DiContainer.Abstract;
-using Common.Architecture.Local.Abstract;
+using Common.Architecture.ScopeLoaders.Runtime.Services;
+using Common.Architecture.ScopeLoaders.Runtime.Utils;
+using Cysharp.Threading.Tasks;
 using GamePlay.Loop.Common;
 using GamePlay.Loop.Logs;
 using Sirenix.OdinInspector;
@@ -10,16 +12,16 @@ namespace GamePlay.Loop.Runtime
     [InlineEditor]
     [CreateAssetMenu(fileName = LevelLoopRoutes.ServiceName,
         menuName = LevelLoopRoutes.ServicePath)]
-    public class LevelLoopFactory : ScriptableObject, ILocalServiceFactory
+    public class LevelLoopFactory : ScriptableObject, IServiceFactory
     {
         [SerializeField] [Indent] private LevelLoopLogSettings _logSettings;
 
-        public void Create(IServiceCollection builder, ILocalUtils utils)
+        public async UniTask Create(IServiceCollection services, IScopeUtils utils)
         {
-            builder.Register<LevelLoopLogger>()
+            services.Register<LevelLoopLogger>()
                 .WithParameter(_logSettings);
 
-            builder.Register<LevelLoop>()
+            services.Register<LevelLoop>()
                 .AsCallbackListener();
         }
     }

@@ -1,5 +1,5 @@
 ﻿using System.Threading;
-using Common.Architecture.Local.Abstract.Callbacks;
+using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
 using Cysharp.Threading.Tasks;
 using Menu.Collections.Global;
 using Menu.StateMachine.Definitions;
@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Menu.Collections.UI
 {
-    public class CollectionsController : ICollectionsController, ITab, ILocalAwakeListener
+    public class CollectionsController : ICollectionsController, ITab, IScopeAwakeListener
     {
         public CollectionsController(ICollectionsView view, ICollections collection)
         {

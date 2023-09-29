@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GlobalService_Yandex_SceneData_DebugScene
   m_EditorClassIdentifier: 
   _name:
-    m_SceneAsset: {fileID: 0}
-    m_SceneName: 
+    m_SceneAsset: {fileID: 102900000, guid: 8c346e04f015a744194c0196db34f1e2, type: 3}
+    m_SceneName: Yandex_Debug
   _reference:
-    m_AssetGUID: 
+    m_AssetGUID: 8c346e04f015a744194c0196db34f1e2
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

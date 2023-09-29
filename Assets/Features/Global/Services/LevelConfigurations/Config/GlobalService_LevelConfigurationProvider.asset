@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 759352a13a230b14c8eef2f8cd285dbc, type: 3}
   m_Name: GlobalService_LevelConfigurationProvider
   m_EditorClassIdentifier: 
+  _objects:
+  - {fileID: 11400000, guid: bcb5c2cf89261c64983a19affedf5e09, type: 2}

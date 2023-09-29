@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 908db29699be5514c8251deebd4fe7c2, type: 3}
   m_Name: LevelConfiguration
   m_EditorClassIdentifier: 
+  _enemy: {fileID: 11400000, guid: df3a80cf4d869fd46bd8ee3fa37222df, type: 2}
   _targetScore: 30

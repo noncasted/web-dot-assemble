@@ -1,12 +1,12 @@
 ﻿using System.Threading;
-using Common.Architecture.Local.Abstract.Callbacks;
+using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
 using Cysharp.Threading.Tasks;
 using Menu.StateMachine.Definitions;
 using Menu.StateMachine.Registry;
 
 namespace Menu.StateMachine.Runtime
 {
-    public class StateMachine : IStateMachine, ILocalAwakeListener
+    public class StateMachine : IStateMachine, IScopeAwakeListener
     {
         public StateMachine(ITabsRegistry tabsRegistry, ITransitionPointsRegistry transitionPointsRegistry,
             ITabTransitionHandler transitionHandler)
