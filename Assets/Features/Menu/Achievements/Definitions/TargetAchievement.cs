@@ -1,6 +1,6 @@
 ﻿namespace Menu.Achievements.Definitions
 {
-    public enum AchievementType
+    public enum TargetAchievement
     {
         Ball_0 = 0,
         Ball_1 = 1,

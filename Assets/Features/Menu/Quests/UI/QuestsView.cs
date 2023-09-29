@@ -10,7 +10,7 @@ namespace Menu.Quests.UI
         private RectTransform _transform;
 
         public ITabNavigation Navigation => _navigation;
-        public RectTransform Transform => _transform;   
+        public RectTransform Transform => _transform;
 
         private void Awake()
         {

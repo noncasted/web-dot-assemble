@@ -4,7 +4,7 @@ namespace Menu.Achievements.Definitions
 {
     public class AchievementData : IAchievementData
     {
-        public AchievementData(Sprite sprite, string name, string description, AchievementType type)
+        public AchievementData(Sprite sprite, string name, string description, TargetAchievement type)
         {
             _sprite = sprite;
             _name = name;
@@ -15,11 +15,11 @@ namespace Menu.Achievements.Definitions
         private readonly Sprite _sprite;
         private readonly string _name;
         private readonly string _description;
-        private readonly AchievementType _type;
+        private readonly TargetAchievement _type;
 
         public Sprite Icon => _sprite;
         public string Name => _name;
         public string Description => _description;
-        public AchievementType Type => _type;
+        public TargetAchievement Type => _type;
     }
 }

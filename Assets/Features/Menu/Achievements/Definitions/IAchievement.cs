@@ -5,5 +5,6 @@
         IAchievementProgress Progress { get; }
         IAchievementData Data { get; }
         IAchievementCompletionChecker CompletionChecker { get; }
+        IAchievementCompletionProcessor CompletionProcessor { get; }
     }
 }

@@ -23,7 +23,7 @@ namespace Menu.Achievements.Global
         private readonly IAchievementFactory _factory;
         private readonly IAchievementsConfigsRegistry _configsRegistry;
 
-        private readonly Dictionary<AchievementType, IAchievement> _achievements = new();
+        private readonly Dictionary<TargetAchievement, IAchievement> _achievements = new();
 
         public async UniTask OnBootstrapAsync()
         {
@@ -65,7 +65,7 @@ namespace Menu.Achievements.Global
                 value.Progress.Fetch();
         }
 
-        public IAchievement Get(AchievementType type)
+        public IAchievement Get(TargetAchievement type)
         {
             return _achievements[type];
         }

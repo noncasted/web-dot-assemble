@@ -10,6 +10,5 @@ namespace Global.Publisher.Abstract.Purchases
         menuName = PublisherRoutes.ProductsRegistryPath)]
     public class ShopProductsRegistry : ScriptableRegistry<ProductLink>
     {
-        
     }
 }

@@ -28,6 +28,9 @@ namespace Common.Serialization.ScriptableRegistries
                 if (asset == null)
                     continue;
 
+                if (IsObjectValid(asset) == false)
+                    continue;
+                
                 definitions.Add(asset);
             }
             
@@ -46,6 +49,11 @@ namespace Common.Serialization.ScriptableRegistries
         protected virtual void OnRegistryValidation(IReadOnlyList<T> objects)
         {
             
+        }
+
+        protected virtual bool IsObjectValid(T target)
+        {
+            return true;
         }
     }
 }

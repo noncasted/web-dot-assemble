@@ -4,14 +4,14 @@ namespace Menu.Achievements.Definitions
 {
     public class AchievementProgress : IAchievementProgress
     {
-        public AchievementProgress(AchievementType type, int target, int progress)
+        public AchievementProgress(TargetAchievement type, int target, int progress)
         {
             _type = type;
             _target = target;
             _progress = progress;
         }
 
-        private readonly AchievementType _type;
+        private readonly TargetAchievement _type;
         private readonly int _target;
 
         private int _previousFetch;

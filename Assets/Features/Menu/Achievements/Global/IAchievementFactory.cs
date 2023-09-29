@@ -5,6 +5,6 @@ namespace Menu.Achievements.Global
 {
     public interface IAchievementFactory
     {
-        IAchievement Create(AchievementConfig config, IReadOnlyDictionary<AchievementType, int> save);
+        IAchievement Create(AchievementConfig config, IReadOnlyDictionary<TargetAchievement, int> save);
     }
 }

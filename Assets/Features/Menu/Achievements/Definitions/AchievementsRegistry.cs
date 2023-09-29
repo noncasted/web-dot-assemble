@@ -16,7 +16,7 @@ namespace Menu.Achievements.Definitions
         protected override void OnRegistryValidation(IReadOnlyList<AchievementConfig> objects)
         {
             for (var i = 0; i < objects.Count; i++)
-                objects[i].SetType((AchievementType)i);
+                objects[i].SetType((TargetAchievement)i);
         }
     }
 }

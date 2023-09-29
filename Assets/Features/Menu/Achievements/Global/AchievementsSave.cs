@@ -10,14 +10,14 @@ namespace Menu.Achievements.Global
     {
         public const string Key = "Achievements";
         
-        private Dictionary<AchievementType, int> _entries;
+        private Dictionary<TargetAchievement, int> _entries;
         
         public string SaveKey => "Achievements";
         public event Action Changed;
 
-        public IReadOnlyDictionary<AchievementType, int> Entries => _entries;
+        public IReadOnlyDictionary<TargetAchievement, int> Entries => _entries;
 
-        public void Update(AchievementType type, int progress)
+        public void Update(TargetAchievement type, int progress)
         {
             _entries[type] = progress;
             Changed?.Invoke();
@@ -25,7 +25,7 @@ namespace Menu.Achievements.Global
         
         public void CreateDefault()
         {
-            _entries = new Dictionary<AchievementType, int>();
+            _entries = new Dictionary<TargetAchievement, int>();
         }
 
         public string Serialize()
@@ -35,7 +35,7 @@ namespace Menu.Achievements.Global
 
         public void Deserialize(string raw)
         {
-            _entries = JsonConvert.DeserializeObject<Dictionary<AchievementType, int>>(raw);
+            _entries = JsonConvert.DeserializeObject<Dictionary<TargetAchievement, int>>(raw);
         }
     }
 }

@@ -44,9 +44,9 @@ namespace Menu.Achievements.Global
     {
     }
 
-    public class AchievementTypeHandlerProgress<T> : AchievementCompletionChecker<T>
+    public class ProgressCompletionChecker<T> : AchievementCompletionChecker<T>
     {
-        public AchievementTypeHandlerProgress(IAchievementProgress progress) : base(progress)
+        public ProgressCompletionChecker(IAchievementProgress progress) : base(progress)
         {
         }
 
