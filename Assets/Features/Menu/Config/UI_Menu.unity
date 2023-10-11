@@ -1333,60 +1333,60 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _left:
-  - {fileID: 189610828}
-  - {fileID: 1792876013}
-  - {fileID: 320982890}
-  - {fileID: 1441829831}
-  - {fileID: 1721821735}
-  - {fileID: 1042871733}
-  - {fileID: 211370449}
-  - {fileID: 592578083}
-  - {fileID: 2035560608}
-  - {fileID: 997273170}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   _right:
-  - {fileID: 1100861232}
-  - {fileID: 1098081763}
-  - {fileID: 1788153439}
-  - {fileID: 636223395}
-  - {fileID: 1573627072}
-  - {fileID: 861078470}
-  - {fileID: 1079114774}
-  - {fileID: 932833325}
-  - {fileID: 227307336}
-  - {fileID: 1749247581}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   _top:
-  - {fileID: 1869246657}
-  - {fileID: 1524548998}
-  - {fileID: 762314760}
-  - {fileID: 1135600921}
-  - {fileID: 1354545058}
-  - {fileID: 1917890870}
-  - {fileID: 1775299639}
-  - {fileID: 742910199}
-  - {fileID: 1928992393}
-  - {fileID: 1036307427}
-  - {fileID: 285903644}
-  - {fileID: 184189747}
-  - {fileID: 476734330}
-  - {fileID: 132477161}
-  - {fileID: 1702875781}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   _bottom:
-  - {fileID: 839658050}
-  - {fileID: 516065819}
-  - {fileID: 1257178151}
-  - {fileID: 515438769}
-  - {fileID: 1852326227}
-  - {fileID: 415860256}
-  - {fileID: 1688605886}
-  - {fileID: 1590025388}
-  - {fileID: 453884760}
-  - {fileID: 708498748}
-  - {fileID: 1133456069}
-  - {fileID: 1396886005}
-  - {fileID: 1407999303}
-  - {fileID: 1103434550}
-  - {fileID: 1727972477}
-  _center: {fileID: 763157444}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _center: {fileID: 0}
 --- !u!114 &142583324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1400,14 +1400,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _root: {fileID: 142583320}
-  _achievements: {fileID: 538417040}
-  _collections: {fileID: 1728726766}
-  _leaderboards: {fileID: 160410447}
-  _main: {fileID: 1245376130}
-  _quests: {fileID: 199213527}
-  _settings: {fileID: 1461141382}
-  _shopView: {fileID: 1579395763}
-  _calendar: {fileID: 312689569}
+  _achievements: {fileID: 0}
+  _collections: {fileID: 0}
+  _leaderboards: {fileID: 0}
+  _main: {fileID: 0}
+  _quests: {fileID: 0}
+  _settings: {fileID: 0}
+  _shopView: {fileID: 0}
+  _calendar: {fileID: 0}
   _tabTransitionPoints: {fileID: 142583323}
 --- !u!1001 &151960438
 PrefabInstance:
@@ -20971,6 +20971,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mode_Diagonal
       objectReference: {fileID: 0}
+    - target: {fileID: 1262400772197621723, guid: a6ba7890ecc61a44d8c1221bd18d8d27, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3096573042919173530, guid: a6ba7890ecc61a44d8c1221bd18d8d27, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -21056,12 +21060,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 027341f1a33611e4db635e77436ef65d, type: 3}
     - target: {fileID: 6522628948654345748, guid: a6ba7890ecc61a44d8c1221bd18d8d27, type: 3}
+      propertyPath: _stateHandlers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6522628948654345748, guid: a6ba7890ecc61a44d8c1221bd18d8d27, type: 3}
       propertyPath: '_stateHandlers.Array.data[0]'
       value: 1510322190865399809
       objectReference: {fileID: 0}
     - target: {fileID: 6522628948654345748, guid: a6ba7890ecc61a44d8c1221bd18d8d27, type: 3}
+      propertyPath: '_stateHandlers.Array.data[1]'
+      value: 1510322405781274626
+      objectReference: {fileID: 0}
+    - target: {fileID: 6522628948654345748, guid: a6ba7890ecc61a44d8c1221bd18d8d27, type: 3}
       propertyPath: 'managedReferences[1510322190865399809]'
       value: Common.UI.Buttons Common.UI.Buttons.ImageSwitchButtonState
+      objectReference: {fileID: 0}
+    - target: {fileID: 6522628948654345748, guid: a6ba7890ecc61a44d8c1221bd18d8d27, type: 3}
+      propertyPath: 'managedReferences[1510322405781274626]'
+      value: Common.UI.Buttons Common.UI.Buttons.DynamicHover
       objectReference: {fileID: 0}
     - target: {fileID: 6522628948654345748, guid: a6ba7890ecc61a44d8c1221bd18d8d27, type: 3}
       propertyPath: managedReferences[1510322190865399809]._image

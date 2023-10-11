@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using Common.Serialization.NestedScriptableObjects.Attributes;
 using Sirenix.OdinInspector.Editor;
+using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
@@ -60,9 +61,19 @@ namespace Common.Serialization.NestedScriptableObjects.Editor
             {
                 //Display value dropdown
                 EditorGUI.BeginChangeCheck();
+                EditorGUILayout.BeginHorizontal();
                 var rect = EditorGUILayout.GetControlRect();
-                rect = EditorGUI.PrefixLabel(rect, label);
-                var valueIndex = SirenixEditorFields.Dropdown(rect, 0, GetDropdownList(assetPaths));
+                var labelWidth = rect.width * 0.2f;  
+                var dropdownWidth = rect.width * 0.4f;
+
+                var rect1 = new Rect(rect.x, rect.y, labelWidth, rect.height);
+                var rect2 = new Rect(rect.x + labelWidth, rect.y, dropdownWidth, rect.height);
+                
+                EditorGUI.PrefixLabel(rect1, label);
+                var valueIndex = SirenixEditorFields.Dropdown(rect2.AlignRight(100), 0, GetDropdownList(assetPaths));
+                CallNextDrawer(label);
+                EditorGUILayout.EndHorizontal();
+
                 if (EditorGUI.EndChangeCheck() && valueIndex > 0)
                 {
                     var newObject = (T)ScriptableObject.CreateInstance(AssetDatabase
