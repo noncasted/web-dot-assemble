@@ -3,6 +3,7 @@ using Menu.Common.Tasks.Abstract;
 
 namespace Menu.Common.Tasks.Runtime
 {
+    [Serializable]
     public abstract class TaskCompletionChecker<T> : ITaskCompletionChecker
     {
         public TaskCompletionChecker(ITaskTriggerListenerFactory<T> triggerListenerFactory)
@@ -29,37 +30,21 @@ namespace Menu.Common.Tasks.Runtime
         protected abstract void OnTriggered(T payload);
     }
 
-    public class ProgressionTaskCompletionChecker : TaskCompletionChecker<IProgressionTask>
+    [Serializable]
+    public class ProgressionTaskCompletionChecker<T> : TaskCompletionChecker<T> where T : IProgressionTask
     {
         public ProgressionTaskCompletionChecker(
             ITaskProgress progress,
-            ITaskTriggerListenerFactory<IProgressionTask> triggerListenerFactory) : base(triggerListenerFactory)
+            ITaskTriggerListenerFactory<T> triggerListenerFactory) : base(triggerListenerFactory)
         {
             _progress = progress;
         }
 
         private readonly ITaskProgress _progress;
 
-        protected override void OnTriggered(IProgressionTask payload)
+        protected override void OnTriggered(T payload)
         {
             _progress.OnProgress(payload.Value);
-        }
-    }
-
-    public class ProgressionTaskTrigger<T> : ITaskTrigger<T>, IProgressionTask
-    {
-        public ProgressionTaskTrigger(int value)
-        {
-            _value = value;
-        }
-
-        private readonly int _value;
-
-        public int Value => _value;
-        
-        public ITask CreateHandle()
-        {
-            return null;
         }
     }
 }

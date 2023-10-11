@@ -3,7 +3,7 @@ using System.Linq;
 using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
 using Cysharp.Threading.Tasks;
 using Global.Publisher.Abstract.DataStorages;
-using Menu.Achievements.Definitions;
+using Menu.Common.Tasks.Abstract;
 
 namespace Menu.Achievements.Global
 {
@@ -11,46 +11,43 @@ namespace Menu.Achievements.Global
     {
         public Achievements(
             IDataStorage storage,
-            IAchievementFactory factory,
-            IAchievementsConfigsRegistry configsRegistry)
+            IReadOnlyList<ITaskFactory> taskFactories)
         {
             _storage = storage;
-            _factory = factory;
-            _configsRegistry = configsRegistry;
+            _taskFactories = taskFactories;
         }
 
         private readonly IDataStorage _storage;
-        private readonly IAchievementFactory _factory;
-        private readonly IAchievementsConfigsRegistry _configsRegistry;
+        private readonly IReadOnlyList<ITaskFactory> _taskFactories;
 
-        private readonly Dictionary<TargetAchievement, IAchievement> _achievements = new();
+        private readonly Dictionary<string, IGoalTask> _achievements = new();
 
         public async UniTask OnEnabledAsync()
         {
             var saves = await _storage.GetEntry<AchievementsSave>(AchievementsSave.Key);
-            var configs = _configsRegistry.GetConfigs();
 
-            foreach (var config in configs)
+            foreach (var factory in _taskFactories)
             {
-                var achievement = _factory.Create(config, saves.Entries);
-                _achievements[config.Type] = achievement;
+                saves.Entries.TryGetValue(factory.Key, out var progress);
+                var task = factory.Create(progress);
+                _achievements.Add(factory.Key, task);
             }
         }
 
-        public IReadOnlyList<IAchievement> GetAll()
+        public IReadOnlyList<IGoalTask> GetAll()
         {
             return _achievements.Values.ToList();
         }
 
-        public IReadOnlyList<IAchievement> GetProgressed()
+        public IReadOnlyList<IGoalTask> GetProgressed()
         {
-            var progressed = new List<IAchievement>();
+            var progressed = new List<IGoalTask>();
 
             foreach (var (_, value) in _achievements)
             {
                 var progress = value.Progress;
 
-                if (progress.Value <= progress.PreviousFetch)
+                if (progress.Current <= progress.Previous)
                     continue;
 
                 progressed.Add(value);
@@ -58,16 +55,16 @@ namespace Menu.Achievements.Global
 
             return progressed;
         }
-
+ 
         public void FetchAll()
         {
             foreach (var (_, value) in _achievements)
                 value.Progress.Fetch();
         }
 
-        public IAchievement Get(TargetAchievement type)
+        public IGoalTask Get(string id) 
         {
-            return _achievements[type];
+            return _achievements[id];
         }
     }
 }

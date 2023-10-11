@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Global.Publisher.Abstract.DataStorages;
-using Menu.Achievements.Definitions;
 using Newtonsoft.Json;
 
 namespace Menu.Achievements.Global
@@ -10,22 +9,22 @@ namespace Menu.Achievements.Global
     {
         public const string Key = "Achievements";
         
-        private Dictionary<TargetAchievement, int> _entries;
+        private Dictionary<string, int> _entries;
         
         public string SaveKey => "Achievements";
         public event Action Changed;
 
-        public IReadOnlyDictionary<TargetAchievement, int> Entries => _entries;
+        public IReadOnlyDictionary<string, int> Entries => _entries;
 
-        public void Update(TargetAchievement type, int progress)
+        public void Update(string key, int progress)
         {
-            _entries[type] = progress;
+            _entries[key] = progress;
             Changed?.Invoke();
         }
         
         public void CreateDefault()
         {
-            _entries = new Dictionary<TargetAchievement, int>();
+            _entries = new Dictionary<string, int>();
         }
 
         public string Serialize()
@@ -35,7 +34,7 @@ namespace Menu.Achievements.Global
 
         public void Deserialize(string raw)
         {
-            _entries = JsonConvert.DeserializeObject<Dictionary<TargetAchievement, int>>(raw);
+            _entries = JsonConvert.DeserializeObject<Dictionary<string, int>>(raw);
         }
     }
 }

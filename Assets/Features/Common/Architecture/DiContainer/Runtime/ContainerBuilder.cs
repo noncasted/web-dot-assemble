@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Common.Architecture.DiContainer.Abstract;
 using UnityEngine;
 using VContainer;
 using VContainer.Internal;
 using VContainer.Unity;
+using Object = UnityEngine.Object;
 
 namespace Common.Architecture.DiContainer.Runtime
 {
@@ -68,6 +70,9 @@ namespace Common.Architecture.DiContainer.Runtime
 
         public void Inject<T>(T component) where T : Object
         {
+            if (component == null)
+                throw new NullReferenceException("No component provided");
+            
             var injection = new Injection(component);
 
             _injections.Add(injection);

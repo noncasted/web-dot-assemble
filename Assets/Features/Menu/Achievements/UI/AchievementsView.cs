@@ -2,9 +2,9 @@
 using System.Threading;
 using Common.UI.Buttons;
 using Cysharp.Threading.Tasks;
-using Menu.Achievements.Definitions;
 using Menu.Common.Navigation;
 using Menu.Common.Pages;
+using Menu.Common.Tasks.Abstract;
 using UnityEngine;
 
 namespace Menu.Achievements.UI
@@ -12,7 +12,7 @@ namespace Menu.Achievements.UI
     [DisallowMultipleComponent]
     public class AchievementsView : MonoBehaviour, IAchievementsView
     {
-        [SerializeField] private EntriesStorage<AchievementEntryView, IAchievement> _entries;
+        [SerializeField] private EntriesStorage<AchievementEntryView, IGoalTask> _entries;
         [SerializeField] private PageIndexViewFactory _pageIndexViewFactory;
         [SerializeField] private PagesSwitchInvoker _pagesSwitchInvoker;
         [SerializeField] private PagesSwitchConfiguration _configuration;
@@ -54,9 +54,9 @@ namespace Menu.Achievements.UI
             _pages.Disable();
         }
 
-        public void Construct(IReadOnlyList<IAchievement> achievements)
+        public void Construct(IReadOnlyList<IGoalTask> achievements)
         {
-            var pagesFactory = new PagesFactory<AchievementEntryView, IAchievement>(_entries, _pageIndexViewFactory, _configuration);
+            var pagesFactory = new PagesFactory<AchievementEntryView, IGoalTask>(_entries, _pageIndexViewFactory, _configuration);
             var pages = pagesFactory.Create(achievements);
             _pages = new PagesContainer(pages, _pagesSwitchInvoker);
         }
@@ -66,7 +66,7 @@ namespace Menu.Achievements.UI
             _pages.Enable();
         }
 
-        private void OnAchievementSelected(IAchievement achievement)
+        private void OnAchievementSelected(IGoalTask achievement)
         {
             _dataWindowCancellation = new CancellationTokenSource();
             _dataWindow.Show(achievement, _dataWindowCancellation.Token).Forget();

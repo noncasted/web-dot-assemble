@@ -1,3 +1,4 @@
 ﻿{
-  "name": "Menu.Achievements.Implementations"
+  "name": "Menu.Achievements.Implementations",
+  "references":[ "GUID:508cfde119151ee43adc595f1b95c401", "GUID:6743c9921dfb8df479181bbacfdda75d", "GUID:0801180bbfa2f86479491ecea736f7fc" ]
 }

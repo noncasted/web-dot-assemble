@@ -73,7 +73,6 @@ namespace Common.Serialization.NestedScriptableObjects.Editor
             }
             else
             {
-                Debug.Log("VALUE NOT NULL");
                 //Display object field with a delete button
                 EditorGUILayout.BeginHorizontal();
                 CallNextDrawer(label);

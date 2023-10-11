@@ -2,6 +2,7 @@
 {
     public interface ITaskFactory
     {
-        ITask Create();
+        string Key { get; }
+        IGoalTask Create(int currentProgress);
     }
 }

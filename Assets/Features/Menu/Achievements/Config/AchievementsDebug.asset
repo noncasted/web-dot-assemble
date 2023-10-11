@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed940f32e7175e64783a893a81d98f4d, type: 3}
   m_Name: AchievementsDebug
   m_EditorClassIdentifier: 
-  _target: {fileID: 11400000, guid: c414504dc74c4b74e97e12c26b7246d4, type: 2}
-  _targetProgress: 100
+  _targetProgress: 0

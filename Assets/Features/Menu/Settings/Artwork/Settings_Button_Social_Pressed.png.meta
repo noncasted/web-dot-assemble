@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 3b0470b6a9d357647be7356c067ea2ec
+guid: 60662854900121740aa6294d8ce7be92
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6077373048253449265
-    second: Settings_Button_Social_Idlle_0
+      213: -6500354730843616510
+    second: Settings_Button_Social_Pressed_0
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Settings_Button_Social_Idlle_0
+      name: Settings_Button_Social_Pressed_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1340eac869a275450800000000000000
-      internalID: 6077373048253449265
+      spriteID: 20b490a00d91ac5a0800000000000000
+      internalID: -6500354730843616510
       vertices: []
       indices: 
       edges: []
@@ -133,7 +133,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -141,7 +141,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Settings_Button_Social_Idlle_0: 6077373048253449265
+      Settings_Button_Social_Pressed_0: -6500354730843616510
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

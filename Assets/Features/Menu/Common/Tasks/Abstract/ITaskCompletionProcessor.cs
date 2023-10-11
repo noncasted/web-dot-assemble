@@ -2,7 +2,8 @@
 {
     public interface ITaskCompletionProcessor
     {
-        void Construct();
+        void Construct(ITaskCompletionChecker completionChecker);
+        void Enable();
         void Dispose();
     }
 }

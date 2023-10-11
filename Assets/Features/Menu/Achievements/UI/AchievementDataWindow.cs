@@ -2,7 +2,7 @@
 using Common.UI.ProgressBars;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using Menu.Achievements.Definitions;
+using Menu.Common.Tasks.Abstract;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,7 +20,7 @@ namespace Menu.Achievements.UI
         [SerializeField] private TMP_Text _description;
         [SerializeField] private ProgressBar _progressBar;
 
-        public async UniTask Show(IAchievement achievement, CancellationToken cancellation)
+        public async UniTask Show(IGoalTask achievement, CancellationToken cancellation)
         {
             gameObject.SetActive(true);
             cancellation.Register(() => gameObject.SetActive(false));
@@ -38,7 +38,7 @@ namespace Menu.Achievements.UI
 
             await UniTask.Delay(_barDelay, cancellation);
             
-            var progress = achievement.Progress.Value / (float) achievement.Progress.Target;
+            var progress = achievement.Progress.Current / (float) achievement.Progress.Target;
             await _progressBar.UpdateProgress(progress, cancellation);
         }
         

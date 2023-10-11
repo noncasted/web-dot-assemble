@@ -139,12 +139,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _triggerReceiver: {fileID: 584793427835960962}
   _stateHandlers:
-  - rid: 7006731837237100547
+  - rid: 1510322190865399810
   references:
     version: 2
     RefIds:
-    - rid: 7006731837237100547
-      type: {class: ImageSwitchButtonState, ns: Common.UI.Extended.Buttons, asm: Common.Extended.Buttons}
+    - rid: 1510322190865399810
+      type: {class: ImageSwitchButtonState, ns: Common.UI.Buttons, asm: Common.UI.Buttons}
       data:
         _image: {fileID: 5177502962717130713}
         _entered: {fileID: 0}

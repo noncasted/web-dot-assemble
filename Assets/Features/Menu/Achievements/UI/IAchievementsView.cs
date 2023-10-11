@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Menu.Achievements.Definitions;
 using Menu.Common.Navigation;
+using Menu.Common.Tasks.Abstract;
 using UnityEngine;
 
 namespace Menu.Achievements.UI
@@ -14,7 +14,7 @@ namespace Menu.Achievements.UI
         void Enable();
         void Disable();
 
-        void Construct(IReadOnlyList<IAchievement> achievement);
+        void Construct(IReadOnlyList<IGoalTask> achievement);
         UniTask Open();
     }
 }

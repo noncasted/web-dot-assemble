@@ -68,7 +68,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1626707696485109799, guid: 52fcf1fc827aad4408b884bbc7c5af00, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d5883ae728324944a908a8d077167963, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -92,17 +92,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _triggerReceiver: {fileID: 5365257256045797597}
   _stateHandlers:
-  - rid: 7006731858954158081
+  - rid: 1510322190865399819
   references:
     version: 2
     RefIds:
-    - rid: 7006731858954158081
-      type: {class: ImageSwitchButtonState, ns: Common.UI.Extended.Buttons, asm: Common.Extended.Buttons}
+    - rid: 1510322190865399819
+      type: {class: ImageSwitchButtonState, ns: Common.UI.Buttons, asm: Common.UI.Buttons}
       data:
         _image: {fileID: 7926875712055037465}
-        _entered: {fileID: 2452539637166435076, guid: 98b1acdde12725b44b7ffa1419ac4347, type: 3}
-        _pressed: {fileID: 352333163891320791, guid: 78f3b13e888f76540aeb52e31e6bd646, type: 3}
-        _exited: {fileID: -1626707696485109799, guid: 52fcf1fc827aad4408b884bbc7c5af00, type: 3}
+        _entered: {fileID: 21300000, guid: 3f201ca5851b5e149ab8515eca26646d, type: 3}
+        _pressed: {fileID: 21300000, guid: f046ea2c88630e04d992c144e03c3b1f, type: 3}
+        _exited: {fileID: 21300000, guid: d5883ae728324944a908a8d077167963, type: 3}
 --- !u!114 &5365257256045797597
 MonoBehaviour:
   m_ObjectHideFlags: 0

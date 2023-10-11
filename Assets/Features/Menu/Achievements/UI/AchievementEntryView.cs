@@ -3,23 +3,23 @@ using System.Threading;
 using Common.UI.Buttons;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using Menu.Achievements.Definitions;
 using Menu.Common.Pages;
+using Menu.Common.Tasks.Abstract;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Menu.Achievements.UI
 {
     [DisallowMultipleComponent]
-    public class AchievementEntryView : PageEntry<IAchievement>
+    public class AchievementEntryView : PageEntry<IGoalTask>
     {
         [SerializeField] private Image _icon;
         [SerializeField] private ExtendedTriggerReceiver _triggerReceiver;
         [SerializeField] private AchievementEntryViewConfig _config;
         
-        private IAchievement _achievement;
+        private IGoalTask _achievement;
 
-        public event Action<IAchievement> Selected; 
+        public event Action<IGoalTask> Selected; 
 
         private void Awake()
         {
@@ -36,7 +36,7 @@ namespace Menu.Achievements.UI
             _triggerReceiver.PointerUp -= OnSelected;
         }
 
-        public override async UniTask Show(IAchievement achievement, CancellationToken cancellation)
+        public override async UniTask Show(IGoalTask achievement, CancellationToken cancellation)
         {
             _achievement = achievement;
             gameObject.SetActive(true);

@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-using Menu.Achievements.Definitions;
+using Menu.Common.Tasks.Abstract;
 
 namespace Menu.Achievements.Global
 {
     public interface IAchievements
     {
-        IReadOnlyList<IAchievement> GetAll();
-        IReadOnlyList<IAchievement> GetProgressed();
+        IReadOnlyList<IGoalTask> GetAll();
+        IReadOnlyList<IGoalTask> GetProgressed();
         void FetchAll();
-        IAchievement Get(TargetAchievement type);
+        IGoalTask Get(string id);
     }
 }

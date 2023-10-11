@@ -4,13 +4,14 @@ namespace Menu.Common.Tasks.Runtime
 {
     public class TaskProgress : ITaskProgress
     {
-        public TaskProgress(int target)
+        public TaskProgress(int target, int progress)
         {
             _target = target;
+            _current = progress;
         }
         
         private readonly int _target;
-        
+
         private int _previous;
         private int _current;
 
