@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: DotDefinition_16
   m_EditorClassIdentifier: 
   _prefab: {fileID: 5525502235769865552, guid: f77fb04aa5aa4b64e9003a22cfec28f7, type: 3}
-  _largeActive: {fileID: 21300000, guid: 39a8d981437233745aab1bbd73d899f2, type: 3}
-  _largeInactive: {fileID: 21300000, guid: f0dc207b9699c9443ad03f12cd70d4a4, type: 3}
-  _small: {fileID: 21300000, guid: 721251a195e6aa840a1e1fe4c319301f, type: 3}
+  _largeActive: {fileID: 21300000, guid: d66b857fd2c28c54b9529670e3b229e0, type: 3}
+  _largeInactive: {fileID: 21300000, guid: 3c95299a55fd52d43b37017e7d357f7b, type: 3}
+  _small: {fileID: 21300000, guid: 0cd301d06fcb5164db90b00ff9edff1b, type: 3}

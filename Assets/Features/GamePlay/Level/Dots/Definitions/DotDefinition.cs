@@ -12,17 +12,20 @@ namespace GamePlay.Level.Dots.Definitions
         [SerializeField] private Sprite _largeActive;
         [SerializeField] private Sprite _largeInactive;
         [SerializeField] private Sprite _small;
+        [SerializeField] private int _id;
 
         public Sprite Image => _largeActive;
         public Sprite ActiveIcon => _small;
         public Sprite InactiveIcon => _largeInactive;
         public GameObject Prefab => _prefab;
- 
-        public void SetImages(Sprite largeActive, Sprite largeInactive, Sprite small)
+        public int Id => _id;   
+
+        public void SetImages(Sprite largeActive, Sprite largeInactive, Sprite small, int id)
         {
             _largeActive = largeActive;
             _largeInactive = largeInactive;
             _small = small;
+            _id = id;
         }
     }
 }

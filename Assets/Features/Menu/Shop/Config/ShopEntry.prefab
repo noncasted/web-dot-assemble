@@ -620,7 +620,7 @@ MonoBehaviour:
   _descriptionText: {fileID: 884193484373455356}
   _priceText: {fileID: 1194114521959455334}
   _currencyImage: {fileID: 3500088924102087312}
-  _adImage: {fileID: 0}
+  _adImage: {fileID: 7887488601251573487}
 --- !u!114 &5286943244531716565
 MonoBehaviour:
   m_ObjectHideFlags: 0

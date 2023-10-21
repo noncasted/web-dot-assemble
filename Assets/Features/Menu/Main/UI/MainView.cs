@@ -13,7 +13,7 @@ namespace Menu.Main.UI
 
         public IModeSelection ModeSelection => _modeSelection;
         public ITabNavigation Navigation => _navigation;
-        public RectTransform Transform => _transform;   
+        public RectTransform Transform => _transform;
 
         private void Awake()
         {

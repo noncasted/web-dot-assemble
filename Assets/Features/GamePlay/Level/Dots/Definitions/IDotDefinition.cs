@@ -8,5 +8,6 @@ namespace GamePlay.Level.Dots.Definitions
         Sprite ActiveIcon { get; }
         Sprite InactiveIcon { get; }
         GameObject Prefab { get; }
+        int Id { get; }
     }
 }

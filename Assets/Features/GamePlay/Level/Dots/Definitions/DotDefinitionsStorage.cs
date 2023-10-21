@@ -15,8 +15,21 @@ namespace GamePlay.Level.Dots.Definitions
     public class DotDefinitionsStorage : ScriptableRegistry<DotDefinition>, IDotDefinitionsStorage
     {
         [SerializeField] private Sprite[] _images;
+
+        private IReadOnlyDictionary<int, IDotDefinition> _dictionary;
         
         public IReadOnlyList<IDotDefinition> Definitions => Objects;
+        public IReadOnlyDictionary<int, IDotDefinition> Dictionary => _dictionary;
+
+        public void Setup()
+        {
+            var dictionary = new Dictionary<int, IDotDefinition>();
+
+            foreach (var dot in Objects)
+                dictionary.Add(dot.Id, dot);
+
+            _dictionary = dictionary;
+        }
 
         public IDotDefinition GetRandom()
         {
@@ -25,7 +38,7 @@ namespace GamePlay.Level.Dots.Definitions
         }
 
         [Button]
-        private void AssignImages()
+        private void Process()
         {
             #if UNITY_EDITOR
             for (var i = 0; i < Objects.Count; i++)
@@ -33,7 +46,7 @@ namespace GamePlay.Level.Dots.Definitions
                 var target = Objects[i];
                 Undo.RecordObject(target, "Assign images");
                 var index = i * 3;
-                target.SetImages(_images[index + 1], _images[index], _images[index + 2]);
+                target.SetImages(_images[index + 1], _images[index], _images[index + 2], i);
                 Undo.RecordObject(target, "Assign images");
             }   
             #endif

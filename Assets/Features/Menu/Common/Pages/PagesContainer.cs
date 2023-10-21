@@ -36,6 +36,12 @@ namespace Menu.Common.Pages
             foreach (var page in _pages)
                 page.DeactivateIndex();
 
+            if (_currentIndex == _pages.Count - 1)
+                _switchInvoker.DisableNext();
+            
+            if (_currentIndex == 0)
+                _switchInvoker.DisablePrevious();
+            
             Switch(null, _pages.First()).Forget();
         }
 
