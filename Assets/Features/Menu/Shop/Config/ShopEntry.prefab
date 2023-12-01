@@ -571,6 +571,7 @@ GameObject:
   - component: {fileID: 5469033090695135187}
   - component: {fileID: 6094760722137366106}
   - component: {fileID: 5286943244531716565}
+  - component: {fileID: 3121596819111060059}
   m_Layer: 5
   m_Name: ShopEntry
   m_TagString: Untagged
@@ -635,17 +636,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _triggerReceiver: {fileID: 6175427366965231089}
   _stateHandlers:
-  - rid: 1510322190865399829
-  references:
-    version: 2
-    RefIds:
-    - rid: 1510322190865399829
-      type: {class: ImageSwitchButtonState, ns: Common.UI.Buttons, asm: Common.UI.Buttons}
-      data:
-        _image: {fileID: 7213860381860095462}
-        _entered: {fileID: 0}
-        _pressed: {fileID: 0}
-        _exited: {fileID: 0}
+  - {fileID: 3121596819111060059}
+--- !u!114 &3121596819111060059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6856084874129547170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 528652e1ab255db418189dfbd92587a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 7213860381860095462}
+  _idle: {fileID: 0}
+  _pressed: {fileID: 0}
+  _selected: {fileID: 0}
 --- !u!1 &7887488601251573487
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,6 +15,7 @@ namespace Global.LevelConfigurations.Runtime
         public string SaveKey => Key;
         public int PassedIndex => _value.PassedIndex;
         public IReadOnlyList<int> SelectedDots => _value.SelectedDots;
+        public string SelectedAvatar => _value.SelectedAvatar;
 
         public event Action Changed;
 
@@ -49,12 +50,19 @@ namespace Global.LevelConfigurations.Runtime
             _value.SelectedDots = list;
             Changed?.Invoke();
         }
+        
+        public void OnAvatarSelected(string avatar)
+        {
+            _value.SelectedAvatar = avatar;
+            Changed?.Invoke();
+        }
     }
 
     [Serializable]
     public class LevelSavePayload
     {
-        public int PassedIndex = 0;
-        public IReadOnlyList<int> SelectedDots = new List<int>();
+        public int PassedIndex;
+        public string SelectedAvatar = string.Empty;
+        public List<int> SelectedDots = new();
     }
 }

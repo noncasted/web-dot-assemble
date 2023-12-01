@@ -11,6 +11,26 @@ namespace Global.LevelConfigurations.Avatars
         menuName = LevelConfigurationRoutes.AvatarsRegistryPath)]
     public class AvatarsRegistry : ScriptableRegistry<AvatarDefinition>, IAvatarsRegistry
     {
-        public IReadOnlyList<IAvatarDefinition> Avatars => Objects;
+        [SerializeField] private AvatarDefinition _default;
+        
+        public IReadOnlyList<IAvatarDefinition> List => Objects;
+        
+        private IReadOnlyDictionary<string, IAvatarDefinition> _dictionary;
+        public IReadOnlyDictionary<string, IAvatarDefinition> Dictionary => _dictionary;
+
+        public void Setup()
+        {
+            var dictionary = new Dictionary<string, IAvatarDefinition>();
+
+            foreach (var avatar in Objects)
+                dictionary.Add(avatar.Product.Id, avatar);
+
+            _dictionary = dictionary;
+        }
+
+        public IAvatarDefinition GetDefault()
+        {
+            return _default;
+        }
     }
 }

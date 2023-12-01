@@ -1,11 +1,14 @@
-﻿using Common.Architecture.ScopeLoaders.Factory;
+﻿using System;
+using Common.Architecture.ScopeLoaders.Factory;
 using Common.Architecture.ScopeLoaders.Runtime.Callbacks;
 using Common.Architecture.ScopeLoaders.Runtime.Services;
 using Cysharp.Threading.Tasks;
 using GamePlay.Config.Runtime;
 using Global.Cameras.CurrentCameras.Runtime;
 using Global.Cameras.GlobalCameras.Runtime;
+using Global.GameLoops.Events;
 using Global.System.LoadedHandler.Runtime;
+using Global.System.MessageBrokers.Runtime;
 using Global.UI.LoadingScreens.Runtime;
 using Internal.Services.Options.Runtime;
 using Internal.Services.Scenes.Abstract;
@@ -52,7 +55,23 @@ namespace Global.GameLoops.Runtime
         private readonly LevelConfig _level;
         private readonly MenuConfig _menu;
 
+        private IDisposable _gameRequestListener;
+        private IDisposable _menuRequestListener;
+
         public async UniTask OnLoadedAsync()
+        {
+            _gameRequestListener = Msg.Listen<GameRequestEvent>(OnGameRequest);
+            _menuRequestListener = Msg.Listen<MenuRequestEvent>(OnMenuRequest);
+
+            LoadScene(_menu).Forget();
+        }
+
+        private void OnGameRequest(GameRequestEvent request)
+        {
+            LoadScene(_level).Forget();
+        }
+
+        private void OnMenuRequest(MenuRequestEvent request)
         {
             LoadScene(_menu).Forget();
         }

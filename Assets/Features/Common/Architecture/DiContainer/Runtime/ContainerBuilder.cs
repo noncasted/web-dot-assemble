@@ -58,6 +58,15 @@ namespace Common.Architecture.DiContainer.Runtime
             return registration;
         }
 
+        public IRegistration RegisterScriptableObject<T>(T instance)
+        {
+            var builder = new InstanceRegistrationBuilder(instance);
+            var registration = new Registration(builder, typeof(T), this);
+            _registrations.Add(registration);
+
+            return registration;
+        }
+
         public IRegistration RegisterComponent<T>(T component) where T : MonoBehaviour
         {
             var builder = new ComponentRegistrationBuilder(component);

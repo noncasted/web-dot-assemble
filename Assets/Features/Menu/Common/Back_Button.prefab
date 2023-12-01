@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7926875712055037465}
   - component: {fileID: 767773177816169816}
   - component: {fileID: 5365257256045797597}
+  - component: {fileID: 1661097249691290080}
   m_Layer: 5
   m_Name: Back_Button
   m_TagString: Untagged
@@ -92,17 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _triggerReceiver: {fileID: 5365257256045797597}
   _stateHandlers:
-  - rid: 1510322190865399819
-  references:
-    version: 2
-    RefIds:
-    - rid: 1510322190865399819
-      type: {class: ImageSwitchButtonState, ns: Common.UI.Buttons, asm: Common.UI.Buttons}
-      data:
-        _image: {fileID: 7926875712055037465}
-        _entered: {fileID: 21300000, guid: 3f201ca5851b5e149ab8515eca26646d, type: 3}
-        _pressed: {fileID: 21300000, guid: f046ea2c88630e04d992c144e03c3b1f, type: 3}
-        _exited: {fileID: 21300000, guid: d5883ae728324944a908a8d077167963, type: 3}
+  - {fileID: 1661097249691290080}
 --- !u!114 &5365257256045797597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,6 +106,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be85a806309ab004da0d0bf2e945f3a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1661097249691290080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8128979342134836666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 528652e1ab255db418189dfbd92587a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 7926875712055037465}
+  _idle: {fileID: 21300000, guid: d5883ae728324944a908a8d077167963, type: 3}
+  _pressed: {fileID: 21300000, guid: f046ea2c88630e04d992c144e03c3b1f, type: 3}
+  _selected: {fileID: 21300000, guid: 3f201ca5851b5e149ab8515eca26646d, type: 3}
 --- !u!1 &8957403118936641665
 GameObject:
   m_ObjectHideFlags: 0

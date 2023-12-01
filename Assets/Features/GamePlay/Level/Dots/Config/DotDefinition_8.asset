@@ -16,3 +16,4 @@ MonoBehaviour:
   _largeActive: {fileID: 21300000, guid: 79746a6042f41bf4eb09c84786b4835c, type: 3}
   _largeInactive: {fileID: 21300000, guid: d5be7ddfc8c7a224ebd51a36424133d8, type: 3}
   _small: {fileID: 21300000, guid: c5c032997a977b24394239c9bad8bb09, type: 3}
+  _id: 8

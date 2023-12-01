@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objects:
   - {fileID: 11400000, guid: bcb5c2cf89261c64983a19affedf5e09, type: 2}
+  _dotDefinitionsStorage: {fileID: 11400000, guid: 4e3670c7d0ddd5d4a856f9923665594c, type: 2}
+  _avatarsRegistry: {fileID: 11400000, guid: 157c0b0c7437d934eb634736f540bc4f, type: 2}

@@ -4,6 +4,10 @@ namespace Global.LevelConfigurations.Avatars
 {
     public interface IAvatarsRegistry
     {
-        IReadOnlyList<IAvatarDefinition> Avatars { get; }
+        IReadOnlyList<IAvatarDefinition> List { get; }
+        IReadOnlyDictionary<string, IAvatarDefinition> Dictionary { get; }
+
+        void Setup();
+        IAvatarDefinition GetDefault();
     }
 }

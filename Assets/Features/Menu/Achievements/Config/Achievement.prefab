@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _icon: {fileID: 2936323202137436221}
   _triggerReceiver: {fileID: 1012533381570049567}
-  _config: {fileID: 11400000, guid: fe786fa1fa8f9af41aecb45004fec299, type: 2}
+  _config: {fileID: 11400000, guid: 695af3c36afa4d347a746e417bd20a7d, type: 2}
 --- !u!1 &2636952732069212375
 GameObject:
   m_ObjectHideFlags: 0

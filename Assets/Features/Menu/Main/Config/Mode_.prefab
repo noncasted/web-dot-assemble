@@ -98,6 +98,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3096573042919173530}
   - component: {fileID: 6522628948654345748}
+  - component: {fileID: 6858307506773188021}
   m_Layer: 5
   m_Name: Mode_
   m_TagString: Untagged
@@ -139,14 +140,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _triggerReceiver: {fileID: 584793427835960962}
   _stateHandlers:
-  - rid: 1510322190865399810
-  references:
-    version: 2
-    RefIds:
-    - rid: 1510322190865399810
-      type: {class: ImageSwitchButtonState, ns: Common.UI.Buttons, asm: Common.UI.Buttons}
-      data:
-        _image: {fileID: 5177502962717130713}
-        _entered: {fileID: 0}
-        _pressed: {fileID: 0}
-        _exited: {fileID: 0}
+  - {fileID: 6858307506773188021}
+--- !u!114 &6858307506773188021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1262400772197621723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 528652e1ab255db418189dfbd92587a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 5177502962717130713}
+  _idle: {fileID: 0}
+  _pressed: {fileID: 0}
+  _selected: {fileID: 0}

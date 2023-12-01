@@ -78,7 +78,6 @@ namespace Menu.Shop.UI
             
         private void OnBuyClicked()
         {
-            Debug.Log("On clicked");
             if (_current == null)
                 throw new NullReferenceException("No product attached");
 

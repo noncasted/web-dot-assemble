@@ -4,6 +4,8 @@ using Common.Architecture.ScopeLoaders.Runtime.Services;
 using Common.Architecture.ScopeLoaders.Runtime.Utils;
 using Common.Serialization.ScriptableRegistries;
 using Cysharp.Threading.Tasks;
+using GamePlay.Level.Dots.Definitions;
+using Global.LevelConfigurations.Avatars;
 using Global.LevelConfigurations.Common;
 using Global.LevelConfigurations.Definition;
 using Sirenix.OdinInspector;
@@ -16,12 +18,24 @@ namespace Global.LevelConfigurations.Runtime
         menuName = LevelConfigurationRoutes.ServicePath)]
     public class LevelConfigurationFactory : ScriptableRegistry<LevelConfiguration>, IServiceFactory
     {
+        [SerializeField] private DotDefinitionsStorage _dotDefinitionsStorage;
+        [SerializeField] private AvatarsRegistry _avatarsRegistry;
+        
         public async UniTask Create(IServiceCollection services, IScopeUtils utils)
         {
             var configurations = Objects as IReadOnlyList<ILevelConfiguration>;
+            
             services.Register<LevelConfigurationProvider>()
                 .WithParameter(configurations)
-                .As<ILevelConfigurationProvider>();
+                .As<ILevelConfigurationProvider>()
+                .AsCallbackListener();
+
+            services.RegisterInstance(_avatarsRegistry)
+                .As<IAvatarsRegistry>();
+
+            services.RegisterInstance(_dotDefinitionsStorage)
+                .As<IDotDefinitionsStorage>()
+                .AsSelfResolvable();
         }
     }
 }

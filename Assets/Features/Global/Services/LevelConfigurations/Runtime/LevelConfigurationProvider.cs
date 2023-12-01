@@ -10,21 +10,24 @@ using Global.Publisher.Abstract.DataStorages;
 
 namespace Global.LevelConfigurations.Runtime
 {
-    public class LevelConfigurationProvider : ILevelConfigurationProvider, IScopeAwakeAsyncListener
+    public class LevelConfigurationProvider : ILevelConfigurationProvider, IScopeLoadAsyncListener
     {
         public LevelConfigurationProvider(
             IDotDefinitionsStorage dots,
             IDataStorage dataStorage,
-            IReadOnlyList<ILevelConfiguration> configurations)
+            IReadOnlyList<ILevelConfiguration> configurations,
+            IAvatarsRegistry avatars)
         {
             _dots = dots;
             _dataStorage = dataStorage;
             _configurations = configurations;
+            _avatars = avatars;
         }
 
         private readonly IDotDefinitionsStorage _dots;
         private readonly IDataStorage _dataStorage;
         private readonly IReadOnlyList<ILevelConfiguration> _configurations;
+        private readonly IAvatarsRegistry _avatars;
 
         private IReadOnlyList<IDotDefinition> _selectedDots;
         private GameMode _mode = GameMode.Quads;
@@ -33,11 +36,22 @@ namespace Global.LevelConfigurations.Runtime
 
         public GameMode Mode => _mode;
         public IAvatarDefinition PlayerAvatar => _playerAvatar;
-        
-        public async UniTask OnAwakeAsync()
+
+        public async UniTask OnLoadedAsync()
         {
             _dots.Setup();
+            _avatars.Setup();
+
             _save = await _dataStorage.GetEntry<LevelsSave>(LevelsSave.Key);
+
+            IAvatarDefinition avatar;
+
+            if (string.IsNullOrEmpty(_save.SelectedAvatar) == false)
+                avatar = _avatars.Dictionary[_save.SelectedAvatar];
+            else
+                avatar = _avatars.GetDefault();
+            
+            SetPlayerAvatar(avatar);
         }
 
         public void SetMode(GameMode mode)

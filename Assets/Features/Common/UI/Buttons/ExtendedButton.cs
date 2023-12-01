@@ -45,7 +45,6 @@ namespace Common.UI.Buttons
 
         public void UnsubscribeAll()
         {
-            Debug.Log("Unsubscibe");
             Clicked = null;
         }
 

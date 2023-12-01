@@ -19,13 +19,13 @@ namespace Menu.Collections.Global
             _all = new Dictionary<IAvatarDefinition, AvatarHandle>();
             _allFromProducts = new Dictionary<IProductLink, IAvatarDefinition>();
             
-            foreach (var avatar in registry.Avatars)
+            foreach (var avatar in registry.List)
                 _all[avatar] = new AvatarHandle(avatar, false);
 
-            foreach (var avatar in registry.Avatars)
+            foreach (var avatar in registry.List)
                 _allFromProducts[avatar.Product] = avatar;
 
-            foreach (var avatar in registry.Avatars)
+            foreach (var avatar in registry.List)
             {
                 _products.Add(avatar.Product.Id, avatar.Product);
             }

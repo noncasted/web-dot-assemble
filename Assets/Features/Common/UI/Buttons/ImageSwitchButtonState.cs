@@ -15,27 +15,27 @@ namespace Common.UI.Buttons
     {
         [SerializeField] private Image _image;
 
-        [SerializeField] private Sprite _entered;
+        [SerializeField] private Sprite _idle;
         [SerializeField] private Sprite _pressed;
-        [SerializeField] private Sprite _exited;
+        [SerializeField] private Sprite _selected;
         
         public override void Construct(IButtonUtils utils)
         {
             OnPointerExit();
         }
-
+        
         public override void Dispose()
         {
         }
 
         public void OnPointerEnter()
         {
-            _image.sprite = _entered;
+            _image.sprite = _selected;
         }
 
         public void OnPointerExit()
         {
-            _image.sprite = _exited;
+            _image.sprite = _idle;
         }
 
         public void OnPointerDown()
@@ -45,7 +45,7 @@ namespace Common.UI.Buttons
 
         public void OnPointerUp()
         {
-            _image.sprite = _entered;
+            _image.sprite = _selected;
         }
     }
 }
